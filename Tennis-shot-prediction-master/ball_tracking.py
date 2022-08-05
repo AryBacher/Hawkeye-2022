@@ -38,6 +38,10 @@ else:
 # allow the camera or video file to warm up
 time.sleep(2.0)
 
+#fps del video
+fps = int(vs.get(cv2.CAP_PROP_FPS))
+print(fps)
+
 # keep looping
 while True:
 	# grab the current frame
@@ -82,7 +86,7 @@ while True:
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
-		if radius > 0:
+		if radius < 20:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius),
