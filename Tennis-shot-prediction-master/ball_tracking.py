@@ -42,6 +42,9 @@ time.sleep(2.0)
 fps = int(vs.get(cv2.CAP_PROP_FPS))
 print(fps)
 
+#se crean frames temporales para mayor eficencia de procesado
+
+
 # keep looping
 while True:
 	# grab the current frame
