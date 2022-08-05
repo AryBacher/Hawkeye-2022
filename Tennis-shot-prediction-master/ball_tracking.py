@@ -68,8 +68,10 @@ while True:
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
+	cv2.imshow("mask", mask)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
+	cv2.imshow("mask2", mask)
 
 	# find contours in the mask and initialize the current
 	# (x, y) center of the ball
@@ -77,6 +79,9 @@ while True:
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
 	center = None
+
+	print(cnts)
+	
 
 	# only proceed if at least one contour was found
 	if len(cnts) > 0:
@@ -89,7 +94,7 @@ while True:
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
 		# only proceed if the radius meets a minimum size
-		if radius < 20:
+		if radius > 10:
 			# draw the circle and centroid on the frame,
 			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius),
@@ -110,6 +115,8 @@ while True:
 		# draw the connecting lines
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+
+
 
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
