@@ -49,11 +49,11 @@ while True:
     frame1 = vs.read()
     frame1 = frame1[1] if args.get("video", False) else frame1
 
-    if frame1 is None:
-        break
-
     frame2 = vs.read()
     frame2 = frame2[1] if args.get("video", False) else frame2
+
+    if frame1 is None or frame2 is None:
+        break
 
     #while(vs.get(cv.CAP_PROP_FRAME_COUNT)<vs.get(cv.CAP_PROP_FRAME_COUNT)-1):
     # Lee el primer frame y lo pasa a escala de grises
