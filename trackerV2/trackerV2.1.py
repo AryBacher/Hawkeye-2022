@@ -100,7 +100,7 @@ while True:
     thresholdImage = cv.threshold(thresholdImage, SENSITIVITY_VALUE, 255, cv.THRESH_BINARY)
     thresholdImage = thresholdImage[1]
 
-    cv.imshow('Frame',searchForMovement(thresholdImage, frame1))
+    cv.imshow('V2.1',searchForMovement(thresholdImage, frame1))
 
     if cv.waitKey(10) & 0xFF == ord("q"):
         break

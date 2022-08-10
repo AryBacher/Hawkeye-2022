@@ -11,6 +11,7 @@ import cv2
 import imutils
 import time
 
+
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
@@ -25,6 +26,8 @@ args = vars(ap.parse_args())
 greenLower = (29, 86, 100)
 greenUpper = (64, 255, 255)
 pts = deque(maxlen=args["buffer"])
+
+#kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
 
 # if a video path was not supplied, grab the reference
 # to the webcam
@@ -72,6 +75,7 @@ while True:
 	cv2.imshow("mask", mask)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
+	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
 	cv2.imshow("mask2", mask)
 
 	# find contours in the mask and initialize the current
@@ -100,7 +104,7 @@ while True:
 			# then update the list of tracked points
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-
+ 
 	# update the points queue
 	pts.appendleft(center)
 
@@ -119,7 +123,7 @@ while True:
 
 
 	# show the frame to our screen
-	cv2.imshow("Frame", frame)
+	cv2.imshow("V1", frame)
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the 'q' key is pressed, stop the loop
