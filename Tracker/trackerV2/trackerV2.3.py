@@ -66,6 +66,7 @@ while True:
 	# color space
 	#frame = imutils.resize(frame, width=600)
 
+
 	framePrueba = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 	framePrueba2 = cv2.threshold(framePrueba, 100, 255, cv2.THRESH_BINARY)
 	framePrueba2 = framePrueba2[1]
