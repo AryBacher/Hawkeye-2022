@@ -4,6 +4,7 @@
 
 # import the necessary packages
 from collections import deque
+from pickle import FRAME
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -37,13 +38,13 @@ if not args.get("video", False):
 # otherwise, grab a reference to the video file
 else:
 	vs = cv2.VideoCapture(args["video"])
+	
+	#fps del video
+	fps = int(vs.get(cv2.CAP_PROP_FPS))
+	print(fps)
 
 # allow the camera or video file to warm up
 time.sleep(2.0)
-
-#fps del video
-fps = int(vs.get(cv2.CAP_PROP_FPS))
-print(fps)
 
 #se crean frames temporales para mayor eficencia de procesado
 
@@ -63,7 +64,20 @@ while True:
 
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	frame = imutils.resize(frame, width=600)
+	#frame = imutils.resize(frame, width=600)
+
+	framePrueba = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+	framePrueba2 = cv2.threshold(framePrueba, 100, 255, cv2.THRESH_BINARY)
+	framePrueba2 = framePrueba2[1]
+	contornos = cv2.findContours(framePrueba2.copy(), cv2.RETR_EXTERNAL,
+		cv2.CHAIN_APPROX_SIMPLE)
+
+	print(contornos)
+
+	img_contours = np.zeros(framePrueba2.shape, dtype=np.uint8)
+	cv2.drawContours(img_contours, contornos, -1, (0,255,0), 3)
+
+	cv2.imshow('Todos los Contornos', img_contours)
 
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
