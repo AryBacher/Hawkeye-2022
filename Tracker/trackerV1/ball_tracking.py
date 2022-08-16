@@ -4,7 +4,6 @@
 
 # import the necessary packages
 from collections import deque
-from pickle import FRAME
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -24,6 +23,7 @@ args = vars(ap.parse_args())
 # define the lower and upper boundaries of the "green"
 # ball in the HSV color space, then initialize the
 # list of tracked points
+
 greenLower = (29, 86, 100)
 greenUpper = (64, 255, 255)
 pts = deque(maxlen=args["buffer"])
@@ -66,18 +66,18 @@ while True:
 	# color space
 	#frame = imutils.resize(frame, width=600)
 
-	framePrueba = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-	framePrueba2 = cv2.threshold(framePrueba, 100, 255, cv2.THRESH_BINARY)
-	framePrueba2 = framePrueba2[1]
-	contornos = cv2.findContours(framePrueba2.copy(), cv2.RETR_EXTERNAL,
-		cv2.CHAIN_APPROX_SIMPLE)
+	# framePrueba = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+	# framePrueba2 = cv2.threshold(framePrueba, 100, 255, cv2.THRESH_BINARY)
+	# framePrueba2 = framePrueba2[1]
+	# contornos = cv2.findContours(framePrueba2.copy(), cv2.RETR_EXTERNAL,
+	# 	cv2.CHAIN_APPROX_SIMPLE)
 
-	print(contornos)
+	# print(contornos)
 
-	img_contours = np.zeros(framePrueba2.shape, dtype=np.uint8)
-	cv2.drawContours(img_contours, contornos, -1, (0,255,0), 3)
+	# img_contours = np.zeros(framePrueba2.shape, dtype=np.uint8)
+	# cv2.drawContours(img_contours, contornos, -1, (0,255,0), 3)
 
-	cv2.imshow('Todos los Contornos', img_contours)
+	# cv2.imshow('Todos los Contornos', img_contours)
 
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
