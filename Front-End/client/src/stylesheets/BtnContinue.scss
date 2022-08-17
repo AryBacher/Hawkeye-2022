@@ -1,0 +1,35 @@
+*{
+    --colorPri: #262626;
+    --colorSec: #E0E0E0;
+}
+
+button{
+    background: var(--colorPri);
+    border: 3px solid var(--colorSec);
+    border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 98.5px;
+    gap: 10px;
+    box-sizing: border-box;
+    a{
+        font-family: 'Poppins';
+        color: var(--colorSec);
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--colorSec);
+    }
+}
+
+
+
+button:hover{
+    background: var(--colorSec);
+    a{
+        color: var(--colorPri);
+    }
+}
+
