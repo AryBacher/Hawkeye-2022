@@ -1,6 +1,10 @@
-*{
+:root{
     --colorPri: #262626;
     --colorSec: #E0E0E0;
+}
+
+a{
+    text-decoration: none;
 }
 
 button{
@@ -14,22 +18,24 @@ button{
     padding: 10px 98.5px;
     gap: 10px;
     box-sizing: border-box;
-    a{
-        font-family: 'Poppins';
-        color: var(--colorSec);
-        font-size: 20px;
-        font-weight: 600;
-        text-decoration: none;
-        color: var(--colorSec);
-    }
+
+    font-family: 'Poppins';
+    color: var(--colorSec);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--colorSec);
+
+    transition: 0.4s ease;
+        
 }
 
 
 
 button:hover{
+    
     background: var(--colorSec);
-    a{
-        color: var(--colorPri);
-    }
+
+    color: var(--colorPri);
+    cursor: pointer;
 }
 

@@ -4,7 +4,7 @@ import '../stylesheets/BtnContinue.scss';
 
 function BtnContinue(props) {
   return (
-    <button><Link to={props.routeName} >{props.textBtn}</Link></button>
+    <Link to={props.routeName} ><button>{props.textBtn}</button></Link>
   )
 }
 

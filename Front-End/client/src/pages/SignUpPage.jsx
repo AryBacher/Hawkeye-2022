@@ -1,4 +1,5 @@
 import React from 'react';
+import '../stylesheets/SignUpPage.scss';
 
 function SignUpPage() {
   return (

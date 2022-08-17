@@ -6,7 +6,6 @@ import LogInPage from './pages/LogInPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
-import BtnContinue from './components/BtnContinue.jsx';
 
 function App() {
 
@@ -21,10 +20,7 @@ function App() {
         <Route path="/Home" element={<HomePage/>} />
       </Routes>
 
-      <BtnContinue
-        routeName="/SignUp"
-        textBtn="Únite gratis"
-      />
+      
 
     </>
   );

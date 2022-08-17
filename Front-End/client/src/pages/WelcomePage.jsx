@@ -1,8 +1,15 @@
 import React from 'react';
+import '../stylesheets/WelcomePage.scss';
+import BtnContinue from '../components/BtnContinue';
 
 function WelcomePage () {
   return (
-    <div>WelcomePage </div>
+    <>
+      <BtnContinue
+        routeName = "/SignUp"
+        textBtn = "Únete gratis"
+      />
+  </>
   )
 }
 
