@@ -110,9 +110,9 @@ def TrackNet( n_classes ,  input_height, input_width ): # input_height = 360, in
 	return model
 
 
-input_video_path =  "/y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4"
+input_video_path =  "./y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4"
 output_video_path =  ""
-save_weights_path = r"C:\Users\46919295\Downloads\model.3"
+save_weights_path = "./model.3"
 n_classes =  256
 if output_video_path == "":
 	#output video in same path
@@ -151,8 +151,7 @@ cv2.imshow('asdf', img1) #pruebas
 #write image to video
 output_video.write(img1)
 currentFrame +=1
-#resize it 
-print(img1.get(cv2.CAP_PROP_FRAME_WIDTH) + ", " + img1.get(cv2.CAP_PROP_FRAME_HEIGHT))
+#resize it
 img1 = cv2.resize(img1, ( width , height ))
 #input must be float type
 img1 = img1.astype(np.float32)
