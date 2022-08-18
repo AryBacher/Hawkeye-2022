@@ -1,6 +1,6 @@
 :root{
     --colorPri: #262626;
-    --colorSec: #E0E0E0;
+    --colorSec: #FCFCFC;
 }
 
 a{
@@ -8,7 +8,7 @@ a{
 }
 
 button{
-    background: var(--colorPri);
+    background: transparent;
     border: 3px solid var(--colorSec);
     border-radius: 100px;
     display: flex;
@@ -23,9 +23,8 @@ button{
     color: var(--colorSec);
     font-size: 20px;
     font-weight: 600;
-    color: var(--colorSec);
 
-    transition: 0.4s ease;
+    transition: 0.3s ease;
         
 }
 

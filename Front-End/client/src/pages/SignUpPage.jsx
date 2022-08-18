@@ -1,5 +1,5 @@
 import React from 'react';
-import '../stylesheets/SignUpPage.scss';
+import '../stylesheets/SignUpPageStylesheets/SignUpPage.css';
 
 function SignUpPage() {
   return (

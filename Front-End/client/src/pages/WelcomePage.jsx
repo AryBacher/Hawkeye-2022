@@ -1,5 +1,5 @@
 import React from 'react';
-import '../stylesheets/WelcomePage.scss';
+import '../stylesheets/WelcomePageStylesheets/WelcomePage.css';
 import BtnContinue from '../components/BtnContinue';
 
 function WelcomePage () {

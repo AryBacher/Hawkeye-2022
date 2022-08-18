@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../stylesheets/BtnContinue.scss';
+import '../stylesheets/BtnContinueStylesheets/BtnContinue.css';
 
 function BtnContinue(props) {
   return (
