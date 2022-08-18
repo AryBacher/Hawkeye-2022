@@ -43,7 +43,7 @@
 import numpy as np
 import cv2
 
-img = cv2.imread('Foto Video3jpg.jpg')
+img = cv2.imread('tennis2.png')
 img = cv2.resize(img, (0, 0), fx=1.25, fy=1.25)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
