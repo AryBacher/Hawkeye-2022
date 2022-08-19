@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function BtnLang() {
   return (
     <>
-        <button>Lang Button</button>
+      <form></form>
     </>
-  )
+  );
 }
 
 export default BtnLang;

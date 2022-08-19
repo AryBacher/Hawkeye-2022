@@ -1,3 +1,10 @@
-import { connection } from "../database.js";
+//import { connection } from "../database.js";
+import { Router } from 'express'
 
-//BARRAZA GOD
+const router = Router();
+
+router.get('/images', (req, res) => {
+    res.json({ "Hola": "Hola"})
+})
+
+export default router

@@ -1,6 +1,6 @@
 :root {
   --colorPri: #262626;
-  --colorSec: #FCFCFC;
+  --colorSec: #fcfcfc;
 }
 
 a {
@@ -24,13 +24,13 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 10px 98.5px;
+  padding: 5px 150px;
   gap: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: var(--colorSec);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;

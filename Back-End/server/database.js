@@ -1,4 +1,4 @@
-import mysql from 'mysql2';
+/*import mysql from 'mysql2';
 
 export const connection = mysql.createConnection({
     host: 'localhost',
@@ -6,3 +6,4 @@ export const connection = mysql.createConnection({
     database: 'dbHawkeye',
     password: 'rootroot'
 });
+*/
