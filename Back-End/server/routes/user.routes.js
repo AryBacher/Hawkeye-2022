@@ -1,8 +1,3 @@
-import mysql from 'mysql2';
+import { connection } from "../database.js";
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'dbHawkeye',
-    password: 'rootroot'
-});
+//BARRAZA GOD
