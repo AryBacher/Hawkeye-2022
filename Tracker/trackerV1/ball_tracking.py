@@ -24,10 +24,9 @@ args = vars(ap.parse_args())
 # ball in the HSV color space, then initialize the
 # list of tracked points
 
-# greenLower = (29, 86, 100)
-# greenUpper = (64, 255, 255)
-greenLower = (0, 0, 0)
-greenUpper = (0, 0, 255)
+greenLower = (29, 86, 100)
+greenUpper = (64, 255, 255)
+
 pts = deque(maxlen=args["buffer"])
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel

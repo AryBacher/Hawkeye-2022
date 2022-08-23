@@ -80,7 +80,7 @@ while True:
     hsv1 = cv.cvtColor(blurred1, cv.COLOR_BGR2HSV)
     
     mask1 = cv.inRange(hsv1, greenLower, greenUpper)
-    cv.imshow("mask", mask1)
+    cv.imshow("mask1", mask1)
     mask1 = cv.erode(mask1, None, iterations=2)
     mask1 = cv.dilate(mask1, None, iterations=2)
 
@@ -88,7 +88,7 @@ while True:
     hsv2 = cv.cvtColor(blurred2, cv.COLOR_BGR2HSV)
     
     mask2 = cv.inRange(hsv2, greenLower, greenUpper)
-    cv.imshow("mask", mask2)
+    cv.imshow("mask2", mask2)
     mask2 = cv.erode(mask2, None, iterations=2)
     mask2 = cv.dilate(mask2, None, iterations=2)
 
