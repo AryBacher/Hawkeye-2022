@@ -1,4 +1,5 @@
 import cv2
+import imutils
 import numpy as np
 from collections import deque
 
@@ -14,7 +15,7 @@ def onMouse(event, x, y, flag, param):
 cv2.namedWindow("window")
 cv2.setMouseCallback("window", onMouse)
 
-cap = cv2.VideoCapture("E:\Guido\Documentos\Programación\Hawkeye\Videos Tenis para Analizar\y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4")
+cap = cv2.VideoCapture("y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4")
 
 # Get fps
 fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -22,6 +23,7 @@ print(fps)
 
 
 _, frm = cap.read()
+frm = imutils.resize(frm, width=500)
 cv2.imshow("window", frm)
 
 while True:
@@ -36,6 +38,7 @@ mask = np.zeros_like(frm)
 
 while True:
 	_, frame2 = cap.read()
+	frame2 = imutils.resize(frame2, width=500)
 
 	if cv2.waitKey(1) == 113 or frame2 is None:
 		cap.release()
