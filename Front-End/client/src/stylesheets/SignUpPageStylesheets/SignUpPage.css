@@ -1,4 +1,19 @@
-body {
-  background-color: #151f27;
+.left-side{
+  background-color: #182530;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+
 }
-/*# sourceMappingURL=SignUpPage.css.map */
+
+.right-side{
+  background-color: #151F27;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  top: 0px;
+}
+

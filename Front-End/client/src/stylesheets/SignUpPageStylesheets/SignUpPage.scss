@@ -1,3 +1,56 @@
-body{
-    background-color: #151f27;
-}
+.left-side{
+    background-color: #182530;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+  
+    .email{
+        box-sizing: border-box;
+      
+      position: absolute;
+      left: 0%;
+      right: 0%;
+      top: 25%;
+      bottom: 0%;
+      
+      /* Color Secundario */
+      
+      border-bottom: 1px solid #FCFCFC;
+      border-radius: 0px;
+      }
+    
+  }
+  
+  .right-side{
+    background-color: #151F27;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 50%;
+    top: 0px;
+
+    .hero-title{
+    position: relative;
+    width: 603px;
+    height: 288px;
+    left: 218px;
+    top: 487px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 96px;
+    display: flex;
+    align-items: center;
+
+/* Color Secundario */
+
+color: #FCFCFC;
+    }
+  }
+  
+  
+  /*# sourceMappingURL=SignUpPage.css.map */
