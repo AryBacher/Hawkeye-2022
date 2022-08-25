@@ -3,7 +3,7 @@ import numpy as np
 import argparse
 import cv2
 import time
-import math
+import imutils
 
 
 # construct the argument parse and parse the arguments
@@ -24,8 +24,6 @@ def display_lines(frame, lines):
         cv2.line(frame, (x1,y1), (x2,y2), (0,255,0), 2)
         cv2.circle(frame, (x1,y1), 1, (255,0,0), 2)
         cv2.circle(frame, (x2,y2), 1, (255,0,0), 2)
-
-        cv2.imshow("Court Detector 5", frame)
 
 def filter_by_coordinates(lines, box):
     xmin, ymin, xmax, ymax = box
@@ -58,7 +56,8 @@ while True:
     if frame is None:
         break
 
-    frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
+    #frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
+    #frame = imutils.resize(frame, width=1000, height=500)
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)[1]
@@ -66,14 +65,18 @@ while True:
     lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
     lines = np.squeeze(lines)
 
-    lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
+    #lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
 
     display_lines(frame, lines)
 
+    cv2.imshow("Court Detector 5", frame)
     key = cv2.waitKey(1) & 0xFF
 
     if key == ord("q"):
         break
+
+    time.sleep(7)
+    break
 
 if not args.get("video", False):
     vs.stop()
