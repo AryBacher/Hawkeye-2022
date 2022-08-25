@@ -24,8 +24,12 @@ args = vars(ap.parse_args())
 # ball in the HSV color space, then initialize the
 # list of tracked points
 
-greenLower = (29, 86, 100)
-greenUpper = (64, 255, 255)
+greenLower = np.array([29, 86, 110])
+greenUpper = np.array([64, 255, 255])
+
+#BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
+#x = cv2.cvtColor(greenUpper, cv2.COLOR_HSV2BGR)
+#print(x)
 
 pts = deque(maxlen=args["buffer"])
 
@@ -79,6 +83,11 @@ while True:
 	# cv2.drawContours(img_contours, contornos, -1, (0,255,0), 3)
 
 	# cv2.imshow('Todos los Contornos', img_contours)
+	cv2.waitKey(100)
+	hsv_prueba = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	cv2.imshow('prueba', hsv_prueba)
+	mask_prueba = cv2.inRange(hsv_prueba, greenLower, greenUpper) 
+	cv2.imshow('mask1', mask_prueba)
 
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
@@ -87,11 +96,11 @@ while True:
 	# a series of dilations and erosions to remove any small
 	# blobs left in the mask
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
-	cv2.imshow("mask", mask)
+	cv2.imshow("mask2", mask)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
-	cv2.imshow("mask2", mask)
+	cv2.imshow("mask3", mask)
 
 	# find contours in the mask and initialize the current
 	# (x, y) center of the ball
@@ -100,7 +109,7 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 	center = None
 
-	print(cnts)
+	#print(cnts)
 	
 
 	# only proceed if at least one contour was found
