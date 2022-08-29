@@ -5,7 +5,7 @@ import Form from "../components/Form";
 
 function SignUpPage() {
   return (
-    <div className="wrapper">
+    <>
       <div className="left-side">
         <Form/>
         <FooterLogo/>
@@ -13,12 +13,12 @@ function SignUpPage() {
 
       <div className="right-side">
         <h1 className="hero-phrase">
-            El ojo de halcón en la
-            <br />
-            palma de tu mano.
+          El ojo de halcón en la
+          <br />
+          palma de tu mano.
         </h1>
       </div>
-    </div>
+    </>
   );
 }
 
