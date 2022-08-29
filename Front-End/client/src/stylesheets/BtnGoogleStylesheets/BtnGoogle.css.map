@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAA;EACF,UAAU,EAAE,IAAI;CACnB",
+    "sources": [
+        "BtnGoogle.scss"
+    ],
+    "names": [],
+    "file": "BtnGoogle.css"
+}
