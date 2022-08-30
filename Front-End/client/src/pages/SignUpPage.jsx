@@ -7,7 +7,9 @@ function SignUpPage() {
   return (
     <>
       <div className="left-side">
-        <Form/>
+        <Form
+          heroTitle ={"Regístrate"}
+        />
         <FooterLogo/>
       </div>
 

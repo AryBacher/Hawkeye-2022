@@ -7,9 +7,12 @@ function Form(props) {
   return (
     <form action="#" method="POST">
       <h2 className="hero-title">{props.heroTitle}</h2>
-      <BtnGoogle />
+      <BtnGoogle
+        routeName =  {"#"} 
+        txtBtn= {"Continuar con Google"}
+      />
       <div className="divisor">
-        <p>O</p>
+        <p>o</p>
       </div>
       <input
         type="text"
@@ -26,7 +29,7 @@ function Form(props) {
         minlength="8"
         required
       />
-      <Link to="#" display={props.display} />
+      <Link className ="link-forgot" to="#" display={props.display}>{props.LinkForgotText}</Link>
       <input
         type="password"
         name="password-confirm"
@@ -35,11 +38,14 @@ function Form(props) {
         display={props.display}
         required
       />
-      <BtnContinue />
+      <BtnContinue
+        routeName = {"/Home"}
+        textBtn = {"Continuar"}
+      />
 
       <p>
         {props.textAccount}
-        <Link to={props.routeName}>{props.linkText}</Link>
+        <Link className="link-switch" to={props.routeName}>{props.LinkSwitchText}</Link>
       </p>
     </form>
   );
