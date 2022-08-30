@@ -8,7 +8,7 @@ function Form(props) {
     <form action="#" method="POST">
       <h2 className="hero-title">Inicia Sesión</h2>
       <BtnGoogle routeName={"#"} txtBtn={"Continuar con Google"} />
-      <div className="divisor">
+      <div className="divider">
         <p>o</p>
       </div>
       <input
@@ -26,6 +26,11 @@ function Form(props) {
         minlength="8"
         required
       />
+
+      <Link className={"recover-link"} to={"/RecoverPassword"}>
+        ¿Olvidaste la contraseña?
+      </Link>
+
       <BtnContinue routeName={"/Home"} textBtn={"Continuar"} />
 
       <p>

@@ -7,14 +7,201 @@
   --colorVerde: #4ecb71;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--colorBlanco);
+  background: rgba(78, 203, 113, 0.7);
+}
+
+::selection {
+  color: var(--colorBlanco);
+  background: rgba(78, 203, 113, 0.7);
+}
+
+/*
+body {
+  display: flex;
+  flex-flow: row;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+a {
+  color: var(--colorLink);
+  text-decoration: none;
+}
+
+.left-side {
+  background: var(--colorBlanco);
+  width: 28%;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  padding-top: 120px;
+  padding-left: 50px;
+  padding-right: 50px;
+  box-sizing: border-box;
+  h2 {
+    text-align: start;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+
+.right-side {
+  background: var(--colorAzul);
+  width: 72%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  .bar {
+    width: 4px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: var(--colorVerde);
+  }
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 600;
+  color: var(--colorBlanco);
+}
+
+svg {
+  width: 10%;
+  height: 100px;
+  background: var(--colorAzul);
+}
+
+.logo-footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+*/
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
 }
 
-h1 {
-  color: var(--colorAzul);
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+}
+
+.wrapper .left-side {
+  background: var(--colorBlanco);
+  width: 31%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding-top: 120px;
+  padding-left: 50px;
+  padding-right: 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wrapper .left-side h2 {
+  font-size: 2em;
+  text-align: start;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+.wrapper .left-side p {
+  font-size: 14px;
+}
+
+.wrapper .left-side a {
+  color: var(--colorLink);
+  text-decoration: none;
+}
+
+.wrapper .left-side svg {
+  width: 10%;
+  height: 100px;
+  background: var(--colorAzul);
+}
+
+.wrapper .left-side .logo-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.wrapper .right-side {
+  background: var(--colorAzul);
+  width: 69%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 40px;
+}
+
+.wrapper .right-side .bar {
+  width: 3px;
+  height: 200px;
+  border-radius: 100px;
+  background-color: var(--colorVerde);
+}
+
+.wrapper .right-side h1 {
+  font-size: 2.75em;
+  font-weight: 600;
+  color: var(--colorBlanco);
 }
 /*# sourceMappingURL=SignUpPage.css.map */

@@ -8,7 +8,7 @@ function Form(props) {
     <form action="#" method="POST">
       <h2 className="hero-title">Registrate</h2>
       <BtnGoogle routeName={"#"} txtBtn={"Continuar con Google"} />
-      <div className="divisor">
+      <div className="divider">
         <p>o</p>
       </div>
       <input

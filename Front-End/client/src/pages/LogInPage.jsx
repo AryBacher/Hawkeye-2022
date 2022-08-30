@@ -12,6 +12,7 @@ function LogInPage() {
       </div>
 
       <div className="right-side">
+        <div className="bar"></div>
         <h1 className="hero-phrase">
           El ojo de halcón en la
           <br />
