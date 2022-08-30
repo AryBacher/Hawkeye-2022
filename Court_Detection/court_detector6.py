@@ -27,6 +27,8 @@ def display_lines(frame, lines):
         cv2.circle(frame, (x1,y1), 1, (255,0,0), 2)
         cv2.circle(frame, (x2,y2), 1, (255,0,0), 2)
 
+    cv2.imshow("FrameD", frame)
+
 def filter_by_coordinates(lines, box):
     xmin, ymin, xmax, ymax = box
     lines_filtered = list()
@@ -38,7 +40,7 @@ def filter_by_coordinates(lines, box):
             lines_filtered.append(line)
     return lines_filtered
 
-def algo(frame):
+def leerImg(frame):
     #frame = cv2.imread('Foto AF 2.jpg')
     frame = cv2.imread('frameD.jpg')
 
@@ -73,11 +75,11 @@ while True:
 
     #frame = cv2.imread('frameD.jpg')
 
-    algo(frame)
+    leerImg(frame)
 
     #frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
 
-    cv2.imshow("Court Detector 5", frame)
+    #cv2.imshow("Court Detector 5", frame)
     key = cv2.waitKey(1) & 0xFF
 
     if key == ord("q"):
