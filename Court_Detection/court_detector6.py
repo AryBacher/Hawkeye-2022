@@ -5,7 +5,6 @@ import cv2
 import time
 import imutils
 
-
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
@@ -14,19 +13,21 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
+#cv2.imshow('Image', gray)
+#cv2.waitKey(0)
+
 def display_lines(frame, lines):
     for line in lines:
         x1, y1, x2, y2 = line
 
-        #if x2 - x1 < 2 or y2 - y1 < 2:
-            #continue
+        if x2 - x1 < 2 or y2 - y1 < 2:
+            continue
         
         cv2.line(frame, (x1,y1), (x2,y2), (0,255,0), 2)
         cv2.circle(frame, (x1,y1), 1, (255,0,0), 2)
         cv2.circle(frame, (x2,y2), 1, (255,0,0), 2)
 
-    #cv2.imshow("Court Detector 5", frame)
-    #cv2.waitKey(0)
+    cv2.imshow("FrameD", frame)
 
 def filter_by_coordinates(lines, box):
     xmin, ymin, xmax, ymax = box
@@ -39,6 +40,19 @@ def filter_by_coordinates(lines, box):
             lines_filtered.append(line)
     return lines_filtered
 
+def leerImg(frame):
+    #frame = cv2.imread('Foto AF 2.jpg')
+    frame = cv2.imread('frameD.jpg')
+
+    #frame = imutils.resize(frame, width=1000, height=500)
+
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)[1]
+
+    lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
+    lines = np.squeeze(lines)
+
+    display_lines(frame, lines)
 
 # if a video path was not supplied, grab the reference
 # to the webcam
@@ -57,35 +71,22 @@ while True:
     if frame is None:
         break
 
-    #salida = cv2.imwrite("frameD.jpg", frame)
+    salida = cv2.imwrite("frameD.jpg", frame)
 
     #frame = cv2.imread('frameD.jpg')
 
+    leerImg(frame)
+
     #frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
-    
-    #frame = imutils.resize(frame, width=1000, height=500)
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)[1]
-
-    lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
-    lines = np.squeeze(lines)
-
-    print(frame.shape[1])
-    print(frame.shape[0])
-
-    lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
-
-    display_lines(frame, lines)
-
-    cv2.imshow("Court Detector 5", frame)
+    #cv2.imshow("Court Detector 5", frame)
     key = cv2.waitKey(1) & 0xFF
 
     if key == ord("q"):
         break
 
-    #time.sleep(7)
-    #break
+    time.sleep(7)
+    break
 
 if not args.get("video", False):
     vs.stop()

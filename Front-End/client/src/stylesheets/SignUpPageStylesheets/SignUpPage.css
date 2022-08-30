@@ -1,9 +1,20 @@
 :root {
-  --colorBlanco: #FCFCFC;
-  --colorAzul:   #151F27;
-  --colorLink:   #0075FF;
-  --colorGoogle: #016CFE;
-  --colorGris:   #C1C1C1;
-  --colorVerde:  #4ECB71;
+  --colorBlanco: #fcfcfc;
+  --colorAzul: #151f27;
+  --colorLink: #0075ff;
+  --colorGoogle: #016cfe;
+  --colorGris: #c1c1c1;
+  --colorVerde: #4ecb71;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vh;
+  height: 100vh;
+}
+
+h1 {
+  color: var(--colorAzul);
 }
 /*# sourceMappingURL=SignUpPage.css.map */
