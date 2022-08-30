@@ -1,16 +1,14 @@
 import React from "react";
 import "../stylesheets/SignUpPageStylesheets/SignUpPage.css";
 import FooterLogo from "../components/FooterLogo";
-import Form from "../components/Form";
+import Form from "../components/FormSignUp";
 
 function SignUpPage() {
   return (
     <>
       <div className="left-side">
-        <Form
-          heroTitle ={"Regístrate"}
-        />
-        <FooterLogo/>
+        <Form />
+        <FooterLogo />
       </div>
 
       <div className="right-side">

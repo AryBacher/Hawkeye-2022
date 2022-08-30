@@ -6,11 +6,8 @@ import BtnGoogle from "./BtnGoogle";
 function Form(props) {
   return (
     <form action="#" method="POST">
-      <h2 className="hero-title">{props.heroTitle}</h2>
-      <BtnGoogle
-        routeName =  {"#"} 
-        txtBtn= {"Continuar con Google"}
-      />
+      <h2 className="hero-title">Inicia Sesión</h2>
+      <BtnGoogle routeName={"#"} txtBtn={"Continuar con Google"} />
       <div className="divisor">
         <p>o</p>
       </div>
@@ -29,23 +26,13 @@ function Form(props) {
         minlength="8"
         required
       />
-      <Link className ="link-forgot" to="#" display={props.display}>{props.LinkForgotText}</Link>
-      <input
-        type="password"
-        name="password-confirm"
-        id="password-confirm"
-        placeholder="Confirmar Contraseña"
-        display={props.display}
-        required
-      />
-      <BtnContinue
-        routeName = {"/Home"}
-        textBtn = {"Continuar"}
-      />
+      <BtnContinue routeName={"/Home"} textBtn={"Continuar"} />
 
       <p>
-        {props.textAccount}
-        <Link className="link-switch" to={props.routeName}>{props.LinkSwitchText}</Link>
+        ¿No tenés cuenta?
+        <Link className="link-switch" to={"/SignUp"}>
+          Registrate
+        </Link>
       </p>
     </form>
   );
