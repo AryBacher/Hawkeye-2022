@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
 import SignUpPage from './pages/SignUpPage.jsx';
 import LogInPage from './pages/LogInPage.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -15,6 +15,12 @@ import SettingsPage from './pages/SettingsPage.jsx';
 
 
 function App() {
+
+  /*const [show, setShow] = useState("")
+
+  useEffect(() => {
+    window.location.pathname === "SignUp" ? setShow("none") : setShow("block") 
+  })*/
 
   return (
     <>
