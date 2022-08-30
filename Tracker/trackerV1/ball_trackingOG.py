@@ -9,14 +9,9 @@ import time
 center = None
 
 def detectar_si_esta_lejos(lista, center):
-	contornos = []
-	print("la funcion corre")
-	print(center)
-	for pos in lista:
-		if not (pos[0] > center[0] + 100).any() or not (pos[0] < center[0] - 100).any() or not (pos[1] > center[1] + 100).any() or not (pos[1] < center[1] - 100).any():
-			print("entra al if")
-			contornos.append([pos[0], pos[1]])
-	return contornos
+	if lista[0] > center[0] + 100 or lista[0 < center[0] - 100 or lista[1] > center[1] + 100 or lista[1] < center[1] - 100]:
+		return False
+	return True
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -35,7 +30,6 @@ greenUpper = np.array([64, 255, 255])
 #print(x)
 
 pts = deque(maxlen=args["buffer"])
-primeraVez = True
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
 
@@ -106,43 +100,26 @@ while True:
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
-	
-	#contornos = []
 	if center is not None:
-		contornos = detectar_si_esta_lejos(cnts, center)
-	
-	#print(cnts)
-	#print(type(contornos))
-	
-	#print(contornos)
-	#cnts = tuple(cnts)
+		cnts = filter(detectar_si_esta_lejos(cnts, center), cnts)
+	print(cnts)
 	center = None
 
 	#print(cnts)
 	
-	###
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
-		if primeraVez:
-			contornos = cnts
-
-		print(cnts)
-		print("v2") 
-		print(contornos)
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-		print(center)
 
 		# Sigue si el contorno tiene cierto tamaño
 		if radius > 0:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-
-	###
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -158,8 +135,6 @@ while True:
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
-
-	primeraVez = False
 	
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF

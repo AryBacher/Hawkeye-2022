@@ -50,6 +50,10 @@ else:
 	vs = cv2.VideoCapture(args["video"])
 
 while True:
+
+    #ver si la linea está en diagonal. Para esto, hay que ver si hay una cierta distancia entre 
+    #los dos x y los y (x1,x2,y1,y2)
+
     frame = vs.read()
     
     frame = frame[1] if args.get("video", False) else frame
@@ -57,7 +61,7 @@ while True:
     if frame is None:
         break
 
-    #salida = cv2.imwrite("frameD.jpg", frame)
+    salida = cv2.imwrite("frameD.jpg", frame)
 
     #frame = cv2.imread('frameD.jpg')
 
@@ -71,10 +75,10 @@ while True:
     lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
     lines = np.squeeze(lines)
 
-    print(frame.shape[1])
-    print(frame.shape[0])
+    #print(frame.shape[1])
+    #print(frame.shape[0])
 
-    lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
+    lines = filter_by_coordinates(lines, (0, 100, gray.shape[1] - 0, gray.shape[0] - 0))
 
     display_lines(frame, lines)
 
@@ -84,8 +88,8 @@ while True:
     if key == ord("q"):
         break
 
-    #time.sleep(7)
-    #break
+    time.sleep(7)
+    break
 
 if not args.get("video", False):
     vs.stop()
