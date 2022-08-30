@@ -37,7 +37,10 @@ gray = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)[1]
 lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
 lines = np.squeeze(lines)
 
-#lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
+print(img.shape[1])
+print(img.shape[0])
+
+lines = filter_by_coordinates(lines, (0, 100, gray.shape[1] - 0, gray.shape[0] - 0))
 
 display_lines(img, lines)
 
