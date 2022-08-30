@@ -18,12 +18,15 @@ def display_lines(frame, lines):
     for line in lines:
         x1, y1, x2, y2 = line
 
-        if x2 - x1 < 2 or y2 - y1 < 2:
-            continue
+        #if x2 - x1 < 2 or y2 - y1 < 2:
+            #continue
         
         cv2.line(frame, (x1,y1), (x2,y2), (0,255,0), 2)
         cv2.circle(frame, (x1,y1), 1, (255,0,0), 2)
         cv2.circle(frame, (x2,y2), 1, (255,0,0), 2)
+
+    #cv2.imshow("Court Detector 5", frame)
+    #cv2.waitKey(0)
 
 def filter_by_coordinates(lines, box):
     xmin, ymin, xmax, ymax = box
@@ -54,9 +57,9 @@ while True:
     if frame is None:
         break
 
-    salida = cv2.imwrite("frameD.jpg", frame)
+    #salida = cv2.imwrite("frameD.jpg", frame)
 
-    frame = cv2.imread('frameD.jpg')
+    #frame = cv2.imread('frameD.jpg')
 
     #frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
     
@@ -68,7 +71,10 @@ while True:
     lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
     lines = np.squeeze(lines)
 
-    #lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
+    print(frame.shape[1])
+    print(frame.shape[0])
+
+    lines = filter_by_coordinates(lines, (100, 100, gray.shape[1] - 50, gray.shape[0] - 50))
 
     display_lines(frame, lines)
 
@@ -78,8 +84,8 @@ while True:
     if key == ord("q"):
         break
 
-    time.sleep(7)
-    break
+    #time.sleep(7)
+    #break
 
 if not args.get("video", False):
     vs.stop()
