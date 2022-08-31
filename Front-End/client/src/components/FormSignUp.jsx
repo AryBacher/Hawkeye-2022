@@ -20,7 +20,9 @@ function Form(props) {
           placeholder="Email"
           required
         />
-        <label className="form-label" htmlFor="email">Email</label>
+        <label className="form-label" htmlFor="email">
+          Email
+        </label>
         <div className="bg"></div>
       </div>
 
@@ -33,10 +35,12 @@ function Form(props) {
           minLength={8}
           required
         />
-        <label className="form-label" htmlFor="password">Contraseña Min. 8 Caracteres</label>
+        <label className="form-label" htmlFor="password">
+          Contraseña Min. 8 Caracteres
+        </label>
         <div className="bg"></div>
       </div>
-      
+
       <div className="inp">
         <input
           type="password"
@@ -45,7 +49,9 @@ function Form(props) {
           placeholder="Confirmar contraseña"
           required
         />
-        <label className="form-label" htmlFor="password-confirm">Confirmar contraseña</label>
+        <label className="form-label" htmlFor="password-confirm">
+          Confirmar contraseña
+        </label>
         <div className="bg"></div>
       </div>
 
