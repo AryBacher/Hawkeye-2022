@@ -1,0 +1,22 @@
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  gap: 10px;
+}
+
+form h2 {
+  text-align: start;
+}
+
+form input {
+  height: 40px;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--colorAzul);
+}
+/*# sourceMappingURL=Form.css.map */

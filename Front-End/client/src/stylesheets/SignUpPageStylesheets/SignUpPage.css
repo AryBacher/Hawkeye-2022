@@ -111,6 +111,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   height: 100vh;
 }
 
@@ -131,10 +132,14 @@ body {
           align-items: center;
   text-align: center;
   padding-top: 120px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 120px;
+  padding-right: 120px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.wrapper .left-side Form {
+  width: 100%;
 }
 
 .wrapper .left-side h2 {
@@ -180,9 +185,37 @@ body {
 .wrapper .right-side {
   background: var(--colorAzul);
   width: 69%;
+}
+
+.wrapper .right-side .overlay {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  width: 69%;
+  height: 100%;
+  background-color: rgba(24, 37, 48, 0.6);
+}
+
+.wrapper .right-side video {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.wrapper .right-side .content {
+  position: absolute;
+  z-index: 200;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 69%;
+  height: 100%;
+  top: 0;
+  right: 0;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -190,17 +223,19 @@ body {
       -ms-flex-align: center;
           align-items: center;
   gap: 40px;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.wrapper .right-side .bar {
+.wrapper .right-side .content .bar {
   width: 3px;
   height: 200px;
   border-radius: 100px;
   background-color: var(--colorVerde);
 }
 
-.wrapper .right-side h1 {
-  font-size: 2.75em;
+.wrapper .right-side .content h1 {
+  font-size: 4em;
   font-weight: 600;
   color: var(--colorBlanco);
 }

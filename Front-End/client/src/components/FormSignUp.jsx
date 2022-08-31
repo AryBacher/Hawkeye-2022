@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import BtnContinue from "./BtnContinue";
 import BtnGoogle from "./BtnGoogle";
+import "../stylesheets/FormSignUpStylesheets/Form.css";
 
 function Form(props) {
   return (
@@ -12,27 +13,31 @@ function Form(props) {
         <p>o</p>
       </div>
       <input
-        type="text"
-        name="nickname"
-        id="nickname"
-        placeholder="Nombre de usuario"
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
         required
       />
+      <label className="form-label" htmlFor="email">Email</label>
       <input
         type="password"
         name="password"
         id="password"
         placeholder="Contraseña Min. 8 Caracteres"
-        minlength="8"
+        minLength={8}
         required
       />
+      <label className="form-label" htmlFor="password">Contraseña Min. 8 Caracteres</label>
       <input
         type="password"
         name="password-confirm"
         id="password-confirm"
-        placeholder="Confirmar Contraseña"
+        placeholder="Confirmar contraseña"
         required
       />
+      <label className="form-label" htmlFor="password-confirm">Confirmar contraseña</label>
+
       <BtnContinue routeName={"/Home"} textBtn={"Continuar"} />
 
       <p>

@@ -1,0 +1,16 @@
+form{
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+
+    h2{
+        text-align: start;
+    }
+
+    input{
+        height: 40px;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid var(--colorAzul);
+    }
+}

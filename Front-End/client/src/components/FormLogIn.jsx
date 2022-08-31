@@ -12,20 +12,21 @@ function Form(props) {
         <p>o</p>
       </div>
       <input
-        type="text"
-        name="nickname"
-        id="nickname"
-        placeholder="Nombre de usuario"
+        type="email"
+        name="email"
+        id="email"
         required
       />
+      <label className="form-label" htmlFor="email">Email</label>
       <input
         type="password"
         name="password"
         id="password"
         placeholder="Contraseña Min. 8 Caracteres"
-        minlength="8"
+        minLength={8}
         required
       />
+      <label className="form-label" htmlFor="password">Contraseña</label>
 
       <Link className={"recover-link"} to={"/RecoverPassword"}>
         ¿Olvidaste la contraseña?
