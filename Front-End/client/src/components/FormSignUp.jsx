@@ -12,31 +12,42 @@ function Form(props) {
       <div className="divider">
         <p>o</p>
       </div>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Email"
-        required
-      />
-      <label className="form-label" htmlFor="email">Email</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Contraseña Min. 8 Caracteres"
-        minLength={8}
-        required
-      />
-      <label className="form-label" htmlFor="password">Contraseña Min. 8 Caracteres</label>
-      <input
-        type="password"
-        name="password-confirm"
-        id="password-confirm"
-        placeholder="Confirmar contraseña"
-        required
-      />
-      <label className="form-label" htmlFor="password-confirm">Confirmar contraseña</label>
+      <div className="inp">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          required
+        />
+        <label className="form-label" htmlFor="email">Email</label>
+        <div className="bg"></div>
+      </div>
+
+      <div className="inp">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Contraseña Min. 8 Caracteres"
+          minLength={8}
+          required
+        />
+        <label className="form-label" htmlFor="password">Contraseña Min. 8 Caracteres</label>
+        <div className="bg"></div>
+      </div>
+      
+      <div className="inp">
+        <input
+          type="password"
+          name="password-confirm"
+          id="password-confirm"
+          placeholder="Confirmar contraseña"
+          required
+        />
+        <label className="form-label" htmlFor="password-confirm">Confirmar contraseña</label>
+        <div className="bg"></div>
+      </div>
 
       <BtnContinue routeName={"/Home"} textBtn={"Continuar"} />
 

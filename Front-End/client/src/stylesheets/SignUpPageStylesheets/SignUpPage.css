@@ -1,6 +1,7 @@
 :root {
   --colorBlanco: #fcfcfc;
   --colorAzul: #151f27;
+  --colorAzulClaro: #233545;
   --colorLink: #0075ff;
   --colorGoogle: #016cfe;
   --colorGris: #c1c1c1;
@@ -105,6 +106,8 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 .wrapper {
@@ -131,9 +134,9 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  padding-top: 120px;
-  padding-left: 120px;
-  padding-right: 120px;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -230,7 +233,7 @@ body {
 .wrapper .right-side .content .bar {
   width: 3px;
   height: 200px;
-  border-radius: 100px;
+  border-radius: 200px;
   background-color: var(--colorVerde);
 }
 

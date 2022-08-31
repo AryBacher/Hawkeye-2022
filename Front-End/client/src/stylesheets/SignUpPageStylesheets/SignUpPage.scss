@@ -1,6 +1,7 @@
 :root {
   --colorBlanco: #fcfcfc;
   --colorAzul: #151f27;
+  --colorAzulClaro: #233545;
   --colorLink: #0075ff;
   --colorGoogle: #016cfe;
   --colorGris: #c1c1c1;
@@ -106,6 +107,8 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 .wrapper {
@@ -120,11 +123,11 @@ body {
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
-    padding-top: 120px;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
     box-sizing: border-box;
-    Form{
+    Form {
       width: 100%;
     }
     h2 {
@@ -159,23 +162,23 @@ body {
   .right-side {
     background: var(--colorAzul);
     width: 69%;
-    .overlay{
+    .overlay {
       position: absolute;
       z-index: 100;
       top: 0;
       right: 0;
       width: 69%;
       height: 100%;
-      background-color: rgba(24,37,48,0.6);
+      background-color: rgba(24, 37, 48, 0.6);
     }
-    video{
+    video {
       position: relative;
       z-index: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .content{
+    .content {
       position: absolute;
       z-index: 200;
       display: flex;
@@ -190,7 +193,7 @@ body {
       .bar {
         width: 3px;
         height: 200px;
-        border-radius: 100px;
+        border-radius: 200px;
         background-color: var(--colorVerde);
       }
       h1 {

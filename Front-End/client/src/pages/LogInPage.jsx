@@ -1,5 +1,4 @@
 import React from "react";
-import "../stylesheets/SignUpPageStylesheets/SignUpPage.css";
 import FooterLogo from "../components/FooterLogo";
 import Form from "../components/FormLogIn";
 

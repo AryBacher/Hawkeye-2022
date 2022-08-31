@@ -9,14 +9,12 @@ form {
   gap: 10px;
 }
 
-form h2 {
+h2 {
   text-align: start;
 }
 
-form input {
+input {
   height: 40px;
   width: 100%;
-  border: 0;
-  border-bottom: 2px solid var(--colorAzul);
 }
 /*# sourceMappingURL=Form.css.map */
