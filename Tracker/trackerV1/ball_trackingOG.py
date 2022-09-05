@@ -6,13 +6,6 @@ import cv2
 import imutils
 import time
 
-center = None
-
-def detectar_si_esta_lejos(lista, center):
-	if lista[0] > center[0] + 100 or lista[0 < center[0] - 100 or lista[1] > center[1] + 100 or lista[1] < center[1] - 100]:
-		return False
-	return True
-
 # Argumentos del programa
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
@@ -93,20 +86,15 @@ while True:
 	cv2.imshow("mask2", mask)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
-	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
+	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 	cv2.imshow("mask3", mask)
 
 	# Toma todos los contornos de la imagen
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
-	if center is not None:
-		cnts = filter(detectar_si_esta_lejos(cnts, center), cnts)
 	print(cnts)
 	center = None
-
-	#print(cnts)
-	
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
