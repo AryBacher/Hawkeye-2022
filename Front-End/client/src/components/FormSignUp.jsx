@@ -1,70 +1,84 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import BtnContinue from "./BtnContinue";
-import BtnGoogle from "./BtnGoogle";
+import { TextField, Button } from "@mui/material";
+import { Form, Formik, Field } from "formik";
+import { object, string, ref } from "yup";
 import "../stylesheets/FormSignUpStylesheets/Form.css";
 
-function Form(props) {
+function FormSignUp() {
+  const initialValues={
+    "email" : "",
+    "password" : "",
+    "passwordConfirm" : "",
+  }
   return (
-    <form action="#" method="POST">
-      <h2 className="hero-title">Registrate</h2>
-      <BtnGoogle routeName={"#"} txtBtn={"Continuar con Google"} />
-      <div className="divider">
-        <p>o</p>
-      </div>
-      <div className="inp">
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          required
-        />
-        <label className="form-label" htmlFor="email">
-          Email
-        </label>
-        <div className="bg"></div>
-      </div>
+    <>
+      <Formik initialValues={initialValues} onSubmit={(values, formikHelpers)=>{
+        console.log(values);
+        formikHelpers.resetForm();
+      }}
+      
+      validationSchema= {object({
 
-      <div className="inp">
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Contraseña Min. 8 Caracteres"
-          minLength={8}
-          required
-        />
-        <label className="form-label" htmlFor="password">
-          Contraseña Min. 8 Caracteres
-        </label>
-        <div className="bg"></div>
-      </div>
+        email : string().required("Ingrese su email").email("Email inválido"),
+        password : string().required("Ingrese su contraseña").min(8, "La contraseña debe ser de mínimo 8 caracateres"),
+        passwordConfirm : string().required("Ingrese su contraseña").oneOf([ref("password")], "Las contraseñas no coinciden"),
 
-      <div className="inp">
-        <input
-          type="password"
-          name="password-confirm"
-          id="password-confirm"
-          placeholder="Confirmar contraseña"
-          required
-        />
-        <label className="form-label" htmlFor="password-confirm">
-          Confirmar contraseña
-        </label>
-        <div className="bg"></div>
-      </div>
+      })}
+      
+      >
+        {({errors, isValid, touched, dirty})=>(
+          <Form>
+            <Field 
+              name="email" 
+              type="email" 
+              as={TextField} 
+              variant="outlined" 
+              color="primary" 
+              label="Email" 
+              size="normal" 
+              error = {Boolean(errors.email) && Boolean(touched.email)}
+              helperText = {Boolean(touched.email) && errors.email} 
+            />
 
-      <BtnContinue routeName={"/Home"} textBtn={"Continuar"} />
+            <Field 
+              name="password" 
+              type="password" 
+              as={TextField} 
+              variant="outlined" 
+              color="primary" 
+              label="Contraseña" 
+              size="normal" 
+              error = {Boolean(errors.password) && Boolean(touched.password)}
+              helperText = {Boolean(touched.password) && errors.password}  
+            />
 
-      <p>
-        ¿Ya tenés cuenta?
-        <Link className="link-switch" to={"/LogIn"}>
-          Iniciá sesión
-        </Link>
-      </p>
-    </form>
+            <Field 
+              name="passwordConfirm" 
+              type="password" 
+              as={TextField} 
+              variant="outlined" 
+              color="primary" 
+              label="Confirmar contraseña" 
+              size="normal" 
+              error = {Boolean(errors.passwordConfirm) && Boolean(touched.passwordConfirm)}
+              helperText = {Boolean(touched.passwordConfirm) && errors.passwordConfirm}  
+            />
+            
+            <Button 
+              variant="contained"
+              type="submit" 
+              size="large"
+              disabled= {!dirty || !isValid}>
+              Continuar
+            </Button>
+
+          </Form>
+        )
+        }
+      </Formik>
+    
+    </>
   );
 }
 
-export default Form;
+export default FormSignUp;

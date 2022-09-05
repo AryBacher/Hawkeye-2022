@@ -4,40 +4,54 @@ import SignUpPage from './pages/SignUpPage.jsx';
 import LogInPage from './pages/LogInPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import LandingPage from './pages/LandingPage.jsx';
 import RecoverPasswordPage from './pages/PasswordLostPage.jsx';
 import AnalysisPage from './pages/AnalysisPage.jsx';
 import RecordPage from './pages/RecordPage';
 import HelpPage from './pages/HelpPage';
-import AboutUsPage from './pages/AboutUsPage.jsx';
 import AccountPage from './pages/AccountPage.jsx';
-import SettingsPage from './pages/SettingsPage.jsx';
+import { createTheme, ThemeProvider } from "@mui/material";
 
 
 function App() {
 
   /*const [show, setShow] = useState("")
-
   useEffect(() => {
     window.location.pathname === "SignUp" ? setShow("none") : setShow("block") 
   })*/
 
+  const HawkeyeTheme = createTheme({
+    palette:{
+      primary:{
+        main: '#4ECB71'
+      },
+      secondary:{
+        main: '#151F27'
+      }
+    },
+    typography:{
+      fontFamily: 'Poppins',
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 600,
+    },
+  });
+
   return (
     <>
-      <Routes>
-        <Route path="*" element={<NotFoundPage/>} />
-        <Route path="/" element={<LandingPage/>} />
-        <Route path="/SignUp" element={<SignUpPage/>} />
-        <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
-        <Route path="/LogIn" element={<LogInPage/>} />
-        <Route path="/Home" element={<HomePage/>} />
-        <Route path="/Analysis" element={<AnalysisPage/>}/>
-        <Route path="/Record" element={<RecordPage/>}/>
-        <Route path="/Help" element={<HelpPage/>} />
-        <Route path="/AboutUs" element={<AboutUsPage/>}/>
-        <Route path="/MyAccount" element={<AccountPage/>}/>
-        <Route path="/Settings" element={<SettingsPage/>} />
-      </Routes>
+      <ThemeProvider theme={HawkeyeTheme}>
+        <Routes>
+          <Route path="*" element={<NotFoundPage/>} />
+          <Route path="/" element={<SignUpPage/>} />
+          <Route path="/LogIn" element={<LogInPage/>} />
+          <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
+          <Route path="/Home" element={<HomePage/>} />
+          <Route path="/Analysis" element={<AnalysisPage/>}/>
+          <Route path="/Record" element={<RecordPage/>}/>
+          <Route path="/Help" element={<HelpPage/>} />
+          <Route path="/MyAccount" element={<AccountPage/>}/>
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }

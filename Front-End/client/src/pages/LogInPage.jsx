@@ -1,16 +1,16 @@
 import React from "react";
 import FooterLogo from "../components/FooterLogo";
-import Form from "../components/FormLogIn";
+import { Link } from "react-router-dom";
+import BtnGoogle from "../components/BtnGoogle";
+import { Divider, Button, TextField } from "@mui/material";
 
 function LogInPage() {
   return (
     <>
       <div className="left-side">
-        <Form />
-        <FooterLogo />
       </div>
 
-      <div className="right-side">
+      <div className="right-side"> 
         <div className="bar"></div>
         <h1 className="hero-phrase">
           El ojo de halcón en la

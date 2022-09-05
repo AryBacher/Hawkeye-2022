@@ -1,3 +1,17 @@
-button{
-    background: blue;
+.google{
+    font-size:  0.9375em;
+    font-weight: 500;
+    text-align: center;
+    color: var(--colorBlanco);
+    background-color: var(--colorGoogle);
+    width: 65%;
+    border: #4996FF;
+    border-radius: 10px;
+    height: 50px;
+    transition: background-color 250ms ;
+    cursor: pointer;
+    &:hover{
+        background-color: #4996FF;
+    }
+
 }

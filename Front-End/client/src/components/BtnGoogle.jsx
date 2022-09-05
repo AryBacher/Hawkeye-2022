@@ -1,15 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "../stylesheets/BtnGoogleStylesheets/BtnGoogle.css";
 
-function BtnGoogle(props) {
+function BtnGoogle() {
   return (
-    <Link to={props.routeName}>
-      <button>
-        <img src="#" alt="Logo de Google" />
-        {props.textBtn}
+    <>
+      <button className="google">
+        Continuar con Google
       </button>
-    </Link>
+    </>
   );
 }
 
 export default BtnGoogle;
+
