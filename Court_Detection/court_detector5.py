@@ -5,7 +5,6 @@ import cv2
 import time
 import imutils
 
-
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
@@ -60,6 +59,8 @@ while True:
     
     if frame is None:
         break
+    
+    frame = imutils.resize(frame, width=1280, height=720)
 
     salida = cv2.imwrite("frameD.jpg", frame)
 
@@ -67,10 +68,15 @@ while True:
 
     #frame = cv2.resize(frame, (frame.shape[1] // 1, frame.shape[0] // 1))
     
-    #frame = imutils.resize(frame, width=1000, height=500)
-
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.threshold(gray, 180, 255, cv2.THRESH_BINARY)[1]
+
+    corners = cv2.goodFeaturesToTrack(gray, 100, 0.01, 10)
+    corners = np.int0(corners)
+    
+    for corner in corners:
+        x, y = corner.ravel()
+        cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
 
     lines = cv2.HoughLinesP(gray, 1, np.pi /180, 50, minLineLength=80, maxLineGap=20)
     lines = np.squeeze(lines)
@@ -83,7 +89,7 @@ while True:
     display_lines(frame, lines)
 
     cv2.imshow("Court Detector 5", frame)
-    key = cv2.waitKey(1) & 0xFF
+    key = cv2.waitKey(0) & 0xFF
 
     if key == ord("q"):
         break

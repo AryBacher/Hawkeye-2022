@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import imutils
 
 def display_lines(img, lines):
     for line in lines:
