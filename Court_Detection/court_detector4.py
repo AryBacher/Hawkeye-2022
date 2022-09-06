@@ -24,6 +24,8 @@ def filter_by_coordinates(lines, box):
 
 img = cv2.imread('Foto AF 2.jpg')
 img = cv2.imread('frameD.jpg')
+img = cv2.imread('RegresionCuadrática.jpg')
+
 #img = cv2.resize(img, (img.shape[1] // 1, img.shape[0] // 1))
 #img = cv2.resize(img, (img.shape[1] // 1, img.shape[0] // 1))
 #img = imutils.resize(img, width=1366, height=768)
