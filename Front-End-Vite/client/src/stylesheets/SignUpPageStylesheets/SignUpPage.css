@@ -1,0 +1,186 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.wrapper .left-side {
+  background: var(--colorAzul);
+  color: var(--colorBlanco);
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wrapper .left-side h2 {
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+.wrapper .left-side .divider {
+  width: 65%;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper .left-side .divider::before {
+  content: '';
+  display: block;
+  background-color: var(--colorBlanco);
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 1px;
+}
+
+.wrapper .left-side .divider::after {
+  content: '';
+  display: block;
+  background-color: var(--colorBlanco);
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 1px;
+}
+
+.wrapper .left-side .divider p {
+  padding: 0 0.5em;
+}
+
+.wrapper .left-side Form {
+  width: 65%;
+}
+
+.wrapper .left-side Form Button {
+  height: 50px;
+  font-weight: 600;
+  text-transform: capitalize;
+  border-radius: 10px;
+}
+
+.wrapper .left-side .link-login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+
+.wrapper .left-side .link-login a {
+  color: var(--colorLink);
+  text-decoration: none;
+  -webkit-transition: -webkit-text-decoration 250ms;
+  transition: -webkit-text-decoration 250ms;
+  transition: text-decoration 250ms;
+  transition: text-decoration 250ms, -webkit-text-decoration 250ms;
+}
+
+.wrapper .left-side .link-login a:hover {
+  text-decoration: underline;
+}
+
+.wrapper .right-side {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: var(--colorAzul);
+  width: 70%;
+  border: 1px solid var(--colorAzulClaro);
+}
+
+.wrapper .right-side .overlay {
+  position: absolute;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(24, 37, 48, 0.6);
+}
+
+.wrapper .right-side video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.wrapper .right-side .content {
+  overflow: hidden;
+  position: absolute;
+  z-index: 200;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 40px;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.wrapper .right-side .content .bar {
+  width: 3px;
+  height: 250px;
+  border-radius: 200px;
+  background-color: var(--colorVerde);
+}
+
+.wrapper .right-side .content h1 {
+  font-size: 4em;
+  font-weight: 600;
+  color: var(--colorBlanco);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+/*# sourceMappingURL=SignUpPage.css.map */

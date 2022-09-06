@@ -1,0 +1,35 @@
+:root {
+  --colorBlanco: #fcfcfc;
+  --colorAzul: #151f27;
+  --colorAzulClaro: #233545;
+  --colorLink: #0075ff;
+  --colorGoogle: #016cfe;
+  --colorGris: #c1c1c1;
+  --colorVerde: #4ecb71;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--colorBlanco);
+  background: rgba(78, 203, 113, 0.7);
+}
+
+::selection {
+  color: var(--colorBlanco);
+  background: rgba(78, 203, 113, 0.7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}

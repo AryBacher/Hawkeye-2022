@@ -1,0 +1,125 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  .left-side {
+    background: var(--colorAzul);
+    color: var(--colorBlanco);
+    width: 30%;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    h2 {
+      font-size: 2rem;
+      padding: 0;
+      margin: 0;
+      font-weight: 600;
+    }
+    .divider{
+      width: 65%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &::before{
+        content: '';
+        display: block;
+        background-color: var(--colorBlanco);
+        flex-grow: 1;
+        height: 1px;
+      }
+      &::after{
+        content: '';
+        display: block;
+        background-color: var(--colorBlanco);
+        flex-grow: 1;
+        height: 1px;
+      }
+      p{
+        padding: 0 0.5em;
+      }
+    }
+    Form {
+      width: 65%;
+
+      Button{
+        height: 50px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 10px;
+      }
+    }
+    .link-login{
+      display: flex;
+      text-align: center;
+      align-items: center;
+      gap: 5px;
+      a{
+        color: var(--colorLink);
+        text-decoration: none;
+        transition: text-decoration 250ms;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .right-side {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--colorAzul);
+    width: 70%;
+    border: 1px solid var(--colorAzulClaro);
+    .overlay {
+      position: absolute;
+      width: 70%;
+      height: 100%;
+      background-color: rgba(24, 37, 48, 0.6);
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .content {
+      overflow: hidden;
+      position: absolute;
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      .bar {
+        width: 3px;
+        height: 250px;
+        border-radius: 200px;
+        background-color: var(--colorVerde);
+      }
+      h1 {
+        font-size: 4em;
+        font-weight: 600;
+        color: var(--colorBlanco);
+        user-select: none;
+      }
+    }
+  }
+}
