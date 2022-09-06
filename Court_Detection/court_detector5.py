@@ -89,13 +89,13 @@ while True:
     display_lines(frame, lines)
 
     cv2.imshow("Court Detector 5", frame)
-    key = cv2.waitKey(0) & 0xFF
+    key = cv2.waitKey(1) & 0xFF
 
     if key == ord("q"):
         break
 
-    time.sleep(7)
-    break
+    #time.sleep(7)
+    #break
 
 if not args.get("video", False):
     vs.stop()
