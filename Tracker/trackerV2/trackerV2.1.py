@@ -49,13 +49,9 @@ def searchForMovement(thresholdImage, cameraFeed):
     pts.appendleft(center)
 
     for i in range(1, len(pts)):
-		# if either of the tracked points are None, ignore
-		# them
         if pts[i - 1] is None or pts[i] is None:
             continue
 
-		# otherwise, compute the thickness of the line and
-		# draw the connecting lines
         thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
         cv.line(cameraFeed, pts[i - 1], pts[i], (0, 0, 255), thickness)
     
@@ -65,8 +61,6 @@ vs = cv.VideoCapture(args["video"])
 time.sleep(2.0)
 
 while True:
-    #vs = cv.VideoCapture("y2mate.com - The Ultimate Clutch  shorts_v144P.mp4")
-
     frame1 = vs.read()
     frame1 = frame1[1] if args.get("video", False) else frame1
 
