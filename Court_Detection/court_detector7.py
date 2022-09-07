@@ -36,6 +36,13 @@ pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
 matrix = cv2.getPerspectiveTransform(pts1, pts2)
 result = cv2.warpPerspective(img, matrix, (164, 474))
 
+pts12 = np.float32([[261, 56],       [496, 55],
+                   [39, 381], [678, 386]])
+pts22 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
+
+matrix2 = cv2.getPerspectiveTransform(pts12, pts22)
+result2 = cv2.warpPerspective(img, matrix2, (164, 474))
+
 cv2.line(result, (0, 110), (165, 110), (0, 0, 255), 1)
 cv2.line(result, (0, 364), (165, 364), (0, 0, 255), 1)
 cv2.line(result, (0, 237), (165, 237), (0, 0, 255), 1)
@@ -44,5 +51,6 @@ salida = cv2.imwrite("RegresionCuadrática.jpg", result)
 
 cv2.imshow("Image", img)
 cv2.imshow("Perspective transformation", result)
+cv2.imshow("Perspective transformation Test", result2)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

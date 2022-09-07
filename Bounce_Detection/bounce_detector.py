@@ -40,6 +40,8 @@ else:
 
 time.sleep(2.0)
 
+pique = []
+
 #se crean frames temporales para mayor eficencia de procesado
 
 
@@ -93,7 +95,7 @@ while True:
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
-	#print(cnts)
+	print(cnts)
 	center = None
 
 	if len(cnts) > 0:
@@ -120,8 +122,6 @@ while True:
 		# Traza la trayectoria
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
-
-	print(center)
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
