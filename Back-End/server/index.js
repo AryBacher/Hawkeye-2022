@@ -3,14 +3,14 @@ import 'dotenv/config';
 import { connection } from './database.js';
 import bcrypt from "bcryptjs";
 import session from "express-session";
-import ImageRoutes from './routes/user.routes.js'
+import ImageRoutes from './routes/user.routes.js';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
+app.use(express.json())
 
 app.set ('port', 4000);
-
-app.use(express.json())
 
 app.use(ImageRoutes)
 
