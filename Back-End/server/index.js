@@ -6,6 +6,7 @@ import session from "express-session";
 import ImageRoutes from './routes/user.routes.js';
 import jwt from 'jsonwebtoken';
 
+
 const app = express();
 
 app.use(express.json())

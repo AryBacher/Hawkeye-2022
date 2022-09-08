@@ -1,5 +1,5 @@
 import bcryptjs from "bcryptjs";
-import { connection } from "../database";
+import { connection } from "../database.js";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 

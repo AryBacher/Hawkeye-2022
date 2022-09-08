@@ -7,12 +7,13 @@ export const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD
 });
 
-connection.connect((error) => {
-    if(error){
+connection.connect((err) => {
+    if(err){
         console.log("El error de conexión es: " + error);
         return;
     }
     console.log("Tamos conectados a la base de datos");
 })
 
-module.export(connection);
+//module.export(connection);
+export default connection
