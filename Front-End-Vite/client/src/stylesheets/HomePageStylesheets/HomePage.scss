@@ -1,0 +1,31 @@
+.hero-section-h{
+    width: 100%;
+    height: 100vh;
+    background: url('../../assets/img/home-image.png') ;
+    background-position: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .first-footer{
+        position: absolute;
+        bottom: 0;
+        font-weight: 200;
+        background-color: var(--colorAzul);
+        width: 100%;
+        height: 70px;
+        border-top: 1px solid #233545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 15px;
+        img{
+            max-width: 64px;
+        }
+    }
+}
+
+.benefits-section-h{
+    width: 100%;
+    height: 50vh;
+};

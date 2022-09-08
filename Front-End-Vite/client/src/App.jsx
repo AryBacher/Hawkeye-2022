@@ -15,6 +15,7 @@ function App() {
 
   const HawkeyeTheme = createTheme({
     palette:{
+      mode: 'dark',
       primary:{
         main: '#4ECB71'
       },

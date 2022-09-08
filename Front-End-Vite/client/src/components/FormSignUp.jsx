@@ -32,7 +32,7 @@ function FormSignUp() {
               name="email" 
               type="email" 
               as={TextField} 
-              variant="outlined" 
+              variant="standard" 
               color="primary" 
               label="Email" 
               size="normal" 
@@ -44,7 +44,7 @@ function FormSignUp() {
               name="password" 
               type="password" 
               as={TextField} 
-              variant="outlined" 
+              variant="standard" 
               color="primary" 
               label="Contraseña" 
               size="normal" 
@@ -56,7 +56,7 @@ function FormSignUp() {
               name="passwordConfirm" 
               type="password" 
               as={TextField} 
-              variant="outlined" 
+              variant="standard" 
               color="primary" 
               label="Confirmar contraseña" 
               size="normal" 

@@ -1,1 +1,82 @@
-/* No CSS *//*# sourceMappingURL=Navbar.css.map */
+nav {
+  position: fixed;
+  width: 100vw;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 70px;
+  background-color: rgba(21, 31, 39, 0.7);
+  border-bottom: 1px solid #233545;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  padding-right: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+nav .logo-set {
+  min-width: 10%;
+  height: 100%;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+nav .links-navbar {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+nav .links-navbar .home-link, nav .links-navbar .analysis-link, nav .links-navbar .record-link, nav .links-navbar .help-link {
+  font-weight: 300;
+  cursor: pointer;
+  height: 100%;
+  width: 12%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: color 200ms ease-in;
+  transition: color 200ms ease-in;
+}
+
+nav .links-navbar .home-link:hover, nav .links-navbar .analysis-link:hover, nav .links-navbar .record-link:hover, nav .links-navbar .help-link:hover {
+  color: var(--colorVerde);
+}
+
+nav .links-navbar .home-link {
+  color: var(--colorVerde);
+  background: rgba(158, 158, 158, 0.1);
+  border-bottom: 1px solid var(--colorVerde);
+}
+/*# sourceMappingURL=Navbar.css.map */

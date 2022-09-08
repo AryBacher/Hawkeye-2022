@@ -8,7 +8,7 @@ import BtnGoogle from "../components/BtnGoogle";
 function SignUpPage() {
   return (
     <>
-      <div className="wrapper">
+      <div className="wrapper-su">
         <div className="left-side">
           <h2>Registrate</h2>
           <BtnGoogle/>
