@@ -40,7 +40,8 @@ else:
 
 time.sleep(2.0)
 
-pique = []
+pique = deque(maxlen=60)
+pique2 = deque(maxlen=60)
 
 #se crean frames temporales para mayor eficencia de procesado
 
@@ -95,7 +96,7 @@ while True:
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
-	print(cnts)
+	#print(cnts)
 	center = None
 
 	if len(cnts) > 0:
@@ -126,6 +127,22 @@ while True:
 	# Muestra el frame
 	cv2.imshow("V1", frame)
 	
+	bajando = False
+
+	if (center is not None):
+		print(center[1])
+		pique.appendleft(center[1])
+		if (len(pique) >= 2):
+			if (pique[0] - pique[1] > 0):
+				bajando = True
+		pique2.appendleft(bajando)
+
+	if (len(pique2) >= 2):
+		if pique2[0] == False and pique2[1] == True:
+			print("Gerard")
+
+	print(bajando)
+
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF
 	if key == ord("q"):
