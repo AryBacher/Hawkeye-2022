@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  background: linear-gradient(107.56deg, #151F27 0%, #233545 100%);
+  background: linear-gradient(107.56deg, #151f27 0%, #233545 100%);
   color: var(--colorBlanco);
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
@@ -32,6 +32,8 @@ body {
 }
 
 .wrapperNotFoundPage h2 {
+  position: relative;
+  top: 8%;
   font-size: 4em;
   font-weight: 600;
   margin: 0;
@@ -45,7 +47,7 @@ body {
 .wrapperNotFoundPage svg {
   position: absolute;
   left: 0;
-  top: 40%;
+  top: 42%;
   margin: auto;
 }
 
@@ -62,8 +64,10 @@ body {
 }
 
 .wrapperNotFoundPage p {
-  font-size: 1.250em;
+  position: relative;
+  font-size: 1.25em;
   font-weight: 400;
+  bottom: 8%;
   margin: 0;
   padding: 0;
 }

@@ -7,6 +7,15 @@
   background-size: cover;
 }
 
+.hero-section-h .brand-section h1 {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.hero-section-h .brand-section h1 span {
+  color: var(--colorVerde);
+}
+
 .hero-section-h .first-footer {
   position: absolute;
   bottom: 0;

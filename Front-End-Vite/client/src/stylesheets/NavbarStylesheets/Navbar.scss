@@ -1,48 +1,51 @@
-    nav{
-
-        position: fixed;
-        width: 100vw;
-        box-sizing: border-box;
-        height: 70px;
-        background-color:  rgba(21, 31, 39, 0.7);
-        border-bottom: 1px solid #233545;
-        backdrop-filter: blur(5px);
-        padding-right: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .logo-set{
-            min-width: 10%;
-            height: 100%;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .links-navbar{
-            flex-grow: 1;
-            height: 100%;
-            display: flex;
-            list-style: none;
-            justify-content: flex-start;
-            align-items: center;
-            .home-link, .analysis-link, .record-link, .help-link{
-                font-weight: 300;
-                cursor: pointer;
-                height: 100%;
-                width: 12%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                transition: color 200ms ease-in;
-                &:hover{
-                    color: var(--colorVerde);
-                }
-            }
-            .home-link{
-                color: var(--colorVerde);
-                background: rgba(158, 158, 158, 0.1);
-                border-bottom: 1px solid var(--colorVerde);
-            }
-        }
-    };
+nav {
+  position: fixed;
+  width: 100vw;
+  box-sizing: border-box;
+  height: 64px;
+  background-color: rgba(21, 31, 39, 0.7);
+  border-bottom: 1px solid #233545;
+  backdrop-filter: blur(5px);
+  padding-right: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .logo-set {
+    min-width: 10%;
+    height: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .links-navbar {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    align-items: center;
+    .home-link,
+    .analysis-link,
+    .record-link,
+    .help-link {
+      font-size: 16px;
+      font-weight: 300;
+      cursor: pointer;
+      height: 100%;
+      width: 12%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: color 200ms ease-in;
+      &:hover {
+        color: var(--colorVerde);
+      }
+    }
+    .home-link {
+      color: var(--colorVerde);
+      background: rgba(158, 158, 158, 0.1);
+      border-bottom: 1px solid var(--colorVerde);
+    }
+  }
+}

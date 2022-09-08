@@ -11,18 +11,27 @@ function SignUpPage() {
       <div className="wrapper-su">
         <div className="left-side">
           <h2>Registrate</h2>
-          <BtnGoogle/>
-          <div className="divider"><p>o</p></div>
-          <FormSignUp/>
+          <BtnGoogle className="google" />
+          <div className="divider">
+            <p>o</p>
+          </div>
+          <FormSignUp />
           <div className="link-login">
             <p>¿No tenes cuenta? </p>
-            <a href="/LogIn">Registrate</a>
+            <a href="/LogIn">Inicia Sesión</a>
           </div>
         </div>
 
         <div className="right-side">
           <div className="overlay"></div>
-          <video autoPlay muted playsInline loop src={videoBg} type="video/mp4"/>
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop
+            src={videoBg}
+            type="video/mp4"
+          />
           <div className="content">
             <div className="bar"></div>
             <h1 className="hero-phrase">

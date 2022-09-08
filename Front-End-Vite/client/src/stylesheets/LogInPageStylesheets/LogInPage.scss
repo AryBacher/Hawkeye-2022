@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.wrapper-su {
+.wrapper-li {
   display: flex;
   width: 100%;
   height: 100vh;
@@ -26,17 +26,16 @@ body {
     padding-right: 0;
     box-sizing: border-box;
     h2 {
-      font-size: 32px;
+      font-size: 2rem;
       padding-bottom: 2vh;
       margin: 0;
       font-weight: 600;
     }
     .google {
-      font-size: 16px;
       width: 70%;
     }
     .divider {
-      width: 68%;
+      width: 70%;
       text-align: center;
       display: flex;
       align-items: center;
@@ -60,11 +59,10 @@ body {
       }
     }
     Form {
-      width: 68%;
+      width: 70%;
 
       Button {
         height: 50px;
-        font-size: 16px;
         font-weight: 600;
         text-transform: capitalize;
         border-radius: 10px;
@@ -75,6 +73,7 @@ body {
       display: flex;
       text-align: center;
       align-items: center;
+      gap: 5px;
       a {
         color: var(--colorLink);
         text-decoration: none;
