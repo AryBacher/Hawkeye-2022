@@ -1,4 +1,5 @@
 from collections import deque
+from email.policy import default
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -124,22 +125,24 @@ while True:
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
-	# Muestra el frame
-	cv2.imshow("V1", frame)
-	
+
 	bajando = False
 
 	if (center is not None):
 		print(center[1])
 		pique.appendleft(center[1])
 		if (len(pique) >= 2):
-			if (pique[0] - pique[1] > 0):
+			if (pique[0] - pique[1] > 10):
 				bajando = True
 		pique2.appendleft(bajando)
 
 	if (len(pique2) >= 2):
 		if pique2[0] == False and pique2[1] == True:
 			print("Gerard")
+			frame = cv2.putText(frame, 'Gerard', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+
+	# Muestra el frame
+	cv2.imshow("V1", frame)
 
 	print(bajando)
 
