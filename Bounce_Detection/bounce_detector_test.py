@@ -20,17 +20,18 @@ greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
 
 # Puntos de las esquinas de la cancha
-topLeftX = 311
-topLeftY = 106
-topRightX = 456
-topRightY = 105
-bottomLeftX = 89
-bottomLeftY = 331
-bottomRightX = 628
-bottomRightY = 326
+topLeftX = 749
+topLeftY = 253
+topRightX = 1095
+topRightY = 252
+bottomLeftX = 206
+bottomLeftY = 797
+bottomRightX = 1518
+bottomRightY = 785
 
-#Puntos de Esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
-#Puntos de Esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
+# Puntos de esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
+# Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
+# Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
 #x = cv2.cvtColor(greenUpper, cv2.COLOR_HSV2BGR)
@@ -42,7 +43,7 @@ pts = deque(maxlen=args["buffer"])
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
-	vs = VideoStream(src=0).start()
+		vs = VideoStream(src=0).start()
 
 # Toma video en caso de haber
 else:
@@ -69,15 +70,25 @@ while True:
 	# Verifica si termina el video
 	if frame is None:
 		break
+	
+	medidas_resize = [164, 474]
+	n = 15
+	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
+					   [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
+	pts2 = np.float32([[0, 0], [medidas_resize[0] * n, 0], [0, medidas_resize[1] * n],
+					   [medidas_resize[0] * n, medidas_resize[1] * n]])
 
-	frame = imutils.resize(frame, width=800, height=600)
+	matrix = cv2.getPerspectiveTransform(pts1, pts2)
+	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
+
+	#frame = imutils.resize(frame, width=800, height=600)
 
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 
 	# resize the frame, blur it, and convert it to the HSV
 	# color space
-	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
+	blurred = cv2.GaussianBlur(result, (11, 11), 0)
 	#blurred = cv2.dilate(frame, None, iterations=2)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
@@ -96,17 +107,6 @@ while True:
 	#print(cnts)
 	center = None
 
-	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
-	[bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
-	pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
-
-	matrix = cv2.getPerspectiveTransform(pts1, pts2)
-	result = cv2.warpPerspective(frame, matrix, (164, 474))
-
-	cv2.line(result, (0, 110), (165, 110), (0, 0, 255), 1)
-	cv2.line(result, (0, 364), (165, 364), (0, 0, 255), 1)
-	cv2.line(result, (0, 237), (165, 237), (0, 0, 255), 1)
-
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
 		c = max(cnts, key=cv2.contourArea)
@@ -119,8 +119,8 @@ while True:
 		# Sigue si el contorno tiene cierto tamaño
 		if radius > 0:
 			# Dibuja el círculo en la pelota
-			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+			cv2.circle(result, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+			cv2.circle(result, center, 5, (0, 0, 255), -1)
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -132,7 +132,7 @@ while True:
 
 		# Traza la trayectoria
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
-		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+		cv2.line(result, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
 
 	bajando = False
@@ -151,7 +151,7 @@ while True:
 			print("Gerard")
 			frame = cv2.putText(frame, 'Gerard', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
-	radios.append(radius)
+	#radios.append(radius)
 
 	acercando = False
 
@@ -159,10 +159,13 @@ while True:
 		if radios[0] > radios[1]:
 			acercando = True
 
+	result_resized = imutils.resize(result, width = 164, height = 474)
+
 	# Hay que fijarse si la pelota es más grande
 	# Muestra el frame
 	cv2.imshow("Bounce Detector", frame)
 	cv2.imshow("Perspective Transformation", result)
+	cv2.imshow("Perspective Transformation Resized", result_resized)
 
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF
