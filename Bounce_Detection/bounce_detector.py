@@ -57,6 +57,8 @@ time.sleep(2.0)
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 radios = deque(maxlen=60)
+radios2 = deque(maxlen=60)
+
 
 #se crean frames temporales para mayor eficencia de procesado
 
@@ -121,6 +123,8 @@ while True:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+		
+		radios.append(radius)
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -136,28 +140,33 @@ while True:
 
 
 	bajando = False
+	acercando = False
 
 	if (center is not None):
 		print(center[1])
 		pique.appendleft(center[1])
+		
 		if (len(pique) >= 2):
 			if (pique[0] - pique[1] > 0):
 				bajando = True
+		
+		if (len(radios) >= 2):
+			if radios[0] > radios[1]:
+				acercando = True
+
+		radios2.append(acercando)
 		pique2.appendleft(bajando)
 		print(bajando)
 
+	if len(radios2 >= 2):
+		if (radios2[0] == True and radios2[1] == False or radios2[0] == False and radios2[1] == True):
+			golpe = True
+
 	if (len(pique2) >= 2):
-		if pique2[0] == False and pique2[1] == True:
+		if pique2[0] == False and pique2[1] == True and golpe == False:
 			print("Gerard")
 			frame = cv2.putText(frame, 'Gerard', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
-	radios.append(radius)
-
-	acercando = False
-
-	if (len(radios) >= 2):
-		if radios[0] > radios[1]:
-			acercando = True
 
 	# Hay que fijarse si la pelota es más grande
 	# Muestra el frame
