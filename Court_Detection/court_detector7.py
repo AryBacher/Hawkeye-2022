@@ -20,6 +20,8 @@ while True:
     if frame is None:
         break
 
+    frame = cv2.imread("frameD.jpg")
+
     frame = imutils.resize(frame, width=800, height=600)
 
     topLeftX = 311
