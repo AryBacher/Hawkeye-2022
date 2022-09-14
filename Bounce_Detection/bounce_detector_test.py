@@ -10,9 +10,9 @@ import sys
 
 sys.path.append("E:\Guido\Documentos\Programación\Hawkeye\Tracker\trackerV1")
 
-from Tracker.trackerV1.ball_tracking_fn import yves
+#from Tracker.trackerV1.ball_tracking_fn import yves
 
-yves()
+#yves()
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -89,6 +89,8 @@ while True:
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
 	#frame = imutils.resize(frame, width=800, height=600)
+	print(frame.shape[0])
+	print(frame.shape[1])
 
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)

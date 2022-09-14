@@ -123,8 +123,6 @@ while True:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-		
-		radios.append(radius)
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -140,31 +138,33 @@ while True:
 
 
 	bajando = False
-	acercando = False
-	golpe = False
+	#acercando = False
+	#golpe = False
 
 	if (center is not None):
 		print(center[1])
 		pique.appendleft(center[1])
+		#radios.appendleft(radius)
 		
 		if (len(pique) >= 2):
 			if (pique[0] - pique[1] > 0):
 				bajando = True
 		
-		if (len(radios) >= 2):
-			if radios[0] > radios[1]:
-				acercando = True
+		#if (len(radios) >= 2):
+			#if radios[0] > radios[1]:
+				#acercando = True
 
-		radios2.append(acercando)
+		#radios2.append(acercando)
 		pique2.appendleft(bajando)
 		print(bajando)
+		#print(acercando)
 
-	if (len(radios2) >= 2):
-		if (radios2[0] == True and radios2[1] == False or radios2[0] == False and radios2[1] == True):
-			golpe = True
+	#if (len(radios2) >= 2):
+		#if (radios2[0] == True and radios2[1] == False or radios2[0] == False and radios2[1] == True):
+			#golpe = True
 
 	if (len(pique2) >= 2):
-		if pique2[0] == False and pique2[1] == True and golpe == False:
+		if pique2[0] == False and pique2[1] == True:
 			print("Gerard")
 			frame = cv2.putText(frame, 'Gerard', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
