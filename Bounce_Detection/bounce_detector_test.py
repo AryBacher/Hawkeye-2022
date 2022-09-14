@@ -6,6 +6,13 @@ import argparse
 import cv2
 import imutils
 import time
+import sys
+
+sys.path.append("E:\Guido\Documentos\Programación\Hawkeye\Tracker\trackerV1")
+
+from Tracker.trackerV1.ball_tracking_fn import yves
+
+yves()
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -111,8 +118,7 @@ while True:
 		# Busca el contorno más grande y encuentra su posición (x, y)
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
-		print(x)
-		print(y)
+		print((int(x), int(y)))
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
@@ -137,7 +143,7 @@ while True:
 
 	bajando = False
 
-	if (center is not None):
+	if center is not None:
 		print(center[1])
 		pique.appendleft(center[1])
 		if (len(pique) >= 2):
@@ -159,12 +165,13 @@ while True:
 		if radios[0] > radios[1]:
 			acercando = True
 
+	# Resizea la imagen a perspectiva
 	result_resized = imutils.resize(result, width = 164, height = 474)
 
 	# Hay que fijarse si la pelota es más grande
 	# Muestra el frame
 	cv2.imshow("Bounce Detector", frame)
-	cv2.imshow("Perspective Transformation", result)
+	# cv2.imshow("Perspective Transformation", result)
 	cv2.imshow("Perspective Transformation Resized", result_resized)
 
 	# Terminar la ejecución si se presiona la "q"
