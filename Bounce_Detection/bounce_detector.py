@@ -72,7 +72,7 @@ while True:
 	if frame is None:
 		break
 
-	frame = imutils.resize(frame, width=800, height=600)
+	#frame = imutils.resize(frame, width=800, height=600)
 
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
@@ -113,8 +113,8 @@ while True:
 		# Busca el contorno más grande y encuentra su posición (x, y)
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
-		print(x)
-		print(y)
+		#print(x)
+		#print(y)
 		M = cv2.moments(c)
 		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
@@ -141,6 +141,7 @@ while True:
 
 	bajando = False
 	acercando = False
+	golpe = False
 
 	if (center is not None):
 		print(center[1])
@@ -158,7 +159,7 @@ while True:
 		pique2.appendleft(bajando)
 		print(bajando)
 
-	if len(radios2 >= 2):
+	if (len(radios2) >= 2):
 		if (radios2[0] == True and radios2[1] == False or radios2[0] == False and radios2[1] == True):
 			golpe = True
 
@@ -169,6 +170,8 @@ while True:
 
 
 	# Hay que fijarse si la pelota es más grande
+	
+
 	# Muestra el frame
 	cv2.imshow("Bounce Detector", frame)
 	cv2.imshow("Perspective Transformation", result)
