@@ -4,18 +4,16 @@ import numpy as np
 import cv2
 import imutils
 
-vs = cv2.VideoCapture("E:\Guido\Documentos\Programación\Hawkeye\Videos Tenis para Analizar\InkedTennisBrothersVideo1080p.mp4")
-for i in range(10):
-	foto = vs.read()
-
-def yves():
-	print("hola")
-
 def ball_tracking(frame):
-	frame = frame[1]
 	# Rango de deteccion de verdes
 	greenLower = np.array([29, 86, 110])
 	greenUpper = np.array([64, 255, 255])
+
+	resizer = 5
+
+	frame = imutils.resize(frame, width = frame.shape[1] * resizer, height = frame.shape[0] * resizer)
+	print("RESOLUCION", frame.shape)
+	
 
 	# Verde crudo
 	hsv_crudo = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -47,14 +45,13 @@ def ball_tracking(frame):
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
-		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+		center = (int(int(M["m10"] / M["m00"]) / resizer), int(int(M["m01"] / M["m00"]) / resizer))
+		print("CENTRO", center)
 
 		# Sigue si el contorno tiene cierto tamaño
 		# if radius > 0:
 			# Dibuja el círculo en la pelota
 			# cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			# cv2.circle(frame, center, 5, (0, 0, 255), -1)
-
-	# Muestra el frame
-	cv2.imshow("V1", frame)
+			
 	return center
