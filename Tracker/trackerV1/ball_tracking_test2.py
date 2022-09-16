@@ -56,7 +56,7 @@ while True:
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
 
-    #frame = imutils.resize(frame, height= 1216, width= 2160)
+    frame = imutils.resize(frame, height= 1216, width= 2160)
 
     #frame = imutils.resize(frame, frame.shape[1] * n, frame.shape[0] * n)
 
@@ -104,6 +104,7 @@ while True:
     
     if (cerca == False):
         print("Está Lejos")
+        frame = cv2.putText(frame, 'Lejos', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
     #if (len(centros) >= 2):
         #print(centros[0][0] - centros[1][0])
