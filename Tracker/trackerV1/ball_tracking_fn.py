@@ -9,18 +9,20 @@ def ball_tracking(frame):
 	greenLower = np.array([29, 86, 110])
 	greenUpper = np.array([64, 255, 255])
 
-	resizer = 5
+	resizer = 1
 
+	# Se agranda la imágen para mayor efectividad
 	frame = imutils.resize(frame, width = frame.shape[1] * resizer, height = frame.shape[0] * resizer)
 	print("RESOLUCION", frame.shape)
 	
 
-	# Verde crudo
+	# Filtrado a verde (prueba)
 	hsv_crudo = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	cv2.imshow('HSV', hsv_crudo)
 	mask_crudo = cv2.inRange(hsv_crudo, greenLower, greenUpper) 
 	cv2.imshow('Verde Crudo', mask_crudo)
 
+	# Se le pasa un blur
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	#blurred = cv2.dilate(frame, None, iterations=2)
 	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)

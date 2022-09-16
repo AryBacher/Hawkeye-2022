@@ -47,14 +47,11 @@ if not args.get("video", False):
 else:
 	vs = cv2.VideoCapture(args["video"])
 	
-	#fps del video
+	# Fps del video
 	fps = int(vs.get(cv2.CAP_PROP_FPS))
 	print(fps)
 
 time.sleep(2.0)
-
-#se crean frames temporales para mayor eficencia de procesado
-
 
 while True:
 	# Agarra el frame actual
@@ -65,26 +62,12 @@ while True:
 	if frame is None:
 		break
 
-	# resize the frame, blur it, and convert it to the HSV
-	# color space
 	#frame = imutils.resize(frame, width=600)
-
-	# framePrueba = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-	# framePrueba2 = cv2.threshold(framePrueba, 100, 255, cv2.THRESH_BINARY)
-	# framePrueba2 = framePrueba2[1]
-	# contornos = cv2.findContours(framePrueba2.copy(), cv2.RETR_EXTERNAL,
-	# 	cv2.CHAIN_APPROX_SIMPLE)
-
-	# print(contornos)
-
-	# img_contours = np.zeros(framePrueba2.shape, dtype=np.uint8)
-	# cv2.drawContours(img_contours, contornos, -1, (0,255,0), 3)
-
-	# cv2.imshow('Todos los Contornos', img_contours)
 	
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
+	# Verde crudo
 	hsv_prueba = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	cv2.imshow('prueba', hsv_prueba)
 	mask_prueba = cv2.inRange(hsv_prueba, greenLower, greenUpper) 
@@ -117,8 +100,6 @@ while True:
 	center = None
 
 	#print(cnts)
-	
-	###
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
@@ -135,14 +116,12 @@ while True:
 		#M = cv2.moments(c)
 		#center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 		center = (int(x), int(y))
-		print(center)
+		print("PELOTA", center)
 		# Sigue si el contorno tiene cierto tamaño
 		if radius > 0:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
-
-	###
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)

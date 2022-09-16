@@ -10,6 +10,7 @@ import sys
 
 sys.path.append('../')
 
+# Se importa la función de trackeo de la pelota
 from Tracker.trackerV1.ball_tracking_fn import ball_tracking
 
 # Argumentos del programa
@@ -51,7 +52,7 @@ if not args.get("video", False):
 else:
 	vs = cv2.VideoCapture(args["video"])
 	
-	#fps del video
+	# Fps del video
 	fps = int(vs.get(cv2.CAP_PROP_FPS))
 	print(fps)
 
@@ -70,6 +71,7 @@ while True:
 	if frame is None:
 		break
 	
+	# Se pasa la cancha de perspectiva a un plano 2D
 	medidas_resize = [164, 474]
 	n = 15
 	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
@@ -101,25 +103,26 @@ while True:
 			continue
 
 		# Traza la trayectoria
-		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
+		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
 
 	bajando = False
 
+	# Determina si la pelota está bajando o subiendo
 	if center is not None:
-		print(center[1])
 		pique.appendleft(center[1])
 		if (len(pique) >= 2):
-			if (pique[0] - pique[1] > 0):
+			if (pique[0] - pique[1] > 2):
 				bajando = True
 		pique2.appendleft(bajando)
-		print(bajando)
+		print("BAJANDO =", bajando)
 
+	# Determina cuando pica
 	if (len(pique2) >= 2):
 		if pique2[0] == False and pique2[1] == True:
-			print("Gerard")
-			frame = cv2.putText(frame, 'Gerard', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+			print("Pica")
+			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
 	#radios.append(radius)
 
@@ -129,10 +132,9 @@ while True:
 		if radios[0] > radios[1]:
 			acercando = True
 
-	# Resizea la imagen a perspectiva
+	# Resizea la imagen final para que pueda ser visualizada
 	result_resized = imutils.resize(result, width = 164, height = 474)
 
-	# Hay que fijarse si la pelota es más grande
 	# Muestra el frame
 	cv2.imshow("Bounce Detector", frame)
 	# cv2.imshow("Perspective Transformation", result)

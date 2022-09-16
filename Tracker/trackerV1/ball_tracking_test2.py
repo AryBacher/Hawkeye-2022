@@ -76,11 +76,47 @@ while True:
 	#print(cnts)
     center = None
 
-    cerca = False
+    cerca = True
+    cercaX = False
+    cercaY = False
 
-    if (len(centros) >= 2) and count >= 1:
-        print(centros[0])
-        print(centros[1])
+    estaCercaX = anchoOG * 15/100
+    estaCercaY = altoOG * 15/100
+    estaCercaX = 100
+    estaCercaY = 100
+    #print(estaCercaX)
+    #print(estaCercaY)
+
+    if (len(centros) >= 2):
+
+        #print("x = " + str(centros[0][0]))
+        #print("y = " + str(centros[0][1]))
+
+        if (centros[0][0] - centros[1][0] <= estaCercaX and centros[0][0] - centros[1][0] >= 0 or centros[1][0] - centros[0][0] <= estaCercaX and centros[1][0] - centros[0][0] >= 0):
+            cercaX = True
+            #print("CercaX")
+        if (centros[0][1] - centros[1][1] <= estaCercaY and centros[0][1] - centros[1][1] >= 0 or centros[1][1] - centros[0][1] <= estaCercaY and centros[1][1] - centros[0][1] >= 0):
+            cercaY = True
+            #print("CercaY")
+    
+    if (cercaX == False and cercaY == False and count <= 0.5):
+        cerca = False
+    
+    if (cerca == False):
+        print("Está Lejos")
+        frame = cv2.putText(frame, 'Lejos', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+
+    #if (len(centros) >= 2):
+        #print(centros[0][0] - centros[1][0])
+        #print(centros[1][0] - centros[0][0])
+        #print(centros[0][1] - centros[1][1])
+        #print(centros[1][1] - centros[0][1])
+
+    #if (len(centros) >= 2) and count <= 1:
+        #print(centros[0])
+        #print(centros[0][0])
+        #print(centros[1])
+
 
     
     if len(cnts) > 0:
@@ -89,6 +125,8 @@ while True:
         ((x, y), radius) = cv2.minEnclosingCircle(c)
         M = cv2.moments(c)
         center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+        centros.appendleft(center)
 
 		# Sigue si el contorno tiene cierto tamaño
         if radius > 0:
@@ -114,7 +152,6 @@ while True:
         cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
     
     #print(center)
-    centros.appendleft(center)
 
     #frame = frame[1]
     frame = imutils.resize(frame, anchoOG, altoOG)
