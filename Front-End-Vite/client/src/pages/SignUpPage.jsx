@@ -17,8 +17,9 @@ function SignUpPage() {
           </div>
           <FormSignUp />
           <div className="link-login">
-            <p>¿No tenes cuenta? </p>
-            <a href="/LogIn">Inicia Sesión</a>
+            <p>
+              ¿No tenes cuenta? <a href="/LogIn">Inicia Sesión</a>
+            </p>
           </div>
         </div>
 

@@ -31,7 +31,7 @@ function FormLogIn() {
               type="email"
               autoFocus
               as={TextField}
-              variant="standard"
+              variant="outlined"
               color="primary"
               label="Email"
               size="normal"
@@ -43,7 +43,7 @@ function FormLogIn() {
               name="password"
               type="password"
               as={TextField}
-              variant="standard"
+              variant="outlined"
               color="primary"
               label="Contraseña"
               size="normal"

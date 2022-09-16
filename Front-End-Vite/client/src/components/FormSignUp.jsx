@@ -35,7 +35,7 @@ function FormSignUp() {
               type="email"
               autoFocus
               as={TextField}
-              variant="standard"
+              variant="outlined"
               color="primary"
               label="Email"
               size="normal"
@@ -47,7 +47,7 @@ function FormSignUp() {
               name="password"
               type="password"
               as={TextField}
-              variant="standard"
+              variant="outlined"
               color="primary"
               label="Contraseña"
               size="normal"
@@ -59,7 +59,7 @@ function FormSignUp() {
               name="passwordConfirm"
               type="password"
               as={TextField}
-              variant="standard"
+              variant="outlined"
               color="primary"
               label="Confirmar contraseña"
               size="normal"

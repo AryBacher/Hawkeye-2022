@@ -37,14 +37,13 @@ function App() {
       <ThemeProvider theme={HawkeyeTheme}>
         <Routes>
           <Route path="*" element={<NotFoundPage/>} />
-          <Route path="/" element={<SignUpPage/>} />
+          <Route path="/" element={<HomePage/>} />
+          <Route path="/SignUp" element={<SignUpPage/>} />
           <Route path="/LogIn" element={<LogInPage/>} />
           <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
-          <Route path="/Home" element={<HomePage/>} />
           <Route path="/Analysis" element={<AnalysisPage/>}/>
           <Route path="/Record" element={<RecordPage/>}/>
           <Route path="/Help" element={<HelpPage/>} />
-          <Route path="/MyAccount" element={<AccountPage/>}/>
         </Routes>
       </ThemeProvider>
     </>
