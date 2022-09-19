@@ -1,4 +1,5 @@
 from collections import deque
+from cv2 import minEnclosingCircle
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -7,6 +8,34 @@ import imutils
 import time
 
 center = None
+
+def tp_fix(contornos, pre_centro):
+	cnts_pts = []
+	for contorno in contornos:
+		((x, y), radius) = minEnclosingCircle(contorno)
+		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100:
+			continue
+		cnts_pts.append((int(x), int(y), int(radius)))
+	return cualEstaMasCerca(pre_centro, cnts_pts)
+
+def cualEstaMasCerca(punto, lista):
+	suma = []
+	suma2 = []
+	for i in lista:
+		x = int(i[0]) - int(punto[0])
+		y = int(i[1]) - int(punto[1])
+
+		if x < 0:
+			x *= -1
+		
+		if y < 0:
+			y *= -1 
+		
+		suma.append(x + y)
+		suma2.append((i[0], i[1], i[2]))
+		#a = suma.index(min(suma))
+	#return suma2[a]
+	return suma2[suma.index(min(suma))]
 
 # def detectar_si_esta_lejos(lista, center):
 # 	contornos = []
@@ -35,6 +64,7 @@ greenUpper = np.array([64, 255, 255])
 #print(x)
 
 pts = deque(maxlen=args["buffer"])
+preCentro = deque(maxlen=5)
 primeraVez = True
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
@@ -63,7 +93,11 @@ while True:
 		break
 
 	#frame = imutils.resize(frame, width=600)
-	
+	punto = [100, 300]
+	lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
+
+	#print("fn: ", cualEstaMasCerca(punto, lista))
+
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
@@ -89,34 +123,28 @@ while True:
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
-	
-	#contornos = []
-	
-	#print(cnts)
-	#print(type(contornos))
-	
-	#print(contornos)
-	#cnts = tuple(cnts)
-	center = None
 
-	#print(cnts)
+	center = None
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
 		if primeraVez:
-			contornos = cnts
-
-		#print(cnts)
-		#print("v2") 
-		#print(contornos)
+			c = max(cnts, key=cv2.contourArea)
+			((x, y), radius) = cv2.minEnclosingCircle(c)
+			M = cv2.moments(c)
+			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+			primeraVez = False
+		else:
+			if center is not None:
+				c = tp_fix(cnts, center)
+				M = cv2.moments(c)
+				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+			else: 
+				primeraVez = True
 		
-		#if contornos != [] or primeraVez:
-		c = max(cnts, key=cv2.contourArea)
-		((x, y), radius) = cv2.minEnclosingCircle(c)
-		#M = cv2.moments(c)
-		#center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-		center = (int(x), int(y))
-		print("PELOTA", center)
+		#center = (int(x), int(y))
+		#print("PELOTA", center)
+		
 		# Sigue si el contorno tiene cierto tamaño
 		if radius > 0:
 			# Dibuja el círculo en la pelota
@@ -125,6 +153,7 @@ while True:
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
+	preCentro.appendleft(center)
 
 	for i in range(1, len(pts)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -137,13 +166,12 @@ while True:
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
-
-	primeraVez = False
 	
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF
 	if key == ord("q"):
 		break
+	
 
 if not args.get("video", False):
 	vs.stop()

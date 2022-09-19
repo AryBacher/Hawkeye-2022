@@ -87,18 +87,15 @@ while True:
     #print(estaCercaX)
     #print(estaCercaY)
 
+    def cercaOlejos():
+        print("hola")
+
     if (len(centros) >= 2):
-
-        #print("x = " + str(centros[0][0]))
-        #print("y = " + str(centros[0][1]))
-
         if (centros[0][0] - centros[1][0] <= estaCercaX and centros[0][0] - centros[1][0] >= 0 or centros[1][0] - centros[0][0] <= estaCercaX and centros[1][0] - centros[0][0] >= 0):
             cercaX = True
-            #print("CercaX")
         if (centros[0][1] - centros[1][1] <= estaCercaY and centros[0][1] - centros[1][1] >= 0 or centros[1][1] - centros[0][1] <= estaCercaY and centros[1][1] - centros[0][1] >= 0):
             cercaY = True
-            #print("CercaY")
-    
+
     if (cercaX == False and cercaY == False and count <= 0.5):
         cerca = False
     
@@ -116,8 +113,6 @@ while True:
         #print(centros[0])
         #print(centros[0][0])
         #print(centros[1])
-
-
     
     if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
@@ -163,6 +158,8 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
+
+    break
 
 if not args.get("video", False):
 	vs.stop()
