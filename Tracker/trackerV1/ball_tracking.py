@@ -12,10 +12,11 @@ import time
 def tp_fix(contornos, pre_centro):
 	cnts_pts = []
 	for contorno in contornos:
-		((x, y), radius) = minEnclosingCircle(contorno)
+		#((x, y), radius) = minEnclosingCircle(contorno)
 		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100 and count <= 0.5:
 			continue
-		cnts_pts.append((int(x), int(y), int(radius)))
+		#cnts_pts.append((int(x), int(y), int(radius)))
+		cnts_pts.append(contorno)
 	if cnts_pts != []:
 		print("CONTORNOS: ", cnts_pts) 
 		return cualEstaMasCerca(pre_centro, cnts_pts)
@@ -26,6 +27,7 @@ def cualEstaMasCerca(punto, lista):
 	suma = []
 	suma2 = []
 	for i in lista:
+		print("IIIIII: ", i)
 		x = int(i[0]) - int(punto[0])
 		y = int(i[1]) - int(punto[1])
 
@@ -146,6 +148,7 @@ while True:
 		if primeraVez:
 			c = max(cnts, key=cv2.contourArea)
 			((x, y), radius) = cv2.minEnclosingCircle(c)
+			print("El verdadero C: ", c)
 			M = cv2.moments(c)
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 			primeraVez = False
@@ -163,16 +166,20 @@ while True:
 			c = tp_fix(cnts, preCentro)
 
 			if c is not None:
-				print("Center: ", c)
+				#((x, y), radius) = cv2.minEnclosingCircle(c)
+				#c2 = []
+				print("Circle: ", c)
+				#c2.append(((c[0], c[1]), c[2]))
+				#c = c2
 				M = cv2.moments(c)
-				print("M: ", M)
+				print("M: ",M)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 				preCentro = center
 			
 			else:
 				primeraVez = True
 				count += 1/fps
-				preCentro = None 
+				preCentro = None
 		
 		#center = (int(x), int(y))
 		#print("PELOTA", center)
@@ -189,6 +196,7 @@ while True:
 		preCentro = None
  
 	# Actualiza los puntos para trazar la trayectoria
+	print("Deque: ", pts)
 	pts.appendleft(center)
 	#preCentro.appendleft(center)
 
@@ -201,7 +209,7 @@ while True:
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
-	print("DEQUEEEE: ", pts)
+	#print("DEQUEEEE: ", pts)
 	# Muestra el frame
 	cv2.imshow("V1", frame)
 	
