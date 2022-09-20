@@ -15,6 +15,7 @@ body {
     background: var(--colorAzul);
     color: var(--colorBlanco);
     width: 30%;
+    height: 100%;
     display: flex;
     flex-flow: column;
     flex-wrap: wrap;
@@ -25,6 +26,10 @@ body {
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
+    @media (max-width: 480px) {
+      width: 100%;
+      heigth: 100%;
+    }
     h2 {
       font-size: 32px;
       padding-bottom: 3vh;
@@ -92,6 +97,9 @@ body {
     background: var(--colorAzul);
     width: 70%;
     border: 1px solid var(--colorAzulClaro);
+    @media (max-width: 480px) {
+      display: none;
+    }
     .overlay {
       position: absolute;
       width: 70%;
@@ -119,11 +127,38 @@ body {
         background-color: var(--colorVerde);
       }
       h1 {
-        font-size: 4em;
+        font-size: 5em;
         font-weight: 600;
         color: var(--colorBlanco);
         user-select: none;
+        @media (max-width: 1600px) {
+          font-size: 4em;
+        }
+        @media (max-width: 768px) {
+          font-size: 3em;
+        }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 480px) {
+  .wrapper-su {
+    flex-direction: column-reverse;
+    width: 100%;
+    height: 100vh;
+    .right-side {
+      width: 100%;
+      height: 35%;
+      .overlay {
+        height: 35%;
+        width: 100%;
+      }
+    }
+    .left-side {
+      flex-direction: column;
+      width: 100%;
+      height: 65%;
     }
   }
 }

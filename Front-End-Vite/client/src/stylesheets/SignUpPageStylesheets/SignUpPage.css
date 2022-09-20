@@ -19,6 +19,7 @@ body {
   background: var(--colorAzul);
   color: var(--colorBlanco);
   width: 30%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,6 +39,13 @@ body {
   padding-right: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .wrapper-su .left-side {
+    width: 100%;
+    heigth: 100%;
+  }
 }
 
 .wrapper-su .left-side h2 {
@@ -141,6 +149,12 @@ body {
   border: 1px solid var(--colorAzulClaro);
 }
 
+@media (max-width: 480px) {
+  .wrapper-su .right-side {
+    display: none;
+  }
+}
+
 .wrapper-su .right-side .overlay {
   position: absolute;
   width: 70%;
@@ -181,12 +195,51 @@ body {
 }
 
 .wrapper-su .right-side .content h1 {
-  font-size: 4em;
+  font-size: 5em;
   font-weight: 600;
   color: var(--colorBlanco);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+@media (max-width: 1600px) {
+  .wrapper-su .right-side .content h1 {
+    font-size: 4em;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper-su .right-side .content h1 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 480px) {
+  .wrapper-su {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    width: 100%;
+    height: 100vh;
+  }
+  .wrapper-su .right-side {
+    width: 100%;
+    height: 35%;
+  }
+  .wrapper-su .right-side .overlay {
+    height: 35%;
+    width: 100%;
+  }
+  .wrapper-su .left-side {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+    height: 65%;
+  }
 }
 /*# sourceMappingURL=SignUpPage.css.map */
