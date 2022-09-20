@@ -7,16 +7,20 @@ import cv2
 import imutils
 import time
 
-center = None
+#center = None
 
 def tp_fix(contornos, pre_centro):
 	cnts_pts = []
 	for contorno in contornos:
 		((x, y), radius) = minEnclosingCircle(contorno)
-		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100:
+		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100 and count <= 0.5:
 			continue
 		cnts_pts.append((int(x), int(y), int(radius)))
-	return cualEstaMasCerca(pre_centro, cnts_pts)
+	if cnts_pts != []:
+		print("CONTORNOS: ", cnts_pts) 
+		return cualEstaMasCerca(pre_centro, cnts_pts)
+	else: print("No se encontró la pelota")
+
 
 def cualEstaMasCerca(punto, lista):
 	suma = []
@@ -64,7 +68,7 @@ greenUpper = np.array([64, 255, 255])
 #print(x)
 
 pts = deque(maxlen=args["buffer"])
-preCentro = deque(maxlen=5)
+preCentro = None
 primeraVez = True
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
@@ -83,6 +87,8 @@ else:
 
 time.sleep(2.0)
 
+count = 0
+
 while True:
 	# Agarra el frame actual
 	frame = vs.read()
@@ -91,6 +97,12 @@ while True:
 	# Verifica si termina el video
 	if frame is None:
 		break
+
+	anchoOG = frame.shape[1]
+	altoOG = frame.shape[0]
+
+	estaCercaX = anchoOG * 15/100
+	estaCercaY = altoOG * 15/100
 
 	#frame = imutils.resize(frame, width=600)
 	punto = [100, 300]
@@ -128,19 +140,39 @@ while True:
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
+
+		count = 0
+
 		if primeraVez:
 			c = max(cnts, key=cv2.contourArea)
 			((x, y), radius) = cv2.minEnclosingCircle(c)
 			M = cv2.moments(c)
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 			primeraVez = False
+			preCentro = center
+
 		else:
-			if center is not None:
-				c = tp_fix(cnts, center)
+			# if pre_center is not None:
+			# 	c = tp_fix(cnts, center)
+			# 	M = cv2.moments(c)
+			# 	center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+			# else: 
+			# 	primeraVez = True
+			# 	pre_center = None
+			
+			c = tp_fix(cnts, preCentro)
+
+			if c is not None:
+				print("Center: ", c)
 				M = cv2.moments(c)
+				print("M: ", M)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-			else: 
+				preCentro = center
+			
+			else:
 				primeraVez = True
+				count += 1/fps
+				preCentro = None 
 		
 		#center = (int(x), int(y))
 		#print("PELOTA", center)
@@ -150,10 +182,15 @@ while True:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+
+	else:
+		primeraVez = True
+		count += 1/fps
+		preCentro = None
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
-	preCentro.appendleft(center)
+	#preCentro.appendleft(center)
 
 	for i in range(1, len(pts)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -164,6 +201,7 @@ while True:
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
+	print("DEQUEEEE: ", pts)
 	# Muestra el frame
 	cv2.imshow("V1", frame)
 	
