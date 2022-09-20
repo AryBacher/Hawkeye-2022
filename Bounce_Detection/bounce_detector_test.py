@@ -21,6 +21,8 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
+bajando = None
+
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
@@ -106,14 +108,14 @@ while True:
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 
-
+	pre_bajando = bajando
 	bajando = False
 
 	# Determina si la pelota está bajando o subiendo
 	if center is not None:
 		pique.appendleft(center[1])
 		if (len(pique) >= 2):
-			if (pique[0] - pique[1] > 2):
+			if (pre_bajando == False and pique[0] - pique[1] > 3) or (pre_bajando and pique[0] - pique[1] >= 0):
 				bajando = True
 		pique2.appendleft(bajando)
 		print("BAJANDO =", bajando)

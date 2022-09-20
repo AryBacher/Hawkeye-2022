@@ -159,8 +159,6 @@ while True:
     if key == ord("q"):
         break
 
-    break
-
 if not args.get("video", False):
 	vs.stop()
 

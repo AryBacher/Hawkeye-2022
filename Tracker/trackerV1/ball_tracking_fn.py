@@ -9,11 +9,11 @@ def ball_tracking(frame):
 	greenLower = np.array([29, 86, 110])
 	greenUpper = np.array([64, 255, 255])
 
-	resizer = 1
+	resizer = 5
 
-	# Se agranda la imágen para mayor efectividad
+	# Se agranda la imagen para mayor efectividad
 	frame = imutils.resize(frame, width = frame.shape[1] * resizer, height = frame.shape[0] * resizer)
-	print("RESOLUCION", frame.shape)
+	#print("RESOLUCION", frame.shape)
 	
 
 	# Filtrado a verde (prueba)
@@ -48,12 +48,13 @@ def ball_tracking(frame):
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
 		center = (int(int(M["m10"] / M["m00"]) / resizer), int(int(M["m01"] / M["m00"]) / resizer))
-		print("CENTRO", center)
+		
 
 		# Sigue si el contorno tiene cierto tamaño
 		# if radius > 0:
 			# Dibuja el círculo en la pelota
 			# cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			# cv2.circle(frame, center, 5, (0, 0, 255), -1)
-			
+	print("CENTRO", center)
+
 	return center
