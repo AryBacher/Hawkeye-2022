@@ -86,7 +86,7 @@ while True:
 	matrix = cv2.getPerspectiveTransform(pts1, pts2)
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
-	center_pers = ball_tracking(result)
+	center_pers = ball_tracking(result, "pers")
 	pts_pers.appendleft(center_pers)
 
 	cv2.circle(result, center_pers, 5, (0, 0, 255), -1)
@@ -107,7 +107,7 @@ while True:
 	#cv2.waitKey(100)
 	
 
-	center = ball_tracking(frame)
+	center = ball_tracking(frame, "normal")
 		#if radius > 0:
 			# Dibuja el círculo en la pelota
 			#cv2.circle(result, (int(x), int(y)), int(radius), (0, 255, 255), 2)
