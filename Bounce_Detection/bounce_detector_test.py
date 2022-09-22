@@ -44,6 +44,8 @@ bottomRightY = 785
 
 
 pts = deque(maxlen=args["buffer"])
+pts_pers = deque(maxlen=args["buffer"])
+pts_pique = []
 
 
 # Toma la cámara si no recibe video
@@ -84,6 +86,21 @@ while True:
 	matrix = cv2.getPerspectiveTransform(pts1, pts2)
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
+	center_pers = ball_tracking(result)
+	pts_pers.appendleft(center_pers)
+
+	cv2.circle(result, center_pers, 5, (0, 0, 255), -1)
+ 
+
+
+	for i in range(1, len(pts_pers)):
+		# Ignora los puntos de trayectoria inexistentes
+		if pts_pers[i - 1] is None or pts_pers[i] is None:
+			continue
+
+		# Traza la trayectoria
+		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2)
+		cv2.line(result, pts_pers[i - 1], pts_pers[i], (0, 0, 255), thickness)
 	#frame = imutils.resize(frame, width=800, height=600)
 
 	# Cámara lenta para mayor análisis
