@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
-import { object, string, ref } from "yup";
+import { object, string } from "yup";
 import "../stylesheets/FormLogInStylesheets/Form.css";
 
 function FormLogIn() {
@@ -50,7 +50,7 @@ function FormLogIn() {
               error={Boolean(errors.password) && Boolean(touched.password)}
               helperText={Boolean(touched.password) && errors.password}
             />
-
+            <a href="/RecoverPassword">¿Olvidaste tu contraseña?</a>
             <Button
               variant="contained"
               type="submit"

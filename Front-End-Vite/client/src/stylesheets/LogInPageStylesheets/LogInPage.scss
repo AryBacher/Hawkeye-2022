@@ -75,6 +75,7 @@ body {
       align-items: center;
       gap: 5px;
       a {
+        cursor: pointer;
         color: var(--colorLink);
         text-decoration: none;
         transition: text-decoration 250ms;

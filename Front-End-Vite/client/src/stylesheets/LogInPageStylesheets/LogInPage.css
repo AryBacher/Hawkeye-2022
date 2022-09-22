@@ -113,6 +113,7 @@ body {
 }
 
 .wrapper-li .left-side .link-login a {
+  cursor: pointer;
   color: var(--colorLink);
   text-decoration: none;
   -webkit-transition: -webkit-text-decoration 250ms;

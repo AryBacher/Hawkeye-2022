@@ -1,5 +1,17 @@
 form {
   display: flex;
   flex-flow: column;
-  gap: 3vh;
+  Field {
+    margin: 3vh;
+  }
+  a {
+    text-align: left;
+    font-weight: 400;
+    color: var(--colorLink);
+    text-decoration: none;
+    transition: text-decoration 250ms;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

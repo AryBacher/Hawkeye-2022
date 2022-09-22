@@ -6,6 +6,24 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  gap: 3vh;
+}
+
+form Field {
+  margin: 3vh;
+}
+
+form a {
+  text-align: left;
+  font-weight: 400;
+  color: var(--colorLink);
+  text-decoration: none;
+  -webkit-transition: -webkit-text-decoration 250ms;
+  transition: -webkit-text-decoration 250ms;
+  transition: text-decoration 250ms;
+  transition: text-decoration 250ms, -webkit-text-decoration 250ms;
+}
+
+form a:hover {
+  text-decoration: underline;
 }
 /*# sourceMappingURL=Form.css.map */
