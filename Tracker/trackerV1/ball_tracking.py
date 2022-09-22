@@ -91,6 +91,7 @@ while True:
 	estaCercaX = anchoOG * 15/100
 	estaCercaY = altoOG * 15/100
 
+	#frame = imutils.resize(frame, frame.shape[1] * 2, frame.shape[0] * 2)
 	#frame = imutils.resize(frame, height=768)
 	punto = [100, 300]
 	lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
@@ -173,6 +174,8 @@ while True:
 		# Traza la trayectoria
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+
+	#frame = imutils.resize(frame, anchoOG, altoOG)
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
