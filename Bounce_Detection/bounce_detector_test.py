@@ -77,7 +77,7 @@ while True:
 	
 	# Se pasa la cancha de perspectiva a un plano 2D
 	medidas_resize = [164, 474]
-	n = 15
+	n = 1
 	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
 					   [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
 	pts2 = np.float32([[0, 0], [medidas_resize[0] * n, 0], [0, medidas_resize[1] * n],
