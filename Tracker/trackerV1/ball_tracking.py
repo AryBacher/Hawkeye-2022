@@ -74,7 +74,18 @@ else:
 
 time.sleep(2.0)
 
+topLeftX = 311
+topLeftY = 106
+topRightX = 456
+topRightY = 105
+bottomLeftX = 89
+bottomLeftY = 331
+bottomRightX = 628
+bottomRightY = 326
+
 count = 0
+pique = deque(maxlen=60)
+pique2 = deque(maxlen=60)
 
 while True:
 	# Agarra el frame actual
@@ -91,10 +102,23 @@ while True:
 	estaCercaX = anchoOG * 15/100
 	estaCercaY = altoOG * 15/100
 
-	#frame = imutils.resize(frame, frame.shape[1] * 2, frame.shape[0] * 2)
+	#frame = imutils.resize(frame, anchoOG * 2, altoOG * 2)
 	#frame = imutils.resize(frame, height=768)
-	punto = [100, 300]
-	lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
+	
+	#punto = [100, 300]
+	#lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
+
+	cv2.circle(frame, (topLeftX, topLeftY), 2, (0, 0, 255), -1)
+	cv2.circle(frame, (topRightX, topRightY), 2, (0, 0, 255), -1)
+	cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
+	cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
+
+	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
+                    [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
+	pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
+	
+	matrix = cv2.getPerspectiveTransform(pts1, pts2)
+	result = cv2.warpPerspective(frame, matrix, (164, 474))
 
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
@@ -174,8 +198,26 @@ while True:
 		# Traza la trayectoria
 		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+	
+	bajando = False
+
+	if (center is not None):
+		print(center[1])
+		pique.appendleft(center[1])
+		
+		if (len(pique) >= 2):
+			if (pique[0] - pique[1] > 0):
+				bajando = True
+		pique2.appendleft(bajando)
+		print(bajando)
+
+	if (len(pique2) >= 2):
+		if pique2[0] == False and pique2[1] == True:
+			print("Gerard")
+			frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
 	#frame = imutils.resize(frame, anchoOG, altoOG)
+	#frame = imutils.resize(frame, height=768)
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
@@ -184,7 +226,7 @@ while True:
 	key = cv2.waitKey(1) & 0xFF
 	if key == ord("q"):
 		break
-	
+		
 
 if not args.get("video", False):
 	vs.stop()
