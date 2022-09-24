@@ -11,7 +11,7 @@ import sys
 sys.path.append('../')
 
 # Se importa la función de trackeo de la pelota y del minimapa
-from Tracker.trackerV1.ball_tracking_fn import ball_tracking
+from Tracker.trackerV1.ball_tracking_fn import ball_tracking, tp_fix
 from Bounce_Detection.minimap import minimap
 
 # Argumentos del programa
@@ -23,6 +23,8 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 args = vars(ap.parse_args())
 
 bajando = None
+
+primeraVez = True
 
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
@@ -47,7 +49,7 @@ bottomRightY = 785
 pts = deque(maxlen=args["buffer"])
 pts_pers = deque(maxlen=args["buffer"])
 pts_pique = []
-
+center_pers = None
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -89,12 +91,11 @@ while True:
 	matrix = cv2.getPerspectiveTransform(pts1, pts2)
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
-	center_pers = ball_tracking(result, "pers")
+	pre_center_pers = center_pers
+	center_pers, cnts = ball_tracking(result, "pers")
 	pts_pers.appendleft(center_pers)
 
 	cv2.circle(result, center_pers, 5, (0, 0, 255), -1)
- 
-
 
 	for i in range(1, len(pts_pers)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -109,15 +110,48 @@ while True:
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
+	count = 0
+	center = None
 
-	center = ball_tracking(frame, "normal")
+	if len(cnts) > 0:
+		if primeraVez:
+			retorno = ball_tracking(frame, "normal")
+			center = retorno[0]
+			cnts = retorno[1]
+			primeraVez = False
+			preCentro = center
+		
+		else:
+			c = tp_fix(cnts, preCentro, count)
+
+			if c is not None:
+				((x, y), radius) = cv2.minEnclosingCircle(c)
+				M = cv2.moments(c)
+				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+				preCentro = center
+			
+			else:
+				if (count >= 0.3):
+					primeraVez = True
+					preCentro = None
+				count += 1/fps
+
+		cv2.circle(frame, center, 5, (0, 0, 255), -1)
+	
+	else:
+		if count >= 0.3:
+			primeraVez = True
+			preCentro = None
+		count += 1/fps
+
 		#if radius > 0:
 			# Dibuja el círculo en la pelota
 			#cv2.circle(result, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-	cv2.circle(frame, center, 5, (0, 0, 255), -1)
+	
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
+	print("CENTRO", center)
 
 	for i in range(1, len(pts)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -145,10 +179,9 @@ while True:
 		if pique2[0] == False and pique2[1] == True:
 			print("Pica")
 			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
-			pts_pique.append(center_pers)
+			if pre_center_pers is None: continue
+			pts_pique.append(pre_center_pers)
 			minimapa = minimap(pts_pique)
-			print("puntos PIQUE ", pts_pique)
-			
 
 	#radios.append(radius)
 

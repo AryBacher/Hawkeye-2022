@@ -8,12 +8,13 @@ import imutils
 import time
 
 #center = None
+resizer = 10
 
 def tp_fix(contornos, pre_centro):
 	cnts_pts = []
 	for contorno in contornos:
 		((x, y), radius) = cv2.minEnclosingCircle(contorno)
-		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100 and count <= 0.5:
+		if x - pre_centro[0] > 100 * resizer or pre_centro[0] - x > 100 * resizer or y - pre_centro[1] > 100 * resizer or pre_centro[1] - y > 100 * resizer and count <= 0.5:
 			continue
 		cnts_pts.append(contorno)
 	if cnts_pts != []:
@@ -62,15 +63,15 @@ primeraVez = True
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
-	vs = VideoStream(src=0).start()
+	vs = cv2.VideoCapture(0)
 
 # Toma video en caso de haber
 else:
-	vs = cv2.VideoCapture(args["video"])
-	
-	# Fps del video
-	fps = int(vs.get(cv2.CAP_PROP_FPS))
-	print(fps)
+	vs = cv2.VideoCapture(args["video"])	
+
+# Fps del video
+fps = int(vs.get(cv2.CAP_PROP_FPS))
+print(fps)
 
 time.sleep(2.0)
 
@@ -102,16 +103,16 @@ while True:
 	estaCercaX = anchoOG * 15/100
 	estaCercaY = altoOG * 15/100
 
-	#frame = imutils.resize(frame, anchoOG * 2, altoOG * 2)
+	frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
 	#frame = imutils.resize(frame, height=768)
 	
 	#punto = [100, 300]
 	#lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
 
-	cv2.circle(frame, (topLeftX, topLeftY), 2, (0, 0, 255), -1)
-	cv2.circle(frame, (topRightX, topRightY), 2, (0, 0, 255), -1)
-	cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
-	cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
+	# cv2.circle(frame, (topLeftX, topLeftY), 2, (0, 0, 255), -1)
+	# cv2.circle(frame, (topRightX, topRightY), 2, (0, 0, 255), -1)
+	# cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
+	# cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
 
 	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
                     [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
@@ -183,9 +184,10 @@ while True:
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 	else:
-		primeraVez = True
+		if count >= 0.3:
+			primeraVez = True
+			preCentro = None
 		count += 1/fps
-		preCentro = None
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -216,7 +218,7 @@ while True:
 			print("Gerard")
 			frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
-	#frame = imutils.resize(frame, anchoOG, altoOG)
+	frame = imutils.resize(frame, anchoOG, altoOG)
 	#frame = imutils.resize(frame, height=768)
 
 	# Muestra el frame
