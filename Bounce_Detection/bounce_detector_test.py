@@ -10,8 +10,9 @@ import sys
 
 sys.path.append('../')
 
-# Se importa la función de trackeo de la pelota
+# Se importa la función de trackeo de la pelota y del minimapa
 from Tracker.trackerV1.ball_tracking_fn import ball_tracking
+from Bounce_Detection.minimap import minimap
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -65,6 +66,8 @@ time.sleep(2.0)
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 radios = deque(maxlen=60)
+
+minimapa = minimap(pts_pique)
 
 while True:
 	# Agarra el frame actual
@@ -142,6 +145,10 @@ while True:
 		if pique2[0] == False and pique2[1] == True:
 			print("Pica")
 			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+			pts_pique.append(center_pers)
+			minimapa = minimap(pts_pique)
+			print("puntos PIQUE ", pts_pique)
+			
 
 	#radios.append(radius)
 
@@ -158,6 +165,9 @@ while True:
 	cv2.imshow("Bounce Detector", frame)
 	# cv2.imshow("Perspective Transformation", result)
 	cv2.imshow("Perspective Transformation Resized", result_resized)
+
+	# Se muestra el minimapa
+	cv2.imshow("Minimapa", minimapa)
 
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF

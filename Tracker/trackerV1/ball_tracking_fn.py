@@ -11,7 +11,7 @@ def ball_tracking(frame, type):
 
 	# Se multiplica el tamaño del frame para un mayor análisis
 	# Para esto se fija si es el frame normal o en perspectiva
-	resizer = 2 if type == "normal" else 2
+	resizer = 2 if type == "normal" else 10
 
 	# Se agranda la imagen para mayor efectividad
 	frame = imutils.resize(frame, width = frame.shape[1] * resizer, height = frame.shape[0] * resizer)
