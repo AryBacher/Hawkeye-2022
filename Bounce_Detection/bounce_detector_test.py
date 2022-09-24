@@ -24,8 +24,6 @@ args = vars(ap.parse_args())
 
 bajando = None
 
-primeraVez = True
-
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
@@ -71,6 +69,8 @@ radios = deque(maxlen=60)
 
 minimapa = minimap(pts_pique)
 
+count = 0
+
 while True:
 	# Agarra el frame actual
 	frame = vs.read()
@@ -92,7 +92,7 @@ while True:
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
 	pre_center_pers = center_pers
-	center_pers, cnts = ball_tracking(result, "pers")
+	center_pers = ball_tracking(result, "pers")[0]
 	pts_pers.appendleft(center_pers)
 
 	cv2.circle(result, center_pers, 5, (0, 0, 255), -1)
@@ -110,40 +110,7 @@ while True:
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
-	count = 0
-	center = None
-
-	if len(cnts) > 0:
-		if primeraVez:
-			retorno = ball_tracking(frame, "normal")
-			center = retorno[0]
-			cnts = retorno[1]
-			primeraVez = False
-			preCentro = center
-		
-		else:
-			c = tp_fix(cnts, preCentro, count)
-
-			if c is not None:
-				((x, y), radius) = cv2.minEnclosingCircle(c)
-				M = cv2.moments(c)
-				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-				preCentro = center
-			
-			else:
-				if (count >= 0.3):
-					primeraVez = True
-					preCentro = None
-				count += 1/fps
-
-		cv2.circle(frame, center, 5, (0, 0, 255), -1)
-	
-	else:
-		if count >= 0.3:
-			primeraVez = True
-			preCentro = None
-		count += 1/fps
-
+	center = ball_tracking(frame, "normal")[0]
 		#if radius > 0:
 			# Dibuja el círculo en la pelota
 			#cv2.circle(result, (int(x), int(y)), int(radius), (0, 255, 255), 2)
@@ -179,12 +146,11 @@ while True:
 		if pique2[0] == False and pique2[1] == True:
 			print("Pica")
 			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
-			if pre_center_pers is None: continue
-			pts_pique.append(pre_center_pers)
-			minimapa = minimap(pts_pique)
+			if pre_center_pers is not None: 
+				pts_pique.append(pre_center_pers)
+				minimapa = minimap(pts_pique)
 
 	#radios.append(radius)
-
 	acercando = False
 
 	if (len(radios) >= 2):

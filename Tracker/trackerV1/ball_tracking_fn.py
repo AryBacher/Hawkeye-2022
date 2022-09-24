@@ -57,9 +57,11 @@ def ball_tracking(frame, type):
 	return retorno
 
 def tp_fix(contornos, pre_centro, count):
+	#print("TP FIX", contornos, pre_centro)
 	cnts_pts = []
 	for contorno in contornos:
 		((x, y), radius) = cv2.minEnclosingCircle(contorno)
+		print("TP FIX", (x, y), pre_centro)
 		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100 and count <= 0.5:
 			continue
 		cnts_pts.append(contorno)

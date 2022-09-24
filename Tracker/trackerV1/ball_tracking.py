@@ -8,7 +8,7 @@ import imutils
 import time
 
 #center = None
-resizer = 10
+resizer = 1
 
 def tp_fix(contornos, pre_centro):
 	cnts_pts = []
@@ -152,8 +152,6 @@ while True:
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
 
-		count = 0
-
 		if primeraVez:
 			c = max(cnts, key=cv2.contourArea)
 			((x, y), radius) = cv2.minEnclosingCircle(c)
@@ -161,6 +159,7 @@ while True:
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 			primeraVez = False
 			preCentro = center
+			count = 0
 
 		else:			
 			c = tp_fix(cnts, preCentro)
@@ -170,9 +169,11 @@ while True:
 				M = cv2.moments(c)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 				preCentro = center
+				count = 0
 			
 			else:
-				if (count >= 0.3):
+				print("COUNT", count)
+				if count >= 0.3:
 					primeraVez = True
 					preCentro = None
 				count += 1/fps
@@ -184,6 +185,7 @@ while True:
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 	else:
+		print("COUNT", count)
 		if count >= 0.3:
 			primeraVez = True
 			preCentro = None
