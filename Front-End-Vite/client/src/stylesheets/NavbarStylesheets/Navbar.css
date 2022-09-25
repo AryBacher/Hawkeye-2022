@@ -1,10 +1,11 @@
 nav {
   position: fixed;
+  z-index: 100;
   width: 100vw;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   height: 64px;
-  background-color: rgba(21, 31, 39, 0.7);
+  background-color: rgba(21, 31, 39, 0.8);
   border-bottom: 1px solid #233545;
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);

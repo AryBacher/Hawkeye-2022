@@ -7,10 +7,10 @@ function Navbar() {
       <nav className='navbar'>
         <div className='logo-set'>Logo</div>
         <ul className='links-navbar'>
-          <li className='home-link'>Home</li>
-          <li className='analysis-link'>Análisis</li>
-          <li className='record-link'>Grabar</li>
-          <li className='help-link'>Ayuda</li>
+          <li className='nav home-link'>Home</li>
+          <li className='nav analysis-link'>Análisis</li>
+          <li className='nav record-link'>Grabar</li>
+          <li className='nav help-link'>Ayuda</li>
         </ul>
         <div className='profile-container-button'>Perfil</div>
       </nav>
