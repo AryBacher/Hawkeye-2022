@@ -10,8 +10,9 @@ import sys
 
 sys.path.append('../')
 
-# Se importa la función de trackeo de la pelota
-from Tracker.trackerV1.ball_tracking_fn import ball_tracking
+# Se importa la función de trackeo de la pelota y del minimapa
+from Tracker.trackerV1.ball_tracking_fn import ball_tracking, tp_fix
+from Bounce_Detection.minimap import minimap
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -46,7 +47,7 @@ bottomRightY = 785
 pts = deque(maxlen=args["buffer"])
 pts_pers = deque(maxlen=args["buffer"])
 pts_pique = []
-
+center_pers = None
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -65,6 +66,10 @@ time.sleep(2.0)
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 radios = deque(maxlen=60)
+
+minimapa = minimap(pts_pique)
+
+count = 0
 
 while True:
 	# Agarra el frame actual
@@ -86,12 +91,11 @@ while True:
 	matrix = cv2.getPerspectiveTransform(pts1, pts2)
 	result = cv2.warpPerspective(frame, matrix, (medidas_resize[0] * n, medidas_resize[1] * n))
 
-	center_pers = ball_tracking(result, "pers")
+	pre_center_pers = center_pers
+	center_pers = ball_tracking(result, "pers")[0]
 	pts_pers.appendleft(center_pers)
 
 	cv2.circle(result, center_pers, 5, (0, 0, 255), -1)
- 
-
 
 	for i in range(1, len(pts_pers)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -106,15 +110,15 @@ while True:
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
-
-	center = ball_tracking(frame, "normal")
+	center = ball_tracking(frame, "normal")[0]
 		#if radius > 0:
 			# Dibuja el círculo en la pelota
 			#cv2.circle(result, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-	cv2.circle(frame, center, 5, (0, 0, 255), -1)
+	
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
+	print("CENTRO", center)
 
 	for i in range(1, len(pts)):
 		# Ignora los puntos de trayectoria inexistentes
@@ -142,9 +146,11 @@ while True:
 		if pique2[0] == False and pique2[1] == True:
 			print("Pica")
 			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+			if pre_center_pers is not None: 
+				pts_pique.append(pre_center_pers)
+				minimapa = minimap(pts_pique)
 
 	#radios.append(radius)
-
 	acercando = False
 
 	if (len(radios) >= 2):
@@ -158,6 +164,9 @@ while True:
 	cv2.imshow("Bounce Detector", frame)
 	# cv2.imshow("Perspective Transformation", result)
 	cv2.imshow("Perspective Transformation Resized", result_resized)
+
+	# Se muestra el minimapa
+	cv2.imshow("Minimapa", minimapa)
 
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF

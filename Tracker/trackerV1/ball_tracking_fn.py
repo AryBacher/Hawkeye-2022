@@ -11,12 +11,10 @@ def ball_tracking(frame, type):
 
 	# Se multiplica el tamaño del frame para un mayor análisis
 	# Para esto se fija si es el frame normal o en perspectiva
-	resizer = 2 if type == "normal" else 2
+	resizer = 2 if type == "normal" else 10
 
 	# Se agranda la imagen para mayor efectividad
 	frame = imutils.resize(frame, width = frame.shape[1] * resizer, height = frame.shape[0] * resizer)
-	#print("RESOLUCION", frame.shape)
-	
 
 	# Filtrado a verde (prueba)
 	hsv_crudo = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -40,8 +38,7 @@ def ball_tracking(frame, type):
 	cv2.imshow("mask2", mask)
 
 	# Toma todos los contornos de la imagen
-	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
-		cv2.CHAIN_APPROX_SIMPLE)
+	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
 
 	center = None
@@ -52,13 +49,41 @@ def ball_tracking(frame, type):
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
 		center = (int(int(M["m10"] / M["m00"]) / resizer), int(int(M["m01"] / M["m00"]) / resizer))
+
+	#print("CENTRO", center)
+
+	retorno = [center, cnts]
+
+	return retorno
+
+def tp_fix(contornos, pre_centro, count):
+	#print("TP FIX", contornos, pre_centro)
+	cnts_pts = []
+	for contorno in contornos:
+		((x, y), radius) = cv2.minEnclosingCircle(contorno)
+		print("TP FIX", (x, y), pre_centro)
+		if x - pre_centro[0] > 100 or pre_centro[0] - x > 100 or y - pre_centro[1] > 100 or pre_centro[1] - y > 100 and count <= 0.5:
+			continue
+		cnts_pts.append(contorno)
+	if cnts_pts != []:
+		return cualEstaMasCerca(pre_centro, cnts_pts)
+	else: print("No se encontró la pelota")
+
+
+def cualEstaMasCerca(punto, lista):
+	suma = []
+	suma2 = []
+	for i in lista:
+		(xCenter, yCenter), radius = cv2.minEnclosingCircle(i)
+		x = int(xCenter) - int(punto[0]) 
+		y = int(yCenter) - int(punto[1])
+
+		if x < 0:
+			x *= -1
 		
-
-		# Sigue si el contorno tiene cierto tamaño
-		# if radius > 0:
-			# Dibuja el círculo en la pelota
-			# cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-			# cv2.circle(frame, center, 5, (0, 0, 255), -1)
-	print("CENTRO", center)
-
-	return center
+		if y < 0:
+			y *= -1 
+		
+		suma.append(x + y)
+		suma2.append(i)
+	return suma2[suma.index(min(suma))]
