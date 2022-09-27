@@ -3,17 +3,42 @@ import "../stylesheets/HomePageStylesheets/HomePage.css";
 import logoOrt from "../assets/img/logo-ort.png";
 import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
- 
-function HomePage() {
+import { motion } from "framer-motion";
+  
+function HomePage() {  
+
   return (
     <>
       <div className="hero-section-h">
-        <Navbar className="navbar-home" />
+        <Navbar />
         <div className="brand-section-container">
           <section className="brand-section">
-            <div className="bar"></div>
-            <div className="texts-lp">
+            <motion.div 
+              className="bar"
+              animate = {{
+                height: "370px",
+              }}
+              transition = {{
+                delay: 0.5,
+                duration: 0.5,
+                ease: "easeInOut",
+              }}
+            >
+            </motion.div>
+            <motion.div className="texts-lp"
+              initial= {{
+                x: "-110%",
+              }}
+              animate= {{
+                x: "0%",
+              }}
+              transition= {{
+                delay: 1,
+                duration: 1,
+                ease: "easeOut",
+                type: "tween",
+              }}
+            >
               <h1 className="hero-title">
                 Mejora como tenista <br />
                 usando <span>Hawkeye</span>
@@ -27,7 +52,7 @@ function HomePage() {
               >
                 Empieza ahora
               </Button>
-            </div>
+            </motion.div>
           </section>
         </div>
         <section className="first-footer">
@@ -37,16 +62,18 @@ function HomePage() {
         </section>
       </div>
       <div className="bottom-section-h">
-        <section className="features">
+        <section className="features" id="features">
+          <div className="features-content"></div>
         </section>
         <div className="divider"></div>
-        <section className="bottom benefits">
+        <section className="benefits" id="benefits">
         </section>
         <div className="divider"></div>
-        <section className="bottom hawkeye-team">
+        <section className="hawkeye-team" id="team">
         </section>
         <div className="divider"></div>
-        <section className="last-cta"></section>
+        <section className="last-cta" id="contact">
+        </section>
         <section className="second-footer">
         </section>
       </div>

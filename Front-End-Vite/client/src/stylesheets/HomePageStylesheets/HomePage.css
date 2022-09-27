@@ -21,7 +21,7 @@
 .hero-section-h .brand-section-container .brand-section {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
-  padding-left: 9%;
+  translate: 9vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -34,29 +34,30 @@
 }
 
 .hero-section-h .brand-section-container .brand-section .bar {
+  z-index: 100;
   margin-right: 40px;
   border-radius: 100px;
   width: 4px;
-  height: 370px;
+  height: 0;
   background-color: var(--colorVerde);
 }
 
-.hero-section-h .brand-section-container .brand-section h1 {
+.hero-section-h .brand-section-container .brand-section .texts-lp h1 {
   margin-bottom: 25px;
   font-size: 4em;
   font-weight: 600;
   line-height: 1.3;
 }
 
-.hero-section-h .brand-section-container .brand-section h1 span {
+.hero-section-h .brand-section-container .brand-section .texts-lp h1 span {
   color: var(--colorVerde);
 }
 
-.hero-section-h .brand-section-container .brand-section .par-lp {
+.hero-section-h .brand-section-container .brand-section .texts-lp .par-lp {
   color: #9E9E9E;
 }
 
-.hero-section-h .brand-section-container .brand-section .button-home {
+.hero-section-h .brand-section-container .brand-section .texts-lp .button-home {
   margin-top: 50px;
   height: 50px;
   font-weight: 600;
@@ -101,7 +102,7 @@
 
 .bottom-section-h .divider {
   width: 80%;
-  height: 2px;
+  height: 1.5px;
   margin: 0 auto;
   border-radius: 100%;
   background-color: var(--colorAzulClaro);
