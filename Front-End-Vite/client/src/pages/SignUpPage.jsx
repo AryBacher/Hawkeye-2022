@@ -10,7 +10,7 @@ function SignUpPage() {
     <>
       <div className="wrapper-su">
         <div className="left-side">
-          <h2>Registrate</h2>
+          <h2>Regístrate</h2>
           <BtnGoogle className="google" />
           <div className="divider">
             <p>o</p>
@@ -18,7 +18,7 @@ function SignUpPage() {
           <FormSignUp />
           <div className="link-login">
             <p>
-              ¿No tenes cuenta? <a href="/LogIn">Inicia Sesión</a>
+              ¿Ya tiene una cuenta? <a href="/LogIn">Inicia sesión</a>
             </p>
           </div>
         </div>
@@ -38,7 +38,7 @@ function SignUpPage() {
             <h1 className="hero-phrase">
               El ojo de halcón en la
               <br />
-              palma de tu mano.
+              palma de tu mano
             </h1>
           </div>
         </div>

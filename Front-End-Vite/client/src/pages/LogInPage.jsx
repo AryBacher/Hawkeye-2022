@@ -17,8 +17,8 @@ function LogInPage() {
           </div>
           <FormLogIn />
           <div className="link-login">
-            <p>¿Ya tenes cuenta? </p>
-            <a href="/">Registrate</a>
+            <p>¿No tiene una cuenta? </p>
+            <a href="/">Regístrate</a>
           </div>
         </div>
 
@@ -37,7 +37,7 @@ function LogInPage() {
             <h1 className="hero-phrase">
               El ojo de halcón en la
               <br />
-              palma de tu mano.
+              palma de tu mano
             </h1>
           </div>
         </div>

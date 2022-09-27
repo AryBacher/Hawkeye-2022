@@ -43,7 +43,7 @@ function HomePage() {
                 Mejora como tenista <br />
                 usando <span>Hawkeye</span>
               </h1>
-              <p className="par-lp">Usa nuestro ojo de halcón para tener un feedback de tus entrenamientos y partidos <br /> para mejorar como tenista de manera totalmente gratuita.</p>
+              <p className="par-lp">Utilíce nuestra tecnología de ojo de halcón para analizar sus partidos y<br />entrenamientos de forma totalmente automática y gratuita.</p>
               <Button
                 className="button-home"
                 variant="contained"
