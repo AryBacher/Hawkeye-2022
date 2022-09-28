@@ -3,20 +3,21 @@ nav {
   z-index: 100;
   width: 100vw;
   box-sizing: border-box;
-  height: 72px;
+  height: 80px;
   background-color: rgba(21, 31, 39, 0.8);
   border-bottom: 1px solid #233545;
   backdrop-filter: blur(5px);
-  padding-right: 10%;
+  padding-left: 9vw;
+  padding-right: 9vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
   transition: all 300ms ease-in-out;
 
   .logo-set {
-    min-width: 10%;
+    position: relative;
+    left: 0;
     height: 100%;
-    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,7 +27,7 @@ nav {
     height: 100%;
     display: flex;
     list-style: none;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     .nav{
 

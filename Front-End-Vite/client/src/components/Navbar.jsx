@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import '../stylesheets/NavbarStylesheets/Navbar.css'
+import Logo from './Logo';
 
 function Navbar() {
 
@@ -57,14 +58,15 @@ function Navbar() {
   return (
     <>
       <nav>
-        <div className='logo-set'>Logo</div>
+        <div className='logo-set'>
+          <Logo/>
+        </div>
         <ul className='links-navbar'>
           <li className='nav features-link'><Link to="features" spy={true} smooth={true} offset={-72} duration={500} >Inicio</Link><div></div></li>
           <li className='nav benefits-link'><Link to="benefits" spy={true} smooth={true} offset={-72} duration={500}>Beneficios</Link></li>
           <li className='nav team-link'><Link to="team" spy={true} smooth={true} offset={-72} duration={500}>Equipo</Link></li>
           <li className='nav contact-link'><Link to="contact" spy={true} smooth={true} offset={-72} duration={500}>Contacto</Link></li>
         </ul>
-        <div className='profile-container-button'>Perfil</div>
       </nav>
     </>
   )

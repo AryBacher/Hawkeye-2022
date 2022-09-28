@@ -63,7 +63,23 @@ function HomePage() {
       </div>
       <div className="bottom-section-h">
         <section className="features" id="features">
-          <div className="features-content"></div>
+          <div className="features-content">
+            <div className="features-titles">
+                <p>
+                  ¿Por qué usar Hawkeye?
+                </p>
+                <h3>
+                  Una <span>gran experiencia</span> para <br/>
+                  vos y nuestros usuarios.  
+                </h3>
+              </div>
+              <div className="features-blocks-container">
+                <div className="box-feature" id="feature-1"></div>
+                <div className="box-feature" id="feature-2"></div>
+                <div className="box-feature" id="feature-3"></div>
+                <div className="box-feature" id="feature-4"></div>
+              </div>
+          </div>
         </section>
         <div className="divider"></div>
         <section className="benefits" id="benefits">
@@ -73,6 +89,25 @@ function HomePage() {
         </section>
         <div className="divider"></div>
         <section className="last-cta" id="contact">
+          <div className="last-cta-content">
+            <div className="last-cta-titles">
+              <h3>
+                La próxima cancha que pises, hazlo con <span>Hawkeye</span>
+              </h3>
+              <p>
+                El ojo de halcón al acceso de todos los tenistas, incluyéndote.
+              </p>
+            </div>
+
+            <Button
+                className="button-home"
+                variant="contained"
+                size="large"
+                href="/SignUp"
+              >
+                Empieza ahora
+              </Button>
+          </div>
         </section>
         <section className="second-footer">
         </section>

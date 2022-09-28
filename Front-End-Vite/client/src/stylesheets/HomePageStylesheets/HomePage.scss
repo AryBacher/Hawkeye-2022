@@ -73,7 +73,7 @@
 
 .bottom-section-h {
   width: 100%;
-  height: 240vh;
+  height: 270vh;
   background: linear-gradient(155.51deg, #223342 0%, #161E24 100%);
   .divider{
     width: 80%;
@@ -84,19 +84,101 @@
   }
   .features{
     width: 100%;
-    height: 18%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .features-content{
+      box-sizing: border-box;
+      padding-top: 3%;
+      padding-bottom: 3%;
+      width: 80%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 50px;
+      .features-titles{
+        p{
+          font-size: 16px;
+          font-weight: 300;
+          padding-bottom: 10px;
+        }
+        h3{
+          font-size: 1.5em;
+          font-weight: 600;
+          span{
+            color: var(--colorVerde);
+          }
+        }
+      }
+      .features-blocks-container{
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 100px;
+
+        .box-feature{
+          flex-grow: 1;
+          height: 100%;
+          background-color: var(--colorAzulClaro);
+          border-radius: 20px;
+        }
+ 
+      }
+    }
   }
   .benefits{
     width: 100%;
-    height: 25%;
+    height: 23%;
   }
   .hawkeye-team{
     width: 100%;
-    height: 24%;
+    height: 22%;
   }
   .last-cta{
     width: 100%;
-    height: 17%;
+    height: 19%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .last-cta-content{
+      box-sizing: border-box;
+      padding-top: 3%;
+      padding-bottom: 3%;
+      width: 80%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .last-cta-titles{
+        text-align: center;
+        h3{
+          font-size: 2em;
+          font-weight: 600;
+          span{
+            color: var(--colorVerde);
+          }
+        }
+        p{
+          padding-top: 10px;
+          font-size: 16px;
+          font-weight: 300;
+        }
+      }
+      .button-home {
+        margin-top: 50px;
+        height: 50px;
+        font-weight: 600;
+        text-transform: capitalize;
+        border-radius: 10px;
+        width: 250px;
+      }
+    }
   }
   .second-footer{
     width: 100%;
