@@ -11,23 +11,23 @@ nav {
   padding-right: 9vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   transition: all 300ms ease-in-out;
 
   .logo-set {
-    position: relative;
-    left: 0;
+    position: absolute;
+    left: 9vw;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .links-navbar {
-    flex-grow: 1;
+    width: 70%;
     height: 100%;
     display: flex;
     list-style: none;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     .nav{
 
@@ -35,7 +35,7 @@ nav {
       font-weight: 300;
       cursor: pointer;
       height: 100%;
-      width: 12%;
+      width: 16%;
       display: flex;
       flex-direction: column;
       justify-content: center;
