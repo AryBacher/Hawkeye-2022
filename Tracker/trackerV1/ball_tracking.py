@@ -200,7 +200,8 @@ while True:
 				count2 = 0
 				
 		# Sigue si el contorno tiene cierto tamaño
-		if radius > 0:
+		if radius > 0 and primeraVez or c is not None:
+		#if radius > 0:
 			# Dibuja el círculo en la pelota
 			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
 			cv2.circle(frame, center, 5, (0, 0, 255), -1)

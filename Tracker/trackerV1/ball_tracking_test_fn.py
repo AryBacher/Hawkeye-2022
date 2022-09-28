@@ -1,4 +1,5 @@
 from collections import deque
+from itertools import count
 from cv2 import minEnclosingCircle
 from imutils.video import VideoStream
 import numpy as np
@@ -55,20 +56,26 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
-def todo(frame, esResult):
-    global count
-    global primeraVez
-    global preCentro
-    global count2
+def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts):
+    #global count
+    #global primeraVez
+    #global preCentro
+    #global count2
     global radius
     global x
     global y
+    global count_norm
+    #global count_norm, count_pers
+    #global preCentro
+    #global center
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
     
     estaCercaX = anchoOG * 15/100
     estaCercaY = altoOG * 15/100
+
+    frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
     
     # Cámara lenta para mayor análisis
     #cv2.waitKey(100)
@@ -79,11 +86,11 @@ def todo(frame, esResult):
     
     # Filtra los tonos verdes de la imagen
     mask = cv2.inRange(hsv, greenLower, greenUpper)
-    cv2.imshow("mask2", mask)
+    #cv2.imshow("mask2", mask)
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
     #mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
-    cv2.imshow("mask3", mask)
+    #cv2.imshow("mask3", mask)
     
     # Toma todos los contornos de la imagen
     cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -122,7 +129,7 @@ def todo(frame, esResult):
                     count2 = 0				
             
             else:
-                print("COUNT", count)
+                #print("COUNT", count)
                 if count >= 0.3:
                     primeraVez = True
                     preCentro = None
@@ -136,12 +143,14 @@ def todo(frame, esResult):
             cv2.circle(frame, center, 5, (0, 0, 255), -1)
     
     else:
-        print("COUNT", count)
+        #print("COUNT", count)
         if count >= 0.3:
             primeraVez = True
             preCentro = None
         count += 1/fps
         count2 = 0
+
+    if esResult == False: count_norm2.appendleft(count)
     
     # Actualiza los puntos para trazar la trayectoria
     pts.appendleft(center)
@@ -176,7 +185,12 @@ def todo(frame, esResult):
     #frame = imutils.resize(frame, height=768)
     
     # Muestra el frame
-    cv2.imshow("V1", frame)
+    if esResult == False:
+        cv2.imshow("Normal", frame)
+    else: 
+        cv2.imshow("Perspective", frame)
+
+    return count
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -199,9 +213,21 @@ bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
 
-pts = deque(maxlen=args["buffer"])
-preCentro = None
-primeraVez = True
+pts_norm = deque(maxlen=args["buffer"])
+pts_pers = deque(maxlen=args["buffer"])
+preCentro_norm = None
+preCentro_pers = None
+primeraVez_norm = True
+primeraVez_pers = True
+
+cnts_norm = []
+cnts_pers = []
+
+center_norm = None
+center_pers = None
+
+bajando_norm = False
+bajando_pers = False
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
 
@@ -215,11 +241,17 @@ time.sleep(2.0)
 # Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
 # Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
 
-count = 0
-count2 = 0
-pique = deque(maxlen=60)
-pique2 = deque(maxlen=60)
-pique3 = deque(maxlen=3)
+count_norm = 0
+count_norm2 = deque(maxlen=1)
+count_pers = 0
+count2_norm = 0
+count2_pers = 0
+pique_norm = deque(maxlen=60)
+pique_pers = deque(maxlen=60)
+pique2_norm = deque(maxlen=60)
+pique2_pers = deque(maxlen=60)
+pique3_norm = deque(maxlen=3)
+pique3_pers = deque(maxlen=3)
 
 while True:
     frame = vs.read()
@@ -231,14 +263,15 @@ while True:
     pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
                          [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
     pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
-            
+
     matrix = cv2.getPerspectiveTransform(pts1, pts2)
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
     esResult = False
-    todo(frame, esResult)
+    print("Count Norm", count_norm2)
+    todo(frame, esResult, cnts_norm, center_norm, primeraVez_norm, preCentro_norm, count_norm, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm)
     esResult = True
-    todo(result)
+    todo(result, esResult, cnts_pers, center_pers, primeraVez_pers, preCentro_pers, count_pers, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers)
 
     # Terminar la ejecución si se presiona la "q"
     key = cv2.waitKey(1) & 0xFF
