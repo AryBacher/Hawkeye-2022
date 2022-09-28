@@ -86,6 +86,38 @@ function HomePage() {
         </section>
         <div className="divider"></div>
         <section className="hawkeye-team" id="team">
+          <div className="hawkeye-team-content">
+              <div className="hawkeye-team-titles">
+                <h3>
+                  Conoce al equipo detrás de Hawkeye
+                </h3>
+                <p>
+                  Quienes trabajaron día y noche para hacer este proyecto posible.
+                </p>
+              </div>
+              <div className="team-members">
+                <div className="Arotu">
+                  <div className= "team-box" id="Arotu-background"></div>
+                  <h4>Ariel Alzogaray</h4>
+                  <p>UX/UI/Front-End</p>
+                </div>
+                <div className="Alan">
+                  <div className= "team-box" id="Alan-background"></div>
+                  <h4>Alan Yeger</h4>
+                  <p>Full-Stack</p>
+                </div>
+                <div className="Guido">
+                <div className= "team-box" id="Guido-background"></div>
+                  <h4>Guido Zylbersztein</h4>
+                  <p>IA/Back-End</p>
+                </div>
+                <div className="Ary">
+                  <div className= "team-box" id="Ary-background"></div>
+                  <h4>Ary Bacher</h4>
+                  <p>IA/Back-End</p>
+                </div>
+              </div>
+          </div>
         </section>
         <div className="divider"></div>
         <section className="last-cta" id="contact">
