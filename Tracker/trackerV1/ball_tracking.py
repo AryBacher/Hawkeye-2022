@@ -10,7 +10,7 @@ import time
 #center = None
 resizer = 1
 
-def tp_fix(contornos, pre_centro):
+def tp_fix(contornos, pre_centro, count):
 	cnts_pts = []
 	for contorno in contornos:
 		((x, y), radius) = cv2.minEnclosingCircle(contorno)
@@ -20,7 +20,6 @@ def tp_fix(contornos, pre_centro):
 	if cnts_pts != []:
 		return cualEstaMasCerca(pre_centro, cnts_pts)
 	else: print("No se encontró la pelota")
-
 
 def cualEstaMasCerca(punto, lista):
 	suma = []
@@ -39,6 +38,14 @@ def cualEstaMasCerca(punto, lista):
 		suma.append(x + y)
 		suma2.append(i)
 	return suma2[suma.index(min(suma))]
+
+def pica (centro1, centro2, centro3):
+	gerardPique = True
+	a = centro1 - centro2
+	b = centro2 - centro3
+	if a <= 0 and b >= 0 or a >= 0 and b <= 0:
+		gerardPique = False
+	return gerardPique
 
 # Argumentos del programa
 ap = argparse.ArgumentParser()
@@ -75,18 +82,24 @@ print(fps)
 
 time.sleep(2.0)
 
-topLeftX = 311
-topLeftY = 106
-topRightX = 456
-topRightY = 105
-bottomLeftX = 89
-bottomLeftY = 331
-bottomRightX = 628
-bottomRightY = 326
+topLeftX = 749
+topLeftY = 253
+topRightX = 1095
+topRightY = 252
+bottomLeftX = 206
+bottomLeftY = 797
+bottomRightX = 1518
+bottomRightY = 785
+
+# Puntos de esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
+# Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
+# Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
 
 count = 0
+count2 = 0
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
+pique3 = deque(maxlen=3)
 
 while True:
 	# Agarra el frame actual
@@ -160,16 +173,23 @@ while True:
 			primeraVez = False
 			preCentro = center
 			count = 0
+			count2 = 0
+			pique3.appendleft(center[1])
 
 		else:			
-			c = tp_fix(cnts, preCentro)
+			c = tp_fix(cnts, preCentro, count)
 
 			if c is not None:
 				((x, y), radius) = cv2.minEnclosingCircle(c)
 				M = cv2.moments(c)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 				preCentro = center
+				count2 += count
 				count = 0
+				pique3.appendleft(center[1])
+				if len(pique3) == 3 and count2 <= 0.1:
+					pica(pique3[2], pique3[1], pique3[0])
+					count2 = 0				
 			
 			else:
 				print("COUNT", count)
@@ -177,6 +197,7 @@ while True:
 					primeraVez = True
 					preCentro = None
 				count += 1/fps
+				count2 = 0
 				
 		# Sigue si el contorno tiene cierto tamaño
 		if radius > 0:
@@ -190,6 +211,7 @@ while True:
 			primeraVez = True
 			preCentro = None
 		count += 1/fps
+		count2 = 0
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -225,12 +247,12 @@ while True:
 
 	# Muestra el frame
 	cv2.imshow("V1", frame)
+	cv2.imshow("Result", result)
 	
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF
 	if key == ord("q"):
 		break
-		
 
 if not args.get("video", False):
 	vs.stop()
