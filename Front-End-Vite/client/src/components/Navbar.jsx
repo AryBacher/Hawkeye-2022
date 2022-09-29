@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import '../stylesheets/NavbarStylesheets/Navbar.css'
-import Logo from './Logo';
+import Logo from './LogoNavbar';
 
 function Navbar() {
 
