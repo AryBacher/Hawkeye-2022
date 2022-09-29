@@ -52,7 +52,10 @@ CREATE TABLE `usuarios` (
 CREATE TABLE `videos` (
   `idUsuario` int(11) NOT NULL,
   `idVideo` int(11) NOT NULL,
-  `rutaVideo` varchar(100) NOT NULL
+  `rutaVideo` varchar(100) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `rival` varchar(40),
+  `cancha` varchar(40),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

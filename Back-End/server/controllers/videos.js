@@ -22,3 +22,11 @@ app.post('/cool-profile', cpUpload, function (req, res, next) {
   //
   // req.body will contain the text fields, if there were any
 })
+
+//Filtrar videos
+export const filterVideo = (req, res) => {
+  const filtro = VARIABLEGLOBALFILTRO;
+  const busqueda = req.body;
+  const titulo = await connection.query("SELECT idVideo from videos WHERE "%filtro%" LIKE '"%busqueda%"'");
+  res.json(titulo);
+}
