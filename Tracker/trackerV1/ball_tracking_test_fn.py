@@ -1,12 +1,18 @@
 from collections import deque
-from itertools import count
 from cv2 import minEnclosingCircle
-from imutils.video import VideoStream
 import numpy as np
 import argparse
 import cv2
 import imutils
 import time
+
+# Argumentos del programa
+ap = argparse.ArgumentParser()
+ap.add_argument("-v", "--video",
+	help="path to the (optional) video file")
+ap.add_argument("-b", "--buffer", type=int, default=64,
+	help="max buffer size")
+args = vars(ap.parse_args())
 
 #center = None
 resizer = 1
@@ -48,26 +54,10 @@ def pica (centro1, centro2, centro3):
         gerardPique = False
     return gerardPique
 
-# Argumentos del programa
-ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video",
-	help="path to the (optional) video file")
-ap.add_argument("-b", "--buffer", type=int, default=64,
-	help="max buffer size")
-args = vars(ap.parse_args())
-
-def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts):
-    #global count
-    #global primeraVez
-    #global preCentro
-    #global count2
+def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts, count_list):
     global radius
     global x
     global y
-    global count_norm
-    #global count_norm, count_pers
-    #global preCentro
-    #global center
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -108,7 +98,10 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
             primeraVez = False
-            preCentro = center
+            if esResult == False:
+                preCentro_glob[1] = center
+            else:
+                preCentro_glob[0] = center
             count = 0
             count2 = 0
             pique3.appendleft(center[1])
@@ -129,8 +122,7 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
                     count2 = 0				
             
             else:
-                #print("COUNT", count)
-                if count >= 0.3:
+                if count_list >= 0.3:
                     primeraVez = True
                     preCentro = None
                 count += 1/fps
@@ -143,14 +135,24 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
             cv2.circle(frame, center, 5, (0, 0, 255), -1)
     
     else:
-        #print("COUNT", count)
-        if count >= 0.3:
+        if count_list >= 0.3:
             primeraVez = True
             preCentro = None
         count += 1/fps
         count2 = 0
+    
 
-    if esResult == False: count_norm2.appendleft(count)
+    # La variable count es asignada
+    if esResult == False: 
+        if count != 0:
+            count_glob2[0] += count
+        else:
+            count_glob2[0] = count
+    else:
+        if count != 0:
+            count_glob2[1] += count
+        else:
+            count_glob2[1] = count
     
     # Actualiza los puntos para trazar la trayectoria
     pts.appendleft(center)
@@ -190,8 +192,6 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
     else: 
         cv2.imshow("Perspective", frame)
 
-    return count
-
 # Toma la cámara si no recibe video
 if not args.get("video", False):
     vs = cv2.VideoCapture(0)
@@ -215,13 +215,16 @@ bottomRightY = 785
 
 pts_norm = deque(maxlen=args["buffer"])
 pts_pers = deque(maxlen=args["buffer"])
-preCentro_norm = None
-preCentro_pers = None
+
+preCentro_glob = deque(maxlen=2)
+preCentro_glob.append(None)
+preCentro_glob.append(None)
+
 primeraVez_norm = True
 primeraVez_pers = True
 
-cnts_norm = []
-cnts_pers = []
+cnts_norm = None
+cnts_pers = None
 
 center_norm = None
 center_pers = None
@@ -241,15 +244,24 @@ time.sleep(2.0)
 # Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
 # Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
 
-count_norm = 0
-count_norm2 = deque(maxlen=1)
-count_pers = 0
+count_glob = 0
+count_glob2 = deque(maxlen=2)
+count_glob2.append(count_glob)
+count_glob2.append(count_glob)
+
+#count_pers = 0
+#count_pers2 = deque(maxlen=1)
+#count_pers2.appendleft(count_norm)
+
 count2_norm = 0
 count2_pers = 0
+
 pique_norm = deque(maxlen=60)
 pique_pers = deque(maxlen=60)
+
 pique2_norm = deque(maxlen=60)
 pique2_pers = deque(maxlen=60)
+
 pique3_norm = deque(maxlen=3)
 pique3_pers = deque(maxlen=3)
 
@@ -268,10 +280,9 @@ while True:
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
     esResult = False
-    print("Count Norm", count_norm2)
-    todo(frame, esResult, cnts_norm, center_norm, primeraVez_norm, preCentro_norm, count_norm, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm)
+    todo(frame, esResult, cnts_norm, center_norm, primeraVez_norm, preCentro_glob[0], count_glob, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm, count_glob2[0])
     esResult = True
-    todo(result, esResult, cnts_pers, center_pers, primeraVez_pers, preCentro_pers, count_pers, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers)
+    todo(result, esResult, cnts_pers, center_pers, primeraVez_pers, preCentro_glob[1], count_glob, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers, count_glob2[1])
 
     # Terminar la ejecución si se presiona la "q"
     key = cv2.waitKey(1) & 0xFF
