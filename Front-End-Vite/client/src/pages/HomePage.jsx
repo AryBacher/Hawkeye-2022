@@ -43,7 +43,7 @@ function HomePage() {
                 Mejora como tenista <br />
                 usando <span>Hawkeye</span>
               </h1>
-              <p className="par-lp">Utilíce nuestra tecnología de ojo de halcón para analizar sus partidos y<br />entrenamientos de forma totalmente automática y gratuita.</p>
+              <p className="par-lp">Utilíce nuestra tecnología de ojo de halcón para analizar sus partidos<br />y entrenamientos de forma automática y gratuita.</p>
               <Button
                 className="button-home"
                 variant="contained"
@@ -101,6 +101,11 @@ function HomePage() {
                   <h4>Ariel Alzogaray</h4>
                   <p>UX/UI/Front-End</p>
                 </div>
+                <div className="Ary">
+                  <div className= "team-box" id="Ary-background"></div>
+                  <h4>Ary Bacher</h4>
+                  <p>Computer Vision/Back-End</p>
+                </div>
                 <div className="Alan">
                   <div className= "team-box" id="Alan-background"></div>
                   <h4>Alan Yeger</h4>
@@ -109,12 +114,7 @@ function HomePage() {
                 <div className="Guido">
                 <div className= "team-box" id="Guido-background"></div>
                   <h4>Guido Zylbersztein</h4>
-                  <p>IA/Back-End</p>
-                </div>
-                <div className="Ary">
-                  <div className= "team-box" id="Ary-background"></div>
-                  <h4>Ary Bacher</h4>
-                  <p>IA/Back-End</p>
+                  <p>Computer Vision/Back-End</p>
                 </div>
               </div>
           </div>
@@ -124,7 +124,7 @@ function HomePage() {
           <div className="last-cta-content">
             <div className="last-cta-titles">
               <h3>
-                La próxima cancha que pises, hazlo con <span>Hawkeye</span>
+                La próxima cancha que pises, que sea con <span>Hawkeye</span>
               </h3>
               <p>
                 El ojo de halcón al acceso de todos los tenistas, incluyéndote.
