@@ -54,7 +54,7 @@ def pica (centro1, centro2, centro3):
         gerardPique = False
     return gerardPique
 
-def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts, count_list):
+def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts, count_list, numeroGlob):
     global radius
     global x
     global y
@@ -97,23 +97,24 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
             ((x, y), radius) = cv2.minEnclosingCircle(c)
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-            primeraVez = False
-            if esResult == False:
-                preCentro_glob[1] = center
-            else:
-                preCentro_glob[0] = center
+            # if esResult == False:
+            #     primeraVez_glob[0] = False
+            # else:
+            #     primeraVez_glob[1] = False
+            primeraVez_glob[numeroGlob] = False
+            preCentro_glob[numeroGlob] = center
             count = 0
             count2 = 0
             pique3.appendleft(center[1])
         
-        else:			
-            c = tp_fix(cnts, preCentro, count)
+        else:
+            c = tp_fix(cnts, preCentro_glob[numeroGlob], count)		
             
             if c is not None:
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 M = cv2.moments(c)
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-                preCentro = center
+                preCentro_glob[numeroGlob] = center
                 count2 += count
                 count = 0
                 pique3.appendleft(center[1])
@@ -123,8 +124,8 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
             
             else:
                 if count_list >= 0.3:
-                    primeraVez = True
-                    preCentro = None
+                    primeraVez_glob[numeroGlob] = True
+                    preCentro_glob[numeroGlob] = None
                 count += 1/fps
                 count2 = 0
             
@@ -136,8 +137,8 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
     
     else:
         if count_list >= 0.3:
-            primeraVez = True
-            preCentro = None
+            primeraVez_glob[numeroGlob] = True
+            preCentro_glob[numeroGlob] = None
         count += 1/fps
         count2 = 0
     
@@ -181,7 +182,8 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
     if (len(pique2) >= 2):
         if pique2[0] == False and pique2[1] == True:
             print("Gerard")
-            frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+            preCentro_glob[numeroGlob] = None
+            frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     frame = imutils.resize(frame, anchoOG, altoOG)
     #frame = imutils.resize(frame, height=768)
@@ -220,8 +222,9 @@ preCentro_glob = deque(maxlen=2)
 preCentro_glob.append(None)
 preCentro_glob.append(None)
 
-primeraVez_norm = True
-primeraVez_pers = True
+primeraVez_glob = deque(maxlen=2)
+primeraVez_glob.append(True)
+primeraVez_glob.append(True)
 
 cnts_norm = None
 cnts_pers = None
@@ -265,6 +268,8 @@ pique2_pers = deque(maxlen=60)
 pique3_norm = deque(maxlen=3)
 pique3_pers = deque(maxlen=3)
 
+numeroGlob = 0
+
 while True:
     frame = vs.read()
     frame = frame[1] if args.get("video", False) else frame
@@ -280,9 +285,11 @@ while True:
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
     esResult = False
-    todo(frame, esResult, cnts_norm, center_norm, primeraVez_norm, preCentro_glob[0], count_glob, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm, count_glob2[0])
+    numeroGlob = 0
+    todo(frame, esResult, cnts_norm, center_norm, primeraVez_glob[0], preCentro_glob[0], count_glob, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm, count_glob2[0], numeroGlob)
     esResult = True
-    todo(result, esResult, cnts_pers, center_pers, primeraVez_pers, preCentro_glob[1], count_glob, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers, count_glob2[1])
+    numeroGlob = 1
+    todo(result, esResult, cnts_pers, center_pers, primeraVez_glob[1], preCentro_glob[1], count_glob, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers, count_glob2[1], numeroGlob)
 
     # Terminar la ejecución si se presiona la "q"
     key = cv2.waitKey(1) & 0xFF
