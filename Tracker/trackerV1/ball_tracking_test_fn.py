@@ -1,4 +1,5 @@
 from collections import deque
+from tkinter import N
 from cv2 import minEnclosingCircle
 import numpy as np
 import argparse
@@ -54,10 +55,11 @@ def pica (centro1, centro2, centro3):
         gerardPique = False
     return gerardPique
 
-def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pique3, bajando, pique, pique2, pts, count_list, numeroGlob):
+def todo(frame, count2, numeroGlob):
     global radius
     global x
     global y
+    global count2_glob
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -87,112 +89,155 @@ def todo(frame, esResult, cnts, center, primeraVez, preCentro, count, count2, pi
         cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
     
-    center = None
+    center_glob[numeroGlob] = None
     
     if len(cnts) > 0:
         # Busca el contorno más grande y encuentra su posición (x, y)
         
-        if primeraVez:
+        if primeraVez_glob[numeroGlob]:
             c = max(cnts, key=cv2.contourArea)
             ((x, y), radius) = cv2.minEnclosingCircle(c)
             M = cv2.moments(c)
-            center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+            center_glob[numeroGlob] = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
             # if esResult == False:
             #     primeraVez_glob[0] = False
             # else:
             #     primeraVez_glob[1] = False
             primeraVez_glob[numeroGlob] = False
-            preCentro_glob[numeroGlob] = center
-            count = 0
-            count2 = 0
-            pique3.appendleft(center[1])
+            preCentro_glob[numeroGlob] = center_glob[numeroGlob]
+            count_glob[numeroGlob] = 0
+            count2_glob = 0
+            if numeroGlob == 0:
+                pique3_norm.appendleft(center_glob[numeroGlob][1])
+            else:
+                pique3_pers.appendleft(center_glob[numeroGlob][1])
         
         else:
-            c = tp_fix(cnts, preCentro_glob[numeroGlob], count)		
+            print("PreCentro", preCentro_glob[numeroGlob])
+            c = tp_fix(cnts, preCentro_glob[numeroGlob], count_glob[numeroGlob])
             
             if c is not None:
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 M = cv2.moments(c)
-                center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-                preCentro_glob[numeroGlob] = center
-                count2 += count
-                count = 0
-                pique3.appendleft(center[1])
-                if len(pique3) == 3 and count2 <= 0.1:
-                    pica(pique3[2], pique3[1], pique3[0])
-                    count2 = 0				
+                center_glob[numeroGlob] = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+                preCentro_glob[numeroGlob] = center_glob[numeroGlob]
+                count2_glob += count_glob[numeroGlob]
+                count_glob[numeroGlob] = 0
+                if numeroGlob == 0:
+                    pique3_norm.appendleft(center_glob[numeroGlob][1])
+                    if len(pique3_norm) == 3 and count2_glob <= 0.1:
+                        pica(pique3_norm[2], pique3_norm[1], pique3_norm[0])
+                        count2_glob = 0
+                else:
+                    pique3_pers.appendleft(center_glob[numeroGlob][1])
+                    if len(pique3_pers) == 3 and count2_glob <= 0.1:
+                        pica(pique3_pers[2], pique3_pers[1], pique3_pers[0])
+                        count2_glob = 0
             
             else:
-                if count_list >= 0.3:
+                if count_glob[numeroGlob] >= 0.3:
                     primeraVez_glob[numeroGlob] = True
                     preCentro_glob[numeroGlob] = None
-                count += 1/fps
-                count2 = 0
+                count_glob[numeroGlob] += 1/fps
+                count2_glob = 0
             
         # Sigue si el contorno tiene cierto tamaño
         if radius > 0:
             # Dibuja el círculo en la pelota
             cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-            cv2.circle(frame, center, 5, (0, 0, 255), -1)
+            cv2.circle(frame, center_glob[numeroGlob], 5, (0, 0, 255), -1)
     
     else:
-        if count_list >= 0.3:
+        if count_glob[numeroGlob] >= 0.3:
             primeraVez_glob[numeroGlob] = True
             preCentro_glob[numeroGlob] = None
-        count += 1/fps
-        count2 = 0
+        count_glob[numeroGlob] += 1/fps
+        count2_glob = 0
     
 
     # La variable count es asignada
-    if esResult == False: 
-        if count != 0:
-            count_glob2[0] += count
-        else:
-            count_glob2[0] = count
-    else:
-        if count != 0:
-            count_glob2[1] += count
-        else:
-            count_glob2[1] = count
+    # if esResult == False: 
+    #     if count != 0:
+    #         count_glob2[0] += count
+    #     else:
+    #         count_glob2[0] = count
+    # else:
+    #     if count != 0:
+    #         count_glob2[1] += count
+    #     else:
+    #         count_glob2[1] = count
     
     # Actualiza los puntos para trazar la trayectoria
-    pts.appendleft(center)
+    if numeroGlob == 0:
+        pts_norm.appendleft(center_glob[numeroGlob])
+    else:
+        pts_pers.appendleft(center_glob[numeroGlob])
     
-    for i in range(1, len(pts)):
-        # Ignora los puntos de trayectoria inexistentes
-        if pts[i - 1] is None or pts[i] is None:
-            continue
-        
-        # Traza la trayectoria
-        thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
-        cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
+    if numeroGlob == 0:
+        for i in range(1, len(pts_norm)):
+            # Ignora los puntos de trayectoria inexistentes
+            if pts_norm[i - 1] is None or pts_norm[i] is None:
+                continue
+            
+            # Traza la trayectoria
+            thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
+            cv2.line(frame, pts_norm[i - 1], pts_norm[i], (0, 0, 255), thickness)
+    
+    else:
+        for i in range(1, len(pts_pers)):
+            # Ignora los puntos de trayectoria inexistentes
+            if pts_pers[i - 1] is None or pts_pers[i] is None:
+                continue
+            
+            # Traza la trayectoria
+            thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
+            cv2.line(frame, pts_pers[i - 1], pts_pers[i], (0, 0, 255), thickness)
     
     bajando = False
     
-    if (center is not None):
-        print(center[1])
-        pique.appendleft(center[1])
+    if (center_glob[numeroGlob] is not None):
+        print(center_glob[numeroGlob][1])
+        if numeroGlob == 0:
+            pique_norm.appendleft(center_glob[numeroGlob][1])
+            
+            if (len(pique_norm) >= 2):
+                if (pique_norm[0] - pique_norm[1] > 0):
+                    bajando = True
+            pique2_norm.appendleft(bajando)
+            print(bajando)
         
-        if (len(pique) >= 2):
-            if (pique[0] - pique[1] > 0):
-                bajando = True
-        pique2.appendleft(bajando)
-        print(bajando)
+        else:
+            pique_pers.appendleft(center_glob[numeroGlob][1])
+            
+            if (len(pique_pers) >= 2):
+                if (pique_pers[0] - pique_pers[1] > 0):
+                    bajando = True
+            pique2_pers.appendleft(bajando)
+            print(bajando)
     
-    if (len(pique2) >= 2):
-        if pique2[0] == False and pique2[1] == True:
-            print("Gerard")
-            preCentro_glob[numeroGlob] = None
-            frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+    if numeroGlob == 0:    
+        if (len(pique2_norm) >= 2):
+            if pique2_norm[0] == False and pique2_norm[1] == True:
+                print("Gerard")
+                preCentro_glob[numeroGlob] = None
+                frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+    
+    else:
+        if (len(pique2_pers) >= 2):
+            if pique2_pers[0] == False and pique2_pers[1] == True:
+                print("Gerard")
+                preCentro_glob[numeroGlob] = None
+                frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     frame = imutils.resize(frame, anchoOG, altoOG)
     #frame = imutils.resize(frame, height=768)
     
     # Muestra el frame
-    if esResult == False:
+    if numeroGlob == 0:
         cv2.imshow("Normal", frame)
     else: 
         cv2.imshow("Perspective", frame)
+
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -226,14 +271,9 @@ primeraVez_glob = deque(maxlen=2)
 primeraVez_glob.append(True)
 primeraVez_glob.append(True)
 
-cnts_norm = None
-cnts_pers = None
-
-center_norm = None
-center_pers = None
-
-bajando_norm = False
-bajando_pers = False
+center_glob = deque(maxlen=2)
+center_glob.append(None)
+center_glob.append(None)
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
 
@@ -247,17 +287,13 @@ time.sleep(2.0)
 # Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
 # Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
 
-count_glob = 0
-count_glob2 = deque(maxlen=2)
-count_glob2.append(count_glob)
-count_glob2.append(count_glob)
+count_glob = deque(maxlen=2)
+count_glob.append(0)
+count_glob.append(0)
 
-#count_pers = 0
-#count_pers2 = deque(maxlen=1)
-#count_pers2.appendleft(count_norm)
-
-count2_norm = 0
-count2_pers = 0
+count2_glob = deque(maxlen=2)
+count2_glob.append(0)
+count2_glob.append(0)
 
 pique_norm = deque(maxlen=60)
 pique_pers = deque(maxlen=60)
@@ -284,17 +320,16 @@ while True:
     matrix = cv2.getPerspectiveTransform(pts1, pts2)
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
-    esResult = False
     numeroGlob = 0
-    todo(frame, esResult, cnts_norm, center_norm, primeraVez_glob[0], preCentro_glob[0], count_glob, count2_norm, pique3_norm, bajando_norm, pique3_norm, pique2_norm, pts_norm, count_glob2[0], numeroGlob)
-    esResult = True
+    todo(frame, count2_glob, numeroGlob)
     numeroGlob = 1
-    todo(result, esResult, cnts_pers, center_pers, primeraVez_glob[1], preCentro_glob[1], count_glob, count2_pers, pique3_pers, bajando_pers, pique3_pers, pique2_pers, pts_pers, count_glob2[1], numeroGlob)
+    todo(result, count2_glob, numeroGlob)
 
     # Terminar la ejecución si se presiona la "q"
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
+
 
 if not args.get("video", False):
     vs.stop()
