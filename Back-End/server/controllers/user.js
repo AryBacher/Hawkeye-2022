@@ -16,6 +16,7 @@ export const signUp = async (req, res) =>{
     return("User created");
 }
 
+
 export const logIn = async (req, res) =>{
     const {nombre, contraseña} = req.body.user;
     const user = await connection.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
