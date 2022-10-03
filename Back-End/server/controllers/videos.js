@@ -2,12 +2,12 @@ import multer from 'multer';
 
 export const upload = multer({ dest: '../videos' })
 
-app.post('/profile', upload.single('avatar'), function (req, res, next) {
+router.post('/profile', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
 })
 
-app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+router.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
   // req.files is array of `photos` files
   // req.body will contain the text fields, if there were any
 })
@@ -24,7 +24,7 @@ app.post('/cool-profile', cpUpload, function (req, res, next) {
 })
 
 //Filtrar videos
-export const filterVideo = (req, res) => {
+export const filterVideo = async(req, res) => {
   const filtro = VARIABLEGLOBALFILTRO;
   const busqueda = req.body;
   const titulo = await connection.query("SELECT idVideo from videos WHERE "%filtro%" LIKE '"%busqueda%"'");
