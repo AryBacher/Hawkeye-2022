@@ -18,12 +18,12 @@ function FormSignUp() {
       method: "POST",
       body: JSON.stringify(finalValues),
       headers: { "Content-Type" : "application/json" }
-  
+      
     })
-  
+    
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))
-    .then(response => console.log("Exito groso",response))
+    .then(response => console.log("Exito groso", response))
   }
 
   return (

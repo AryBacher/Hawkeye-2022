@@ -1,5 +1,6 @@
-import express from "express";
 import 'dotenv/config';
+import express from "express";
+import cors from 'cors';
 import { connection } from './database.js';
 import bcrypt from "bcryptjs";
 import session from "express-session";
@@ -10,6 +11,7 @@ import jwt from 'jsonwebtoken';
 const app = express();
 
 app.use(express.json())
+app.use(cors())
 
 app.set ('port', 4000);
 

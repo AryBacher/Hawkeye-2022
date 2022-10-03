@@ -4,13 +4,14 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 export const signUp = async (req, res) =>{
-    const {nombre, email, contraseña} = req.body.user;
-    const user = await connection.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
+    console.log(req.body);
+    const {name, email, password} = req.body;
+    const user = await connection.query("SELECT * from usuarios WHERE nombre = ?", {name})
     if (user != null){
         res.sendStatus(406);
         return("El usuario ya existe");
     }
-    const passwordHash = await bcryptjs.hash(contraseña, 8);
+    const passwordHash = await bcryptjs.hash(password, 8);
     connection.query = ("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?,?,?)", {nombre, email, passwordHash});
     res.sendStatus(200);
     return("User created");

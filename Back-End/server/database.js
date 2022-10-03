@@ -2,14 +2,14 @@ import mysql from 'mysql2';
 
 export const connection = mysql.createConnection({
     host: process.env.DB_HOST,
-    user: process.env.DB_USER,
+    user: 'root',
+    password: 'rootroot',
     database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD
 });
-
+ 
 connection.connect((err) => {
     if(err){
-        console.log("El error de conexión es: " + error);
+        console.log("El error de conexión es: " + err);
         return;
     }
     console.log("Tamos conectados a la base de datos");
