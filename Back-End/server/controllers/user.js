@@ -1,57 +1,57 @@
-import bcryptjs from "bcryptjs";
-import { connection } from "../database.js";
-import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import bcryptjs from "bcryptjs";
+import { pool } from "../database.js";
+import jwt from 'jsonwebtoken';
+
 
 export const signUp = async (req, res) =>{
-    console.log(req.body);
     const {name, email, password} = req.body;
-    const user = await connection.query("SELECT * from usuarios WHERE nombre = ?", {name})
-    if (user != null){
-        res.sendStatus(406);
-        return("El usuario ya existe");
+    const [user] = await pool.query("SELECT email from usuarios WHERE email = ?", email)
+    if (user.length !== 0){
+        console.log("El usuario ya existe")
+        return res.sendStatus(406).json({message: "El usuario ya existe"});
     }
     const passwordHash = await bcryptjs.hash(password, 8);
-    connection.query = ("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?,?,?)", {nombre, email, passwordHash});
-    res.sendStatus(200);
-    return("User created");
+    await pool.query("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)", [name, email, passwordHash]);
+    console.log("Usuario creado")
+    return res.sendStatus(200).json({message: "Usuario creado"});
 }
 
 
 export const logIn = async (req, res) =>{
-    const {nombre, contraseña} = req.body.user;
-    const user = await connection.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
-    if (user == null){
-        return("No existe usuario con ese nombre");
+    const {email, contraseña} = req.body;
+    const [user] = await pool.query("SELECT * from usuarios WHERE email = ?", email)
+    if (user.length == 0){
+        return res.sendStatus(406).json({message: "Usuario inválido"});
     }
     const passwordHash = await bcryptjs.hash(contraseña, 8);
     if (passwordHash === user.contraseña){
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
         res.json({ accessToken : accessToken, refreshToken : refreshToken});
-        return ("Successful log in");
+        return res.sendStatus(200).json({message: "Usuario logueado"});
     }
-    return("Contraseña incorrecta");
+    return res.sendStatus(406).json({message: "Contraseña incorrecta"});
 }
 
 export const updateUser = async (req, res) =>{
     const {nombre, email, contraseña} = req.body.user;
-    const emailUser = await connection.query("SELECT * from usuarios WHERE email = ?", {email})
+    const emailUser = await pool.query("SELECT * from usuarios WHERE email = ?", {email})
     if (emailUser === null){
         return res.sendStatus(406)("No existe usuario con ese email");
     }
     const passwordHash = await bcryptjs.hash(contraseña, 8);
-    connection.query = ("UPDATE usuarios SET (nombre, contraseña) = (?,?)", {nombre, passwordHash}, "WHERE email = (?)", {email});
+    pool.query = ("UPDATE usuarios SET (nombre, contraseña) = (?,?)", {nombre, passwordHash}, "WHERE email = (?)", {email});
     return res.sendStatus(200)("User updated");
 }
 
 export const deleteUser = async (req, res) =>{
     const {nombre} = req.body.user;
-    const nombreUser = await connection.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
+    const nombreUser = await pool.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
     if (nombreUser === null){
         return res.sendStatus(406)("No existe usuario con ese nombre");
     }
-    connection.query = ("DELETE FROM usuarios WHERE nombre = (?)", {nombre});
+    pool.query = ("DELETE FROM usuarios WHERE nombre = (?)", {nombre});
     return res.sendStatus(200)("User deleted");
 }
 

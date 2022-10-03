@@ -1,4 +1,3 @@
-//import { connection } from "../database.js";
 import { Router } from 'express'
 import { signUp, logIn, authenticateUser, refreshToken, logOut } from "../controllers/user.js";
 import {} from "../controllers/videos.js";
