@@ -14,6 +14,4 @@ router.post('/RefreshToken', refreshToken)
 
 router.delete('/LogOut',logOut)
 
-router.post('/UploadVideo', )
-
 export default router
