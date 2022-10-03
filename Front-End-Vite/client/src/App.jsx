@@ -7,7 +7,9 @@ import RecoverPasswordPage from './pages/PasswordLostPage.jsx'
 import AnalysisPage from './pages/AnalysisPage.jsx'
 import RecordPage from './pages/RecordPage'
 import HelpPage from './pages/HelpPage'
-import AccountPage from './pages/AccountPage.jsx'
+import ConfirmPasswordPage from './pages/ConfirmPasswordPage'
+import StartLivePage from './pages/StartLivePage'
+import UploadVideoPage from './pages/UploadVideoPage'
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material"
 
@@ -32,6 +34,25 @@ function App() {
     },
   });
 
+  //Por ahora 12 paginas (contando el mail de confirmación de cambio de contraseña), una barbaridad.
+  //
+  //Not Found Page terminada (faltan media-queries).
+  //Home Page terminada (faltan seccion de beneficios y footer además de media-queries).
+  //Sign Up Page terminada.
+  //Log In Page terminada (faltan media-queries).
+  //RecoverPassword Page terminada.
+
+  //Faltán 7 páginas:
+  //
+  //ConfirmNewPassword Page falta todo. (Terminado en 1 hora o menos).
+  //Analysis Page falta todo. (Terminado en dos semanas).
+  //Record Page falta todo. (Terminado en 2 horas).
+  //StartLive Page falta todo. (Terminado en una semana).
+  //UploadVideo Page falta todo. (Terminado en una semana).
+  //Help Page falta todo. (Terminado en una semana).
+  //Mail de confirmación falta todo. (Terminado en 30 minutos o menos).
+
+
   return (
     <>
       <ThemeProvider theme={HawkeyeTheme}>
@@ -41,8 +62,11 @@ function App() {
           <Route path="/SignUp" element={<SignUpPage/>} />
           <Route path="/LogIn" element={<LogInPage/>} />
           <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
+          <Route path="/ConfirmNewPassword" element={<ConfirmPasswordPage/>}/>
           <Route path="/Analysis" element={<AnalysisPage/>}/>
           <Route path="/Record" element={<RecordPage/>}/>
+          <Route path="/StartLive" element={<StartLivePage/>}/>
+          <Route path="/UploadVideo" element={<UploadVideoPage/>}/>
           <Route path="/Help" element={<HelpPage/>} />
         </Routes>
       </ThemeProvider>

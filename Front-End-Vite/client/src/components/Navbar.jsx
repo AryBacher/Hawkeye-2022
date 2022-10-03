@@ -7,7 +7,8 @@ import LogoSmall from './LogoSmall';
 function Navbar() {
 
   // Activar sección en features.
-  // Agrandar el Navbar.
+
+
 
 
   return (
@@ -17,10 +18,10 @@ function Navbar() {
           <LogoSmall/>
         </div>
         <ul className='links-navbar'>
-          <li className='nav features-link' ><Link to="features" spy={true} smooth={true} offset={-72} duration={500} >Inicio</Link></li>
-          <li className='nav benefits-link'><Link to="benefits" spy={true} smooth={true} offset={-72} duration={500}>Beneficios</Link></li>
-          <li className='nav team-link'><Link to="team" spy={true} smooth={true} offset={-72} duration={500}>Equipo</Link></li>
-          <li className='nav contact-link'><Link to="contact" spy={true} smooth={true} offset={-72} duration={500}>Contacto</Link></li>
+          <li className='nav'><Link activeClass="active" to="features" spy={true} smooth={true} offset={-72} duration={500} >Inicio</Link></li>
+          <li className='nav'><Link activeClass="active" to="benefits" spy={true} smooth={true} offset={-72} duration={500}>Beneficios</Link></li>
+          <li className='nav'><Link activeClass="active" to="team" spy={true} smooth={true} offset={-72} duration={500}>Equipo</Link></li>
+          <li className='nav'><Link activeClass="active" to="contact" spy={true} smooth={true} offset={-72} duration={500}>Contacto</Link></li>
         </ul>
       </nav>
     </>

@@ -7,18 +7,6 @@
   --colorGris: #c1c1c1;
   --colorVerde: #4ecb71;
 }
-
-::-moz-selection {
-  /* Code for Firefox */
-  color: var(--colorBlanco);
-  background: rgba(78, 203, 113, 0.7);
-}
-
-::selection {
-  color: var(--colorBlanco);
-  background: rgba(78, 203, 113, 0.7);
-}
-
 * {
   margin: 0;
   padding: 0;

@@ -12,7 +12,7 @@ function FormSignUp() {
     passwordConfirm: "",
   };
 
-  const FetchForm = (finalValues)=>{
+  const useFetch = (finalValues)=>{
     fetch('http://localhost:4000/SignUp', {
 
       method: "POST",
@@ -31,7 +31,7 @@ function FormSignUp() {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
-          FetchForm(values);
+          useFetch(values);
           console.log(values);
           formikHelpers.resetForm();
         }}

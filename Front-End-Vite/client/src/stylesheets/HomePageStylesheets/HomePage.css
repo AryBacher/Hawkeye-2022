@@ -54,7 +54,7 @@
 }
 
 .hero-section-h .brand-section-container .brand-section .texts-lp .par-lp {
-  color: #9e9e9e;
+  color: #9E9E9E;
 }
 
 .hero-section-h .brand-section-container .brand-section .texts-lp .button-home {
@@ -97,7 +97,7 @@
 .bottom-section-h {
   width: 100%;
   height: 270vh;
-  background: linear-gradient(155.51deg, #223342 0%, #161e24 100%);
+  background: linear-gradient(155.51deg, #223342 0%, #161E24 100%);
 }
 
 .bottom-section-h .divider {
@@ -148,7 +148,6 @@
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: 300;
-  text-shadow: 0 0 5px rgba(77, 203, 113, 0.4);
 }
 
 .bottom-section-h .features .features-content .features-titles h3 {
@@ -260,7 +259,7 @@
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .team-box {
   width: 300px;
-  height: 30vh;
+  height: 80%;
   border-radius: 20px;
 }
 
@@ -395,12 +394,25 @@
 }
 
 .bottom-section-h .second-footer #left-footer h4 {
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  font-size: 1em;
+  font-weight: 300;
+  color: var(--colorVerde);
+}
+
+.bottom-section-h .second-footer #left-footer h3 {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.bottom-section-h .second-footer #left-footer p {
+  padding-top: 20px;
   font-size: 1em;
   font-weight: 300;
 }
 
-.bottom-section-h .second-footer #left-footer h4 a {
+.bottom-section-h .second-footer #left-footer p a {
   color: var(--colorLink);
   text-decoration: none;
   -webkit-transition: -webkit-text-decoration 250ms;
@@ -409,7 +421,7 @@
   transition: text-decoration 250ms, -webkit-text-decoration 250ms;
 }
 
-.bottom-section-h .second-footer #left-footer h4 a:hover {
+.bottom-section-h .second-footer #left-footer p a:hover {
   text-decoration: underline;
 }
 

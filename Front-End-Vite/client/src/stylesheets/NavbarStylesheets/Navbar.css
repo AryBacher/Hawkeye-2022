@@ -52,6 +52,37 @@ nav .links-navbar {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  /*
+    a{
+      font-size: 16px;
+      font-weight: 300;
+      cursor: pointer;
+      height: 100%;
+      width: 16%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 200ms ease-in;
+      &::after{
+        content: '';
+        display: block;
+        left: 50%;
+        bottom: 0;
+        height: 1px;
+        transition: all 400ms ease-out;
+      }
+      &:hover{
+        color: var(--colorVerde);
+      }
+      li{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    */
 }
 
 nav .links-navbar .nav {
@@ -91,7 +122,6 @@ nav .links-navbar .nav a {
           align-items: center;
   text-align: center;
   text-decoration: none;
-  color: var(--colorBlanco);
   -webkit-transition: color 200ms ease-in;
   transition: color 200ms ease-in;
 }
@@ -118,17 +148,9 @@ nav .links-navbar .nav:hover::after {
           box-shadow: inset 0 0 0.5em 0 #4ecb71, 0 0 0.5em #4ecb71;
 }
 
-nav .links-navbar .nav:hover {
-  color: var(--colorVerde);
-}
-
 nav .links-navbar .home-link {
   color: var(--colorVerde);
   background: rgba(158, 158, 158, 0.1);
   border-bottom: 1px solid var(--colorVerde);
-}
-
-.active {
-  color: red;
 }
 /*# sourceMappingURL=Navbar.css.map */

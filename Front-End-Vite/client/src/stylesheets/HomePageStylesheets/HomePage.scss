@@ -106,7 +106,6 @@
           padding-top: 10px;
           padding-bottom: 10px;
           font-weight: 300;
-          text-shadow: 0 0 5px hsla(137, 55, 55, 0.4);
         }
         h3{
           font-size: 1.5em;
@@ -270,7 +269,18 @@
       align-items: left;
       text-align: left;
       h4{
-        padding-top: 10px;
+        padding-top: 20px;
+        padding-bottom: 5px;
+        font-size: 1em;
+        font-weight: 300;
+        color: var(--colorVerde);
+      }
+      h3{
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+      p{
+        padding-top: 20px;
         font-size: 1em;
         font-weight: 300;
         a{
