@@ -5,35 +5,34 @@ import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
 import { motion } from "framer-motion";
 import LogoSmall from "../components/LogoSmall";
-  
-function HomePage() {  
 
+function HomePage() {
   return (
     <>
       <div className="hero-section-h">
         <Navbar />
         <div className="brand-section-container">
           <section className="brand-section">
-            <motion.div 
+            <motion.div
               className="bar"
-              animate = {{
+              animate={{
                 height: "370px",
               }}
-              transition = {{
+              transition={{
                 delay: 0.5,
                 duration: 0.5,
                 ease: "easeInOut",
               }}
-            >
-            </motion.div>
-            <motion.div className="texts-lp"
-              initial= {{
+            ></motion.div>
+            <motion.div
+              className="texts-lp"
+              initial={{
                 x: "-110%",
               }}
-              animate= {{
+              animate={{
                 x: "0%",
               }}
-              transition= {{
+              transition={{
                 delay: 1,
                 duration: 1,
                 ease: "easeOut",
@@ -44,7 +43,11 @@ function HomePage() {
                 Mejora como tenista <br />
                 usando <span>Hawkeye</span>
               </h1>
-              <p className="par-lp">Utilíce nuestra tecnología de ojo de halcón para analizar sus partidos<br />y entrenamientos de forma automática y gratuita.</p>
+              <p className="par-lp">
+                Utilíce nuestra tecnología de ojo de halcón para analizar sus
+                partidos
+                <br />y entrenamientos de forma automática y gratuita.
+              </p>
               <Button
                 className="button-home"
                 variant="contained"
@@ -66,58 +69,55 @@ function HomePage() {
         <section className="features" id="features">
           <div className="features-content">
             <div className="features-titles">
-                <p>
-                  ¿Por qué usar Hawkeye?
-                </p>
-                <h3>
-                  Una <span>gran experiencia</span> para <br/>
-                  vos y nuestros usuarios.  
-                </h3>
-              </div>
-              <div className="features-blocks-container">
-                <div className="box-feature" id="feature-1"></div>
-                <div className="box-feature" id="feature-2"></div>
-                <div className="box-feature" id="feature-3"></div>
-                <div className="box-feature" id="feature-4"></div>
-              </div>
+              <p>¿Por qué usar Hawkeye?</p>
+              <h3>
+                Una <span>gran experiencia</span> para <br />
+                vos y nuestros usuarios.
+              </h3>
+            </div>
+            <div className="features-blocks-container">
+              <div className="box-feature" id="feature-1"></div>
+              <div className="box-feature" id="feature-2"></div>
+              <div className="box-feature" id="feature-3"></div>
+              <div className="box-feature" id="feature-4"></div>
+            </div>
           </div>
         </section>
         <div className="divider"></div>
-        <section className="benefits" id="benefits">
-        </section>
+        <section className="benefits" id="benefits"></section>
         <div className="divider"></div>
         <section className="hawkeye-team" id="team">
           <div className="hawkeye-team-content">
-              <div className="hawkeye-team-titles">
-                <h3>
-                  Conoce al equipo detrás de Hawkeye
-                </h3>
-                <p>
-                  Quienes trabajaron día y noche para hacer este proyecto posible.
-                </p>
+            <div className="hawkeye-team-titles">
+              <h3>
+                Conoce al equipo detrás de <span>Hawkeye</span>
+              </h3>
+              <p>
+                Quienes trabajaron día y noche para hacer este proyecto posible.
+              </p>
+            </div>
+            <div className="team-members">
+              <div className="Arotu">
+                <div className="team-box" id="Arotu-background"></div>
+                <h4>Ariel Alzogaray</h4>
+                <p>UX/UI/Front-End</p>
               </div>
-              <div className="team-members">
-                <div className="Arotu">
-                  <div className= "team-box" id="Arotu-background"></div>
-                  <h4>Ariel Alzogaray</h4>
-                  <p>UX/UI/Front-End</p>
-                </div>
-                <div className="Ary">
-                  <div className= "team-box" id="Ary-background"></div>
-                  <h4>Ary Bacher</h4>
-                  <p>Computer Vision/Back-End</p>
-                </div>
-                <div className="Alan">
-                  <div className= "team-box" id="Alan-background"></div>
-                  <h4>Alan Yeger</h4>
-                  <p>Full-Stack</p>
-                </div>
-                <div className="Guido">
-                <div className= "team-box" id="Guido-background"></div>
-                  <h4>Guido Zylbersztein</h4>
-                  <p>Computer Vision/Back-End</p>
-                </div>
+              <div className="Ary">
+                <div className="team-box" id="Ary-background"></div>
+                <h4>Ary Bacher</h4>
+                <p>Computer Vision/Back-End</p>
               </div>
+              <div className="Alan">
+                <div className="team-box" id="Alan-background"></div>
+                <h4>Alan Yeger</h4>
+                <p>Full-Stack</p>
+              </div>
+              <div className="Guido">
+                <div className="team-box" id="Guido-background"></div>
+                <h4>Guido Zylbersztein</h4>
+                <p>Computer Vision/Back-End</p>
+              </div>
+            </div>
           </div>
         </section>
         <div className="divider"></div>
@@ -133,24 +133,31 @@ function HomePage() {
             </div>
 
             <Button
-                className="button-home"
-                variant="contained"
-                size="large"
-                href="/SignUp"
-              >
-                Empieza ahora
-              </Button>
+              className="button-home"
+              variant="contained"
+              size="large"
+              href="/SignUp"
+            >
+              Empieza ahora
+            </Button>
           </div>
         </section>
         <section className="second-footer">
           <div id="left-footer">
-            <LogoSmall/>
-            <h4>Formas de contacto.</h4>
+            <LogoSmall />
             <h3>Mantengámonos en contacto.</h3>
-            <p>Contáctenos haciendo click en <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=hawkeye.tennis.app@gmail.com&tf=1" target="_blank">hawkeye.tennis.app@gmail.com</a> o <br/>rellene el formulario para enviar un mensaje directo.</p>
+            <p>
+              Contáctenos haciendo click en{" "}
+              <a
+                href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=hawkeye.tennis.app@gmail.com&tf=1"
+                target="_blank"
+              >
+                hawkeye.tennis.app@gmail.com
+              </a>{" "}
+              o rellene el formulario para enviar un mensaje directo.
+            </p>
           </div>
-          <div id="right-footer">
-          </div>
+          <div id="right-footer"></div>
         </section>
       </div>
     </>

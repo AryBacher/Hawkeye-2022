@@ -131,7 +131,7 @@ nav .links-navbar .nav a:hover {
 }
 
 nav .links-navbar .nav::after {
-  content: '';
+  content: "";
   display: block;
   left: 50%;
   bottom: 0;
