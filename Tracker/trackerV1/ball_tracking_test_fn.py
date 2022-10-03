@@ -15,9 +15,6 @@ ap.add_argument("-b", "--buffer", type=int, default=64,
 	help="max buffer size")
 args = vars(ap.parse_args())
 
-#center = None
-resizer = 1
-
 def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
     for contorno in contornos:
@@ -113,7 +110,6 @@ def todo(frame, count2, numeroGlob):
                 pique3_pers.appendleft(center_glob[numeroGlob][1])
         
         else:
-            print("PreCentro", preCentro_glob[numeroGlob])
             c = tp_fix(cnts, preCentro_glob[numeroGlob], count_glob[numeroGlob])
             
             if c is not None:
@@ -196,7 +192,7 @@ def todo(frame, count2, numeroGlob):
     bajando = False
     
     if (center_glob[numeroGlob] is not None):
-        print(center_glob[numeroGlob][1])
+        print("Centro", center_glob[numeroGlob][1])
         if numeroGlob == 0:
             pique_norm.appendleft(center_glob[numeroGlob][1])
             
@@ -219,14 +215,12 @@ def todo(frame, count2, numeroGlob):
         if (len(pique2_norm) >= 2):
             if pique2_norm[0] == False and pique2_norm[1] == True:
                 print("Gerard")
-                preCentro_glob[numeroGlob] = None
                 frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
         if (len(pique2_pers) >= 2):
             if pique2_pers[0] == False and pique2_pers[1] == True:
                 print("Gerard")
-                preCentro_glob[numeroGlob] = None
                 frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     frame = imutils.resize(frame, anchoOG, altoOG)
@@ -235,8 +229,10 @@ def todo(frame, count2, numeroGlob):
     # Muestra el frame
     if numeroGlob == 0:
         cv2.imshow("Normal", frame)
+        cv2.imshow("Mask Normal", mask)
     else: 
         cv2.imshow("Perspective", frame)
+        cv2.imshow("Mask Perspectiva", mask)
 
 
 # Toma la cámara si no recibe video
@@ -305,6 +301,7 @@ pique3_norm = deque(maxlen=3)
 pique3_pers = deque(maxlen=3)
 
 numeroGlob = 0
+resizer = 2
 
 while True:
     frame = vs.read()
@@ -321,8 +318,10 @@ while True:
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
     numeroGlob = 0
+    resizer = 2
     todo(frame, count2_glob, numeroGlob)
     numeroGlob = 1
+    resizer = 2
     todo(result, count2_glob, numeroGlob)
 
     # Terminar la ejecución si se presiona la "q"
