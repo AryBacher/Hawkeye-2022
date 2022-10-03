@@ -167,7 +167,6 @@
         }
       }
       .team-members {
-        height: 900px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -176,7 +175,7 @@
         text-align: center;
         .team-box {
           width: 300px;
-          height: 80%;
+          height: 350px;
           border-radius: 20px;
         }
         #Arotu-background {
@@ -216,7 +215,7 @@
     justify-content: center;
     .last-cta-content {
       box-sizing: border-box;
-      padding-top: 75px;
+      padding-top: 100px;
       padding-bottom: 75px;
       width: 80%;
       height: 100%;
@@ -286,7 +285,7 @@
         }
       }
     }
-    #right-footer {
+    #footer-content {
       box-sizing: border-box;
       padding-top: 5vh;
       width: 40%;

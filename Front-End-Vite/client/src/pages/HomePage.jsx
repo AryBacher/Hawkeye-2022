@@ -143,7 +143,7 @@ function HomePage() {
           </div>
         </section>
         <section className="second-footer">
-          <div id="left-footer">
+          <div id="footer-content">
             <LogoSmall />
             <h3>Mantengámonos en contacto.</h3>
             <p>
@@ -157,7 +157,6 @@ function HomePage() {
               o rellene el formulario para enviar un mensaje directo.
             </p>
           </div>
-          <div id="right-footer"></div>
         </section>
       </div>
     </>

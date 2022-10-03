@@ -243,7 +243,6 @@
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members {
-  height: 900px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -262,7 +261,7 @@
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .team-box {
   width: 300px;
-  height: 80%;
+  height: 350px;
   border-radius: 20px;
 }
 
@@ -312,7 +311,7 @@
 .bottom-section-h .last-cta .last-cta-content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding-top: 75px;
+  padding-top: 100px;
   padding-bottom: 75px;
   width: 80%;
   height: 100%;
@@ -420,7 +419,7 @@
   text-decoration: underline;
 }
 
-.bottom-section-h .second-footer #right-footer {
+.bottom-section-h .second-footer #footer-content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding-top: 5vh;
@@ -435,7 +434,7 @@
           flex-direction: column;
 }
 
-.bottom-section-h .second-footer #right-footer p {
+.bottom-section-h .second-footer #footer-content p {
   text-align: start;
   font-size: 1em;
   color: var(--colorVerde);
@@ -444,7 +443,7 @@
   padding-bottom: 10px;
 }
 
-.bottom-section-h .second-footer #right-footer h3 {
+.bottom-section-h .second-footer #footer-content h3 {
   text-align: start;
   font-size: 1.5em;
   font-weight: 600;
