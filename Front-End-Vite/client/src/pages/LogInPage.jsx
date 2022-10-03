@@ -1,5 +1,4 @@
 import React from "react";
-import FooterLogo from "../components/FooterLogo";
 import BtnGoogle from "../components/BtnGoogle";
 import FormLogIn from "../components/FormLogIn";
 import videoBg from "../assets/video/videoBg.mp4";
@@ -18,7 +17,7 @@ function LogInPage() {
           <FormLogIn />
           <div className="link-login">
             <p>¿No tiene una cuenta? </p>
-            <a href="/">Regístrate</a>
+            <a href="/SignUp">Regístrate</a>
           </div>
         </div>
 

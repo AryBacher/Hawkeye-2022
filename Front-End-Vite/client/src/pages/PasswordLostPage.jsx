@@ -1,8 +1,8 @@
 import React from "react";
-import Logo from "../components/Logo";
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
+import LogoBig from "../components/LogoBig";
 import "../stylesheets/PasswordLostPageStylesheets/PasswordLostPage.css";
 
 function RecoverPasswordPage() {
@@ -14,7 +14,7 @@ function RecoverPasswordPage() {
       <div className="wrapper-rp">
         <section className="hero">
           <div className="Logo-container">
-            <Logo className="Logo" />
+            <LogoBig/>
           </div>
           <h1 className="title-rp">Recuperar Contraseña</h1>
           <p className="par-rp">

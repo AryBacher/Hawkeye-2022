@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAA;EACP,KAAK,EAAE,IAAI;CACd",
+    "sources": [
+        "LogoSmall.scss"
+    ],
+    "names": [],
+    "file": "LogoSmall.css"
+}

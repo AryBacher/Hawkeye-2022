@@ -6,20 +6,41 @@ import "../stylesheets/FormSignUpStylesheets/Form.css";
 
 function FormSignUp() {
   const initialValues = {
+    name: "",
     email: "",
     password: "",
     passwordConfirm: "",
   };
+
+  const FetchForm = (finalValues)=>{
+    fetch('http://localhost:4000/SignUp', {
+
+      method: "POST",
+      body: JSON.stringify(finalValues),
+      headers: { "Content-Type" : "application/json" }
+  
+    })
+  
+    .then(res => res.json())
+    .catch(error => console.log("Error groso", error))
+    .then(response => console.log("Exito groso",response))
+  }
+
   return (
     <>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
+          FetchForm(values);
           console.log(values);
           formikHelpers.resetForm();
         }}
         validationSchema={object({
-          email: string().required("Ingrese su email").email("Email inválido"),
+          name: string()
+            .required("Ingrese su nombre"),
+          email: string()
+            .required("Ingrese su email")
+            .email("Email inválido"),
           password: string()
             .required("Ingrese su contraseña")
             .min(8, "La contraseña debe ser de mínimo 8 caracateres"),
@@ -30,10 +51,23 @@ function FormSignUp() {
       >
         {({ errors, isValid, touched, dirty }) => (
           <Form>
+            
+            <Field
+              name="name"
+              type="name"
+              autoFocus
+              as={TextField}
+              variant="outlined"
+              color="primary"poñ
+              label="Nombre"
+              size="normal"
+              error={Boolean(errors.name) && Boolean(touched.name)}
+              helperText={Boolean(touched.name) && errors.name}
+            />
+
             <Field
               name="email"
               type="email"
-              autoFocus
               as={TextField}
               variant="outlined"
               color="primary"

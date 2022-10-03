@@ -2,6 +2,7 @@ import React from "react";
 import "../stylesheets/HomePageStylesheets/HomePage.css";
 import logoOrt from "../assets/img/logo-ort.png";
 import Navbar from "../components/Navbar";
+import LogoBig from "../components/LogoBig";
 import { Button } from "@mui/material";
 import { motion } from "framer-motion";
   
@@ -142,6 +143,14 @@ function HomePage() {
           </div>
         </section>
         <section className="second-footer">
+          <div id="left-footer">
+            <LogoBig/>
+            <h4>Contáctenos haciendo click en <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=hawkeye.tennis.app@gmail.com&tf=1" target="_blank">hawkeye.tennis.app@gmail.com</a> o <br/>rellene el formulario para enviar un mensaje directo.</h4>
+          </div>
+          <div id="right-footer">
+            <p>Mantengámonos en contacto</p>
+            <h3>Envienos un mensaje directo rellenando el siguiente formulario</h3>
+          </div>
         </section>
       </div>
     </>

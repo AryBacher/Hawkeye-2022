@@ -143,9 +143,12 @@
 }
 
 .bottom-section-h .features .features-content .features-titles p {
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 1em;
+  color: var(--colorVerde);
+  padding-top: 10px;
   padding-bottom: 10px;
+  font-weight: 300;
+  text-shadow: 0 0 5px rgba(77, 203, 113, 0.4);
 }
 
 .bottom-section-h .features .features-content .features-titles h3 {
@@ -360,5 +363,83 @@
   height: 16%;
   background-color: var(--colorAzul);
   border-top: 1px solid var(--colorAzulClaro);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+.bottom-section-h .second-footer #left-footer {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top: 5vh;
+  width: 40%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  text-align: left;
+}
+
+.bottom-section-h .second-footer #left-footer h4 {
+  padding-top: 10px;
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.bottom-section-h .second-footer #left-footer h4 a {
+  color: var(--colorLink);
+  text-decoration: none;
+  -webkit-transition: -webkit-text-decoration 250ms;
+  transition: -webkit-text-decoration 250ms;
+  transition: text-decoration 250ms;
+  transition: text-decoration 250ms, -webkit-text-decoration 250ms;
+}
+
+.bottom-section-h .second-footer #left-footer h4 a:hover {
+  text-decoration: underline;
+}
+
+.bottom-section-h .second-footer #right-footer {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top: 5vh;
+  width: 40%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.bottom-section-h .second-footer #right-footer p {
+  text-align: start;
+  font-size: 1em;
+  color: var(--colorVerde);
+  padding-top: 10px;
+  text-shadow: 0 0 5px rgba(77, 203, 113, 0.4);
+  padding-bottom: 10px;
+}
+
+.bottom-section-h .second-footer #right-footer h3 {
+  text-align: start;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 /*# sourceMappingURL=HomePage.css.map */

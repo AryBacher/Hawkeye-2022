@@ -1,6 +1,5 @@
 import React from "react";
 import "../stylesheets/SignUpPageStylesheets/SignUpPage.css";
-import FooterLogo from "../components/FooterLogo";
 import FormSignUp from "../components/FormSignUp";
 import videoBg from "../assets/video/videoBg.mp4";
 import BtnGoogle from "../components/BtnGoogle";

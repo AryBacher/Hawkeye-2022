@@ -128,8 +128,7 @@ nav .links-navbar .home-link {
   border-bottom: 1px solid var(--colorVerde);
 }
 
-.scroll-down {
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+.active {
+  color: red;
 }
 /*# sourceMappingURL=Navbar.css.map */
