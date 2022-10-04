@@ -1,7 +1,6 @@
 //import { connection } from "../database.js";
 import { Router } from 'express'
 import { filterVideo } from "../controllers/videos.js";
-import {} from "../controllers/videos.js";
 
 const router = Router();
 

@@ -23,7 +23,6 @@ function FormSignUp() {
     
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))
-    .then(response => console.log("Exito groso", response))
   }
 
   return (
