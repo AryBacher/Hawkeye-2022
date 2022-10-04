@@ -1,9 +1,7 @@
-form {
+Form {
   display: flex;
   flex-flow: column;
-  Field {
-    margin: 3vh;
-  }
+  gap: 2vh;
   a {
     text-align: left;
     font-weight: 400;

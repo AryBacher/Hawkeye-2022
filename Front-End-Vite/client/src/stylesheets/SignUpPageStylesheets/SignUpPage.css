@@ -29,7 +29,7 @@ body {
           flex-flow: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 3vh;
+  gap: 2vh;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -44,10 +44,7 @@ body {
 @media (max-width: 480px) {
   .wrapper-su .left-side {
     width: 100%;
-    min-height: -webkit-fit-content;
-    min-height: -moz-fit-content;
-    min-height: fit-content;
-    max-width: 150vh;
+    min-height: 100vh;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -224,7 +221,7 @@ body {
   }
 }
 
-@media screen and (max-width: 1024px) and (min-width: 480px) {
+@media screen and (max-width: 1340px) and (min-width: 480px) {
   .wrapper-su .right-side {
     display: none;
   }

@@ -6,6 +6,6 @@ Form {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  gap: 3vh;
+  gap: 2vh;
 }
 /*# sourceMappingURL=form.css.map */

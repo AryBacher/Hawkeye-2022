@@ -123,7 +123,7 @@
 .bottom-section-h .features .features-content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding-top: 50px;
+  padding-top: 100px;
   padding-bottom: 75px;
   width: 80%;
   height: 100%;
@@ -137,7 +137,10 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: 50px;
+}
+
+.bottom-section-h .features .features-content .features-titles {
+  padding-bottom: 50px;
 }
 
 .bottom-section-h .features .features-content .features-titles p {
@@ -167,16 +170,14 @@
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 50px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 25px;
 }
 
 .bottom-section-h .features .features-content .features-blocks-container .box-feature {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  width: 350px;
   height: 250px;
   background-color: var(--colorAzulClaro);
   border-radius: 20px;
@@ -204,8 +205,8 @@
           justify-content: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 100px;
+  padding-bottom: 75px;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content {
@@ -240,6 +241,7 @@
   padding-top: 10px;
   font-weight: 300;
   font-size: 1em;
+  padding-bottom: 75px;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members {
@@ -252,9 +254,8 @@
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   gap: 100px;
   text-align: center;
 }
@@ -374,7 +375,7 @@
   text-align: center;
 }
 
-.bottom-section-h .second-footer #left-footer {
+.bottom-section-h .second-footer #footer-right {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding-top: 50px;
@@ -394,19 +395,19 @@
   text-align: left;
 }
 
-.bottom-section-h .second-footer #left-footer h3 {
+.bottom-section-h .second-footer #footer-right h3 {
   padding-top: 20px;
   font-size: 1.5em;
   font-weight: 600;
 }
 
-.bottom-section-h .second-footer #left-footer p {
+.bottom-section-h .second-footer #footer-right p {
   padding-top: 20px;
   font-size: 1em;
   font-weight: 300;
 }
 
-.bottom-section-h .second-footer #left-footer p a {
+.bottom-section-h .second-footer #footer-right p a {
   color: var(--colorLink);
   text-decoration: none;
   -webkit-transition: -webkit-text-decoration 250ms;
@@ -415,37 +416,52 @@
   transition: text-decoration 250ms, -webkit-text-decoration 250ms;
 }
 
-.bottom-section-h .second-footer #left-footer p a:hover {
+.bottom-section-h .second-footer #footer-right p a:hover {
   text-decoration: underline;
 }
 
-.bottom-section-h .second-footer #footer-content {
+.bottom-section-h .second-footer #footer-left {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding-top: 5vh;
+  padding-bottom: 5vh;
   width: 40%;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 
-.bottom-section-h .second-footer #footer-content p {
+.bottom-section-h .second-footer #footer-left h3 {
+  padding-top: 10px;
+  text-align: left;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.bottom-section-h .second-footer #footer-left p {
   text-align: start;
   font-size: 1em;
-  color: var(--colorVerde);
   padding-top: 10px;
-  text-shadow: 0 0 5px rgba(77, 203, 113, 0.4);
   padding-bottom: 10px;
 }
 
-.bottom-section-h .second-footer #footer-content h3 {
-  text-align: start;
-  font-size: 1.5em;
-  font-weight: 600;
+.bottom-section-h .second-footer #footer-left p a {
+  color: var(--colorLink);
+  text-decoration: none;
+}
+
+.bottom-section-h .second-footer #footer-left p a:hover {
+  text-decoration: underline;
 }
 /*# sourceMappingURL=HomePage.css.map */

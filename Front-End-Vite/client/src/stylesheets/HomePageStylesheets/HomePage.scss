@@ -89,15 +89,15 @@
 
     .features-content {
       box-sizing: border-box;
-      padding-top: 50px;
+      padding-top: 100px;
       padding-bottom: 75px;
       width: 80%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 50px;
       .features-titles {
+        padding-bottom: 50px;
         p {
           font-size: 1em;
           color: var(--colorVerde);
@@ -117,11 +117,11 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 50px;
+        justify-content: space-between;
+        gap: 25px;
 
         .box-feature {
-          flex-grow: 1;
+          width: 350px;
           height: 250px;
           background-color: var(--colorAzulClaro);
           border-radius: 20px;
@@ -142,8 +142,8 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 100px;
+    padding-bottom: 75px;
 
     .hawkeye-team-content {
       width: 80%;
@@ -164,13 +164,14 @@
           padding-top: 10px;
           font-weight: 300;
           font-size: 1em;
+          padding-bottom: 75px;
         }
       }
       .team-members {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-around;
         gap: 100px;
         text-align: center;
         .team-box {
@@ -256,7 +257,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    #left-footer {
+    #footer-right {
       box-sizing: border-box;
       padding-top: 50px;
       padding-bottom: 50px;
@@ -285,26 +286,36 @@
         }
       }
     }
-    #footer-content {
+    #footer-left {
       box-sizing: border-box;
       padding-top: 5vh;
+      padding-bottom: 5vh;
       width: 40%;
       height: 100%;
       display: flex;
+      justify-content: center;
+      align-items: left;
       flex-direction: column;
-      p {
-        text-align: start;
-        font-size: 1em;
-        color: var(--colorVerde);
-        padding-top: 10px;
-        text-shadow: 0 0 5px hsla(137, 55, 55, 0.4);
-        padding-bottom: 10px;
-      }
       h3 {
-        text-align: start;
+        padding-top: 10px;
+        text-align: left;
         font-size: 1.5em;
         font-weight: 600;
       }
+      p {
+        text-align: start;
+        font-size: 1em;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        a{
+          color: var(--colorLink);
+          text-decoration: none;
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+
     }
   }
 }

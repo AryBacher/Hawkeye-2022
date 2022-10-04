@@ -143,7 +143,7 @@ function HomePage() {
           </div>
         </section>
         <section className="second-footer">
-          <div id="footer-content">
+          <div id="footer-left">
             <LogoSmall />
             <h3>Mantengámonos en contacto.</h3>
             <p>
@@ -154,8 +154,11 @@ function HomePage() {
               >
                 hawkeye.tennis.app@gmail.com
               </a>{" "}
-              o rellene el formulario para enviar un mensaje directo.
+              <br/> o contáctese al +54 9 11 3056-2619.
             </p>
+          </div>
+          <div id="footer-right">
+              
           </div>
         </section>
       </div>

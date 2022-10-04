@@ -1,4 +1,4 @@
-form {
+Form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6,13 +6,10 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
+  gap: 2vh;
 }
 
-form Field {
-  margin: 3vh;
-}
-
-form a {
+Form a {
   text-align: left;
   font-weight: 400;
   color: var(--colorLink);
@@ -23,7 +20,7 @@ form a {
   transition: text-decoration 250ms, -webkit-text-decoration 250ms;
 }
 
-form a:hover {
+Form a:hover {
   text-decoration: underline;
 }
 /*# sourceMappingURL=Form.css.map */
