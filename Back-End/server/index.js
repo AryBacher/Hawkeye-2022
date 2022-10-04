@@ -11,8 +11,10 @@ app.use(express.json())
 
 app.use(cors())
 
+
 app.use(multer({
-    dest: './videos'
+    dest: './videos',
+    limits: {fileSize: 100000000000},
 }).single('video'))
 
 app.use(UserRoutes)
