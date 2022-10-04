@@ -121,10 +121,23 @@
         gap: 25px;
 
         .box-feature {
+          box-sizing: border-box;
+          padding: 25px;
           width: 350px;
-          height: 250px;
+          height: 175px;
           background-color: var(--colorAzulClaro);
           border-radius: 20px;
+          h4 {
+            text-align: center;
+            color: var(--colorVerde);
+            font-size: 16px;
+            font-weight: 600;
+            padding-bottom: 15px;
+          }
+          p {
+            font-size: 14px;
+            font-weight: 300;
+          }
         }
       }
     }
@@ -149,8 +162,7 @@
       width: 80%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 50px;
+      justify-content: space-around;
       .hawkeye-team-titles {
         text-align: center;
         h3 {
@@ -171,13 +183,27 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 100px;
+        justify-content: center;
         text-align: center;
+        .card-member {
+          margin: 50px 25px 25px 25px;
+        }
         .team-box {
           width: 300px;
           height: 350px;
           border-radius: 20px;
+        }
+
+        .row-1 {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .row-2 {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
         }
         #Arotu-background {
           background-color: var(--colorAzulClaro);
@@ -307,15 +333,14 @@
         font-size: 1em;
         padding-top: 10px;
         padding-bottom: 10px;
-        a{
+        a {
           color: var(--colorLink);
           text-decoration: none;
-          &:hover{
+          &:hover {
             text-decoration: underline;
           }
         }
       }
-
     }
   }
 }

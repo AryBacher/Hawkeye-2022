@@ -177,10 +177,26 @@
 }
 
 .bottom-section-h .features .features-content .features-blocks-container .box-feature {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 25px;
   width: 350px;
-  height: 250px;
+  height: 175px;
   background-color: var(--colorAzulClaro);
   border-radius: 20px;
+}
+
+.bottom-section-h .features .features-content .features-blocks-container .box-feature h4 {
+  text-align: center;
+  color: var(--colorVerde);
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 15px;
+}
+
+.bottom-section-h .features .features-content .features-blocks-container .box-feature p {
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .bottom-section-h .benefits {
@@ -218,10 +234,8 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  gap: 50px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .hawkeye-team-titles {
@@ -254,16 +268,42 @@
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  gap: 100px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
+}
+
+.bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .card-member {
+  margin: 50px 25px 25px 25px;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .team-box {
   width: 300px;
   height: 350px;
   border-radius: 20px;
+}
+
+.bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .row-1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.bottom-section-h .hawkeye-team .hawkeye-team-content .team-members .row-2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .team-members #Arotu-background {

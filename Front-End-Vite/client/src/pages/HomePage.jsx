@@ -76,10 +76,37 @@ function HomePage() {
               </h3>
             </div>
             <div className="features-blocks-container">
-              <div className="box-feature" id="feature-1"></div>
-              <div className="box-feature" id="feature-2"></div>
-              <div className="box-feature" id="feature-3"></div>
-              <div className="box-feature" id="feature-4"></div>
+              <div className="box-feature" id="feature-1">
+                <h4>El ojo de halcón</h4>
+                <p>
+                  Nuestra tecnología permite arbitrar los partidos así como cada
+                  punto en partidos de tenis. Con ello el ojo de halcón esta a
+                  la disponibilidad de todos los tenistas.
+                </p>
+              </div>
+              <div className="box-feature" id="feature-2">
+                <h4>Tecnología de Computer Vision</h4>
+                <p>
+                  Hawkeye funciona gracias a esta tecnología que nos permite
+                  detectar la pelota en movimiento y sacar datos como la
+                  velocidad, entre otros.
+                </p>
+              </div>
+              <div className="box-feature" id="feature-3">
+                <h4>Analiza lo que sea</h4>
+                <p>
+                  Hawkeye le permite a sus usuarios el poder analizar tanto
+                  videos pregrabados así como también videos en vivo.
+                </p>
+              </div>
+              <div className="box-feature" id="feature-4">
+                <h4>Guarda todos tus análisis</h4>
+                <p>
+                  Todos los análisis que usted haga van a estar guardados en la
+                  cuenta del usuario y estarán a disponibilidad de un buscador
+                  para encontrar el análisis solicitado.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -97,25 +124,29 @@ function HomePage() {
               </p>
             </div>
             <div className="team-members">
-              <div className="Arotu">
-                <div className="team-box" id="Arotu-background"></div>
-                <h4>Ariel Alzogaray</h4>
-                <p>UX/UI/Front-End</p>
+              <div className="row-1">
+                <div className="card-member Arotu">
+                  <div className="team-box" id="Arotu-background"></div>
+                  <h4>Ariel Alzogaray</h4>
+                  <p>UX/UI/Front-End</p>
+                </div>
+                <div className="card-member Ary">
+                  <div className="team-box" id="Ary-background"></div>
+                  <h4>Ary Bacher</h4>
+                  <p>Computer Vision/Back-End</p>
+                </div>
               </div>
-              <div className="Ary">
-                <div className="team-box" id="Ary-background"></div>
-                <h4>Ary Bacher</h4>
-                <p>Computer Vision/Back-End</p>
-              </div>
-              <div className="Alan">
-                <div className="team-box" id="Alan-background"></div>
-                <h4>Alan Yeger</h4>
-                <p>Full-Stack</p>
-              </div>
-              <div className="Guido">
-                <div className="team-box" id="Guido-background"></div>
-                <h4>Guido Zylbersztein</h4>
-                <p>Computer Vision/Back-End</p>
+              <div className="row-2">
+                <div className="card-member Alan">
+                  <div className="team-box" id="Alan-background"></div>
+                  <h4>Alan Yeger</h4>
+                  <p>Full-Stack</p>
+                </div>
+                <div className="card-member Guido">
+                  <div className="team-box" id="Guido-background"></div>
+                  <h4>Guido Zylbersztein</h4>
+                  <p>Computer Vision/Back-End</p>
+                </div>
               </div>
             </div>
           </div>
@@ -154,12 +185,10 @@ function HomePage() {
               >
                 hawkeye.tennis.app@gmail.com
               </a>{" "}
-              <br/> o contáctese al +54 9 11 3056-2619.
+              <br /> o contáctese al +54 9 11 3056-2619.
             </p>
           </div>
-          <div id="footer-right">
-              
-          </div>
+          <div id="footer-right"></div>
         </section>
       </div>
     </>
