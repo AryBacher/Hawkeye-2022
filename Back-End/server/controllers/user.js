@@ -25,50 +25,54 @@ export const signUp = async (req, res) =>{
 
 export const logIn = async (req, res) =>{
     if (!req.body.email || !req.body.password){
-        return res.sendStatus(406).json({message: "Datos incompletos"})
+        return res.status(406).json({message: "Datos incompletos"})
     }
+
     const {email, contraseña} = req.body;
-    const [user] = await pool.query("SELECT * from usuarios WHERE email = ?", email)
+    console.log(req.body)
+    const [user] = await pool.query("SELECT email, contraseña from usuarios WHERE email = ?", email)
+    console.log(user)
     if (user.length == 0){
-        return res.sendStatus(406).json({message: "Usuario inválido"});
+        return res.status(406).json({message: "Usuario inválido"});
     }
+
     const passwordHash = await bcryptjs.hash(contraseña, 8);
-    if (passwordHash === user.contraseña){
+    if (passwordHash === user[contraseña]){
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
         res.json({ accessToken : accessToken, refreshToken : refreshToken});
-        return res.sendStatus(200).json({message: "Usuario logueado"});
+        return res.status(200).json({message: "Usuario logueado"}, { accessToken : accessToken, refreshToken : refreshToken});
     }
-    return res.sendStatus(406).json({message: "Contraseña incorrecta"});
+    return res.status(406).json({message: "Contraseña incorrecta"});
 }
 
 export const updateUser = async (req, res) =>{
     const {nombre, email, contraseña} = req.body.user;
     const emailUser = await pool.query("SELECT * from usuarios WHERE email = ?", {email})
     if (emailUser === null){
-        return res.sendStatus(406)("No existe usuario con ese email");
+        return res.status(406)("No existe usuario con ese email");
     }
     const passwordHash = await bcryptjs.hash(contraseña, 8);
     pool.query = ("UPDATE usuarios SET (nombre, contraseña) = (?,?)", {nombre, passwordHash}, "WHERE email = (?)", {email});
-    return res.sendStatus(200)("User updated");
+    return res.status(200)("User updated");
 }
 
 export const deleteUser = async (req, res) =>{
     const {nombre} = req.body.user;
     const nombreUser = await pool.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
     if (nombreUser === null){
-        return res.sendStatus(406)("No existe usuario con ese nombre");
+        return res.status(406)("No existe usuario con ese nombre");
     }
     pool.query = ("DELETE FROM usuarios WHERE nombre = (?)", {nombre});
-    return res.sendStatus(200)("User deleted");
+    return res.status(200)("User deleted");
 }
 
 export const authenticateUser = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus(401);
+    if (token == null) return res.status(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if(err) return res.sendStatus(403)
+        if(err) return res.status(403)
         req.user = user
         next();
     });
@@ -82,10 +86,10 @@ let refreshTokens = [];
 
 export const refreshToken = (req, res) => {
     const refreshToken = req.body.token
-    if (refreshToken == null) return req.sendStatus(401);
-    if(!refreshTokens.includes(refreshToken)) return req.sendStatus(403);
+    if (refreshToken == null) return req.status(401);
+    if(!refreshTokens.includes(refreshToken)) return req.status(403);
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) =>{
-        if(err) return req.sendStatus(403)
+        if(err) return req.status(403)
         const accessToken = generateAccessToken({ name : user.name});
         res.json = {accessToken : accessToken};
     })
@@ -93,5 +97,5 @@ export const refreshToken = (req, res) => {
 
 export const logOut = (req, res) => {
     refreshTokens = refreshTokens.filter (token => token !== req.body.token);
-    res.sendStatus(204);
+    res.status(204);
 }

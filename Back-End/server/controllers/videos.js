@@ -1,6 +1,5 @@
-import multer from 'multer';
-
-export const upload = multer({ dest: '../videos' })
+import 'dotenv/config';
+import { pool } from "../database.js";
 
 /*app.post('/profile', upload.single('avatar'), function (req, res, next) {
   // req.file is the `avatar` file
@@ -21,6 +20,12 @@ app.post('/cool-profile', cpUpload, function (req, res, next) {
   //
   // req.body will contain the text fields, if there were any
 })*/
+
+//Subir videos
+export const uploadVideo = async(req, res) => {
+  
+}
+
 
 //Filtrar videos
 export const filterVideo = async(req, res) => {
