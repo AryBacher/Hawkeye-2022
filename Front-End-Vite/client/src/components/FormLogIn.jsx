@@ -10,13 +10,24 @@ function FormLogIn() {
     password: "",
   };
 
+  const useFetch = (finalValues)=>{
+    fetch('http://localhost:4000/LogIn', {
 
+      method: "POST",
+      body: JSON.stringify(finalValues),
+      headers: { "Content-Type" : "application/json" }
+      
+    })
+    .then(res => res.json())
+    .catch(error => console.log("Error groso", error))
+  }
 
   return (
     <>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
+          useFetch(values);
           console.log(values);
           formikHelpers.resetForm();
         }}

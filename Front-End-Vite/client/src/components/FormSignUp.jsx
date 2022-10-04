@@ -20,7 +20,6 @@ function FormSignUp() {
       headers: { "Content-Type" : "application/json" }
       
     })
-    
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))
   }
@@ -57,7 +56,7 @@ function FormSignUp() {
               autoFocus
               as={TextField}
               variant="outlined"
-              color="primary"poñ
+              color="primary"
               label="Nombre"
               size="normal"
               error={Boolean(errors.name) && Boolean(touched.name)}

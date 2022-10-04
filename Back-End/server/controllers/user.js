@@ -5,20 +5,28 @@ import jwt from 'jsonwebtoken';
 
 
 export const signUp = async (req, res) =>{
+    if (!req.body.name || !req.body.email || !req.body.password){
+        return res.status(406).json({message: "Datos incompletos"});
+    }
+
     const {name, email, password} = req.body;
     const [user] = await pool.query("SELECT email from usuarios WHERE email = ?", email)
     if (user.length !== 0){
         console.log("El usuario ya existe")
-        return res.sendStatus(406).json({message: "El usuario ya existe"});
+        return res.status(406).json({message: "El usuario ya existe"});
     }
+
     const passwordHash = await bcryptjs.hash(password, 8);
     await pool.query("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)", [name, email, passwordHash]);
     console.log("Usuario creado")
-    return res.sendStatus(200).json({message: "Usuario creado"});
+    return res.status(200).json({message: "Usuario creado"});
 }
 
 
 export const logIn = async (req, res) =>{
+    if (!req.body.email || !req.body.password){
+        return res.sendStatus(406).json({message: "Datos incompletos"})
+    }
     const {email, contraseña} = req.body;
     const [user] = await pool.query("SELECT * from usuarios WHERE email = ?", email)
     if (user.length == 0){
