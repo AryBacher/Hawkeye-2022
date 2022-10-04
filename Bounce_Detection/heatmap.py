@@ -14,9 +14,6 @@ pts = [[10, 100], [20, 200], [110, 200], [150, 100], [80, 350], [140, 300], [120
 ptX = []
 ptY = []
 
-# Invierte el eje Y
-#plt.gca().invert_yaxis()
-
 # Transforma los puntos en dos listas (X, Y)
 for pt in pts:
     ptX.append(pt[0] + 51)
@@ -30,7 +27,7 @@ kde = sns.kdeplot(
     fill = True,
     alpha = .5,
     n_levels = 10,
-    cmap = 'magma',
+    cmap = 'inferno',
     thresh = .3
 )
 
@@ -38,5 +35,6 @@ kde = sns.kdeplot(
 
 plt.xlim(0, 268); plt.ylim(0, 524)
 
-plt.savefig("heatmap.jpg",dpi = 200, bbox_inches = 'tight', pad_inches = 0)
+plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
+
 plt.show()
