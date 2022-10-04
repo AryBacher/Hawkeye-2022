@@ -20,6 +20,7 @@ function FormLogIn() {
     })
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))
+    .then(data => console.log(data));
   }
 
   return (
