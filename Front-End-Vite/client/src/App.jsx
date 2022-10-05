@@ -53,6 +53,7 @@ function App() {
   //
   //Mail de confirmación falta todo. (Terminado en 30 minutos o menos aunque es opcional). 
 
+  //Cosas que preguntar: Tema de tiempo, cómo explicar el proyecto y además el cómo hacer la animación de intersection observer. 
 
   return (
     <>

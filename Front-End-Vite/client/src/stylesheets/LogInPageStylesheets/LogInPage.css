@@ -28,7 +28,7 @@ body {
           flex-flow: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 3vh;
+  gap: 2vh;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -175,8 +175,8 @@ body {
 }
 
 .wrapper-li .right-side .content .bar {
-  width: 3px;
-  height: 250px;
+  width: 4px;
+  height: 0px;
   border-radius: 200px;
   background-color: var(--colorVerde);
 }

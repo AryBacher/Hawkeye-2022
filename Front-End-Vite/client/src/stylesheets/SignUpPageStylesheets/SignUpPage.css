@@ -194,8 +194,8 @@ body {
 }
 
 .wrapper-su .right-side .content .bar {
-  width: 3px;
-  height: 250px;
+  width: 4px;
+  height: 0px;
   border-radius: 200px;
   background-color: var(--colorVerde);
 }

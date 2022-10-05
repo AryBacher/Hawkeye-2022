@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 import "../stylesheets/NavbarStylesheets/Navbar.css";
 import LogoSmall from "./LogoSmall";
@@ -9,7 +10,19 @@ function Navbar() {
 
   return (
     <>
-      <nav>
+      <motion.nav
+        initial  ={{
+          y: "-100%",
+        }} 
+        animate={{
+          y: "0%",
+        }}
+        transition = {{
+          duration: 1,
+          ease: "easeOut",
+          type: "tween",
+        }}
+      >
         <div className="logo-set">
           <LogoSmall />
         </div>
@@ -63,7 +76,7 @@ function Navbar() {
             </Link>
           </li>
         </ul>
-      </nav>
+      </motion.nav>
     </>
   );
 }

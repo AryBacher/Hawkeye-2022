@@ -8,17 +8,38 @@ import playIcon from "../assets/img/PlayIcon.png"
 import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import LogoSmall from "../components/LogoSmall";
 import LogoBig from "../components/LogoBig";
 import Mockups from "../assets/img/mockups.png";
 import BtnBackToTop from "../components/BtnBackToTop";
 
 function HomePage() {
+  /*
+  const [show, setShow] = useState(false);
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+      console.log(entry);
+      if(entry.isIntersecting){
+        setShow(true)
+      }
+      else{
+        setShow(false)
+      }
+    })
+  });
+  
+  const hiddenElements = document.querySelectorAll('.hidden');
+  hiddenElements.forEach((element)=>{
+    observer.observe(element);
+  });
+  */
   return (
     <>
       <BtnBackToTop/>
       <div className="hero-section-h">
-        <Navbar />
+        <Navbar/>
         <div className="brand-section-container">
           <section className="brand-section">
             <motion.div
@@ -67,11 +88,23 @@ function HomePage() {
             </motion.div>
           </section>
         </div>
-        <section className="first-footer">
+        <motion.section className="first-footer"
+          initial  ={{
+            y: "100%",
+          }} 
+          animate={{
+            y: "0%",
+          }}
+          transition = {{
+            duration: 1,
+            ease: "easeOut",
+            type: "tween",
+          }}
+        >
           <img src={logoOrt} alt="Logo de la escula ORT" />
           Hecho por alumnos de 4°to año de la escuela secundaria ORT con
           orientación en TIC.
-        </section>
+        </motion.section>
       </div>
       <div className="bottom-section-h">
         <section className="features" id="features">
