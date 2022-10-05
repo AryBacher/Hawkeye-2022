@@ -5,6 +5,7 @@ function BtnGoogle() {
   return (
     <>
       <button className="google">
+        <div id="google-icon"></div>
         Continuar con Google
       </button>
     </>

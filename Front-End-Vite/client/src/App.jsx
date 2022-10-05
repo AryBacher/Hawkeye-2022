@@ -37,20 +37,21 @@ function App() {
   //Por ahora 12 paginas (contando el mail de confirmación de cambio de contraseña), una barbaridad.
   //
   //Not Found Page terminada (faltan media-queries).
-  //Home Page terminada (faltan seccion de beneficios y footer además de media-queries).
+  //Home Page terminada (faltan media-queries).
   //Sign Up Page terminada.
   //Log In Page terminada (faltan media-queries).
   //RecoverPassword Page terminada.
 
   //Faltán 7 páginas:
   //
-  //ConfirmNewPassword Page falta todo. (Terminado en 1 hora o menos).
+  //ConfirmNewPassword Page falta todo. (Terminado en 1 hora o menos). Hacer hoy.
   //Analysis Page falta todo. (Terminado en dos semanas).
-  //Record Page falta todo. (Terminado en 2 horas).
-  //StartLive Page falta todo. (Terminado en una semana).
+  //Record Page falta todo. (Terminado en 2 horas). Hacer hoy.
+  //StartLive Page falta todo. (Terminado en una semana). 
   //UploadVideo Page falta todo. (Terminado en una semana).
   //Help Page falta todo. (Terminado en una semana).
-  //Mail de confirmación falta todo. (Terminado en 30 minutos o menos).
+  //
+  //Mail de confirmación falta todo. (Terminado en 30 minutos o menos aunque es opcional). 
 
 
   return (

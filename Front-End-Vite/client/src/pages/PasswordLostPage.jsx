@@ -18,7 +18,7 @@ function RecoverPasswordPage() {
           </div>
           <h1 className="title-rp">Recuperar Contraseña</h1>
           <p className="par-rp">
-           Ingrese su dirección de correo electrónico<br />para reestablecer su contraseña.
+           Ingrese su dirección de correo electrónico para reestablecer su contraseña.
           </p>
           <Formik
             initialValues={InitialValues}

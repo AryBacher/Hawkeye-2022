@@ -43,18 +43,19 @@ body {
       &::before {
         content: "";
         display: block;
-        background-color: var(--colorBlanco);
+        background-color: var(--colorAzulClaro);
         flex-grow: 1;
         height: 1px;
       }
       &::after {
         content: "";
         display: block;
-        background-color: var(--colorBlanco);
+        background-color: var(--colorAzul);
         flex-grow: 1;
         height: 1px;
       }
       p {
+        color: var(--colorAzulClaro);
         padding: 0 0.5em;
       }
     }

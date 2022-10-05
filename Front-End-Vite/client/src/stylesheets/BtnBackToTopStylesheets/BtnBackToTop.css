@@ -1,0 +1,37 @@
+#btn-btt-container {
+  cursor: pointer;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--colorVerde);
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  -webkit-box-shadow: 0 0 10px rgba(77, 203, 113, 0.4);
+          box-shadow: 0 0 10px rgba(77, 203, 113, 0.4);
+}
+
+#btn-btt-container:hover {
+  -webkit-box-shadow: 0 0 20px rgba(77, 203, 113, 0.4);
+          box-shadow: 0 0 20px rgba(77, 203, 113, 0.4);
+}
+
+.btn-btt-true {
+  bottom: 5vh;
+  right: 3vw;
+}
+
+.btn-btt-false {
+  bottom: -5vh;
+  right: 3vw;
+}
+/*# sourceMappingURL=BtnBackToTop.css.map */

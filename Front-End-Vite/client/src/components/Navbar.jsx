@@ -23,7 +23,7 @@ function Navbar() {
               offset={-72}
               duration={500}
             >
-              Inicio
+              Beneficios
             </Link>
           </li>
           <li className="nav" id="beneficios">
@@ -35,7 +35,7 @@ function Navbar() {
               offset={-72}
               duration={500}
             >
-              Beneficios
+              Accesibilidad
             </Link>
           </li>
           <li className="nav" id="Equipo">
