@@ -7,7 +7,7 @@ import RecoverPasswordPage from './pages/PasswordLostPage.jsx'
 import AnalysisPage from './pages/AnalysisPage.jsx'
 import RecordPage from './pages/RecordPage'
 import HelpPage from './pages/HelpPage'
-import ConfirmPasswordPage from './pages/ConfirmPasswordPage'
+import ConfirmNewPasswordPage from './pages/ConfirmNewPasswordPage'
 import StartLivePage from './pages/StartLivePage'
 import UploadVideoPage from './pages/UploadVideoPage'
 import {Route, Routes} from 'react-router-dom';
@@ -41,10 +41,10 @@ function App() {
   //Sign Up Page terminada.
   //Log In Page terminada (faltan media-queries).
   //RecoverPassword Page terminada.
+  //ConfirmNewPassword Page terminada
 
-  //Faltán 7 páginas:
+  //Faltán 6 páginas:
   //
-  //ConfirmNewPassword Page falta todo. (Terminado en 1 hora o menos). Hacer hoy.
   //Analysis Page falta todo. (Terminado en dos semanas).
   //Record Page falta todo. (Terminado en 2 horas). Hacer hoy.
   //StartLive Page falta todo. (Terminado en una semana). 
@@ -64,7 +64,7 @@ function App() {
           <Route path="/SignUp" element={<SignUpPage/>} />
           <Route path="/LogIn" element={<LogInPage/>} />
           <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
-          <Route path="/ConfirmNewPassword" element={<ConfirmPasswordPage/>}/>
+          <Route path="/ConfirmNewPassword" element={<ConfirmNewPasswordPage/>}/>
           <Route path="/Analysis" element={<AnalysisPage/>}/>
           <Route path="/Record" element={<RecordPage/>}/>
           <Route path="/StartLive" element={<StartLivePage/>}/>
