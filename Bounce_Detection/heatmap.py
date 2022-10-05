@@ -1,39 +1,40 @@
+from turtle import color
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
-import seaborn as sb
+import cv2
 
-x = np.array([100, 200, 300])
-y = np.array([200, 300, 100])
+# Abre la cancha para dibujar el heatmap
+cancha = cv2.imread('minimap.jpg')
+plt.imshow(cancha)
+plt.axis('off')
 
-#bins = (268, 524)
-bins = (134, 262)
+# Recibe los puntos de pique
+pts = [[10, 100], [20, 200], [110, 200], [150, 100], [80, 350], [140, 300], [120, 400]]
+ptX = []
+ptY = []
 
-#plt.hist2d(x, y, bins=bins, cmap="inferno")
-#plt.show()
+# Transforma los puntos en dos listas (X, Y)
+for pt in pts:
+    ptX.append(pt[0] + 51)
 
-pts = np.array([[100, 100], [200, 100], [200, 200], [150, 100]])
+for pt in pts:
+    ptY.append(524 - pt[1] + 25)
 
-#plt.imshow(pts, cmap='inferno', interpolation='nearest')
-#plt.show()
+# Crea el heatmap
+kde = sns.kdeplot(
+    x = ptX, y = ptY,
+    fill = True,
+    alpha = .5,
+    n_levels = 10,
+    cmap = 'inferno',
+    thresh = .3
+)
 
-# generate 2 2d grids for the x & y bounds
-y, x = np.meshgrid(np.linspace(-3, 3, 100), np.linspace(-3, 3, 100))
+#plt.scatter(ptX, ptY, s=10, color='red')
 
-z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
-# x and y are bounds, so z should be the value *inside* those bounds.
-# Therefore, remove the last value from the z array.
-z = z[:-1, :-1]
-z_min, z_max = -np.abs(z).max(), np.abs(z).max()
+plt.xlim(0, 268); plt.ylim(0, 524)
 
-fig, ax = plt.subplots()
-
-c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
-ax.set_title('pcolormesh')
-# set the limits of the plot to the limits of the data
-ax.axis([x.min(), x.max(), y.min(), y.max()])
-fig.colorbar(c, ax=ax)
+plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
 
 plt.show()
-
-#heatmap = sb.heatmap(pts)
-#sb.show(heatmap)

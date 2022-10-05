@@ -1,16 +1,24 @@
 import express from "express";
 import 'dotenv/config';
 import cors from 'cors';
+import multer from 'multer';
 import UserRoutes from './routes/user.routes.js';
-//import VideoRoutes from './routes/videos.routes.js';
+import VideoRoutes from './routes/videos.routes.js';
 
 const app = express();
 
 app.use(express.json())
+
 app.use(cors())
 
+
+app.use(multer({
+    dest: './videos',
+    limits: {fileSize: 100000000000},
+}).single('video'))
+
 app.use(UserRoutes)
-//app.use(VideoRoutes)
+app.use(VideoRoutes)
 
 app.set ('port', 4000);
 

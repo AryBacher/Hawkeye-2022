@@ -19,7 +19,7 @@ def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
-        if x - pre_centro[0] > 100 * resizer or pre_centro[0] - x > 100 * resizer or y - pre_centro[1] > 100 * resizer or pre_centro[1] - y > 100 * resizer and count <= 0.5:
+        if x - pre_centro[0] > 100 * resizer_glob[numeroGlob] or pre_centro[0] - x > 100 * resizer_glob[numeroGlob] or y - pre_centro[1] > 100 * resizer_glob[numeroGlob] or pre_centro[1] - y > 100 * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
     if cnts_pts != []:
@@ -44,19 +44,35 @@ def cualEstaMasCerca(punto, lista):
         suma2.append(i)
     return suma2[suma.index(min(suma))]
 
+# def pica (centro1, centro2, centro3):
+#     print("Esta adentro de picaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", centro1, centro2, centro3)
+#     gerardPique = True
+#     a = centro1 - centro2
+#     b = centro2 - centro3
+#     if a <= 0 and b >= 0 or a >= 0 and b <= 0:
+#         print("a", a)
+#         print("b", b)
+#         gerardPique = False
+#     print("Picó?", gerardPique)
+#     return gerardPique
+
 def pica (centro1, centro2, centro3):
-    gerardPique = True
-    a = centro1 - centro2
-    b = centro2 - centro3
-    if a <= 0 and b >= 0 or a >= 0 and b <= 0:
-        gerardPique = False
+    print("Esta adentro de picaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", centro1, centro2, centro3)
+    gerardPique = False
+    abajo = False
+    if centro2 >= altoOG * resizer_glob[numeroGlob] / 2:
+        abajo = True
+    if abajo and centro1 > centro2 or abajo == False and centro1 < centro2:
+        gerardPique = True
+    print("Picó?", gerardPique)
     return gerardPique
 
-def todo(frame, count2, numeroGlob):
+def todo(frame, numeroGlob):
     global radius
     global x
     global y
-    global count2_glob
+    global Gerard
+    global esGerard
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -64,8 +80,8 @@ def todo(frame, count2, numeroGlob):
     estaCercaX = anchoOG * 15/100
     estaCercaY = altoOG * 15/100
 
-    frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
-    
+    frame = imutils.resize(frame, anchoOG * resizer_glob[numeroGlob], altoOG * resizer_glob[numeroGlob])
+
     # Cámara lenta para mayor análisis
     #cv2.waitKey(100)
     
@@ -103,11 +119,7 @@ def todo(frame, count2, numeroGlob):
             primeraVez_glob[numeroGlob] = False
             preCentro_glob[numeroGlob] = center_glob[numeroGlob]
             count_glob[numeroGlob] = 0
-            count2_glob = 0
-            if numeroGlob == 0:
-                pique3_norm.appendleft(center_glob[numeroGlob][1])
-            else:
-                pique3_pers.appendleft(center_glob[numeroGlob][1])
+            count2_glob[numeroGlob] = 0
         
         else:
             c = tp_fix(cnts, preCentro_glob[numeroGlob], count_glob[numeroGlob])
@@ -117,25 +129,17 @@ def todo(frame, count2, numeroGlob):
                 M = cv2.moments(c)
                 center_glob[numeroGlob] = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
                 preCentro_glob[numeroGlob] = center_glob[numeroGlob]
-                count2_glob += count_glob[numeroGlob]
+                # count2_glob[numeroGlob] += count_glob[numeroGlob]
+                count2_glob[numeroGlob] += 1/fps
                 count_glob[numeroGlob] = 0
-                if numeroGlob == 0:
-                    pique3_norm.appendleft(center_glob[numeroGlob][1])
-                    if len(pique3_norm) == 3 and count2_glob <= 0.1:
-                        pica(pique3_norm[2], pique3_norm[1], pique3_norm[0])
-                        count2_glob = 0
-                else:
-                    pique3_pers.appendleft(center_glob[numeroGlob][1])
-                    if len(pique3_pers) == 3 and count2_glob <= 0.1:
-                        pica(pique3_pers[2], pique3_pers[1], pique3_pers[0])
-                        count2_glob = 0
             
             else:
                 if count_glob[numeroGlob] >= 0.3:
                     primeraVez_glob[numeroGlob] = True
                     preCentro_glob[numeroGlob] = None
+                    count2_glob[numeroGlob] = 0
                 count_glob[numeroGlob] += 1/fps
-                count2_glob = 0
+                count2_glob[numeroGlob] += 1/fps
             
         # Sigue si el contorno tiene cierto tamaño
         if radius > 0:
@@ -147,8 +151,9 @@ def todo(frame, count2, numeroGlob):
         if count_glob[numeroGlob] >= 0.3:
             primeraVez_glob[numeroGlob] = True
             preCentro_glob[numeroGlob] = None
+            count2_glob[numeroGlob] = 0
         count_glob[numeroGlob] += 1/fps
-        count2_glob = 0
+        count2_glob[numeroGlob] += 1/fps
     
 
     # La variable count es asignada
@@ -192,15 +197,14 @@ def todo(frame, count2, numeroGlob):
     bajando = False
     
     if (center_glob[numeroGlob] is not None):
-        print("Centro", center_glob[numeroGlob][1])
+        #print("Centro", center_glob[numeroGlob][1])
         if numeroGlob == 0:
             pique_norm.appendleft(center_glob[numeroGlob][1])
-            
             if (len(pique_norm) >= 2):
                 if (pique_norm[0] - pique_norm[1] > 0):
                     bajando = True
             pique2_norm.appendleft(bajando)
-            print(bajando)
+            print("Bajando", bajando)
         
         else:
             pique_pers.appendleft(center_glob[numeroGlob][1])
@@ -209,31 +213,59 @@ def todo(frame, count2, numeroGlob):
                 if (pique_pers[0] - pique_pers[1] > 0):
                     bajando = True
             pique2_pers.appendleft(bajando)
-            print(bajando)
-    
-    if numeroGlob == 0:    
+            print("Bajando", bajando)
+
+    # if numeroGlob == 0:
+    #     if center_glob[numeroGlob] is not None:
+    #         pique3_norm.appendleft(center_glob[numeroGlob][1])
+    #     if len(pique3_norm) == 3 and count2_glob[numeroGlob] <= 0.1:
+    #         pica(pique3_norm[2], pique3_norm[1], pique3_norm[0])
+    #         count2_glob[numeroGlob] = 0
+    # else:
+    #     if center_glob[numeroGlob] is not None:
+    #         pique3_pers.appendleft(center_glob[numeroGlob][1])
+    #     if len(pique3_pers) == 3 and count2_glob[numeroGlob] <= 0.1:
+    #         pica(pique3_pers[2], pique3_pers[1], pique3_pers[0])
+    #         count2_glob[numeroGlob] = 0
+
+    if numeroGlob == 0:
+        Gerard = False
+        if center_glob[numeroGlob] is not None:
+            pique3_norm.appendleft(center_glob[numeroGlob])
         if (len(pique2_norm) >= 2):
             if pique2_norm[0] == False and pique2_norm[1] == True:
-                print("Gerard")
-                frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
-    
+                frame = cv2.putText(frame, 'Posible Gerard', pique3_norm[1], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+                Gerard = True
+                if esGerard:
+                    print("Picoooooooooooooooooooooooooooooooooo")
+                    frame = cv2.putText(frame, 'Gerard', pique3_norm[2], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+        esGerard = None
+
     else:
+        if center_glob[numeroGlob] is not None:
+            pique3_pers.appendleft(center_glob[numeroGlob])
         if (len(pique2_pers) >= 2):
-            if pique2_pers[0] == False and pique2_pers[1] == True:
-                print("Gerard")
-                frame = cv2.putText(frame, 'Gerard', preCentro_glob[numeroGlob], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+            if Gerard:
+                print("Count2: ", count2_glob[numeroGlob], "Center", center_glob[numeroGlob])
+                #if len(pique3_pers) == 3 and count2_glob[numeroGlob] <= 0.2 and count2_glob[numeroGlob] > 0 and center_glob[numeroGlob] is not None:
+                if len(pique3_pers) == 3 and count2_glob[numeroGlob] <= 0.3 and center_glob[numeroGlob] is not None:
+                    esGerard = pica(pique3_pers[2][1], pique3_pers[1][1], pique3_pers[0][1])
+                    #pica(pique3_pers[2][1], pique3_pers[1][1], pique3_pers[0][1])
+                    count2_glob[numeroGlob] = 0
+                if esGerard:
+                    print("Picoooooooooooooooooooooooooooooooooo")
+                    frame = cv2.putText(frame, 'Gerard', pique3_pers[1], cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     frame = imutils.resize(frame, anchoOG, altoOG)
-    #frame = imutils.resize(frame, height=768)
-    
-    # Muestra el frame
+    #frame = imutils.resize(frame, 1368, 766)
+        
     if numeroGlob == 0:
-        cv2.imshow("Normal", frame)
+    # Muestra el frame > 0
         cv2.imshow("Mask Normal", mask)
+        cv2.imshow("Normal", frame)
     else: 
-        cv2.imshow("Perspective", frame)
         cv2.imshow("Mask Perspectiva", mask)
-
+        cv2.imshow("Perspective", frame)
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -242,6 +274,12 @@ if not args.get("video", False):
     # Toma video en caso de haber
 else:
     vs = cv2.VideoCapture(args["video"])
+
+# Puntos de esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
+# Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
+# Puntos de esquinas TennisBrothers 1080p: 749, 253, 1095, 252, 206, 797, 1518, 785
+# Puntos de esquinas TheUltimateClutch Completo: 656, 429, 1044, 426, 0, 866, 1716, 802
+# Puntos de esquinas TheUltimateClutch: 137, 355, 602, 348, 1, 889, 606, 866
 
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
@@ -279,29 +317,36 @@ print(fps)
 
 time.sleep(2.0)
 
-# Puntos de esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
-# Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
-# Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
-
+# Indica el tiempo que pasó desde que se detectó la última pelota
 count_glob = deque(maxlen=2)
 count_glob.append(0)
 count_glob.append(0)
 
+# Indica cuanto tiempo pasa entre tres centros consecutivos. 
+# Esto para saber si detectó la pelota correctamente a la hora de determinar el pique
 count2_glob = deque(maxlen=2)
 count2_glob.append(0)
 count2_glob.append(0)
 
-pique_norm = deque(maxlen=60)
-pique_pers = deque(maxlen=60)
+pique_norm = deque(maxlen=4)
+pique_pers = deque(maxlen=4)
 
-pique2_norm = deque(maxlen=60)
-pique2_pers = deque(maxlen=60)
+pique2_norm = deque(maxlen=4)
+pique2_pers = deque(maxlen=4)
 
 pique3_norm = deque(maxlen=3)
 pique3_pers = deque(maxlen=3)
 
+resizer_glob = deque(maxlen=2)
+resizer_glob.append(2)
+resizer_glob.append(5)
+
+altoOG = 0
+anchoOG = 0
+
 numeroGlob = 0
-resizer = 2
+Gerard = None
+esGerard = None
 
 while True:
     frame = vs.read()
@@ -318,11 +363,9 @@ while True:
     result = cv2.warpPerspective(frame, matrix, (164, 474))
 
     numeroGlob = 0
-    resizer = 2
-    todo(frame, count2_glob, numeroGlob)
+    todo(frame, numeroGlob)
     numeroGlob = 1
-    resizer = 2
-    todo(result, count2_glob, numeroGlob)
+    todo(result, numeroGlob)
 
     # Terminar la ejecución si se presiona la "q"
     key = cv2.waitKey(1) & 0xFF
