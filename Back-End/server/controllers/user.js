@@ -1,15 +1,21 @@
 import 'dotenv/config';
-import bcryptjs from "bcryptjs";
-import { pool } from "../database.js";
+import bcryptjs from 'bcryptjs';
+import { serialize } from 'cookie';
+import { pool } from '../database.js';
 import jwt from 'jsonwebtoken';
 
 
 export const signUp = async (req, res) =>{
-    if (!req.body.name || !req.body.email || !req.body.password){
+    if (!req.body.name || !req.body.email || !req.body.password || !req.body.passwordConfirm){
         return res.status(406).json({message: "Datos incompletos"});
     }
 
-    const {name, email, password} = req.body;
+    const {name, email, password, passwordConfirm} = req.body;
+
+    if (password !== passwordConfirm){
+        return res.status(406).json({message: "Las contraseñas no coinciden"})
+    }
+
     const [user] = await pool.query("SELECT email from usuarios WHERE email = ?", email)
     if (user.length !== 0){
         console.log("El usuario ya existe")
@@ -28,49 +34,45 @@ export const logIn = async (req, res) =>{
         return res.status(406).json({message: "Datos incompletos"})
     }
 
-    const {email, contraseña} = req.body;
-    console.log(req.body)
-    const [user] = await pool.query("SELECT email, contraseña from usuarios WHERE email = ?", email)
-    console.log(user)
-    if (user.length == 0){
+    const {email, password} = req.body;
+    const [user] = await pool.query("SELECT id, email, contraseña from usuarios WHERE email = ?", email)
+    if (user[0].length == 0){
         return res.status(406).json({message: "Usuario inválido"});
     }
+    const userId = user[0].id
+    
+    const contraseñaCorrecta = await bcryptjs.compare(password, user[0].contraseña)
+    console.log(contraseñaCorrecta)
 
-    const passwordHash = await bcryptjs.hash(contraseña, 8);
-    if (passwordHash === user[contraseña]){
-        const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-        res.json({ accessToken : accessToken, refreshToken : refreshToken});
-        return res.status(200).json({message: "Usuario logueado"}, { accessToken : accessToken, refreshToken : refreshToken});
+    if (contraseñaCorrecta){
+        const accessToken = generateAccessToken({id: userId});
+        
+        const refreshToken = jwt.sign({id: userId}, process.env.REFRESH_TOKEN_SECRET)
+
+        const serializedAccess = serialize('accessToken', accessToken, {
+            httpOnly: true,
+            expiresIn: 0,
+            path: '/',
+        })
+
+        const serializedRefresh = serialize('refreshToken', refreshToken, {
+            httpOnly: true,
+            expiresIn: 0,
+            path: '/',
+        })
+
+        res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]);
+        return res.json({ message: "Usuario logueado" })
     }
     return res.status(406).json({message: "Contraseña incorrecta"});
 }
 
-export const updateUser = async (req, res) =>{
-    const {nombre, email, contraseña} = req.body.user;
-    const emailUser = await pool.query("SELECT * from usuarios WHERE email = ?", {email})
-    if (emailUser === null){
-        return res.status(406)("No existe usuario con ese email");
-    }
-    const passwordHash = await bcryptjs.hash(contraseña, 8);
-    pool.query = ("UPDATE usuarios SET (nombre, contraseña) = (?,?)", {nombre, passwordHash}, "WHERE email = (?)", {email});
-    return res.status(200)("User updated");
-}
-
-export const deleteUser = async (req, res) =>{
-    const {nombre} = req.body.user;
-    const nombreUser = await pool.query("SELECT * from usuarios WHERE nombre = ?", {nombre})
-    if (nombreUser === null){
-        return res.status(406)("No existe usuario con ese nombre");
-    }
-    pool.query = ("DELETE FROM usuarios WHERE nombre = (?)", {nombre});
-    return res.status(200)("User deleted");
-}
-
 export const authenticateUser = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
+    console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return res.status(401);
+
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if(err) return res.status(403)
         req.user = user
@@ -78,24 +80,75 @@ export const authenticateUser = (req, res, next) =>{
     });
 }
 
-export const generateAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn : '30s'});
+const generateAccessToken = (user) => {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn : '30m'});
 }
-
-let refreshTokens = [];
 
 export const refreshToken = (req, res) => {
     const refreshToken = req.body.token
-    if (refreshToken == null) return req.status(401);
-    if(!refreshTokens.includes(refreshToken)) return req.status(403);
+
+    if (refreshToken == null) return req.sendStatus(401);
+    if(!refreshTokens.includes(refreshToken)) return req.sendStatus(403);
+
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) =>{
-        if(err) return req.status(403)
-        const accessToken = generateAccessToken({ name : user.name});
-        res.json = {accessToken : accessToken};
+    
+    if(err) return req.sendStatus(403)
+    const accessToken = generateAccessToken({ id : user.id });
+        
+    const serializedAccess = serialize('accessToken', accessToken, {
+        httpOnly: true,
+        expiresIn: 0,
+        path: '/',
+    })
+
+    res.setHeader('Set-Cookie', serializedAccess);
+    return res.json({ message: "Access token refresheado" })
+
     })
 }
 
+
+export const updateUsername = async (req, res) =>{
+    const {name, email, password} = req.body;
+    const [user] = await pool.query("SELECT * from usuarios WHERE email = ?", email)
+    if (user[0].email.length === 0){
+        return res.status(406)("No existe usuario con ese email");
+    }
+
+    const contraseñaCorrecta = await bcryptjs.compare(password, user[0].contraseña)
+
+    if (contraseñaCorrecta){
+    await pool.query("UPDATE usuarios SET nombre = '" + name + "' WHERE email = '" + email +"'");
+    return res.status(200).json({ message: "User updated" });
+    }
+    return res.status(406).json({ message: 'Contraseña incorrecta'})
+}
+
+export const deleteUser = async (req, res) =>{
+    const {email} = req.body;
+    const [emailUser] = await pool.query("SELECT email from usuarios WHERE email = ?", email)
+    
+    if (emailUser[0].length === 0){
+        return res.status(406).json({ message: "No existe tal usuario" });
+    }
+    await pool.query("DELETE FROM usuarios WHERE email = (?)", email);
+    return res.status(200).json({ message: "User deleted" });
+}
+
 export const logOut = (req, res) => {
-    refreshTokens = refreshTokens.filter (token => token !== req.body.token);
-    res.status(204);
+    
+    const serializedAccess = serialize('accessToken', null, {
+        httpOnly: true,
+        maxAge: 0,
+        path: '/',
+    })
+
+    const serializedRefresh = serialize('refreshToken', null, {
+        httpOnly: true,
+        maxAge: 0,
+        path: '/',
+    })
+
+    res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]);
+    return res.status(200).json({message: "Usuario deslogueado"});
 }

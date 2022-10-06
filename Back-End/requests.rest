@@ -1,0 +1,47 @@
+POST http://localhost:4000/getToken
+Content-Type: application/json
+
+{
+    "username": "Luis"
+}
+
+###
+
+POST http://localhost:4000/LogIn
+Content-Type: application/json
+
+{
+    "email": "alanyeger2@gmail.com",
+    "password": "12121212"
+}
+
+###
+
+POST http://localhost:4000/LogOut
+Content-Type: application/json
+
+{
+    "email": "alanyeger2@gmail.com",
+    "password": "12121212"
+}
+
+###
+
+DELETE  http://localhost:4000/DeleteUser
+Content-Type: application/json
+
+{
+    "email": "borrar@gmail.com",
+    "password": "12121212"
+}
+
+###
+
+PUT  http://localhost:4000/UpdateUsername
+Content-Type: application/json
+
+{
+    "name": "Alan",
+    "email": "alanyeger1@gmail.com",
+    "password": "12345678"
+}

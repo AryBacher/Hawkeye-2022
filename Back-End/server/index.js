@@ -39,7 +39,7 @@ app.use(multer({
 app.use(UserRoutes)
 app.use(VideoRoutes)
 
-app.set ('port', process.env.PORT);
+app.set ('port', parseInt(process.env.PORT));
 
 app.listen (app.get('port'));
 
