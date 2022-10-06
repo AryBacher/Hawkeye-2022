@@ -35,8 +35,10 @@ export const logIn = async (req, res) =>{
     }
 
     const {email, password} = req.body;
-    const [user] = await pool.query("SELECT id, email, contraseña from usuarios WHERE email = ?", email)
-    if (user[0].length == 0){
+    console.log(email)
+    const [user] = await pool.query("SELECT id, nombre, contraseña from usuarios WHERE email = ?", email)
+    console.log(user[0])
+    if (user[0] === undefined){
         return res.status(406).json({message: "Usuario inválido"});
     }
     const userId = user[0].id

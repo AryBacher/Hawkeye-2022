@@ -15,8 +15,9 @@ function FormLogIn() {
 
       method: "POST",
       body: JSON.stringify(finalValues),
-      headers: { "Content-Type" : "application/json" }
-      
+      headers: { "Content-Type" : "application/json" },
+      credentials: "same-origin",
+
     })
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))

@@ -11,8 +11,8 @@ POST http://localhost:4000/LogIn
 Content-Type: application/json
 
 {
-    "email": "alanyeger2@gmail.com",
-    "password": "12121212"
+    "email": "alanyeger123@gmail.com",
+    "password": ""
 }
 
 ###
@@ -44,4 +44,16 @@ Content-Type: application/json
     "name": "Alan",
     "email": "alanyeger1@gmail.com",
     "password": "12345678"
+}
+
+###
+
+POST http://localhost:4000/SignUp
+Content-Type: application/json
+
+{
+    "name": "Alan",
+    "email": "alanyeger24@gmail.com",
+    "password": "12121212",
+    "passwordConfirm": "12121212"
 }
