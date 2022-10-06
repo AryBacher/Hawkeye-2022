@@ -34,27 +34,6 @@ function App() {
     },
   });
 
-  //Por ahora 12 paginas (contando el mail de confirmación de cambio de contraseña), una barbaridad.
-  //
-  //Not Found Page terminada (faltan media-queries).
-  //Home Page terminada (faltan media-queries).
-  //Sign Up Page terminada.
-  //Log In Page terminada (faltan media-queries).
-  //RecoverPassword Page terminada.
-  //ConfirmNewPassword Page terminada
-
-  //Faltán 6 páginas:
-  //
-  //Analysis Page falta todo. (Terminado en dos semanas).
-  //Record Page falta todo. (Terminado en 2 horas). Hacer hoy.
-  //StartLive Page falta todo. (Terminado en una semana). 
-  //UploadVideo Page falta todo. (Terminado en una semana).
-  //Help Page falta todo. (Terminado en una semana).
-  //
-  //Mail de confirmación falta todo. (Terminado en 30 minutos o menos aunque es opcional). 
-
-  //Cosas que preguntar: Tema de tiempo, cómo explicar el proyecto y además el cómo hacer la animación de intersection observer. 
-
   return (
     <>
       <ThemeProvider theme={HawkeyeTheme}>

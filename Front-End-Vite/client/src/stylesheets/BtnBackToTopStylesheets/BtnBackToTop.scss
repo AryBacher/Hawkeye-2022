@@ -1,26 +1,26 @@
-#btn-btt-container{
-    cursor: pointer;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    width: 48px;
-    height: 48px;
-    background-color: var(--colorVerde);
-    transition: all 0.4s ease-in-out;
-    box-shadow: 0 0 10px hsla(137, 55, 55, 0.4);;
-    &:hover{
-        box-shadow: 0 0 20px hsla(137, 55, 55, 0.4);;
-    }
+#btn-btt-container {
+  cursor: pointer;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--colorVerde);
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 10px hsla(137, 55, 55, 0.4);
+  &:hover {
+    box-shadow: 0 0 20px hsla(137, 55, 55, 0.4);
+  }
 }
 
-.btn-btt-true{
-    bottom: 5vh;
-    right: 3vw;
+.btn-btt-true {
+  bottom: 5vh;
+  right: 3vw;
 }
 
-.btn-btt-false{
-    bottom: -5vh;
-    right: 3vw;
+.btn-btt-false {
+  bottom: -10vh;
+  right: 3vw;
 }

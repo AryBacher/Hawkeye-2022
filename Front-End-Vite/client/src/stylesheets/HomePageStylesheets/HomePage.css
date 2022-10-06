@@ -123,8 +123,8 @@
 .bottom-section-h .features .features-content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding-top: 100px;
-  padding-bottom: 75px;
+  padding-top: 75px;
+  padding-bottom: 50px;
   width: 80%;
   height: 100%;
   display: -webkit-box;
@@ -498,7 +498,7 @@
 
 .bottom-section-h .second-footer {
   width: 100%;
-  background-color: #151A1E;
+  background-color: #151a1e;
   border-top: 1px solid var(--colorAzulClaro);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -595,7 +595,7 @@
 }
 
 .bottom-section-h .second-footer .social-networks .button-sn-twitter:hover {
-  background-color: #1DA1F2;
+  background-color: #1da1f2;
   -webkit-box-shadow: 0 0 15px rgba(28, 160, 242, 0.4);
           box-shadow: 0 0 15px rgba(28, 160, 242, 0.4);
 }
@@ -650,7 +650,7 @@
 
 .bottom-section-h .second-footer .social-networks .button-sn-instagram:hover {
   background: #d6249f;
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
   -webkit-box-shadow: 0 0 15px rgba(214, 36, 157, 0.4);
           box-shadow: 0 0 15px rgba(214, 36, 157, 0.4);
 }
@@ -736,7 +736,7 @@
 }
 
 .bottom-section-h .second-footer .last {
-  background-color: #151A1E;
+  background-color: #151a1e;
   width: 100%;
   height: 64px;
   display: -webkit-box;

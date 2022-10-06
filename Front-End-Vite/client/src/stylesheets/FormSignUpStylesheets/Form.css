@@ -6,7 +6,7 @@ Form {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  gap: 2vh;
+  gap: 1.5vh;
 }
 
 Form a {
