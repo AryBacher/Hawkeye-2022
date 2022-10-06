@@ -101,10 +101,15 @@ pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 pique3 = deque(maxlen=3)
 
+listaContornos = []
+
 while True:
 	# Agarra el frame actual
 	frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
+
+	frame2 = vs.read()
+	frame2 = frame2[1] if args.get("video", False) else frame
 
 	# Verifica si termina el video
 	if frame is None:
@@ -149,11 +154,11 @@ while True:
 
 	# Filtra los tonos verdes de la imagen
 	mask = cv2.inRange(hsv, greenLower, greenUpper)
-	cv2.imshow("mask2", mask)
+	#cv2.imshow("mask2", mask)
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
-	cv2.imshow("mask3", mask)
+	#cv2.imshow("mask3", mask)
 
 	# Toma todos los contornos de la imagen
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -161,6 +166,37 @@ while True:
 	cnts = imutils.grab_contours(cnts)
 
 	center = None
+
+	# Pasamos ambos frames a una escala de grises
+	grayImage1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	grayImage2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+
+	# Creamos una imagen vacía
+	vacia = np.zeros((altoOG,anchoOG,3),np.uint8)
+
+	# Vemos la diferencia entre los frames y le pasamos un threshold
+	diffImage = cv2.absdiff(grayImage1, grayImage2)
+	ret, thresh = cv2.threshold(diffImage, 127, 255, 0)
+
+	# Buscamos todos los contornos en la imagen
+	#contornos, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+	contornos = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	contornos = imutils.grab_contours(contornos)
+
+    # Verifica si se encontró un objeto
+	if (len(contornos)): objectDetected = True
+	else: objectDetected = False
+
+	print("Diferencia", diffImage)
+	
+	#for contorno in contornos:
+		#(center, radius) = cv2.minEnclosingCircle(contorno)
+		#listaContornos.append(center)
+	#print("Contorno", max(contornos, key=cv2.contourArea))
+
+	# Mostramos los contornos en la imagen vacía y la mostramos
+	cv2.drawContours(vacia, contornos, -1, (0,255,0), 3)
+	cv2.imshow("Todos los contornos", vacia)
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
