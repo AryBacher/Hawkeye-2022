@@ -10,7 +10,7 @@ plt.imshow(cancha)
 plt.axis('off')
 
 # Recibe los puntos de pique
-pts = [[10, 100], [20, 200], [110, 200], [150, 100], [80, 350], [140, 300], [120, 400]]
+pts = [[10, 100], [20, 200], [110, 200], [150, 100], [80, 350], [140, 300], [120, 400], [50, 70], [35, 450]]
 ptX = []
 ptY = []
 
@@ -35,6 +35,5 @@ kde = sns.kdeplot(
 
 plt.xlim(0, 268); plt.ylim(0, 524)
 
+# Guarda el heatmap
 plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
-
-plt.show()
