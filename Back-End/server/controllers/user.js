@@ -35,10 +35,10 @@ export const logIn = async (req, res) =>{
     }
 
     const {email, password} = req.body;
-    console.log(email)
+
     const [user] = await pool.query("SELECT id, nombre, contraseña from usuarios WHERE email = ?", email)
-    console.log(user[0])
-    if (user[0] === undefined){
+
+    if (user.length === 0){
         return res.status(406).json({message: "Usuario inválido"});
     }
     const userId = user[0].id
@@ -55,16 +55,18 @@ export const logIn = async (req, res) =>{
             httpOnly: true,
             expiresIn: 0,
             path: '/',
+            sameSite: 'none',
+            secure: true,
         })
 
         const serializedRefresh = serialize('refreshToken', refreshToken, {
             httpOnly: true,
             expiresIn: 0,
             path: '/',
+            sameSite: 'none',
+            secure: true,
         })
-
-        res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]);
-        return res.json({ message: "Usuario logueado" })
+        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado" })
     }
     return res.status(406).json({message: "Contraseña incorrecta"});
 }
@@ -120,7 +122,7 @@ export const updateUsername = async (req, res) =>{
     const contraseñaCorrecta = await bcryptjs.compare(password, user[0].contraseña)
 
     if (contraseñaCorrecta){
-    await pool.query("UPDATE usuarios SET nombre = '" + name + "' WHERE email = '" + email +"'");
+    await pool.query("UPDATE usuarios SET nombre = ? WHERE email = ?", [name, email]);
     return res.status(200).json({ message: "User updated" });
     }
     return res.status(406).json({ message: 'Contraseña incorrecta'})
@@ -153,4 +155,17 @@ export const logOut = (req, res) => {
 
     res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]);
     return res.status(200).json({message: "Usuario deslogueado"});
+}
+
+//Cors config
+
+import allowedOrigins from '../config/allowedOrigins.js';
+
+export const credentials = (req, res, next) => {
+    const origin = req.headers.origin;
+    console.log(origin)
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Credentials', true);
+    }
+    next();
 }

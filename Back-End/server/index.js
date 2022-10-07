@@ -6,12 +6,16 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import UserRoutes from './routes/user.routes.js';
 import VideoRoutes from './routes/videos.routes.js';
+import { credentials } from "./controllers/user.js";
+import corsOptions from "./config/corsOptions.js";
 
 const app = express();
 
+app.use(credentials)
 app.use(express.json())
 
-app.use(cors())
+
+app.use(cors(corsOptions))
 
 
 const storage = multer.diskStorage({
@@ -26,7 +30,7 @@ app.use(multer({
     dest: './videos',
     limits: {fileSize: 100000000000},
     fileFilter: (req, file, cb) => {
-        const filetypes = /mp4/
+        const filetypes = /mp4|avi/
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(path.extname(file.originalname));
         if (extname && mimetype){

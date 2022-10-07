@@ -11,8 +11,8 @@ POST http://localhost:4000/LogIn
 Content-Type: application/json
 
 {
-    "email": "alanyeger123@gmail.com",
-    "password": ""
+    "email": "alanyeger23@gmail.com",
+    "password": "12345678"
 }
 
 ###
@@ -41,7 +41,7 @@ PUT  http://localhost:4000/UpdateUsername
 Content-Type: application/json
 
 {
-    "name": "Alan",
+    "name": "hola",
     "email": "alanyeger1@gmail.com",
     "password": "12345678"
 }

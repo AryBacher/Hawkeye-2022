@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
@@ -10,18 +11,14 @@ function FormLogIn() {
     password: "",
   };
 
-  const useFetch = (finalValues)=>{
-    fetch('http://localhost:4000/LogIn', {
+  const useAxios = async (finalValues)=>{
 
-      method: "POST",
-      body: JSON.stringify(finalValues),
-      headers: { "Content-Type" : "application/json" },
-      credentials: "same-origin",
-
+    console.log(finalValues)
+    const response = await axios.post('http://localhost:4000/LogIn', JSON.stringify(finalValues), {
+      headers: { 'Content-Type': 'application/JSON' },
+      withCredentials: true,
     })
-    .then(res => res.json())
-    .catch(error => console.log("Error groso", error))
-    .then(data => console.log(data));
+    console.log(response)
   }
 
   return (
@@ -29,8 +26,7 @@ function FormLogIn() {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
-          useFetch(values);
-          console.log(values);
+          useAxios(values);
           formikHelpers.resetForm();
         }}
         validationSchema={object({
