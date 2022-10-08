@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import bcryptjs from 'bcryptjs';
+import path from 'path';
 import { serialize } from 'cookie';
 import { pool } from '../database.js';
 import jwt from 'jsonwebtoken';
@@ -168,4 +169,50 @@ export const credentials = (req, res, next) => {
         res.header('Access-Control-Allow-Credentials', true);
     }
     next();
+}
+
+//Send email
+
+import nodemailer from 'nodemailer';
+import hbs from 'nodemailer-express-handlebars'
+//import { HTMLContent } from '../mail/mail.js';
+
+export const sendEmail = async (req, res) => { 
+    
+    if (!req.body.email){
+        res.status(406).json({ message: 'Datos incompletos' })
+    }
+
+    const { email } = req.body;
+    const [existingEmail] = await pool.query("Select email FROM usuarios WHERE email = ?", email)
+    
+    console.log(email)
+
+    if (existingEmail.length === 0){
+        return res.status(406).json({ message: 'No existe usuario con tal mail' })
+    }
+
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.MAIL,
+          pass: process.env.CONTRASENIA,
+        },
+      });
+
+    transporter.use('compile', hbs({
+        viewEngine: 'express-handlebars',
+        viewPath: '../server/views'
+    }))
+
+    await transporter.sendMail({
+        from: '"Hawkeye" <hawkeye.tennis.app@gmail.com>',
+        to: email,
+        subject: "Forgot password",
+        template: 'sendmail'
+      });
+
+    return res.status(200).json({ message: "Se ha enviado el mail con éxito"})
 }

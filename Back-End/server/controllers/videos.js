@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { pool } from "../database.js";
+import fetch from 'node-fetch';
 
 
 //Subir videos
@@ -39,4 +40,13 @@ export const updateVideo = async(req, res) => {
 
   await pool.query("UPDATE videos SET (idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, FechaPartido) = (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, fechaPartido]);
   return res.status(200).json({message: "Video actualizado"})
+}
+
+//Mandar videos a analizar
+export const analysedVideo = async(req, res) => {
+  if (!req.body.ruta){
+    return res.status(500).json({ message: 'Error' })
+  }
+  const { rutaVideo } = req.body.ruta
+  res.sendFile(rutaVideo)
 }

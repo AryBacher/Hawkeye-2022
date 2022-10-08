@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { signUp, logIn, refreshToken, logOut, deleteUser, updateUsername } from "../controllers/user.js";
+import { signUp, logIn, refreshToken, logOut, deleteUser, updateUsername,  sendEmail } from "../controllers/user.js";
 
 const router = Router();
 
@@ -15,5 +15,7 @@ router.post('/LogOut', logOut)
 router.delete('/DeleteUser', deleteUser)
 
 router.put('/UpdateUsername', updateUsername)
+
+router.post('/SendEmail', sendEmail)
 
 export default router

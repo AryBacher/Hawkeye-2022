@@ -57,3 +57,12 @@ Content-Type: application/json
     "password": "12121212",
     "passwordConfirm": "12121212"
 }
+
+###
+
+POST http://localhost:4000/SendEmail
+Content-Type: application/json
+
+{
+    "email": "alanyeger1@gmail.com"
+}

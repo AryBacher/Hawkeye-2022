@@ -8,7 +8,7 @@ import imutils
 import time
 
 #center = None
-resizer = 1
+resizer = 2
 
 def tp_fix(contornos, pre_centro, count):
 	cnts_pts = []
@@ -58,6 +58,8 @@ args = vars(ap.parse_args())
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
+#greenLower = np.array([29, 50, 110])
+#greenLower = np.array([29, 60, 110])
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
 #x = cv2.cvtColor(greenUpper, cv2.COLOR_HSV2BGR)
@@ -101,15 +103,18 @@ pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 pique3 = deque(maxlen=3)
 
-listaContornos = []
+#listaContornos = []
+
+#prevCircle = None
+#dist = lambda x1,y1,x2,y2: (x1-x2)**2+(y1-y2)**2
 
 while True:
 	# Agarra el frame actual
 	frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
 
-	frame2 = vs.read()
-	frame2 = frame2[1] if args.get("video", False) else frame
+	#frame2 = vs.read()
+	#frame2 = frame2[1] if args.get("video", False) else frame
 
 	# Verifica si termina el video
 	if frame is None:
@@ -144,9 +149,9 @@ while True:
 	
 	# Verde crudo
 	hsv_prueba = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-	cv2.imshow('prueba', hsv_prueba)
+	#cv2.imshow('prueba', hsv_prueba)
 	mask_prueba = cv2.inRange(hsv_prueba, greenLower, greenUpper) 
-	cv2.imshow('mask1', mask_prueba)
+	#cv2.imshow('mask1', mask_prueba)
 
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
 	#blurred = cv2.dilate(frame, None, iterations=2)
@@ -158,7 +163,7 @@ while True:
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
-	#cv2.imshow("mask3", mask)
+	cv2.imshow("mask3", mask)
 
 	# Toma todos los contornos de la imagen
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -168,26 +173,27 @@ while True:
 	center = None
 
 	# Pasamos ambos frames a una escala de grises
-	grayImage1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	grayImage2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+	#grayImage1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	#grayImage2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
 
 	# Creamos una imagen vacía
-	vacia = np.zeros((altoOG,anchoOG,3),np.uint8)
+	#vacia = np.zeros((altoOG,anchoOG,3),np.uint8)
+	#vaciaCirculos = np.zeros((altoOG,anchoOG,3),np.uint8)
 
 	# Vemos la diferencia entre los frames y le pasamos un threshold
-	diffImage = cv2.absdiff(grayImage1, grayImage2)
-	ret, thresh = cv2.threshold(diffImage, 127, 255, 0)
+	#diffImage = cv2.absdiff(grayImage1, grayImage2)
+	#ret, thresh = cv2.threshold(grayImage1, 127, 255, 0)
 
 	# Buscamos todos los contornos en la imagen
 	#contornos, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-	contornos = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-	contornos = imutils.grab_contours(contornos)
+	#contornos = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	#contornos = imutils.grab_contours(contornos)
 
     # Verifica si se encontró un objeto
-	if (len(contornos)): objectDetected = True
-	else: objectDetected = False
+	#if (len(contornos)): objectDetected = True
+	#else: objectDetected = False
 
-	print("Diferencia", diffImage)
+	#print("Diferencia", diffImage)
 	
 	#for contorno in contornos:
 		#(center, radius) = cv2.minEnclosingCircle(contorno)
@@ -195,8 +201,40 @@ while True:
 	#print("Contorno", max(contornos, key=cv2.contourArea))
 
 	# Mostramos los contornos en la imagen vacía y la mostramos
-	cv2.drawContours(vacia, contornos, -1, (0,255,0), 3)
-	cv2.imshow("Todos los contornos", vacia)
+	#cv2.drawContours(vacia, contornos, -1, (0,255,0), 3)
+	
+	#grayFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	#blurFrame = cv2.GaussianBlur(grayFrame, (11,11), 0)
+	
+	#circles = cv2.HoughCircles(blurFrame, cv2.HOUGH_GRADIENT, 1.2, 100, 
+                               #param1=100, param2=30, minRadius=1, maxRadius=20)
+	
+	#if circles is not None:
+		#circles = np.uint16(np.around(circles))
+		#chozen = None
+		#for i in circles[0, :]:
+			#if chozen is None: chozen = i
+			#if prevCircle is not None:
+				#if dist(chozen[0], chozen[1],prevCircle[0],prevCircle[1] <= dist(i[0],i[1],prevCircle[0],prevCircle[1])):
+					#chozen = i
+		#cv2.circle(frame, (chozen[0], chozen[1]), 1, (0,100,100), 3)
+		#cv2.circle(frame, (chozen[0], chozen[1]), chozen[2], (255,0,255), 3)
+		#prevCircle = chozen
+	
+	#circles = cv2.HoughCircles(grayImage1, cv2.HOUGH_GRADIENT, 1.1, 100)
+
+	#if circles is not None:
+	# convert the (x, y) coordinates and radius of the circles to integers
+		#circles = np.round(circles[0, :]).astype("int")
+		# loop over the (x, y) coordinates and radius of the circles
+		#for (x, y, r) in circles:
+			# draw the circle in the output image, then draw a rectangle corresponding to the center of the circle
+			#cv2.circle(frame, (x, y), r, (0, 255, 0), 4)
+			#cv2.rectangle(frame, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+
+	#print("Circulos", circles)
+
+	#cv2.imshow("Todos los contornos", vacia)
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
