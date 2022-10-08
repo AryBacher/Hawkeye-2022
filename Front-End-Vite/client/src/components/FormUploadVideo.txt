@@ -1,0 +1,107 @@
+import React from 'react';
+import { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { TextField, MenuItem, Select, InputLabel, FormControl, Button } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import * as Yup from 'yup';
+
+function FormUploadVideo() {
+
+  //Los valores iniciales se conectan a traves del atributo "name".
+
+  const initialValues = {
+    title: '',
+    eventType: '',
+    rival: '',
+    date: '',
+    file: '',
+  };
+
+  //Estado para el select del tipo de evento (partido/entrenamiento).
+
+
+
+  //Esquema de validación con Yup.
+
+  const validation = Yup.object().shape({
+
+  });
+
+  return (
+    <>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validation}
+        onSubmit={(values, formikHelpers)=>{
+          console.log(values);
+          formikHelpers.resetForm();
+        }}
+      >
+      {({ errors, isValid, touched, dirty })=>(
+        <Form>
+          <Field
+            name= "title"
+            type= "text"
+            as= {TextField}
+            variant = "outlined"
+            color = "primary"
+            label = "Título"
+            size = "normal"
+          />
+          <FormControl>
+
+            <InputLabel id="label-eventType">
+              Tipo de evento
+            </InputLabel>
+            <Select
+              labelId='label-eventType'
+              label='Tipo de evento'
+              onChange={handleChange}
+              name= 'eventType'
+            >
+              <MenuItem value="partido" >Partido</MenuItem>
+              <MenuItem value="entrenamiento" >Entrenamiento</MenuItem>
+            </Select>
+
+          </FormControl>
+          <Field
+            name= "rival"
+            type= "text"
+            as= {TextField}
+            variant = "outlined"
+            color = "primary"
+            label = "Rival" 
+          />
+          <Field
+            name= "date"
+            type = "date"
+            as = {TextField}
+            variant = "outlined"
+            color = "primary"
+            label = "Fecha del partido/entrenamiento"
+            InputLabelProps={{ shrink: true }}
+          />
+          <Button
+            component="label"
+            variant="outlined"
+            startIcon={<UploadFileIcon/>}
+          >
+            Subir video
+            <input name="file" type="file" accept="video/*" onChange={handleChange('file')}/>
+          </Button>
+          <Button
+            variant="contained"
+            type="submit"
+            size="large"
+            disabled={!dirty || !isValid}
+          >
+            Analizar
+          </Button>
+        </Form>
+      )}
+      </Formik>
+    </>
+  )
+}
+
+export default FormUploadVideo

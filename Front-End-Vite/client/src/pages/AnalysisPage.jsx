@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import EndUseNavbar from '../components/EndUseNavbar';
 
 function AnalysisPage() {
   return (
     <>
-        <p>Analyisis Page</p>
+      <div className="wrapper">
+        <EndUseNavbar/>
+      </div>
     </>
   )
 }

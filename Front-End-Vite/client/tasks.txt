@@ -6,16 +6,15 @@
   Log In Page terminada (faltan media-queries).
   RecoverPassword Page terminada.
   ConfirmNewPassword Page terminada.
+  Mail de confirmación terminado.
 
-  Faltán 6 o 4 páginas:
+  Faltán 3 o 5 páginas:
   
   Analysis Page falta todo. (Terminado en dos semanas). Prioridad.
   Record Page falta todo. (Terminado en 2 horas). *
   StartLive Page falta todo. (Terminado en una semana). *
   UploadVideo Page falta todo. (Terminado en una semana). Prioridad.
-  Help Page falta todo. (Terminado en una semana). Prioridad.
-  
-  Mail de confirmación falta todo. (Terminado en 30 minutos o menos aunque es opcional). 
+  Help Page falta todo. (Terminado en una semana). Prioridad. 
 
   Cosas que preguntar: 
   
@@ -27,8 +26,11 @@
   Hacer hoy:
 
   - "UploadVideoPage" hacer solo el formulario.
-  - "Mail de confirmación" terminar.
   - Hacer navbar final.
   - Solucionar problema del form wrap.
+
+  Futuro pocos dias:
+
+  - Agregar alertas
   - Ocultar y hacer visible la contraseña en formularios.
-  - A dónde te manda contacto, si al footer o a last-call-to-action? 
+  - Scroll reveal animation (intersection-observer).

@@ -2,7 +2,6 @@
   width: 100%;
   height: 100vh;
   background: url("../../assets/img/home-image.png");
-  background-position: fixed;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -719,8 +718,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
