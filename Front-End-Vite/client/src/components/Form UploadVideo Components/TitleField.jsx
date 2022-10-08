@@ -7,7 +7,7 @@ function TitleField({
   ...otherProps
 }) {
 
-  const [field, mata] = useField(name);
+  const [field, meta] = useField(name);
 
   const configTitleField = {
     ...field,
@@ -15,9 +15,9 @@ function TitleField({
     variant: 'outlined'
   }
 
-  if (mata && mata.touched && mata.error){
+  if (meta && meta.touched && meta.error){
     configTitleField.error = true;
-    configTitleField.helperText = mata.error;
+    configTitleField.helperText = meta.error;
   }
 
   return (

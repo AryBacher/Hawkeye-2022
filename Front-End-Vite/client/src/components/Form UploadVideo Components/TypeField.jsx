@@ -4,21 +4,39 @@ import {useField, useFormikContext} from 'formik';
 
 function TypeField({
   name,
-  options,
   ...otherProps
-}) {
+}){
+
+  const {setFieldValue} = useFormikContext();
+  const [field, meta] = useField(name)
 
   const handleChange = e =>{
-
+    const {value} = e.target;
+    setFieldValue(name, value);
   }
 
   const configSelect = {
+    ...field,
+    ...otherProps,
     select : true,
     variant : 'outlined',
-    onChange : handleChange
+    onChange: handleChange
   }
+
+  if (meta && meta.touched && meta.error) {
+    configSelect.error = true;
+    configSelect.helperText = meta.error;
+  };
+  
   return (
-    <TextField {...configSelect}/>
+    <TextField {...configSelect}>
+      <MenuItem value="match">
+        Partido
+      </MenuItem>
+      <MenuItem value="training">
+        Entrenamiento
+      </MenuItem>
+    </TextField>
   )
 }
 
