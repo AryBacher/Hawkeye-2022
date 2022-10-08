@@ -40,6 +40,18 @@ body {
           box-sizing: border-box;
 }
 
+@media (max-width: 480px) {
+  .wrapper-li .left-side {
+    width: 100%;
+    min-height: 100vh;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding-bottom: 10vh;
+  }
+}
+
 .wrapper-li .left-side h2 {
   font-size: 2rem;
   padding-bottom: 3vh;
@@ -142,6 +154,12 @@ body {
   border: 1px solid var(--colorAzulClaro);
 }
 
+@media (max-width: 480px) {
+  .wrapper-li .right-side {
+    display: none;
+  }
+}
+
 .wrapper-li .right-side .overlay {
   position: absolute;
   width: 70%;
@@ -182,12 +200,33 @@ body {
 }
 
 .wrapper-li .right-side .content h1 {
-  font-size: 4em;
+  font-size: 5em;
   font-weight: 600;
   color: var(--colorBlanco);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+@media (max-width: 1600px) {
+  .wrapper-li .right-side .content h1 {
+    font-size: 4em;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper-li .right-side .content h1 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (max-width: 1340px) and (min-width: 480px) {
+  .wrapper-li .right-side {
+    display: none;
+  }
+  .wrapper-li .left-side {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=LogInPage.css.map */
