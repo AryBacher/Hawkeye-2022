@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form} from 'formik';
+import { Formik, Form, useFormik, Field} from 'formik';
 import * as Yup from 'yup';
 import TitleField from './Form UploadVideo Components/TitleField';
 import TypeField from './Form UploadVideo Components/TypeField';
@@ -16,6 +16,7 @@ function FormUploadVideo() {
     type: '',
     rival: '',
     date: '',
+    file: '',
     outstanding: false
   };
 
@@ -27,6 +28,8 @@ function FormUploadVideo() {
       .required('Ingrese el tipo de análisis'),
     date: Yup.date()
       .required('Ingrese la fecha del partido/entrenamiento'),
+    file: Yup.mixed()
+      .required('Ingrese un archivo de video a analizar')
   });
 
   return (
@@ -39,34 +42,43 @@ function FormUploadVideo() {
           formikHelpers.resetForm();
         }}
       >
-      <Form>
-        <TitleField
-          autoFocus
-          name="title"
-          label="Nombre del análisis"
-        />
-        <TypeField
-          name="type"
-          label="Tipo de análisis"
-        />
-        <TitleField
-          name="rival"
-          label="Rival (opcional)"
-        />
-        <DatePicker
-          name="date"
-          label="Fecha del partido/entrenamiento"
-        />
-        <CheckboxOutstanding
-          name="outstanding"
-          legend = "no se"
-          label="Marcar como análisis destacado"
-        />
-        <BtnSubmit>
-          Subir análisis
-        </BtnSubmit>
-      </Form>
-    
+        <Form>
+          <TitleField
+            autoFocus
+            name="title"
+            label="Nombre del análisis"
+          />
+          <TypeField
+            name="type"
+            label="Tipo de análisis"
+          />
+          <TitleField
+            name="rival"
+            label="Rival (opcional)"
+          />
+          <DatePicker
+            name="date"
+            label="Fecha del partido/entrenamiento"
+          />
+
+          <input
+            type="file"
+            name='file'
+            onChange={(e)=>{
+              setFieldValue("image", e.target.files[0])
+            }} 
+          />
+
+          <CheckboxOutstanding
+            name="outstanding"
+            legend = "no se"
+            label="Marcar como análisis destacado"
+          />
+
+          <BtnSubmit>
+            Subir análisis
+          </BtnSubmit>
+        </Form>
       </Formik>
     </>
   )

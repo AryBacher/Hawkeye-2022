@@ -13,6 +13,7 @@ body {
 }
 
 .wrapperNotFoundPage {
+  background-color: var(--colorAzul);
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -45,9 +46,9 @@ body {
   }
   p {
     position: absolute;
-    font-size: 1.25em;
-    font-weight: 400;
-    bottom: 16%;
+    font-size: 20px;
+    font-weight: 300;
+    bottom: 20%;
     margin: 0;
     padding: 0;
   }

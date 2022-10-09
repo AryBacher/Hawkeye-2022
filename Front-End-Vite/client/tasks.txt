@@ -3,7 +3,7 @@
   Not Found Page terminada (faltan media-queries).
   Home Page terminada (faltan media-queries).
   Sign Up Page terminada.
-  Log In Page terminada (faltan media-queries).
+  Log In Page terminada.
   RecoverPassword Page terminada.
   ConfirmNewPassword Page terminada.
   Mail de confirmación terminado.
@@ -25,12 +25,12 @@
 
   Hacer hoy:
 
-  - "UploadVideoPage" hacer solo el formulario.
   - Hacer navbar final.
   - Solucionar problema del form wrap.
 
   Futuro pocos dias:
 
+  - Mejorar el formulario (pedir ayuda a Dan o Aro)
   - Agregar alertas
   - Ocultar y hacer visible la contraseña en formularios.
   - Scroll reveal animation (intersection-observer).
