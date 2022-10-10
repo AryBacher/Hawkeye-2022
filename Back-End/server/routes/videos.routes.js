@@ -1,15 +1,16 @@
-//import { connection } from "../database.js";
 import { Router } from 'express'
-import { filterVideo, uploadVideo, deleteVideo, updateVideo } from "../controllers/videos.js";
+import { filterVideo, uploadVideo, deleteVideo, updateVideo, sendVideo, redirect } from "../controllers/videos.js";
 
 const router = Router();
 
-router.post('/filterVideo', filterVideo)
+router.post('/FilterVideo', filterVideo)
 
-router.post('/uploadVideo', uploadVideo)
+router.post('/UploadVideo', redirect, uploadVideo)
 
-router.post('/deleteVideo', deleteVideo)
+router.post('/DeleteVideo', deleteVideo)
 
-router.post('/updateVideo', updateVideo)
+router.post('/UpdateVideo', updateVideo)
+
+router.post('AnalysedVideo', sendVideo)
 
 export default router

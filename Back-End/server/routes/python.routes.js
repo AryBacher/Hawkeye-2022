@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 import { spawn } from 'child_process';
 
 const python = spawn('python', 'video');
@@ -13,3 +14,4 @@ python.stderr.on('data', (data) => {
 python.on('close', (code) => {
   console.log(`child process exited with code ${code}`);
 });
+
