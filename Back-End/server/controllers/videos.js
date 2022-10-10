@@ -12,7 +12,7 @@ export const uploadVideo = async (req, res) => {
   const {idUsuario, titulo, rival, esPartido, esFavorito} = req.body;
   const fechaPartido = req.body.FechaPartido;
   const idVideo = req.file.filename;
-  const rutaVideo = 'localhost:4000/videos/'.concat(req.file.filename);
+  const rutaVideo = 'localhost:4000/Back-End/server/videos/'.concat(req.file.filename);
   const bool_esPartido = esPartido == 'true';
   const bool_esFavorito = esFavorito == 'true';
 
@@ -26,12 +26,16 @@ export const uploadVideo = async (req, res) => {
   return res.status(200).json({message: "Video añadido"})
   };
 
+
+
 //Filtrar videos
 export const filterVideo = async(req, res) => {
+
   const filtro = VARIABLEGLOBALFILTRO;
   const busqueda = req.body;
   const titulo = await connection.query("SELECT idVideo from videos WHERE "%filtro%" LIKE "%busqueda%"");
   res.json(titulo);
+
 }
 
 //Borrar videos
@@ -85,3 +89,20 @@ export const redirect = multer({
       cb('Error: tipo de archivo no válido');
   }
 }).single('video')
+
+
+
+
+//Mostrar un único video
+export const showVideo = async(req, res) => {
+
+}
+
+const __dirname = path.resolve();
+//Seleccionar los videos
+export const getVideos = async(req, res) => {
+  const { id } = req.body
+  const [video] = await pool.query("Select * FROM videos WHERE idVideo = ?", id)
+  const finalPath = __dirname + video[0].rutaVideo
+  return res.sendFile(finalPath)
+}

@@ -5,6 +5,8 @@ import UserRoutes from './routes/user.routes.js';
 import VideoRoutes from './routes/videos.routes.js';
 import { credentials } from "./controllers/user.js";
 import corsOptions from "./config/corsOptions.js";
+import path from 'path';
+
 
 const app = express();
 
@@ -20,6 +22,9 @@ app.use(cors(corsOptions))
 
 app.use(UserRoutes)
 app.use(VideoRoutes)
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'videos')));
 
 // Prueba para subir video
 app.get('/', (req, res) =>{
