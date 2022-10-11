@@ -10,6 +10,7 @@ import HelpPage from './pages/HelpPage'
 import ConfirmNewPasswordPage from './pages/ConfirmNewPasswordPage'
 import StartLivePage from './pages/StartLivePage'
 import UploadVideoPage from './pages/UploadVideoPage'
+import VideoPage from './pages/VideoPage'
 import {Route, Routes} from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material"
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/Record" element={<RecordPage/>}/>
           <Route path="/StartLive" element={<StartLivePage/>}/>
           <Route path="/UploadVideo" element={<UploadVideoPage/>}/>
+          <Route path="/Video/:id" element={<VideoPage/>}/>
           <Route path="/Help" element={<HelpPage/>} />
         </Routes>
       </ThemeProvider>
