@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "node-fetch": "^3.2.10"
+    "node-fetch": "^3.2.10",
+    "sass": "^1.55.0"
   }
 }

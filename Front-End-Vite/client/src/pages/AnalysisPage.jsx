@@ -1,12 +1,44 @@
 import React from 'react';
 import EndUseNavbar from '../components/EndUseNavbar';
-import {useState} from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
+import {useState,useRef, useEffect} from 'react';
 import CardVideo from '../components/CardVideo';
 import "../stylesheets/AnalysisPageStylesheets/AnalysisPage.css";
 
 function AnalysisPage() {
 
-  const [search, setSearch] = useState("");
+  // Botón colapsable de mostrar filtros de búsqueda.
+
+  const [toggle, setToggle] = useState(false)
+  const [heightEl, setHeightEl] = useState();
+
+  const refHeight = useRef()
+
+  useEffect(() => {
+      console.log(refHeight);
+      setHeightEl(`${refHeight.current.scrollHeight}px`);
+
+  }, [])
+
+  const toggleState = () => {
+      setToggle(!toggle)
+  }
+
+  console.log(toggle);
+
+
+
+  // Formulario de botones de radio.
+
+  const[typeAnalysis, setTypeAnalysis] = useState('cualquiera');
+  const[duration, setDuration] = useState('cualquiera');
+  const[orderBy, setOrderBy] = useState('destacados');
+
 
   return (
     <>
@@ -47,19 +79,98 @@ function AnalysisPage() {
               <input id='search-bar' type="search" placeholder='Buscar análisis...' onChange={e =>{e.target.value}} />
             </div>
             <div className='filters'>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 2.83789H4.55571M17.0007 2.83789H8.11142M1 9.06038H11.6671M17.0007 9.06038H15.2228M1 15.2829H2.77785M17.0007 15.2829H6.33356" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M6.33352 4.61626C7.3154 4.61626 8.11137 3.82028 8.11137 2.8384C8.11137 1.85652 7.3154 1.06055 6.33352 1.06055C5.35164 1.06055 4.55566 1.85652 4.55566 2.8384C4.55566 3.82028 5.35164 4.61626 6.33352 4.61626Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M13.4448 10.8389C14.4267 10.8389 15.2227 10.0429 15.2227 9.06106C15.2227 8.07918 14.4267 7.2832 13.4448 7.2832C12.463 7.2832 11.667 8.07918 11.667 9.06106C11.667 10.0429 12.463 10.8389 13.4448 10.8389Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M4.55569 17.0596C5.53757 17.0596 6.33354 16.2636 6.33354 15.2818C6.33354 14.2999 5.53757 13.5039 4.55569 13.5039C3.5738 13.5039 2.77783 14.2999 2.77783 15.2818C2.77783 16.2636 3.5738 17.0596 4.55569 17.0596Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-
-             <h3>Filtros de búsqueda</h3>
+              <div className='btn-filters' onClick={toggleState}>
+                <svg className="settings-filter" width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 2.83789H4.55571M17.0007 2.83789H8.11142M1 9.06038H11.6671M17.0007 9.06038H15.2228M1 15.2829H2.77785M17.0007 15.2829H6.33356" stroke="#4ECB71" stroke-width="1.75" stroke-linecap="round"/>
+                  <path d="M6.33352 4.61626C7.3154 4.61626 8.11137 3.82028 8.11137 2.8384C8.11137 1.85652 7.3154 1.06055 6.33352 1.06055C5.35164 1.06055 4.55566 1.85652 4.55566 2.8384C4.55566 3.82028 5.35164 4.61626 6.33352 4.61626Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M13.4448 10.8389C14.4267 10.8389 15.2227 10.0429 15.2227 9.06106C15.2227 8.07918 14.4267 7.2832 13.4448 7.2832C12.463 7.2832 11.667 8.07918 11.667 9.06106C11.667 10.0429 12.463 10.8389 13.4448 10.8389Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M4.55569 17.0596C5.53757 17.0596 6.33354 16.2636 6.33354 15.2818C6.33354 14.2999 5.53757 13.5039 4.55569 13.5039C3.5738 13.5039 2.77783 14.2999 2.77783 15.2818C2.77783 16.2636 3.5738 17.0596 4.55569 17.0596Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <h3>FILTROS DE BÚSQUEDA</h3>
+                <svg className = {toggle ? 'arrow-filter': 'arrow-filter inactive-arrow'} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.92893 9.07107L11.6464 15.7886C11.8417 15.9838 12.1583 15.9838 12.3536 15.7886L19.0711 9.07107" stroke="#4ECB71" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div className={toggle ? 'filters-container filters-visible' : "filters-container filters-invisible"} style={{height: toggle ? `${heightEl}` : "0px"}} ref={refHeight} >
+                <form onSubmit={
+                  (e)=>{
+                    e.preventDefault(); 
+                    console.log(typeAnalysis);
+                    console.log(duration);
+                    console.log(orderBy);
+                  }}
+                >
+                  <div className='filters-box'>
+                    <FormControl className='form-control'>
+                      <FormLabel sx={{ fontWeight: 500, fontSize: '1em', paddingBottom: '15px'}}>
+                        Tipo de análisis
+                      </FormLabel>
+                      <RadioGroup
+                        name="analysis-type"
+                        value={typeAnalysis}
+                        onChange={(e)=>{setTypeAnalysis(e.target.value)}}
+                      >
+                        <FormControlLabel value="cualquiera" control={<Radio />} label="Cualquiera" />
+                        <FormControlLabel value="partidos" control={<Radio />} label="Partidos" />
+                        <FormControlLabel value="entrenamientos" control={<Radio />} label="Entrenamientos" />
+                        <FormControlLabel value="destacados" control={<Radio />} label="Destacados" />
+                      </RadioGroup>
+                    </FormControl>
+                    <FormControl className='form-control'>
+                      <FormLabel sx={{ fontWeight: 500, fontSize: '1em', paddingBottom: '15px'}}>
+                        Duración de análisis
+                      </FormLabel>
+                      <RadioGroup
+                        name="analysis-duration"
+                        value={duration}
+                        onChange={(e)=>{setDuration(e.target.value)}}
+                      >
+                        <FormControlLabel value="cualquiera" control={<Radio />} label="Cualquiera"/>
+                        <FormControlLabel value="-10min" control={<Radio />} label="Menos de 10 minutos" />
+                        <FormControlLabel value="10min-30min" control={<Radio />} label="Entre 10 y 30 minutos" />
+                        <FormControlLabel value="+30min" control={<Radio />} label="Más de 30 minutos" />
+                      </RadioGroup>
+                    </FormControl>
+                    <FormControl className='form-control'>
+                      <FormLabel sx={{ fontWeight: 500, fontSize: '1em', paddingBottom: '15px'}}>
+                        Ordenar por
+                      </FormLabel>
+                      <RadioGroup
+                        name="analysis-duration"
+                        value={orderBy}
+                        onChange={(e)=>{setOrderBy(e.target.value)}}
+                      >
+                        <FormControlLabel value="destacados" control={<Radio />} label="Destacados" />
+                        <FormControlLabel value="recientes" control={<Radio />} label="Más recientes" />
+                        <FormControlLabel value="antiguos" control={<Radio />} label="Más antiguos" />
+                      </RadioGroup>
+                    </FormControl>
+                  </div>
+                    
+                  <Button sx={{
+                    fontWeight: 600,
+                    textTransform: 'capitalize',
+                    fontSize: '1em',
+                    height: '50px',
+                    padding: 0,
+                    borderRadius: '10px'
+                  }} 
+                  type='submit' 
+                  variant='contained'>
+                      Aplicar filtros
+                  </Button>
+                </form>
+              </div>
             </div>
           </section>
           <div className='divider'></div>
           <section className='videos'>
-            
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator match"
+              otherInfo = "Partido del 12/08/22"
+            />
           </section>
         </div>
       </div>
@@ -68,3 +179,7 @@ function AnalysisPage() {
 }
 
 export default AnalysisPage;
+
+// className = {toggle ? 'arrow-filter': 'arrow-filter inactive-arrow'}
+
+//  className={toggle ? 'filters-container filters-visible' : "filters-container filters-invisible"} style={{height: toggle ? `${heightEl}` : "0px"}}
