@@ -91,14 +91,13 @@ export const redirect = multer({
 }).single('video')
 
 
-
-
 //Mostrar un único video
 export const showVideo = async(req, res) => {
 
 }
 
 const __dirname = path.resolve();
+
 //Seleccionar los videos
 export const getVideos = async(req, res) => {
   const { id } = req.body
