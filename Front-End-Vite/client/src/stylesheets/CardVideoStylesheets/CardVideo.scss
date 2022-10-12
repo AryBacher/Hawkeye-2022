@@ -1,16 +1,21 @@
 .card-video-container{
     box-sizing: border-box;
     padding: 25px;
-    width: 400px;
-    height: 350px;
+    margin-bottom: 1%;
+    width: 24.25%;
     background-color: #18222A;
     border-radius: 10px;
-    margin: 25px 25px;
     cursor: pointer;
     transition: all 250ms ease-in;
     &:hover{
         cursor: pointer;
         background-color: #1a2630;
+        #thumbnail-box{
+            svg{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
     }
     #thumbnail-box{
         width: 100%;
@@ -20,12 +25,14 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 25px;
-    }
-    svg{
-        filter: drop-shadow(0px 5px 10px 1px rgba(0, 0, 0, 0.25));
+        svg{
+            opacity: 0;
+            transform: translateY(15%);
+            transition: all 250ms ease-in ;
+        }
     }
     h4{
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 600;
         margin-bottom: 25px;
         text-overflow: ellipsis;
@@ -34,12 +41,19 @@
     }
     .video-card-bottom{
         display: flex;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
-        p{
-            font-weight: 300;
-            font-size: 16px;
+        .left-btm{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                color: #bbbbbb;
+                font-weight: 300;
+                font-size: 14px;
+            }
         }
+
     }
 }
 

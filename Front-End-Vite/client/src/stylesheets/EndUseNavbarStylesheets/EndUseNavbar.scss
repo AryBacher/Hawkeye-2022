@@ -9,19 +9,172 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 100%;
         width: 80%;
         ul{
+            width: 70%;
+            height: 100%;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             li{
+                font-size: 16px;
+                font-weight: 300;
+                cursor: pointer;
+                height: 100%;
+                width: 16%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: color 200ms ease-in;
                 list-style: none;
+                &::after {
+                    content: "";
+                    display: block;
+                    left: 50%;
+                    bottom: 0;
+                    width: 0;
+                    height: 1px;
+                    background-color: var(--colorVerde);
+                    transition: all 400ms ease-out;
+                  }
                 a{
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    transition: color 200ms ease-in;
                     text-decoration: none;
                     font-size: 1em;
                     color: var(--colorBlanco);
+                    &:hover {
+                        color: var(--colorVerde);
+                    }
+                }
+            }
+        }
+        .profile-container{
+            height: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            P{
+                margin-left: 10px;
+            }
+            svg{
+                transition: all 200ms ease-in;
+            }
+            &:hover{
+                svg{
+                    transform: translateY(10%);
                 }
             }
         }
     }
+}
+
+#grabar{
+    color: var(--colorVerde);
+    &::after {
+        content: "";
+        display: block;
+        left: 50%;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--colorVerde);
+        transition: all 400ms ease-out;
+        box-shadow: inset 0 0 0.5em 0 rgba(78, 203, 113, 1),
+        0 0 0.5em rgba(78, 203, 113, 1);
+    }
+    a{
+        color: var(--colorVerde);
+    }
+}
+
+#análisis{
+    &::after {
+        content: "";
+        display: block;
+        left: 50%;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--colorVerde);
+        transition: all 400ms ease-out;
+        box-shadow: inset 0 0 0.5em 0 rgba(78, 203, 113, 1),
+        0 0 0.5em rgba(78, 203, 113, 1);
+    }
+    a{
+        color: var(--colorVerde);
+    }
+}
+
+
+#ayuda{
+    &::after {
+        content: "";
+        display: block;
+        left: 50%;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: var(--colorVerde);
+        transition: all 400ms ease-out;
+        box-shadow: inset 0 0 0.5em 0 rgba(78, 203, 113, 1),
+        0 0 0.5em rgba(78, 203, 113, 1);
+    }
+    a{
+        color: var(--colorVerde);
+    }
+}
+
+
+a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu{
+    position: fixed;
+    top: 100px;
+    right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--colorAzul);
+    width: 200px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid var(--colorAzulClaro);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    p{
+        font-size: 16px;
+        color: var(--colorRojo);
+    }
+    &:hover{
+        transform: translateY(-10%);
+        .icon-logout{
+            filter: drop-shadow(0px 0px 5px rgba(255, 26, 67, 0.8));
+        }
+        
+        p{
+            text-shadow: 0px 0px 5px rgba(255, 26, 67, 0.4);
+        }
+    }
+}
+
+
+.notdropdown{
+    height: 0;
+    border: none;
 }

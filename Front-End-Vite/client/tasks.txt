@@ -1,36 +1,31 @@
   Por ahora 12 paginas (contando el mail de confirmación de cambio de contraseña), una barbaridad:
   
-  Not Found Page terminada (faltan media-queries).
-  Home Page terminada (faltan media-queries).
+  Not Found Page "terminada" (faltan media-queries). HACER AL FINAL
+  Home Page "terminada" (faltan media-queries).
   Sign Up Page terminada.
   Log In Page terminada.
   RecoverPassword Page terminada.
   ConfirmNewPassword Page terminada.
   Mail de confirmación terminado.
+  Analysis Page "terminada" (faltan media-queries y lo de clickear afuera y cerrar la ventana para cerrar sesión).
 
-  Faltán 3 o 5 páginas:
+  Faltán 3 páginas:
   
-  Analysis Page falta todo. (Terminado en dos semanas). Prioridad.
-  Record Page falta todo. (Terminado en 2 horas). *
-  StartLive Page falta todo. (Terminado en una semana). *
-  UploadVideo Page falta todo. (Terminado en una semana). Prioridad.
-  Help Page falta todo. (Terminado en una semana). Prioridad. 
+  UploadVideo Page falta mucho. (Terminado en una semana). Prioridad.
+  Help Page falta todo. (Terminado en 2 dias). Prioridad. 
+  Video Page falta todo. (Terminado en una semana). Prioridad.
 
   Cosas que preguntar: 
   
-  Tema de tiempo. 
-  Cómo explicar el proyecto.
   El cómo hacer la animación de intersection observer.
-  Cómo hacer que el navbar te mande a diferentes rutas del front sin recargar. 
 
   Hacer hoy:
 
-  - Hacer navbar final.
   - Solucionar problema del form wrap.
 
   Futuro pocos dias:
 
-  - Mejorar el formulario (pedir ayuda a Dan o Aro)
-  - Agregar alertas
+  - Hacer funcionar el formulario con MUI de UploadVideo (sobretodo problemas con input type file).
+  - Agregar alertas personalizadas.
   - Ocultar y hacer visible la contraseña en formularios.
   - Scroll reveal animation (intersection-observer).

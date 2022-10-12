@@ -55,7 +55,7 @@ function NotFoundPage() {
         </motion.svg>
         <h1>4 4</h1>
         <p>
-          Esta página no existe, deberíamos <a href="/">volver</a>.
+          Esta página no existe, deberíamos <a href="/Analysis">volver</a>.
         </p>
       </div>
     </>

@@ -1,9 +1,22 @@
 import React from 'react'
+import '../stylesheets/HelpPageStylesheets/HelpPage.css';
+import EndUseNavbar from '../components/EndUseNavbar';
 
 function HelpPage() {
   return (
     <>
-        <p>HelpPage</p>
+      <div className='wrapper-hp'>
+        <EndUseNavbar
+          grabarId = ''
+          análisisId = ''
+          ayudaId = 'ayuda'
+        />
+        <div className='header'>
+          <h2>
+            
+          </h2>
+        </div>
+      </div>
     </>
   )
 }

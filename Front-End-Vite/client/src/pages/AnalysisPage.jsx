@@ -43,7 +43,11 @@ function AnalysisPage() {
   return (
     <>
       <div className="wrapper-ap">
-        <EndUseNavbar/>
+        <EndUseNavbar
+          grabarId = ''
+          análisisId = 'análisis'
+          ayudaId = ''
+        />
         <div className='profile-bg'>
         </div>
         <div className='content-ap'>
@@ -55,8 +59,8 @@ function AnalysisPage() {
               </svg>  
             </div>
             <div className='user-names'>
-              <h3 id='username-main'>Usuario</h3>
-              <p id='mail-main'>usuario@gmail.com</p>
+              <h3 id='username-main'>Arotu</h3>
+              <p id='mail-main'>arotuort@gmail.com</p>
             </div>
             <div className='amount-videos'>
               <div className='general point-indicator'></div>
@@ -170,6 +174,57 @@ function AnalysisPage() {
               thumbnail = "img-thumbnail"
               videoType = "point-indicator match"
               otherInfo = "Partido del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator training"
+              otherInfo = "Entrenamiento del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator match"
+              otherInfo = "Partido del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator training"
+              otherInfo = "Entrenamiento del 12/08/22"
+              state = {true}
+            />
+
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator match"
+              otherInfo = "Partido del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator training"
+              otherInfo = "Entrenamiento del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator match"
+              otherInfo = "Partido del 12/08/22"
+              state = {true}
+            />
+            <CardVideo
+              title = "Ary Bacher ganaasdasd final Copa Davis"
+              thumbnail = "img-thumbnail"
+              videoType = "point-indicator training"
+              otherInfo = "Entrenamiento del 12/08/22"
+              state = {true}
             />
           </section>
         </div>

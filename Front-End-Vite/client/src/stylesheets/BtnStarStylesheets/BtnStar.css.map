@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,YAAY,CAAA;EACR,IAAI,EAAG,SAAS;EAChB,MAAM,EAAG,SAAS;CACrB;;AAED,AAAA,gBAAgB,CAAA;EACZ,MAAM,EAAG,SAAS;CACrB",
-    "sources": [
-        "BtnStar.scss"
-    ],
-    "names": [],
-    "file": "BtnStar.css"
-}
