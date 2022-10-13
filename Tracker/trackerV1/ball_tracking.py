@@ -18,21 +18,21 @@ def tp_fix(contornos, pre_centro, count):
 		cnts_pts.append(contorno)
 	if cnts_pts != []:
 		return cualEstaMasCerca(pre_centro, cnts_pts)
-	else: print("No se encontró la pelotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+	else: print("No se encontró la pelotaaaaaaaaaaaaaaaaaaaaaaaa")
 
 def cualEstaMasCerca(punto, lista):
 	suma = []
 	suma2 = []
 	for i in lista:
 		(xCenter, yCenter), radius = cv2.minEnclosingCircle(i)
-		x = int(xCenter) - int(punto[0]) 
+		x = int(xCenter) - int(punto[0])
 		y = int(yCenter) - int(punto[1])
 
 		if x < 0:
 			x *= -1
 		
 		if y < 0:
-			y *= -1 
+			y *= -1
 		
 		suma.append(x + y)
 		suma2.append(i)
@@ -105,7 +105,7 @@ args = vars(ap.parse_args())
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
-greenLower = np.array([29, 50, 110])
+#greenLower = np.array([29, 50, 110])
 #greenLower = np.array([29, 60, 110])
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
@@ -182,6 +182,13 @@ while True:
 	estaCercaX = anchoOG * 15/100
 	estaCercaY = altoOG * 15/100
 
+	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
+                    [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
+	pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
+	
+	matrix = cv2.getPerspectiveTransform(pts1, pts2)
+	result = cv2.warpPerspective(frame, matrix, (164, 474))
+
 	frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
 	#frame = imutils.resize(frame, height=768)
 	
@@ -193,20 +200,13 @@ while True:
 	# cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
 	# cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
 
-	pts1 = np.float32([[topLeftX, topLeftY],       [topRightX, topRightY],
-                    [bottomLeftX, bottomLeftY], [bottomRightX, bottomRightY]])
-	pts2 = np.float32([[0, 0], [164, 0], [0, 474], [164, 474]])
-	
-	matrix = cv2.getPerspectiveTransform(pts1, pts2)
-	result = cv2.warpPerspective(frame, matrix, (164, 474))
-
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	
 	# Verde crudo
 	hsv_prueba = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 	#cv2.imshow('prueba', hsv_prueba)
-	mask_prueba = cv2.inRange(hsv_prueba, greenLower, greenUpper) 
+	mask_prueba = cv2.inRange(hsv_prueba, greenLower, greenUpper)
 	#cv2.imshow('mask1', mask_prueba)
 
 	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
@@ -387,7 +387,7 @@ while True:
 	if (len(pique2) >= 2):
 		if pique2[0] == False and pique2[1] == True:
 			print("Gerard")
-			frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+			#frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
 	frame = imutils.resize(frame, anchoOG, altoOG)
 	#frame = imutils.resize(frame, height=768)
