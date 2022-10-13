@@ -31,6 +31,15 @@ app.get('/', (req, res) =>{
     res.render('index.ejs')
 })
 
+//Prueba para ejecutar archivo de Python
+import { spawn } from 'child_process';
+app.get('/python', (req, res) =>{
+    const pythonProcess = spawn('python',["./script.py"]);
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(data)
+       });
+})
+
 app.set ('port', parseInt(process.env.PORT));
 
 app.listen (app.get('port'));

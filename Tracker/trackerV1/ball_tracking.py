@@ -1,5 +1,5 @@
 from collections import deque
-from cv2 import minEnclosingCircle
+from cv2 import circle, minEnclosingCircle
 from imutils.video import VideoStream
 import numpy as np
 import argparse
@@ -7,7 +7,6 @@ import cv2
 import imutils
 import time
 
-#center = None
 resizer = 2
 
 def tp_fix(contornos, pre_centro, count):
@@ -19,7 +18,7 @@ def tp_fix(contornos, pre_centro, count):
 		cnts_pts.append(contorno)
 	if cnts_pts != []:
 		return cualEstaMasCerca(pre_centro, cnts_pts)
-	else: print("No se encontró la pelota")
+	else: print("No se encontró la pelotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 
 def cualEstaMasCerca(punto, lista):
 	suma = []
@@ -47,6 +46,54 @@ def pica (centro1, centro2, centro3):
 		gerardPique = False
 	return gerardPique
 
+def centroQuieto(list_center):
+	sumaX = 0
+	sumaY = 0
+	centrosCerca = True
+	for i in list_center:
+		if centrosCerca == False: break
+		sumaX += i[0]
+		sumaY += i[1]
+		for l in list_center:
+			if i[0] - l[0] >= -20 and i[0] - l[0] <= 20:
+				centrosCerca = True
+			else:
+				centrosCerca = False
+				break
+
+			if centrosCerca and i[1] - l[1] >= -20 and i[1] - l[1] <= 20:
+				centrosCerca = True
+			else:
+				centrosCerca = False
+				break
+	
+	if centrosCerca:
+		centrosIgnorar.append((sumaX / 10, sumaY / 10))
+		return True
+	return False
+
+def ignorarQuieto(cnts):
+	new_cnts = []
+	Ignorar = False
+	print("Puntos a ignorar", centrosIgnorar)
+	for cnt in cnts:
+		(x, y), radius = minEnclosingCircle(cnt)
+		print("Circulo", (x, y))
+		for i in centrosIgnorar:
+			if x - i[0] >= -20 and x - i[0] <= 20:
+				Ignorar = True
+			else:
+				Ignorar = False
+
+			if Ignorar and y - i[1] >= -20 and y - i[1] <= 20:
+				break
+			
+		if Ignorar == False: new_cnts.append(cnt)
+	
+	for i in new_cnts:
+		print("Nueva lista", minEnclosingCircle(i))
+	return new_cnts
+
 # Argumentos del programa
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video",
@@ -58,7 +105,7 @@ args = vars(ap.parse_args())
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
-#greenLower = np.array([29, 50, 110])
+greenLower = np.array([29, 50, 110])
 #greenLower = np.array([29, 60, 110])
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
@@ -76,7 +123,8 @@ if not args.get("video", False):
 
 # Toma video en caso de haber
 else:
-	vs = cv2.VideoCapture(args["video"])	
+	vs = cv2.VideoCapture(args["video"])
+	#vs = cv2.VideoCapture("y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4")
 
 # Fps del video
 fps = int(vs.get(cv2.CAP_PROP_FPS))
@@ -99,9 +147,17 @@ bottomRightY = 785
 
 count = 0
 count2 = 0
+countMovimiento = 0
+centrosMovimiento = deque(maxlen=10)
+centrosIgnorar = []
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 pique3 = deque(maxlen=3)
+
+#listaPrueba = [(1,1), (2,2), (3,3), (4,4), (5,500), (6,6), (7,7), (8,8), (9,9), (10,10)]
+#a = centroQuieto(listaPrueba)
+#print("Función centroQuieto:", a)
+#print("Centros Ignorar", centrosIgnorar)
 
 #listaContornos = []
 
@@ -249,8 +305,18 @@ while True:
 			count = 0
 			count2 = 0
 			pique3.appendleft(center[1])
+			centrosMovimiento.clear()
+			centrosMovimiento.appendleft(center)
 
-		else:			
+		else:
+			#if countMovimiento == 10:
+					#movimiento = centroQuieto(centrosMovimiento)
+					#if movimiento:
+					#primeraVez = True
+
+			#if (len(cnts) >= 2 and len(centrosIgnorar) != 0): cnts = ignorarQuieto(cnts)
+			#if (len(cnts) >= 1): c = tp_fix(cnts, preCentro, count)
+
 			c = tp_fix(cnts, preCentro, count)
 
 			if c is not None:
@@ -261,6 +327,7 @@ while True:
 				count2 += count
 				count = 0
 				pique3.appendleft(center[1])
+				centrosMovimiento.appendleft(center)
 				if len(pique3) == 3 and count2 <= 0.1:
 					pica(pique3[2], pique3[1], pique3[0])
 					count2 = 0				
@@ -287,6 +354,11 @@ while True:
 			preCentro = None
 		count += 1/fps
 		count2 = 0
+
+	# if (len(centrosMovimiento) == 10):
+	# 	movimiento = centroQuieto(centrosMovimiento)
+	# 	if movimiento:
+	# 		primeraVez = True
  
 	# Actualiza los puntos para trazar la trayectoria
 	pts.appendleft(center)
@@ -328,6 +400,10 @@ while True:
 	key = cv2.waitKey(1) & 0xFF
 	if key == ord("q"):
 		break
+
+	#print("Centro al terminar la iteración", center)
+	#print("Count al terminar la iteración", count)
+	countMovimiento += 1
 
 if not args.get("video", False):
 	vs.stop()
