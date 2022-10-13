@@ -1,11 +1,10 @@
 import 'dotenv/config';
 import { pool } from "../database.js";
+import { spawn } from 'child_process';
 import fetch from 'node-fetch';
-
 
 //Subir videos
 export const uploadVideo = async (req, res) => {
-  
 
   console.log('hola')
 
@@ -23,6 +22,21 @@ export const uploadVideo = async (req, res) => {
   console.log(bool_esPartido)
 
   await pool.query("INSERT INTO videos (idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idVideo, rutaVideo, titulo, rival, bool_esPartido, bool_esFavorito, fechaPartido]);
+  
+  const childPython = spawn('python', ['script.py', rutaVideo])
+
+    childPython.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`)
+    })
+
+    childPython.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`)
+    })
+
+    childPython.on('close', (code) => {
+        console.log(`child process exited with: ${code}`)
+    })
+  
   return res.status(200).json({message: "Video añadido"})
   };
 

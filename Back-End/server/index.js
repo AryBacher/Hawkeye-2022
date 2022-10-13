@@ -34,10 +34,19 @@ app.get('/', (req, res) =>{
 //Prueba para ejecutar archivo de Python
 import { spawn } from 'child_process';
 app.get('/python', (req, res) =>{
-    const pythonProcess = spawn('python',["./script.py"]);
-    pythonProcess.stdout.on('data', (data) => {
-        console.log(data)
-       });
+    const childPython = spawn('python', ['script.py', 'guidoland'])
+
+    childPython.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`)
+    })
+
+    childPython.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`)
+    })
+
+    childPython.on('close', (code) => {
+        console.log(`child process exited with: ${code}`)
+    })
 })
 
 app.set ('port', parseInt(process.env.PORT));
