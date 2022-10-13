@@ -39,8 +39,8 @@ function EndUseNavbar({grabarId, análisisId, ayudaId}) {
           </ul>
 
           <div className='profile-container' onClick={changeDropdown}>
-            <Avatar alt="Arotu" sx={{ width: 36, height: 36 ,color: '#FCFCFC', backgroundColor: '#BF360C', marginLeft : '15px', fontSize: '16px' }}>A</Avatar>
-            <p id='profile-name'>Arotu</p>
+            <Avatar alt="Nico" sx={{ width: 36, height: 36 ,color: '#FCFCFC', backgroundColor: '#BF360C', marginLeft : '15px', fontSize: '16px' }}>N</Avatar>
+            <p id='profile-name'>Nico</p>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.92796 9.07107L11.6455 15.7886C11.8407 15.9838 12.1573 15.9838 12.3526 15.7886L19.0701 9.07107" stroke="#FCFCFC" stroke-width="1.75" stroke-linecap="round"/>
             </svg>

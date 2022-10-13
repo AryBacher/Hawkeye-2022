@@ -59,8 +59,8 @@ function AnalysisPage() {
               </svg>  
             </div>
             <div className='user-names'>
-              <h3 id='username-main'>Arotu</h3>
-              <p id='mail-main'>arotuort@gmail.com</p>
+              <h3 id='username-main'>Nico</h3>
+              <p id='mail-main'>nicolas@gmail.com</p>
             </div>
             <div className='amount-videos'>
               <div className='general point-indicator'></div>
@@ -170,31 +170,31 @@ function AnalysisPage() {
           <div className='divider'></div>
           <section className='videos'>
             <CardVideo
-              title = "Ary Bacher ganaasdasd final Copa Davis"
+              title = "Partido vs Ary Bacher"
               thumbnail = "img-thumbnail"
               videoType = "point-indicator match"
               otherInfo = "Partido del 12/08/22"
               state = {true}
             />
             <CardVideo
-              title = "Ary Bacher ganaasdasd final Copa Davis"
+              title = "Entrenamiento previo a partido"
               thumbnail = "img-thumbnail"
               videoType = "point-indicator training"
-              otherInfo = "Entrenamiento del 12/08/22"
+              otherInfo = "Entrenamiento del 11/08/22"
               state = {true}
             />
             <CardVideo
-              title = "Ary Bacher ganaasdasd final Copa Davis"
+              title = "Partido vs Alan Yeger"
               thumbnail = "img-thumbnail"
               videoType = "point-indicator match"
-              otherInfo = "Partido del 12/08/22"
+              otherInfo = "Partido del 10/08/22"
               state = {true}
             />
             <CardVideo
-              title = "Ary Bacher ganaasdasd final Copa Davis"
+              title = "Entrenamiento antes de enfrentar a Alan Yeger"
               thumbnail = "img-thumbnail"
               videoType = "point-indicator training"
-              otherInfo = "Entrenamiento del 12/08/22"
+              otherInfo = "Entrenamiento del 08/08/22"
               state = {true}
             />
 
