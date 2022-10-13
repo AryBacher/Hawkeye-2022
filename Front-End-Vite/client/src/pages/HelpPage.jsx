@@ -12,9 +12,10 @@ function HelpPage() {
           ayudaId = 'ayuda'
         />
         <div className='header'>
-          <h2>
-            
-          </h2>
+          <h1>
+            FAQs (Preguntas Frecuentes)
+          </h1>
+          <p>Las respuestas y hasta tutoriales para las dudas más comunes de nuestros usuarios.</p>
         </div>
       </div>
     </>
