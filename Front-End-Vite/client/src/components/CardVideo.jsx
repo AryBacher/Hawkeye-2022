@@ -3,6 +3,11 @@ import BtnStar from "./BtnStar";
 import '../stylesheets/CardVideoStylesheets/CardVideo.css';
 
 function CardVideo({title, thumbnail, videoType, otherInfo, state}) {
+
+  const whatAmIClicking = (e)=>{
+    console.log(e.target);
+  }
+
   return (
     <>
       <div className="card-video-container">

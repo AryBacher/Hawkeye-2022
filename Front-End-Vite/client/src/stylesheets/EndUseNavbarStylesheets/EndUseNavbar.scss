@@ -162,7 +162,6 @@ a{
         color: var(--colorRojo);
     }
     &:hover{
-        transform: translateY(-10%);
         .icon-logout{
             filter: drop-shadow(0px 0px 5px rgba(255, 26, 67, 0.8));
         }

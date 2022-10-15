@@ -15,6 +15,7 @@ import Mockups from "../assets/img/mockups.png";
 import BtnBackToTop from "../components/BtnBackToTop";
 
 function HomePage() {
+  
   /*
   const [show, setShow] = useState(false);
 
@@ -35,6 +36,7 @@ function HomePage() {
     observer.observe(element);
   });
   */
+
   return (
     <>
       <BtnBackToTop />

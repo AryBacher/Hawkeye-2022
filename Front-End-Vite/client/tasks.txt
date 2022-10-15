@@ -18,14 +18,12 @@
   Cosas que preguntar: 
   
   El cómo hacer la animación de intersection observer.
+  El si debería incluir iconos en el navbar.
 
-  Hacer hoy:
+  Futuro próximo:
 
-  - Solucionar problema del form wrap.
-
-  Futuro pocos dias:
-
-  - Hacer funcionar el formulario con MUI de UploadVideo (sobretodo problemas con input type file).
-  - Agregar alertas personalizadas.
+  - Hacer el navbar inteligente de la landing.
+  - Agregar alertas personalizadas, quizás en formularios.
+  - Agregar funcionalidad de que al hacer click afuera se cierran ciertos pop-ups (más precisamente el de cerrar sesión).
   - Ocultar y hacer visible la contraseña en formularios.
   - Scroll reveal animation (intersection-observer).

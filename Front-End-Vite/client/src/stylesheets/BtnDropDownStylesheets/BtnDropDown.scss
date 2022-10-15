@@ -1,0 +1,46 @@
+.drop-down-container{
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--colorAzulClaro);
+    background-color: var(--colorAzul);
+    display: flex;
+    flex-direction: column;
+    .question{
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h3{
+            font-size: 20px;
+            font-weight: 300;
+        }
+        svg{
+            margin-left: 15px;
+            transition: all 250ms ease-in;
+        }
+    }
+    .answer{
+        font-size: 1em;
+        font-weight: 300;
+        p{
+            padding-top: 20px;
+            box-sizing: border-box;
+            transition: all 250ms ease-in;
+        }
+    }
+}
+
+.active-arrow{
+    rotate: 90deg;
+}
+
+.visible{
+    transition:  all 0.3s ease-in-out;
+}
+
+.invisible{
+    transition:  all 0.3s ease-in-out;
+}

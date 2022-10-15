@@ -91,8 +91,8 @@ function AnalysisPage() {
                   <path d="M4.55569 17.0596C5.53757 17.0596 6.33354 16.2636 6.33354 15.2818C6.33354 14.2999 5.53757 13.5039 4.55569 13.5039C3.5738 13.5039 2.77783 14.2999 2.77783 15.2818C2.77783 16.2636 3.5738 17.0596 4.55569 17.0596Z" stroke="#4ECB71" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
                 <h3>FILTROS DE BÚSQUEDA</h3>
-                <svg className = {toggle ? 'arrow-filter': 'arrow-filter inactive-arrow'} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.92893 9.07107L11.6464 15.7886C11.8417 15.9838 12.1583 15.9838 12.3536 15.7886L19.0711 9.07107" stroke="#4ECB71" stroke-width="2" stroke-linecap="round"/>
+                <svg className = {toggle ? 'arrow-filter inactive-arrow': 'arrow-filter'} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.0283 8.17936L11.9994 14.5553L5.97051 8.17936C5.8628 8.06521 5.7182 8.00131 5.56762 8.00131C5.41705 8.00131 5.27245 8.06521 5.16473 8.17936C5.11258 8.2348 5.07114 8.30098 5.04286 8.37401C5.01457 8.44704 5 8.52546 5 8.60468C5 8.6839 5.01457 8.76232 5.04286 8.83536C5.07114 8.90839 5.11258 8.97456 5.16473 9.03L11.5784 15.8142C11.691 15.9333 11.8421 16 11.9994 16C12.1567 16 12.3077 15.9333 12.4204 15.8142L18.834 9.03131C18.8866 8.97583 18.9283 8.90949 18.9568 8.83622C18.9853 8.76294 19 8.68422 19 8.60468C19 8.52515 18.9853 8.44642 18.9568 8.37314C18.9283 8.29987 18.8866 8.23353 18.834 8.17805C18.7263 8.0639 18.5817 8 18.4311 8C18.2806 8 18.136 8.0639 18.0283 8.17805V8.17936Z" fill="#4ECB71" stroke="#4ECB71" stroke-width="0.75"/>
                 </svg>
               </div>
               <div className={toggle ? 'filters-container filters-visible' : "filters-container filters-invisible"} style={{height: toggle ? `${heightEl}` : "0px"}} ref={refHeight} >
@@ -238,3 +238,12 @@ export default AnalysisPage;
 // className = {toggle ? 'arrow-filter': 'arrow-filter inactive-arrow'}
 
 //  className={toggle ? 'filters-container filters-visible' : "filters-container filters-invisible"} style={{height: toggle ? `${heightEl}` : "0px"}}
+
+/*
+
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.0283 8.17936L11.9994 14.5553L5.97051 8.17936C5.8628 8.06521 5.7182 8.00131 5.56762 8.00131C5.41705 8.00131 5.27245 8.06521 5.16473 8.17936C5.11258 8.2348 5.07114 8.30098 5.04286 8.37401C5.01457 8.44704 5 8.52546 5 8.60468C5 8.6839 5.01457 8.76232 5.04286 8.83536C5.07114 8.90839 5.11258 8.97456 5.16473 9.03L11.5784 15.8142C11.691 15.9333 11.8421 16 11.9994 16C12.1567 16 12.3077 15.9333 12.4204 15.8142L18.834 9.03131C18.8866 8.97583 18.9283 8.90949 18.9568 8.83622C18.9853 8.76294 19 8.68422 19 8.60468C19 8.52515 18.9853 8.44642 18.9568 8.37314C18.9283 8.29987 18.8866 8.23353 18.834 8.17805C18.7263 8.0639 18.5817 8 18.4311 8C18.2806 8 18.136 8.0639 18.0283 8.17805V8.17936Z" fill="#4ECB71" stroke="#4ECB71" stroke-width="0.75"/>
+</svg>
+
+
+*/
