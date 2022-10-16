@@ -6,7 +6,7 @@ import analyzeIcon from "../assets/img/ArbitrateIcon.png";
 import arbitrateIcon from "../assets/img/AnalyzeIcon.png";
 import playIcon from "../assets/img/PlayIcon.png";
 import Navbar from "../components/Navbar";
-import { Button } from "@mui/material";
+import { Button, duration } from "@mui/material";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import LogoSmall from "../components/LogoSmall";
@@ -120,41 +120,105 @@ function HomePage() {
             </div>
             <div className="features-blocks-container">
               <div className="rowf-1">
-                <div className="box-feature" id="feature-1">
+                <motion.div className="box-feature" id="feature-1"
+                  initial={{ 
+                    opacity: 0,
+                    y: 40,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0.1,
+                      type: 'tween',
+                      ease: 'easeOut',
+                      duration: 0.5
+                    } 
+                  }}
+                  viewport={{ once: true }}
+                >
                   <img src={trackIcon} alt="Icono de detección de pelota" />
                   <h4>Detección de la pelota</h4>
                   <p>
                     Nuestra tecnología permite detectar la posición y velocidad
                     de la pelota en todo momento.
                   </p>
-                </div>
-                <div className="box-feature" id="feature-2">
+                </motion.div>
+                <motion.div className="box-feature" id="feature-2"
+                  initial={{ 
+                    opacity: 0,
+                    y: 40,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0.3,
+                      type: 'tween',
+                      ease: 'easeOut',
+                      duration: 0.5
+                    } 
+                  }}
+                  viewport={{ once: true }}
+                >
                   <img src={analyzeIcon} alt="Icono de análisis de videos" />
                   <h4>Análisis de video</h4>
                   <p>
                     Hawkeye es capaz de analizar tanto grabaciones prehechas
                     como videos en directo.
                   </p>
-                </div>
+                </motion.div>
               </div>
 
               <div className="rowf-2">
-                <div className="box-feature" id="feature-3">
+                <motion.div className="box-feature" id="feature-3"
+                  initial={{ 
+                    opacity: 0,
+                    y: 40,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0.5,
+                      type: 'tween',
+                      ease: 'easeOut',
+                      duration: 0.5
+                    } 
+                  }}
+                  viewport={{ once: true }}
+                >
                   <img src={arbitrateIcon} alt="Icono de arbitraje" />
                   <h4>Arbitra tus partidos</h4>
                   <p>
                     Hawkeye puede arbitrar partidos con el ojo de halcón y
                     seguimiento de puntaje para dar con un mapa de calor.
                   </p>
-                </div>
-                <div className="box-feature" id="feature-4">
+                </motion.div>
+                <motion.div className="box-feature" id="feature-4"
+                  initial={{ 
+                    opacity: 0,
+                    y: 40,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0.7,
+                      type: 'tween',
+                      ease: 'easeOut',
+                      duration: 0.5
+                    } 
+                  }}
+                  viewport={{ once: true }}
+                >
                   <img src={playIcon} alt="Icono de reproducción de videos" />
                   <h4>Guarda tus análisis</h4>
                   <p>
                     Puedes ver todos tus análisis ya sean partidos o
                     entrenamientos desde cualquier dispositivo.
                   </p>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -178,7 +242,23 @@ function HomePage() {
                 Quienes trabajaron día y noche para hacer este proyecto posible.
               </p>
             </div>
-            <div className="team-members">
+            <motion.div className="team-members"
+              initial={{ 
+                opacity: 0,
+                y: 75,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 0.3,
+                  type: 'tween',
+                  ease: 'easeOut',
+                  duration: 0.75
+                } 
+              }}
+              viewport={{ once: true }}
+            >
               <div className="row-1">
                 <div className="card-member Arotu">
                   <div className="team-box" id="Arotu-background"></div>
@@ -203,7 +283,7 @@ function HomePage() {
                   <p>Computer Vision/Back-End</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
         <div className="divider"></div>

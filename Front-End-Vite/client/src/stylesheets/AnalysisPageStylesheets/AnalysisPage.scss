@@ -105,6 +105,7 @@
                     
                     &::-webkit-search-cancel-button{
                         -webkit-appearance: none;
+                        cursor: pointer;
                         transition: all 0.25s ease-in;
                         background-color: transparent;
                         background-repeat: no-repeat;

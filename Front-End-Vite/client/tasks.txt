@@ -8,11 +8,11 @@
   ConfirmNewPassword Page terminada.
   Mail de confirmación terminado.
   Analysis Page "terminada" (faltan media-queries y lo de clickear afuera y cerrar la ventana para cerrar sesión).
+  Help Page "terminada" (faltan media-queries).
 
   Faltán 3 páginas:
   
   UploadVideo Page falta mucho. (Terminado en una semana). Prioridad.
-  Help Page falta todo. (Terminado en 2 dias). Prioridad. 
   Video Page falta todo. (Terminado en una semana). Prioridad.
 
   Cosas que preguntar: 
@@ -20,7 +20,7 @@
   El cómo hacer la animación de intersection observer.
   El si debería incluir iconos en el navbar.
 
-  Futuro próximo:
+  Cosas que hacer:
 
   - Hacer el navbar inteligente de la landing.
   - Agregar alertas personalizadas, quizás en formularios.

@@ -8,6 +8,7 @@ Form {
     color: var(--colorLink);
     text-decoration: none;
     transition: text-decoration 250ms;
+    margin-bottom: 15px;
     &:hover {
       text-decoration: underline;
     }

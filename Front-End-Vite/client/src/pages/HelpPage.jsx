@@ -15,14 +15,29 @@ function HelpPage() {
           ayudaId = 'ayuda'
         />
         <div className='texts-header'>
-          <div className='text-header-content'>
+          <motion.div className='text-header-content'
+            initial={{ 
+              opacity: 0,
+              y: 75,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.3,
+                type: 'tween',
+                ease: 'easeOut',
+                duration: 0.75
+              } 
+            }}
+          >
             <p>
               FAQs (Preguntas Frecuentes)
             </p>
             <h1>
               ¿En qué podemos ayudarte?
             </h1>
-          </div>
+          </motion.div>
         </div>
         <motion.div 
           className="divider-hp"
@@ -35,7 +50,22 @@ function HelpPage() {
           }}
         >
         </motion.div>
-        <section className='faqs'>
+        <motion.section className='faqs'
+          initial={{ 
+            opacity: 0,
+            y: 60,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.5,
+              type: 'tween',
+              ease: 'easeOut',
+              duration: 0.75
+            } 
+          }}
+        >
           <div className='faqs-content'>
             <BtnDropDown 
               questionText={"¿Cómo colocar la cámara para mis análisis?"}
@@ -70,7 +100,7 @@ function HelpPage() {
               answerText={"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste quibusdam harum totam aperiam voluptates similique, aliquid aliquam amet sunt accusamus repellat quo repudiandae blanditiis tempora dolores numquam ducimus? Maiores quam, rem, eveniet quasi minus, ducimus ab voluptates tempora fugit quia officia perferendis nam unde! Suscipit quod a magni impedit asperiores!"}
             />
           </div>
-        </section>  
+        </motion.section>  
       </div>
     </>
   )

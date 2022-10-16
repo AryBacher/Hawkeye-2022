@@ -49,7 +49,7 @@ function App() {
           <Route path="/Record" element={<RecordPage/>}/>
           <Route path="/StartLive" element={<StartLivePage/>}/>
           <Route path="/UploadVideo" element={<UploadVideoPage/>}/>
-          <Route path="/Video/:id" element={<VideoPage/>}/>
+          <Route path="/Analysis/:id" element={<VideoPage/>}/>
           <Route path="/Help" element={<HelpPage/>} />
         </Routes>
       </ThemeProvider>
