@@ -42,7 +42,7 @@ function FormSignUp() {
             .email("Email inválido"),
           password: string()
             .required("Ingrese su contraseña")
-            .min(8, "La contraseña debe ser de mínimo 8 caracateres"),
+            .min(8, "Mínimo 8 caracateres"),
           passwordConfirm: string()
             .required("Ingrese su contraseña")
             .oneOf([ref("password")], "Las contraseñas no coinciden"),

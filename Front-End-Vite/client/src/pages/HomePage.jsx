@@ -132,8 +132,8 @@ function HomePage() {
                   <img src={analyzeIcon} alt="Icono de análisis de videos" />
                   <h4>Análisis de video</h4>
                   <p>
-                    Hawkeye puede analizar tanto videos pregrabados así como
-                    también videos en vivo.
+                    Hawkeye es capaz de analizar tanto grabaciones prehechas
+                    como videos en directo.
                   </p>
                 </div>
               </div>
