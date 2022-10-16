@@ -71,6 +71,71 @@ def centroQuieto(list_center):
 		centrosIgnorar.append((sumaX / 10, sumaY / 10))
 		return True
 	return False
+	
+def contornosQuietos(cnts):
+	centrosCerca = False
+	print("Length Contornos", len(cnts))
+	for i in cnts:
+		count = 0
+		(x, y), radius = cv2.minEnclosingCircle(i)
+		x, y, radius = int(x), int(y), int(radius)
+		print("Contornos en el frame", (x, y, radius))
+		for l in todosContornos:
+			for j in l:
+				if x - j[0][0] >= -10 and x - j[0][0] <= 10 and y - j[0][1] >= -10 and y - j[0][1] <= 10:
+					centrosCerca = True
+				else:
+					centrosCerca = False
+					break
+			if centrosCerca:
+				print("Estoy Cercaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, Todos contornos Count", todosContornos[count])
+				todosContornos[count].append([(x, y, radius)])
+				print("Después de apendearme, estoy así", todosContornos[count])
+				break
+			count += 1
+		if not centrosCerca:
+			print("Estoy Lejosssssssssssssssssssssssssssssssssssssssss")
+			todosContornos.append([[(x, y, radius)]])
+
+	for l in todosContornos:
+		existe = False
+		if (len(l) >= 10):
+			promedioIgnorarX = 0
+			promedioIgnorarY = 0
+			for j in l:
+				promedioIgnorarX += j[0][0]
+				promedioIgnorarY += j[0][1]
+			promedioIgnorarX /= len(l)
+			promedioIgnorarY /= len(l)
+			promedioIgnorarX, promedioIgnorarY = int(np.rint(promedioIgnorarX)), int(np.rint(promedioIgnorarY))
+			if (len(contornosIgnorar) == 0): contornosIgnorar.append((promedioIgnorarX, promedioIgnorarY))
+			for h in contornosIgnorar:
+				#cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
+				if (h[0] == promedioIgnorarX and h[1] == promedioIgnorarY):
+					existe = True
+			if not existe:
+				contornosIgnorar.append((promedioIgnorarX, promedioIgnorarY))
+
+	print("Todos los Contornos", todosContornos)
+	print("Contornos a Ignorar", contornosIgnorar)
+
+def ignorarContornosQuietos(cnts):
+	new_cnts = []
+	Ignorar = False
+	for cnt in cnts:
+		(x, y), radius = minEnclosingCircle(cnt)
+		for i in contornosIgnorar:
+			if x - i[0] >= -20 and x - i[0] <= 20 and y - i[1] >= -20 and y - i[1] <= 20:
+				Ignorar = True
+				break
+			else:
+				Ignorar = False
+			
+		if Ignorar == False: new_cnts.append(cnt)
+	
+	for i in new_cnts:
+		print("Nueva lista", minEnclosingCircle(i))
+	return new_cnts
 
 def ignorarQuieto(cnts):
 	new_cnts = []
@@ -105,7 +170,7 @@ args = vars(ap.parse_args())
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
-#greenLower = np.array([29, 50, 110])
+greenLower = np.array([29, 50, 110])
 #greenLower = np.array([29, 60, 110])
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
@@ -149,6 +214,8 @@ count = 0
 count2 = 0
 countMovimiento = 0
 centrosMovimiento = deque(maxlen=10)
+todosContornos = []
+contornosIgnorar = []
 centrosIgnorar = []
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
@@ -163,6 +230,9 @@ pique3 = deque(maxlen=3)
 
 #prevCircle = None
 #dist = lambda x1,y1,x2,y2: (x1-x2)**2+(y1-y2)**2
+
+listaPrueba = [[[1, 2, 3], [5, 6, 3]], [[101, 102, 3]]]
+print("Lista Prueba", listaPrueba[0][0][0])
 
 while True:
 	# Agarra el frame actual
@@ -294,58 +364,61 @@ while True:
 
 	if len(cnts) > 0:
 		# Busca el contorno más grande y encuentra su posición (x, y)
+		contornosQuietos(cnts)
+		cnts = ignorarContornosQuietos(cnts)
 
-		if primeraVez:
-			c = max(cnts, key=cv2.contourArea)
-			((x, y), radius) = cv2.minEnclosingCircle(c)
-			M = cv2.moments(c)
-			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-			primeraVez = False
-			preCentro = center
-			count = 0
-			count2 = 0
-			pique3.appendleft(center[1])
-			centrosMovimiento.clear()
-			centrosMovimiento.appendleft(center)
-
-		else:
-			#if countMovimiento == 10:
-					#movimiento = centroQuieto(centrosMovimiento)
-					#if movimiento:
-					#primeraVez = True
-
-			#if (len(cnts) >= 2 and len(centrosIgnorar) != 0): cnts = ignorarQuieto(cnts)
-			#if (len(cnts) >= 1): c = tp_fix(cnts, preCentro, count)
-
-			c = tp_fix(cnts, preCentro, count)
-
-			if c is not None:
+		if len(cnts) > 0:
+			if primeraVez:
+				c = max(cnts, key=cv2.contourArea)
 				((x, y), radius) = cv2.minEnclosingCircle(c)
 				M = cv2.moments(c)
 				center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+				primeraVez = False
 				preCentro = center
-				count2 += count
 				count = 0
-				pique3.appendleft(center[1])
-				centrosMovimiento.appendleft(center)
-				if len(pique3) == 3 and count2 <= 0.1:
-					pica(pique3[2], pique3[1], pique3[0])
-					count2 = 0				
-			
-			else:
-				print("COUNT", count)
-				if count >= 0.3:
-					primeraVez = True
-					preCentro = None
-				count += 1/fps
 				count2 = 0
+				pique3.appendleft(center[1])
+				centrosMovimiento.clear()
+				centrosMovimiento.appendleft(center)
+
+			else:
+				#if countMovimiento == 10:
+						#movimiento = centroQuieto(centrosMovimiento)
+						#if movimiento:
+						#primeraVez = True
+
+				#if (len(cnts) >= 2 and len(centrosIgnorar) != 0): cnts = ignorarQuieto(cnts)
+				#if (len(cnts) >= 1): c = tp_fix(cnts, preCentro, count)
+
+				c = tp_fix(cnts, preCentro, count)
+
+				if c is not None:
+					((x, y), radius) = cv2.minEnclosingCircle(c)
+					M = cv2.moments(c)
+					center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+					preCentro = center
+					count2 += count
+					count = 0
+					pique3.appendleft(center[1])
+					centrosMovimiento.appendleft(center)
+					if len(pique3) == 3 and count2 <= 0.1:
+						pica(pique3[2], pique3[1], pique3[0])
+						count2 = 0				
 				
-		# Sigue si el contorno tiene cierto tamaño
-		if radius > 0 and primeraVez or c is not None:
-		#if radius > 0:
-			# Dibuja el círculo en la pelota
-			cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
-			cv2.circle(frame, center, 5, (0, 0, 255), -1)
+				else:
+					print("COUNT", count)
+					if count >= 0.3:
+						primeraVez = True
+						preCentro = None
+					count += 1/fps
+					count2 = 0
+					
+			# Sigue si el contorno tiene cierto tamaño
+			if radius > 0 and primeraVez or c is not None:
+			#if radius > 0:
+				# Dibuja el círculo en la pelota
+				cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2)
+				cv2.circle(frame, center, 5, (0, 0, 255), -1)
 
 	else:
 		print("COUNT", count)
@@ -404,6 +477,7 @@ while True:
 	#print("Centro al terminar la iteración", center)
 	#print("Count al terminar la iteración", count)
 	countMovimiento += 1
+	print("Pasé de frame")
 
 if not args.get("video", False):
 	vs.stop()
