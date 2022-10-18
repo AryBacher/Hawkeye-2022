@@ -33,19 +33,6 @@ function FormSignUp() {
     }
   }
 
-  /*const useFetch = (finalValues)=>{
-    fetch('http://localhost:4000/SignUp', {
-
-      method: "POST",
-      body: JSON.stringify(finalValues),
-      headers: { "Content-Type" : "application/json" }
-      
-    })
-    .then(res => res.json())
-    .catch(error => console.log("Error groso", error))
-    .then(data => console.log(data));
-  }*/
-
   return (
     <>
       <Formik

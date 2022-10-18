@@ -36,7 +36,7 @@ function RecordPage() {
   //Valores iniciales de los campos
 
   const initialValues = {
-    file: null,
+    file: {},
     title: '',
     type: '',
     rival: '',
@@ -49,9 +49,9 @@ function RecordPage() {
 
   const useAxios = async (finalValues)=>{
 
-    console.log(finalValues)
-    const response = await axios.post('http://localhost:4000/', JSON.stringify(finalValues), {
-      headers: { 'Content-Type': 'application/JSON' },
+    console.log(finalValues.file)
+    const response = await axios.post('http://localhost:4000/UploadVideo', JSON.stringify(finalValues), {
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
     console.log(response)
@@ -143,6 +143,7 @@ function RecordPage() {
                   </div>
                   <div>
                     <input 
+                      encType="multipart/form-data"
                       name='file' 
                       type="file" 
                       accept='video/*' 

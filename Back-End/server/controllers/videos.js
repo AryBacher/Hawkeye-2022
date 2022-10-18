@@ -7,6 +7,7 @@ import fetch from 'node-fetch';
 export const uploadVideo = async (req, res) => {
 
   console.log('hola')
+  console.log(req.body)
 
   const {idUsuario, titulo, rival, esPartido, esFavorito} = req.body;
   const fechaPartido = req.body.FechaPartido;
