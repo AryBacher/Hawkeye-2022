@@ -22,12 +22,14 @@ function TypeField({
     variant : 'outlined',
     onChange: handleChange
   }
-
+  
+  /*
   if (meta && meta.touched && meta.error) {
     configSelect.error = true;
     configSelect.helperText = meta.error;
   };
-  
+  */
+
   return (
     <TextField {...configSelect}>
       <MenuItem value="match">
