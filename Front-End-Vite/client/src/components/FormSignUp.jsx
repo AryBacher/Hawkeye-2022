@@ -1,10 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string, ref } from "yup";
 import "../stylesheets/FormSignUpStylesheets/Form.css";
 
+
 function FormSignUp() {
+  let navigate = useNavigate();
   const initialValues = {
     name: "",
     email: "",
@@ -12,7 +16,24 @@ function FormSignUp() {
     passwordConfirm: "",
   };
 
-  const useFetch = (finalValues)=>{
+  const useAxios = async (finalValues)=>{
+
+    console.log(finalValues)
+    const response = await axios.post('http://localhost:4000/SignUp', JSON.stringify(finalValues), {
+      headers: { 'Content-Type': 'application/JSON' },
+      withCredentials: true,
+    })
+    console.log(response)
+
+    
+    const allowedUser = response.data.redirect;
+    console.log(allowedUser)
+    if (allowedUser){
+      return navigate("/LogIn");
+    }
+  }
+
+  /*const useFetch = (finalValues)=>{
     fetch('http://localhost:4000/SignUp', {
 
       method: "POST",
@@ -23,14 +44,14 @@ function FormSignUp() {
     .then(res => res.json())
     .catch(error => console.log("Error groso", error))
     .then(data => console.log(data));
-  }
+  }*/
 
   return (
     <>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
-          useFetch(values);
+          useAxios(values);
           console.log(values);
           formikHelpers.resetForm();
         }}

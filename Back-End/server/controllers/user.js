@@ -26,7 +26,7 @@ export const signUp = async (req, res) =>{
     const passwordHash = await bcryptjs.hash(password, 8);
     await pool.query("INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)", [name, email, passwordHash]);
     console.log("Usuario creado")
-    return res.status(200).json({message: "Usuario creado"});
+    return res.status(200).json({message: "Usuario creado", redirect: true});
 }
 
 
@@ -67,7 +67,7 @@ export const logIn = async (req, res) =>{
             sameSite: 'none',
             secure: true,
         })
-        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado" })
+        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado", redirect: true })
     }
     return res.status(406).json({message: "Contraseña incorrecta"});
 }

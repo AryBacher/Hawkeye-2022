@@ -3,6 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import UserRoutes from './routes/user.routes.js';
 import VideoRoutes from './routes/videos.routes.js';
+import PythonRoutes from './routes/python.routes.js';
 import { credentials } from "./controllers/user.js";
 import corsOptions from "./config/corsOptions.js";
 import path from 'path';
@@ -22,6 +23,7 @@ app.use(cors(corsOptions))
 
 app.use(UserRoutes)
 app.use(VideoRoutes)
+app.use(PythonRoutes)
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'videos')));
@@ -32,22 +34,7 @@ app.get('/', (req, res) =>{
 })
 
 //Prueba para ejecutar archivo de Python
-import { spawn } from 'child_process';
-app.get('/python', (req, res) =>{
-    const childPython = spawn('python', ['script.py', 'guidoland'])
 
-    childPython.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`)
-    })
-
-    childPython.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`)
-    })
-
-    childPython.on('close', (code) => {
-        console.log(`child process exited with: ${code}`)
-    })
-})
 
 app.set ('port', parseInt(process.env.PORT));
 
