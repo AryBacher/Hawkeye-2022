@@ -1,9 +1,7 @@
 import { Router } from 'express'
-import { filterVideo, uploadVideo, deleteVideo, updateVideo, sendVideo, redirect, getVideos, showVideo } from "../controllers/videos.js";
+import { filterVideo, uploadVideo, deleteVideo, updateVideo, sendVideo, redirect, getVideos } from "../controllers/videos.js";
 
 const router = Router();
-
-router.post('ShowVideo', showVideo)
 
 router.post('/GetVideo', getVideos)
 

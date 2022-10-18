@@ -1,17 +1,22 @@
-import fetch from 'node-fetch'
+import { Router } from 'express'
 import { spawn } from 'child_process';
 
-const python = spawn('python', 'video');
+const router = Router();
 
-python.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
-});
+router.post('/python', (req, res) =>{
+    const childPython = spawn('python', ['script.py', 'guidoland'])
 
-python.stderr.on('data', (data) => {
-  console.error(`stderr: ${data}`);
-});
+    childPython.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`)
+    })
 
-python.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
-});
+    childPython.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`)
+    })
 
+    childPython.on('close', (code) => {
+        console.log(`child process exited with: ${code}`)
+    })
+})
+
+export default router

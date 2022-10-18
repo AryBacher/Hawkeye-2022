@@ -66,3 +66,12 @@ Content-Type: application/json
 {
     "email": "alanyeger1@gmail.com"
 }
+
+###
+
+POST http://localhost:4000/python
+Content-Type: application/json
+
+{
+    "email": "alanyeger1@gmail.com"
+}

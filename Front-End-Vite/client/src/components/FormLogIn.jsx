@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
@@ -7,6 +8,7 @@ import "../stylesheets/FormLogInStylesheets/form.css";
 
 
 function FormLogIn() {
+  let navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -20,6 +22,13 @@ function FormLogIn() {
       withCredentials: true,
     })
     console.log(response)
+
+    
+    const allowedUser = response.data.redirect;
+    console.log(allowedUser)
+    if (allowedUser){
+      return navigate("/Analysis");
+    }
   }
 
   return (
