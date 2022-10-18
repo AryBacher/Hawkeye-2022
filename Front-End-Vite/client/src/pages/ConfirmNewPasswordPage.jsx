@@ -44,7 +44,7 @@ function ConfirmPasswordPage() {
               })}
             >
             {({ errors, isValid, touched, dirty }) => (
-              <Form>
+              <Form autoComplete='off'>
                 <Field
                   name="password"
                   type="password"

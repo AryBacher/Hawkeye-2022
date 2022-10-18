@@ -10,15 +10,15 @@
   Analysis Page "terminada" (faltan media-queries y lo de clickear afuera y cerrar la ventana para cerrar sesión).
   Help Page "terminada" (faltan media-queries).
 
-  Faltán 3 páginas:
+  Faltán 2 páginas:
   
   UploadVideo Page falta mucho. (Terminado en una semana). Prioridad.
   Video Page falta todo. (Terminado en una semana). Prioridad.
 
   Cosas que preguntar: 
   
-  El cómo hacer la animación de intersection observer.
   El si debería incluir iconos en el navbar.
+  Si los textHelpers son útiles y necesarios, sobre todo para el formulario de UploadVideo
 
   Cosas que hacer:
 
@@ -26,4 +26,4 @@
   - Agregar alertas personalizadas, quizás en formularios.
   - Agregar funcionalidad de que al hacer click afuera se cierran ciertos pop-ups (más precisamente el de cerrar sesión).
   - Ocultar y hacer visible la contraseña en formularios.
-  - Scroll reveal animation (intersection-observer).
+  - Hacer que cuando recargue te mande al top 0 de la página.

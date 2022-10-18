@@ -49,7 +49,7 @@ function FormSignUp() {
         })}
       >
         {({ errors, isValid, touched, dirty }) => (
-          <Form>
+          <Form autoComplete="off">
             
             <Field
               name="name"

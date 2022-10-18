@@ -1,5 +1,63 @@
 .wrapper-r {
   width: 100%;
   height: 100vh;
+  background-color: var(--colorAzul);
+  overflow: hidden;
+}
+
+.wrapper-r .form-header {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.wrapper-r .form-header .form-header-content {
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+}
+
+.wrapper-r .form-header .form-header-content p {
+  font-size: 1em;
+  color: var(--colorVerde);
+}
+
+.wrapper-r .form-header .form-header-content h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.wrapper-r .form-container {
+  margin: 0 auto;
+  width: 40%;
 }
 /*# sourceMappingURL=RecordPage.css.map */

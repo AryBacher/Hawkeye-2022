@@ -38,7 +38,7 @@ function FormLogIn() {
         })}
       >
         {({ errors, isValid, touched, dirty }) => (
-          <Form>
+          <Form autoComplete="off">
             <Field
               name="email"
               type="email"
