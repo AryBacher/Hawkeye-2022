@@ -18,9 +18,15 @@ args = vars(ap.parse_args())
 
 def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
+    if numeroGlob == 0: 
+        medidorX = 100
+        medidorY = 101
+    else: 
+        medidorX = 70
+        medidorY = 71
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
-        if x - pre_centro[0][0] > 100 * resizer_glob[numeroGlob] or pre_centro[0][0] - x > 100 * resizer_glob[numeroGlob] or y - pre_centro[0][1] > 101 * resizer_glob[numeroGlob] or pre_centro[0][1] - y > 101 * resizer_glob[numeroGlob] and count <= 0.5:
+        if x - pre_centro[0][0] > medidorX * resizer_glob[numeroGlob] or pre_centro[0][0] - x > medidorX * resizer_glob[numeroGlob] or y - pre_centro[0][1] > medidorY * resizer_glob[numeroGlob] or pre_centro[0][1] - y > medidorY * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
     if cnts_pts != []:
@@ -61,16 +67,29 @@ def cualEstaMasCerca(punto, lista):
 #     print("Picó?", gerardPique)
 #     return gerardPique
 
-def pica (centro1, centro2, centro3):
-    print("Esta adentro de pica", centro1, centro2, centro3)
-    gerardPique = False
-    abajo = False
-    if centro2 >= altoOG * resizer_glob[numeroGlob] / 2:
-        abajo = True
-    if abajo and centro1 > centro2 or abajo == False and centro1 < centro2:
-        gerardPique = True
-    print("Picó?", gerardPique)
-    return gerardPique
+# def pica (centro1, centro2, centro3):
+#     print("Esta adentro de pica", centro1, centro2, centro3)
+#     gerardPique = False
+#     abajo = False
+#     if centro2 >= altoOG * resizer_glob[numeroGlob] / 2:
+#         abajo = True
+#     if abajo and centro1 > centro2 or abajo == False and centro1 < centro2:
+#         gerardPique = True
+#     print("Picó?", gerardPique)
+#     return gerardPique
+
+def pica (count):
+    if center_glob[numeroGlob] == None: return False
+    abajoA = False
+    abajoB = False
+    a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
+    b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+    if a >= 474 / 2: abajoA = True
+    if b >= 474 / 2: abajoB = True
+    if abajoB and abajoA and a > b and count <= 1:
+        return True
+    elif abajoB and abajoA and a < b and count >= 1:
+        return True
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
     centrosCerca = False
@@ -176,6 +195,7 @@ def todo(frame, numeroGlob):
     global Gerard
     global esGerard
     global posiblePique
+    global countDifPiques
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -231,6 +251,8 @@ def todo(frame, numeroGlob):
         else:
             contornosQuietos(cnts, todosContornos_pers, contornosIgnorar_pers)
             if len(ultimosCentros_pers) == 5 and count_glob[numeroGlob] >= 0.3 and not seEstaMoviendo(ultimosCentros_pers):
+                #print("Count", count_glob[numeroGlob])
+                #print("Ultimos Centros", ultimosCentros_pers)
                 cnts = ignorarContornosQuietos(cnts, contornosIgnorar_pers)
         
         if len(cnts) > 0:    
@@ -276,7 +298,7 @@ def todo(frame, numeroGlob):
                         #count2 = 0
                 
                 else:
-                    if count_glob[numeroGlob] >= 0.3:
+                    if count_glob[numeroGlob] >= 0.3 and numeroGlob == 0 or count_glob[numeroGlob] >= 0.4 and numeroGlob == 1:
                         primeraVez_glob[numeroGlob] = True
                         preCentro_glob[numeroGlob] = None
                     count_glob[numeroGlob] += 1/fps
@@ -289,7 +311,7 @@ def todo(frame, numeroGlob):
                 cv2.circle(frame, (center_glob[numeroGlob][0][0], center_glob[numeroGlob][0][1]), 5, (0, 0, 255), -1)
     
     else:
-        if count_glob[numeroGlob] >= 0.3:
+        if count_glob[numeroGlob] >= 0.3 and numeroGlob == 0 or count_glob[numeroGlob] >= 0.4 and numeroGlob == 1:
             primeraVez_glob[numeroGlob] = True
             preCentro_glob[numeroGlob] = None
         count_glob[numeroGlob] += 1/fps
@@ -360,21 +382,28 @@ def todo(frame, numeroGlob):
             print("Bajando", bajando)
     
     if numeroGlob == 0:
+        countDifPiques += 1/fps
         posiblePique = False
         if (len(pique2_norm) >= 2):
             if pique2_norm[0][0] == False and pique2_norm[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_norm[0][1] - pique2_norm[1][1] <= fps/6:
                 print("Pique 2", pique2_norm)
                 print("Gerard")
                 posiblePique = True
-                posiblesPiques.appendleft(preCentro_glob[numeroGlob])
+                posiblesPiques_norm.appendleft(preCentro_glob[numeroGlob])
+                if len(posiblesPiques_norm) == 1: countDifPiques = 0 
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
         if (len(pique2_pers) >= 2):
-            if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
+            #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
+            if posiblePique and preCentro_glob[numeroGlob] is not None:
                 print("Pique 2", pique2_pers)
                 print("Gerard")
-                if posiblePique: pica
+                if posiblePique: posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                if posiblePique and len(posiblesPiques_pers) >= 2:
+                    Gerard = pica(countDifPiques)
+                    print("Gerard", Gerard)
+                countDifPiques = 0
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
     # if numeroGlob == 0:
@@ -437,6 +466,9 @@ def todo(frame, numeroGlob):
         cv2.imshow("Mask Perspectiva", mask)
         cv2.imshow("Perspective", frame)
 
+    print("Centro al terminar la iteración", center_glob[numeroGlob])
+    print("Numero Global", numeroGlob)
+
 # Toma la cámara si no recibe video
 if not args.get("video", False):
     vs = cv2.VideoCapture(0)
@@ -467,10 +499,10 @@ bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
 
-topLeftX = 640
-topLeftY = 365
-topRightX = 1180
-topRightY = 360
+#topLeftX = 640
+#topLeftY = 365
+#topRightX = 1180
+#topRightY = 360
 
 pts_norm = deque(maxlen=args["buffer"])
 pts_pers = deque(maxlen=args["buffer"])
@@ -528,8 +560,8 @@ pique3_norm = deque(maxlen=3)
 pique3_pers = deque(maxlen=3)
 
 resizer_glob = deque(maxlen=2)
-resizer_glob.append(2)
-resizer_glob.append(5)
+resizer_glob.append(3)
+resizer_glob.append(15)
 
 altoOG = 0
 anchoOG = 0
@@ -538,7 +570,12 @@ numeroGlob = 0
 Gerard = None
 esGerard = None
 posiblePique = False
-posiblesPiques = deque()
+posiblesPiques_norm = deque()
+posiblesPiques_pers = deque()
+
+
+# CountDifPiques cuenta cuanto tiempo pasa desde que se encontró un pique hasta que se encuentra el siguiente
+countDifPiques = 0
 
 numeroFrame = 0
 
