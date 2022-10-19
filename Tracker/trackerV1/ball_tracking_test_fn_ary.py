@@ -1,5 +1,6 @@
 from collections import deque
 from tkinter import N
+from turtle import pos
 from cv2 import minEnclosingCircle
 import numpy as np
 import argparse
@@ -174,6 +175,7 @@ def todo(frame, numeroGlob):
     global y
     global Gerard
     global esGerard
+    global posiblePique
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -358,10 +360,13 @@ def todo(frame, numeroGlob):
             print("Bajando", bajando)
     
     if numeroGlob == 0:
+        posiblePique = False
         if (len(pique2_norm) >= 2):
             if pique2_norm[0][0] == False and pique2_norm[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_norm[0][1] - pique2_norm[1][1] <= fps/6:
                 print("Pique 2", pique2_norm)
                 print("Gerard")
+                posiblePique = True
+                posiblesPiques.appendleft(preCentro_glob[numeroGlob])
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
@@ -369,6 +374,7 @@ def todo(frame, numeroGlob):
             if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
                 print("Pique 2", pique2_pers)
                 print("Gerard")
+                if posiblePique: pica
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
     # if numeroGlob == 0:
@@ -444,6 +450,8 @@ else:
 # Puntos de esquinas TennisBrothers 1080p: 749, 253, 1095, 252, 206, 797, 1518, 785
 # Puntos de esquinas TheUltimateClutch Completo: 656, 429, 1044, 426, 0, 866, 1716, 802
 # Puntos de esquinas TheUltimateClutch: 137, 355, 602, 348, 1, 889, 606, 866
+# Puntos de esquinas TheUltimateClutch Hasta La Red: 1, 458, 606, 448, 1, 889, 606, 866
+# Puntos de esquinas TennisBrothers 1080p Hasta La Red: 640, 365, 1180, 360, 206, 797, 1518, 785
 
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
@@ -458,6 +466,11 @@ bottomLeftX = 206
 bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
+
+topLeftX = 640
+topLeftY = 365
+topRightX = 1180
+topRightY = 360
 
 pts_norm = deque(maxlen=args["buffer"])
 pts_pers = deque(maxlen=args["buffer"])
@@ -524,6 +537,8 @@ anchoOG = 0
 numeroGlob = 0
 Gerard = None
 esGerard = None
+posiblePique = False
+posiblesPiques = deque()
 
 numeroFrame = 0
 

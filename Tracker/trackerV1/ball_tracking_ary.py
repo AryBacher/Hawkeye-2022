@@ -241,9 +241,17 @@ bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
 
+topLeftX = 640
+topLeftY = 365
+topRightX = 1180
+topRightY = 360
+
 # Puntos de esquinas Alcaraz vs Fucsovics: 366, 196, 608, 198, 78, 378, 724, 398
 # Puntos de esquinas TennisBrothers: 311, 106, 456, 105, 89, 331, 628, 326
 # Puntos de esquinas TennisBrothers 1080: 749, 253, 1095, 252, 206, 797, 1518, 785
+# Puntos de esquinas TheUltimateClutch Completo: 656, 429, 1044, 426, 0, 866, 1716, 802
+# Puntos de esquinas TheUltimateClutch: 137, 355, 602, 348, 1, 889, 606, 866
+# Puntos de esquinas TheUltimateClutch Hasta La Red: 1, 458, 606, 448, 1, 889, 606, 866
 
 count = 0
 count2 = 0
@@ -299,6 +307,8 @@ while True:
 	anchoOG = frame.shape[1]
 	altoOG = frame.shape[0]
 
+	#print("Ancho, Alto: ", anchoOG, altoOG)
+
 	estaCercaX = anchoOG * 10/100
 	estaCercaY = altoOG * 10/100
 
@@ -311,16 +321,16 @@ while True:
 	matrix = cv2.getPerspectiveTransform(pts1, pts2)
 	result = cv2.warpPerspective(frame, matrix, (164, 474))
 
+	cv2.circle(frame, (topLeftX, topLeftY), 5, (0, 0, 255), -1)
+	cv2.circle(frame, (topRightX, topRightY), 5, (0, 0, 255), -1)
+	cv2.circle(frame, (bottomLeftX, bottomLeftY), 5, (0, 0, 255), -1)
+	cv2.circle(frame, (bottomRightX, bottomRightY), 5, (0, 0, 255), -1)
+
 	frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
 	#frame = imutils.resize(frame, height=768)
 	
 	#punto = [100, 300]
 	#lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
-
-	# cv2.circle(frame, (topLeftX, topLeftY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (topRightX, topRightY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
 
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
