@@ -7,7 +7,7 @@ import cv2
 import imutils
 import time
 
-resizer = 2
+resizer = 3
 
 def tp_fix(contornos, pre_centro, count):
 	cnts_pts = []
@@ -85,7 +85,7 @@ args = vars(ap.parse_args())
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
 greenUpper = np.array([64, 255, 255])
-#greenLower = np.array([29, 50, 110])
+greenLower = np.array([29, 50, 110])
 #greenLower = np.array([29, 60, 110])
 
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)

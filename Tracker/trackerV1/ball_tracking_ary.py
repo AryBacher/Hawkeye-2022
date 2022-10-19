@@ -13,7 +13,7 @@ def tp_fix(contornos, pre_centro, count):
 	cnts_pts = []
 	for contorno in contornos:
 		((x, y), radius) = cv2.minEnclosingCircle(contorno)
-		if x - pre_centro[0][0] > 100 * resizer or pre_centro[0][0] - x > 100 * resizer or y - pre_centro[0][1] > 100 * resizer or pre_centro[0][1] - y > 100 * resizer and count <= 0.5:
+		if x - pre_centro[0][0] > 100 * resizer or pre_centro[0][0] - x > 100 * resizer or y - pre_centro[0][1] > 101 * resizer or pre_centro[0][1] - y > 101 * resizer and count <= 0.5:
 			continue
 		cnts_pts.append(contorno)
 	if cnts_pts != []:
@@ -50,31 +50,31 @@ def pica (centro1, centro2, centro3):
 		gerardPique = False
 	return gerardPique
 
-def centroQuieto(list_center):
-	sumaX = 0
-	sumaY = 0
-	centrosCerca = True
-	for i in list_center:
-		if centrosCerca == False: break
-		sumaX += i[0]
-		sumaY += i[1]
-		for l in list_center:
-			if i[0] - l[0] >= -20 and i[0] - l[0] <= 20:
-				centrosCerca = True
-			else:
-				centrosCerca = False
-				break
+# def centroQuieto(list_center):
+# 	sumaX = 0
+# 	sumaY = 0
+# 	centrosCerca = True
+# 	for i in list_center:
+# 		if centrosCerca == False: break
+# 		sumaX += i[0]
+# 		sumaY += i[1]
+# 		for l in list_center:
+# 			if i[0] - l[0] >= -20 and i[0] - l[0] <= 20:
+# 				centrosCerca = True
+# 			else:
+# 				centrosCerca = False
+# 				break
 
-			if centrosCerca and i[1] - l[1] >= -20 and i[1] - l[1] <= 20:
-				centrosCerca = True
-			else:
-				centrosCerca = False
-				break
+# 			if centrosCerca and i[1] - l[1] >= -20 and i[1] - l[1] <= 20:
+# 				centrosCerca = True
+# 			else:
+# 				centrosCerca = False
+# 				break
 	
-	if centrosCerca:
-		centrosIgnorar.append((sumaX / 10, sumaY / 10))
-		return True
-	return False
+# 	if centrosCerca:
+# 		centrosIgnorar.append((sumaX / 10, sumaY / 10))
+# 		return True
+# 	return False
 	
 def contornosQuietos(cnts):
 	centrosCerca = False
@@ -92,7 +92,7 @@ def contornosQuietos(cnts):
 					centrosCerca = False
 					break
 			if centrosCerca:
-				#print("Estoy Cercaa, Todos contornos Count:", todosContornos[count])
+				#print("Estoy Cerca, Todos contornos Count:", todosContornos[count])
 				todosContornos[count].append([(x, y, radius)])
 				#print("Después de apendearme, estoy así", todosContornos[count])
 				break
@@ -143,26 +143,26 @@ def ignorarContornosQuietos(cnts):
 		print("Nueva lista", minEnclosingCircle(i))
 	return new_cnts
 
-def ignorarQuieto(cnts):
-	new_cnts = []
-	Ignorar = False
-	print("Puntos a ignorar", centrosIgnorar)
-	for cnt in cnts:
-		(x, y), radius = minEnclosingCircle(cnt)
-		for i in centrosIgnorar:
-			if x - i[0] >= -20 and x - i[0] <= 20:
-				Ignorar = True
-			else:
-				Ignorar = False
+# def ignorarQuieto(cnts):
+# 	new_cnts = []
+# 	Ignorar = False
+# 	print("Puntos a ignorar", centrosIgnorar)
+# 	for cnt in cnts:
+# 		(x, y), radius = minEnclosingCircle(cnt)
+# 		for i in centrosIgnorar:
+# 			if x - i[0] >= -20 and x - i[0] <= 20:
+# 				Ignorar = True
+# 			else:
+# 				Ignorar = False
 
-			if Ignorar and y - i[1] >= -20 and y - i[1] <= 20:
-				break
+# 			if Ignorar and y - i[1] >= -20 and y - i[1] <= 20:
+# 				break
 			
-		if Ignorar == False: new_cnts.append(cnt)
+# 		if Ignorar == False: new_cnts.append(cnt)
 	
-	for i in new_cnts:
-		print("Nueva lista", minEnclosingCircle(i))
-	return new_cnts
+# 	for i in new_cnts:
+# 		print("Nueva lista", minEnclosingCircle(i))
+# 	return new_cnts
 
 def seEstaMoviendo(ultCentros):
 	movimiento = False
@@ -249,11 +249,11 @@ count = 0
 count2 = 0
 # countSegundosTotales cuenta cuanto tiempo pasó en segundos desde que empezó el video 
 countSegundosTotales = 0
-centrosMovimiento = deque(maxlen=10)
+#centrosMovimiento = deque(maxlen=10)
 ultimosCentros = deque(maxlen=5)
 todosContornos = []
 contornosIgnorar = []
-centrosIgnorar = []
+#centrosIgnorar = []
 pique = deque(maxlen=60)
 pique2 = deque(maxlen=60)
 pique3 = deque(maxlen=3)
@@ -280,7 +280,11 @@ pique3 = deque(maxlen=3)
 #eliminarContornosInservibles()
 #print("Todos Contornos", todosContornos)
 
+numeroFrame = 0
+
 while True:
+	numeroFrame += 1
+	print("Numero de Frame: ", numeroFrame)
 	# Agarra el frame actual
 	frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
@@ -295,8 +299,8 @@ while True:
 	anchoOG = frame.shape[1]
 	altoOG = frame.shape[0]
 
-	estaCercaX = anchoOG * 15/100
-	estaCercaY = altoOG * 15/100
+	estaCercaX = anchoOG * 10/100
+	estaCercaY = altoOG * 10/100
 
 	countSegundosTotales += 1/fps
 
@@ -337,7 +341,7 @@ while True:
 	mask = cv2.erode(mask, None, iterations=2)
 	mask = cv2.dilate(mask, None, iterations=2)
 	#mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)   #morphology close operation for remove small noise point
-	cv2.imshow("mask3", mask)
+	#cv2.imshow("mask3", mask)
 
 	# Toma todos los contornos de la imagen
 	cnts = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -410,6 +414,9 @@ while True:
 
 	#cv2.imshow("Todos los contornos", vacia)
 
+	for h in contornosIgnorar:
+		cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
+
 	if (countSegundosTotales % 5 == 0):
 		eliminarContornosInservibles()
 
@@ -431,8 +438,8 @@ while True:
 				count = 0
 				count2 = 0
 				pique3.appendleft(center[0][1])
-				centrosMovimiento.clear()
-				centrosMovimiento.appendleft(center)
+				#centrosMovimiento.clear()
+				#centrosMovimiento.appendleft(center)
 				ultimosCentros.appendleft(center)
 
 			else:
@@ -449,7 +456,7 @@ while True:
 					count2 += count
 					count = 0
 					pique3.appendleft(center[0][1])
-					centrosMovimiento.appendleft(center)
+					#centrosMovimiento.appendleft(center)
 					ultimosCentros.appendleft(center)
 					if len(pique3) == 3 and count2 <= 0.1:
 						pica(pique3[2], pique3[1], pique3[0])
@@ -499,24 +506,30 @@ while True:
 	bajando = False
 
 	if (center is not None):
-		print(center[0][1])
+		print("Centro en el eje Y", center[0][1])
 		pique.appendleft(center[0][1])
 		
 		if (len(pique) >= 2):
 			if (pique[0] - pique[1] > 0):
 				bajando = True
-		pique2.appendleft(bajando)
-		print(bajando)
+			if (pique[0] - pique[1] != 0):
+				pique2.appendleft((bajando, numeroFrame))
+			else: bajando = "Indeterminación"
+			print("Bajando", bajando)
 
 	if (len(pique2) >= 2):
-		if pique2[0] == False and pique2[1] == True:
+		if pique2[0][0] == False and pique2[1][0] == True and preCentro is not None and pique2[0][1] - pique2[1][1] <= 5:
+			print("Pique 2", pique2)
 			print("Gerard")
-			#frame = cv2.putText(frame, 'Gerard', preCentro, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+			frame = cv2.putText(frame, 'Gerard', (preCentro[0][0], preCentro[0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 
 	frame = imutils.resize(frame, anchoOG, altoOG)
 	frame = imutils.resize(frame, height=768)
+	mask = imutils.resize(mask, anchoOG, altoOG)
+	mask = imutils.resize(mask, height=768)
 
 	# Muestra el frame
+	cv2.imshow("Mask", mask)
 	cv2.imshow("V1", frame)
 	cv2.imshow("Result", result)
 	
