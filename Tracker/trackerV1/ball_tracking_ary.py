@@ -518,7 +518,7 @@ while True:
 			print("Bajando", bajando)
 
 	if (len(pique2) >= 2):
-		if pique2[0][0] == False and pique2[1][0] == True and preCentro is not None and pique2[0][1] - pique2[1][1] <= 5:
+		if pique2[0][0] == False and pique2[1][0] == True and preCentro is not None and pique2[0][1] - pique2[1][1] <= fps/6:
 			print("Pique 2", pique2)
 			print("Gerard")
 			frame = cv2.putText(frame, 'Gerard', (preCentro[0][0], preCentro[0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
