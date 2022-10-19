@@ -5,11 +5,11 @@ import { TextField, Button, Step, Stepper, StepLabel} from "@mui/material";
 import { fontWeight } from '@mui/system';
 import TypeField from '../components/Form UploadVideo Components/TypeField';
 import CheckboxOutstanding from '../components/Form UploadVideo Components/CheckboxOutstanding';
-import { Form, Formik, Field} from "formik";
+import { Form, Formik, Field, useFormik, useFormikContext} from "formik";
 import { object, string, ref, date, mixed} from "yup";
 import {useState, Fragment} from 'react';
 import axios from 'axios';
-
+import InStep from '../components/FormUploadVideoPro';
 
 function RecordPage() {
 
@@ -35,70 +35,6 @@ function RecordPage() {
 
   //Función para que dependiendo el paso devuelva los inputs correspondientes.
 
-  const inStep = (activeStep)=>{
-    switch(activeStep){
-      
-      case 0 : return (
-        <>
-          <Field
-            name="title"
-            type="name"
-            as={TextField}
-            variant="outlined"
-            color="primary"
-            label="Título"
-            size="normal"
-          />
-          <TypeField name="type" label="Tipo de análisis" />
-          <Field
-            name="rival"
-            type="name"
-            as={TextField}
-            variant="outlined"
-            color="primary"
-            label="Rival (opcional)"
-            size="normal"
-          />
-          <Field
-            name="date"
-            type="date"
-            as={TextField}
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            color="primary"
-            label="Fecha del evento"
-            size="normal"
-          />
-        </>
-      );
-      case 1: return (
-        <>
-          <Field
-            name="corners"
-            type="text"
-            as={TextField}
-            variant="outlined"
-            color="primary"
-            label="Esquinas de la cancha"
-            size="normal"
-          />
-        </>
-      );
-      case 2: return (
-        <>
-          <input
-            name="file"
-            type="file"
-            accept="video/*"
-            onChange={(event) => {
-              setFieldValue("file", event.currentTarget.files[0]);
-            }}
-          />
-        </>
-      );
-  }}
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues"
 
@@ -134,10 +70,9 @@ function RecordPage() {
         <div className="form-container">
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, formikHelpers) => {
+            onSubmit={(values) => {
               useAxios(values);
               console.log(values);
-              formikHelpers.resetForm();
             }}
           >
             <Form autoComplete="off">
@@ -159,11 +94,11 @@ function RecordPage() {
                 </Fragment>
               ) : (
                 <Fragment>
-                  {inStep(activeStep)}
+                  <InStep activeStep={activeStep}/>
                   <Button disabled={activeStep === 0} onClick={handleBack}>
                     Volver
                   </Button>
-                  <Button onClick={handleNext} type="submit">
+                  <Button onClick={handleNext} type={activeStep == steps.length - 1 ? 'submit' : 'button'}>
                     {activeStep === steps.length - 1
                       ? "Subir nuevo análisis"
                       : "Siguiente"}
@@ -182,6 +117,8 @@ export default RecordPage;
 
 
 /*
+
+{inStep(activeStep)}
 
 <input id="file" name="file" type="file" onChange={(event) => {
   setFieldValue("file", event.currentTarget.files[0]);
