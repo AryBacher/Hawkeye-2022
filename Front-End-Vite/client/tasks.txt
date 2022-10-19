@@ -14,11 +14,25 @@
   
   UploadVideo Page falta mucho. (Terminado en una semana). Prioridad.
   Video Page falta todo. (Terminado en una semana). Prioridad.
+  
 
   Cosas que preguntar: 
   
-  El si debería incluir iconos en el navbar.
-  Si los textHelpers son útiles y necesarios, sobre todo para el formulario de UploadVideo
+  El si debería incluir iconos en el navbar. (Ranzo)
+  De que pruebe el mail de confirmación. (Alan)
+  Preguntar sobre la dyuntiva del formulario de UploadVideo. (Jaichenko/Vigilante)
+
+  Diyuntiva: Tengo el formulario el cual decidimos que fuera por pasos. Yo ya se como configurar el input file con formik de forma tradicional.
+  esto lo hago usando la función setFieldValue ya propia del elemento y propiedades de formik (estando dentro de las etiquetas correspondientes). sin embargo al hacerlo por pasos se me complica
+  puesto que ese contenido queda por fuera, aunque el problema radica unicamente en el input typye file ya que es el único dependiente de esa propiedad externa. Para solucionarlo intente muchas cosas
+  por ejemplo usar el hook UseFormik pero no sirve porque yo uso una etiqueta Formik, además intenté con useFormik hook pero no encuentra el contexto del formik que utilizo, finalmente intenté haciendo
+  un Formik y luego un Form por cada paso pero eso ya provocaba muchísimos más errores. Son de hecho dos errores pero el primero (el del input file) deriva en el segundo que
+  consiste en que la información en enviada dos submits después.
+
+  Estoy bastante seguro que haciendo el formulario sin pasos podría solucionar este problema, aunque luego tendría que encarar el problema de las esquinas.
+  Básicamente debo encontrar una forma hacer un input en el que el usuario al hacer click marque las cuatro esquinas de la cancha usando un video que dependera del valor del input file previo.
+  las coordenadas serán el valor de ese input aparte debería hacer una interfaz para que el usuario vuelva, vaya para adelante y envie el formulario. 
+
 
   Cosas que hacer:
 

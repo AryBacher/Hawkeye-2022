@@ -1,5 +1,7 @@
 import React from 'react';
 import { Formik, Form, useFormik, Field} from 'formik';
+import { Step, Stepper, StepLabel, TextField, Button } from '@mui/material';
+import {useState, Fragment, useContext} from 'react';
 import * as Yup from 'yup';
 import TitleField from './Form UploadVideo Components/TitleField';
 import TypeField from './Form UploadVideo Components/TypeField';
@@ -10,79 +12,183 @@ import BtnSubmit from './Form UploadVideo Components/BtnSubmit';
 
 function FormUploadVideo() {
 
-  //Valores iniciales del formulario.
+  // Los diferentes labels de los pasos del formulario, haremos un mapeo para recorrerlo y setearlos como título de cada paso correspondiente.
 
-  const initialValues = {
-    title: '',
-    type: '',
-    rival: '',
-    date: '',
-    file: '',
-    outstanding: false
+  const steps = [
+    "Datos del análisis",
+    "Video a analizar",
+    "Selecciona las esquinas",
+  ];
+
+  //Formulario por pasos cambios de estado y handleNext/handleBack/handleReset function
+
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  //Esquema de validación desde el sector cliente.
-  const validationSchema = Yup.object().shape({
-    title: Yup.string()
-      .required('Inrese un nombre para el análisis'),
-    type: Yup.string()
-      .required('Ingrese el tipo de análisis'),
-    date: Yup.date()
-      .required('Ingrese la fecha del partido/entrenamiento'),
-    file: Yup.mixed()
-      .required('Ingrese un archivo de video a analizar')
-  });
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  //Valores iniciales del paso 1
+
+  const initialValues1 = {
+    title: "",
+    type: "",
+    rival: "",
+    date: "",
+  };
+
+  //Valores iniciales del paso 2
+
+  const initialValues2 = {
+    file: null,
+  };
+
+  //Valores iniciales del paso 3
+
+  const initialValues3 = {
+    corners: "",
+  };
+
+  //Función para que dependiendo del paso activo retorne un determinado contenido
+
+  const contentStep = (activeStep) => {
+    switch (activeStep) {
+      case 0:
+        return (
+          <div>
+            <Formik
+              initialValues={initialValues1}
+              onSubmit={(finalValues) => {
+                console.log(finalValues);
+              }}
+            >
+              <Form>
+                <Field
+                  name="title"
+                  type="name"
+                  as={TextField}
+                  variant="outlined"
+                  color="primary"
+                  label="Título"
+                  size="normal"
+                />
+                <TypeField name="type" label="Tipo de análisis" />
+                <Field
+                  name="rival"
+                  type="name"
+                  as={TextField}
+                  variant="outlined"
+                  color="primary"
+                  label="Rival (opcional)"
+                  size="normal"
+                />
+                <Field
+                  name="date"
+                  type="date"
+                  as={TextField}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  color="primary"
+                  label="Fecha del evento"
+                  size="normal"
+                />
+              </Form>
+            </Formik>
+          </div>
+        );
+      case 1:
+        return (
+          <div>
+            <Formik
+              initialValues={initialValues2}
+              onSubmit = {(finalValues)=>{
+                console.log(finalValues)
+              }}
+            >
+              {(setFieldValue) => {
+                <Form>
+                  <input
+                    name="file"
+                    type="file"
+                    accept="video/*"
+                    onChange={(event) => {
+                      setFieldValue("file", event.currentTarget.files[0]);
+                    }}
+                  />
+                </Form>;
+              }}
+            </Formik>
+          </div>
+        );
+      case 2:
+        return (
+          <div>
+            <Formik
+              initialValues={initialValues3}
+              onSubmit = {(finalValues)=>{
+                console.log(finalValues)
+              }}
+            >
+              <Form>
+                <Field
+                  name="corners"
+                  type="text"
+                  as={TextField}
+                  variant="outlined"
+                  color="primary"
+                  label="Esquinas de la cancha"
+                  size="normal"
+                />
+              </Form>
+            </Formik>
+          </div>
+        );
+    }
+  };
 
   return (
-    <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values, formikHelpers)=>{
-          console.log(values);
-          formikHelpers.resetForm();
-        }}
-      >
-        <Form>
-          <TitleField
-            autoFocus
-            name="title"
-            label="Nombre del análisis"
-          />
-          <DatePickerPro/>
-          <TypeField
-            name="type"
-            label="Tipo de análisis"
-          />
-          <TitleField
-            name="rival"
-            label="Rival (opcional)"
-          />
-          <DatePicker
-            name="date"
-            label="Fecha del partido/entrenamiento"
-          />
-
-          <input
-            type="file"
-            name='file'
-            onChange={(e)=>{
-              setFieldValue("image", e.target.files[0])
-            }} 
-          />
-
-          <CheckboxOutstanding
-            name="outstanding"
-            label="Marcar como análisis destacado"
-          />
-
-          <BtnSubmit>
-            Subir análisis
-          </BtnSubmit>
-        </Form>
-      </Formik>
-    </>
-  )
+    <div>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          return (
+            <Step key={label} {...stepProps}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {activeStep === steps.length ? (
+        <Fragment>
+          <p>Análisis subido</p>
+          <Button onClick={handleReset}>Subir un nuevo análisis</Button>
+        </Fragment>
+      ) : (
+        <Fragment>
+          {contentStep(activeStep)}
+          <Button disabled={activeStep === 0} onClick={handleBack}>
+            Volver
+          </Button>
+          <Button onClick={handleNext} type="submit">
+            {activeStep === steps.length - 1
+              ? "Subir nuevo análisis"
+              : "Siguiente"}
+          </Button>
+        </Fragment>
+      )}
+    </div>
+  );
 }
 
 export default FormUploadVideo
