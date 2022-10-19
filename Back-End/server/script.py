@@ -1,3 +1,4 @@
+import sys
 from collections import deque
 from cv2 import circle, minEnclosingCircle
 from imutils.video import VideoStream
@@ -74,13 +75,6 @@ def centroQuieto(list_center):
 	return False
 	
 
-# Argumentos del programa
-ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video",
-	help="path to the (optional) video file")
-ap.add_argument("-b", "--buffer", type=int, default=64,
-	help="max buffer size")
-args = vars(ap.parse_args())
 
 # Rango de deteccion de verdes
 greenLower = np.array([29, 86, 110])
@@ -91,19 +85,19 @@ greenUpper = np.array([64, 255, 255])
 #BGR_prueba = np.array([[[0,255,0]]], dtype=np.uint8)
 #x = cv2.cvtColor(greenUpper, cv2.COLOR_HSV2BGR)
 
-pts = deque(maxlen=args["buffer"])
+pts = deque(maxlen=64)
 preCentro = None
 primeraVez = True
 
 #kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))  #ellipse kernel
 
 # Toma la cámara si no recibe video
-if not args.get("video", False):
+if not True:
 	vs = cv2.VideoCapture(0)
 
 # Toma video en caso de haber
 else:
-	vs = cv2.VideoCapture(args["video"])
+	vs = cv2.VideoCapture(sys.argv[1])
 	#vs = cv2.VideoCapture("y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4")
 
 # Fps del video
@@ -145,7 +139,7 @@ print("Lista Prueba", listaPrueba[0][0][0])
 while True:
 	# Agarra el frame actual
 	frame = vs.read()
-	frame = frame[1] if args.get("video", False) else frame
+	frame = frame[1] 
 
 	#frame2 = vs.read()
 	#frame2 = frame2[1] if args.get("video", False) else frame
@@ -353,7 +347,7 @@ while True:
 			continue
 
 		# Traza la trayectoria
-		thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
+		thickness = int(np.sqrt(64 / float(i + 1)) * 2.5)
 		cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 	
 	bajando = False
@@ -389,7 +383,7 @@ while True:
 	#print("Count al terminar la iteración", count)
 	countMovimiento += 1
 
-if not args.get("video", False):
+if not True:
 	vs.stop()
 
 else:
