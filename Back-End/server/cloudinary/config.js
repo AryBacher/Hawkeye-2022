@@ -1,12 +1,21 @@
+import { v2 as cloudinary } from 'cloudinary'
+
 cloudinary.config({ 
-    cloud_name: 'diywmrezx', 
-    api_key: '453323677335541', 
-    api_secret: 'Dmpx5AKGpbBHLpbaqHy4b7LMTvM' 
-  });
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET,
+  secure: true
+});
 
-  cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  { public_id: "no_se" }, 
-  function(error, result) {console.log(result); });
+export const uploadCloudinary = async (ruta) => {
+  await cloudinary.v2.uploader
+.upload(ruta, 
+  { resource_type: "video", 
+    chunk_size: 6000000,
+     })
+.then(result=>console.log(result));
+}
 
-  //ej resize
-  cloudinary.image("sneaker.png", {crop: "scale", width: 150 })
+export const deleteCloudinary = async (idVideo) => {
+  await cloudinary.v2.uploader.destroy(idVideo);
+}

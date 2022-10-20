@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { pool } from "../database.js";
 import { spawn } from 'child_process';
-import fetch from 'node-fetch';
+import { uploadCloudinary, deleteCloudinary } from '../cloudinary/config.js';
 
 //Subir videos
 export const uploadVideo = async (req, res) => {
