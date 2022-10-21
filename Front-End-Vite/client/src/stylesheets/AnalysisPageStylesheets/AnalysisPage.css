@@ -1,7 +1,7 @@
 .wrapper-ap .profile-bg {
   width: 100%;
   height: 30vh;
-  background: radial-gradient(100% 100% at 50% 100%, #1B2935 0%, #151F27 100%, #1E2E3B 100%);
+  background: radial-gradient(100% 100% at 50% 100%, #1b2935 0%, #151f27 100%, #1e2e3b 100%);
 }
 
 .wrapper-ap .content-ap {
@@ -131,7 +131,7 @@
   width: 100%;
   height: 50px;
   border-radius: 10px;
-  background-color: #1A2630;
+  background-color: #1a2630;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -150,7 +150,7 @@
 }
 
 .wrapper-ap .content-ap .search-filters #search-bar-container:focus-within {
-  background-color: #1B2935;
+  background-color: #1b2935;
 }
 
 .wrapper-ap .content-ap .search-filters #search-bar-container svg {
@@ -174,6 +174,7 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input::-webkit-search-cancel-button {
   -webkit-appearance: none;
+  -moz-appearance: none;
   cursor: pointer;
   -webkit-transition: all 0.25s ease-in;
   transition: all 0.25s ease-in;
@@ -200,7 +201,7 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input::-webkit-input-placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #283A49;
+  color: #283a49;
   font-weight: 600;
   font-size: 16px;
   opacity: 1;
@@ -209,7 +210,7 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input:-ms-input-placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #283A49;
+  color: #283a49;
   font-weight: 600;
   font-size: 16px;
   opacity: 1;
@@ -218,7 +219,7 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input::-ms-input-placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #283A49;
+  color: #283a49;
   font-weight: 600;
   font-size: 16px;
   opacity: 1;
@@ -227,7 +228,7 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #283A49;
+  color: #283a49;
   font-weight: 600;
   font-size: 16px;
   opacity: 1;
@@ -236,14 +237,14 @@
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #283A49;
+  color: #283a49;
   font-size: 16px;
   font-weight: 600;
 }
 
 .wrapper-ap .content-ap .search-filters #search-bar-container input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #283A49;
+  color: #283a49;
   font-size: 16px;
   font-weight: 600;
 }

@@ -1,6 +1,5 @@
 .wrapper-r {
   width: 100%;
-  height: 120vh;
   background-color: var(--colorAzul);
   overflow: hidden;
 }
@@ -59,5 +58,27 @@
 .wrapper-r .form-container {
   margin: 0 auto;
   width: 40%;
+}
+
+.wrapper-r .form-container Form {
+  width: 100%;
+}
+
+.wrapper-r .form-container Form input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.wrapper-r .form-container Form input[type="file"] + label {
+  border: 1px dashed var(--colorAzulClaro);
+  border-radius: 5px;
+  padding: 50px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
 }
 /*# sourceMappingURL=RecordPage.css.map */

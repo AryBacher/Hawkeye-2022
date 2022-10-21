@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
 import "../stylesheets/FormLogInStylesheets/form.css";
-
 
 function FormLogIn() {
   let navigate = useNavigate();
@@ -14,22 +13,24 @@ function FormLogIn() {
     password: "",
   };
 
-  const useAxios = async (finalValues)=>{
+  const useAxios = async (finalValues) => {
+    console.log(finalValues);
+    const response = await axios.post(
+      "http://localhost:4000/LogIn",
+      JSON.stringify(finalValues),
+      {
+        headers: { "Content-Type": "application/JSON" },
+        withCredentials: true,
+      }
+    );
+    console.log(response);
 
-    console.log(finalValues)
-    const response = await axios.post('http://localhost:4000/LogIn', JSON.stringify(finalValues), {
-      headers: { 'Content-Type': 'application/JSON' },
-      withCredentials: true,
-    })
-    console.log(response)
-
-    
     const allowedUser = response.data.redirect;
-    console.log(allowedUser)
-    if (allowedUser){
+    console.log(allowedUser);
+    if (allowedUser) {
       return navigate("/Analysis");
     }
-  }
+  };
 
   return (
     <>
@@ -51,7 +52,6 @@ function FormLogIn() {
             <Field
               name="email"
               type="email"
-              autoFocus
               as={TextField}
               variant="outlined"
               color="primary"

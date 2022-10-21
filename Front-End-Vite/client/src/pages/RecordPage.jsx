@@ -1,38 +1,47 @@
-import React from 'react'
-import '../stylesheets/RecordPageStylesheets/RecordPage.css';
-import EndUseNavbar from '../components/EndUseNavbar';
-import { TextField, Button, Step, Stepper, StepLabel, capitalize} from "@mui/material";
-import { fontWeight } from '@mui/system';
-import TypeField from '../components/Form UploadVideo Components/TypeField';
-import CheckboxOutstanding from '../components/Form UploadVideo Components/CheckboxOutstanding';
-import { Form, Formik, Field, useFormik, useFormikContext} from "formik";
-import { object, string, ref, date, mixed} from "yup";
-import {useState, Fragment, useEffect} from 'react';
-import axios from 'axios';
+import React from "react";
+import "../stylesheets/RecordPageStylesheets/RecordPage.css";
+import EndUseNavbar from "../components/EndUseNavbar";
+import {
+  TextField,
+  Button,
+  Step,
+  Stepper,
+  StepLabel,
+  capitalize,
+} from "@mui/material";
+import { fontWeight } from "@mui/system";
+import TypeField from "../components/Form UploadVideo Components/TypeField";
+import CheckboxOutstanding from "../components/Form UploadVideo Components/CheckboxOutstanding";
+import { Form, Formik, Field, useFormik, useFormikContext } from "formik";
+import { object, string, ref, date, mixed } from "yup";
+import { useState, Fragment, useEffect } from "react";
+import axios from "axios";
 
 function RecordPage() {
-
-
   //Valores iniciales de los campos para colocar en el Formik "initialValues"
 
   const initialValues = {
-    title: '',
-    type: '',
-    rival: '',
-    date: '',
+    title: "",
+    type: "",
+    rival: "",
+    date: "",
     file: null,
-    corners:''
-  }
+    corners: "",
+  };
 
   //Función para fetchear los valores finales del formulario
 
-  const useAxios = async (finalValues)=>{
-    const response = await axios.post('http://localhost:4000/UploadVideo', JSON.stringify(finalValues), {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    })
-    console.log(response)
-  }
+  const useAxios = async (finalValues) => {
+    const response = await axios.post(
+      "http://localhost:4000/UploadVideo",
+      JSON.stringify(finalValues),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+  };
 
   return (
     <>
@@ -51,9 +60,16 @@ function RecordPage() {
               useAxios(values);
               console.log(values);
             }}
+            validationSchema={object({
+              title: string().required("Ingrese un título para  el análisis"),
+              type: string().required("Ingrese el tipo de análisis"),
+              date: date().required("Ingrese la fecha del evento"),
+              file: mixed().required("Ingrese un video a analizar"),
+              corners: string().required("Ingrese las esquinas de la cancha"),
+            })}
           >
-            {({ setFieldValue, handleSubmit, errors, isValid, touched, dirty }) => (
-              <Form onSubmit={handleSubmit}>
+            {({ setFieldValue, errors, isValid, touched, dirty }) => (
+              <Form autoComplete="off">
                 <Field
                   name="title"
                   type="text"
@@ -62,6 +78,8 @@ function RecordPage() {
                   color="primary"
                   label="Título del análisis"
                   size="normal"
+                  error={Boolean(errors.title) && Boolean(touched.title)}
+                  helperText={Boolean(touched.title) && errors.title}
                 />
                 <TypeField name="type" label="Tipo de análisis" />
                 <Field
@@ -84,8 +102,11 @@ function RecordPage() {
                   color="primary"
                   label="Fecha del evento"
                   size="normal"
+                  error={Boolean(errors.date) && Boolean(touched.date)}
+                  helperText={Boolean(touched.date) && errors.date}
                 />
                 <input
+                  id="file-button"
                   name="file"
                   type="file"
                   accept="video/*"
@@ -93,6 +114,7 @@ function RecordPage() {
                     setFieldValue("file", e.currentTarget.files[0]);
                   }}
                 />
+                <label for="file" className="file-box">Arrastre o busque un video a analizar haciendo click</label>
                 <Field
                   name="corners"
                   type="text"
@@ -101,6 +123,8 @@ function RecordPage() {
                   color="primary"
                   label="Esquinas de la cancha"
                   size="normal"
+                  error={Boolean(errors.corners) && Boolean(touched.corners)}
+                  helperText={Boolean(touched.corners) && errors.corners}
                 />
                 <Button
                   variant="contained"
@@ -129,13 +153,18 @@ function RecordPage() {
 
 export default RecordPage;
 
-
 /* 
+
+https://codesandbox.io/s/d2swu?file=/src/Circle.ts
 
 Problemas:
 
 - Uso un switch para mostrar el contenido dependiendo del paso activo pero este esta por fuera del formik tag lo que me impide de usar el setFieldValue para con el input file.
 - No se marca el button de next como tipo submit aunque yo le ponga la condición para que así sea en el último paso.
+
+Soluciones: 
+
+- Que cambie nomás la hoja de estilos dependiendo el contenido estando todo el form dividido en divs.
 
 Código del form multi-step:
 

@@ -68,7 +68,7 @@
 
 .wrapper-hp .divider-hp {
   width: 0;
-  height: 1.5px;
+  height: 1px;
   margin: 0 auto;
   border-radius: 100%;
   background-color: var(--colorAzulClaro);

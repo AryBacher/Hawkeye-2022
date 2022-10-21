@@ -1,55 +1,55 @@
-.wrapper-hp{
-    width: 100%;
-    min-height: 100vh;
+.wrapper-hp {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--colorAzul);
+  .texts-header {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--colorAzul);
-    .texts-header{
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 80px;
-        .text-header-content{
-            text-align: center;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 8vh;
-            padding-bottom: 8vh;
-            p{
-                font-size: 1em;
-                font-weight: 400;
-                color: var(--colorVerde);
-            }
-            h1{
-                font-size: 3em;
-                font-weight: 700;
-                margin-top: 15px;
-            }
-        }
+    justify-content: center;
+    padding-top: 80px;
+    .text-header-content {
+      text-align: center;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      p {
+        font-size: 1em;
+        font-weight: 400;
+        color: var(--colorVerde);
+      }
+      h1 {
+        font-size: 3em;
+        font-weight: 700;
+        margin-top: 15px;
+      }
     }
-    .divider-hp {
-        width: 0;
-        height: 1.5px;
-        margin: 0 auto;
-        border-radius: 100%;
-        background-color: var(--colorAzulClaro);
+  }
+  .divider-hp {
+    width: 0;
+    height: 1px;
+    margin: 0 auto;
+    border-radius: 100%;
+    background-color: var(--colorAzulClaro);
+  }
+  .faqs {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    .faqs-content {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
     }
-    .faqs{
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        .faqs-content{
-            margin-top: 40px ;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-    }
+  }
 }

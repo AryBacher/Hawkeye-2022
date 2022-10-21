@@ -1,11 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string, ref } from "yup";
 import "../stylesheets/FormSignUpStylesheets/Form.css";
-
 
 function FormSignUp() {
   let navigate = useNavigate();
@@ -16,22 +15,24 @@ function FormSignUp() {
     passwordConfirm: "",
   };
 
-  const useAxios = async (finalValues)=>{
+  const useAxios = async (finalValues) => {
+    console.log(finalValues);
+    const response = await axios.post(
+      "http://localhost:4000/SignUp",
+      JSON.stringify(finalValues),
+      {
+        headers: { "Content-Type": "application/JSON" },
+        withCredentials: true,
+      }
+    );
+    console.log(response);
 
-    console.log(finalValues)
-    const response = await axios.post('http://localhost:4000/SignUp', JSON.stringify(finalValues), {
-      headers: { 'Content-Type': 'application/JSON' },
-      withCredentials: true,
-    })
-    console.log(response)
-
-    
     const allowedUser = response.data.redirect;
-    console.log(allowedUser)
-    if (allowedUser){
+    console.log(allowedUser);
+    if (allowedUser) {
       return navigate("/LogIn");
     }
-  }
+  };
 
   return (
     <>
@@ -43,11 +44,8 @@ function FormSignUp() {
           formikHelpers.resetForm();
         }}
         validationSchema={object({
-          name: string()
-            .required("Ingrese su nombre"),
-          email: string()
-            .required("Ingrese su email")
-            .email("Email inválido"),
+          name: string().required("Ingrese su nombre"),
+          email: string().required("Ingrese su email").email("Email inválido"),
           password: string()
             .required("Ingrese su contraseña")
             .min(8, "Mínimo 8 caracateres"),
@@ -58,11 +56,9 @@ function FormSignUp() {
       >
         {({ errors, isValid, touched, dirty }) => (
           <Form autoComplete="off">
-            
             <Field
               name="name"
               type="name"
-              autoFocus
               as={TextField}
               variant="outlined"
               color="primary"

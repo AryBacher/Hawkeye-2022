@@ -1,38 +1,55 @@
-.wrapper-r{
-    width: 100%;
-    height: 120vh;
-    background-color: var(--colorAzul);
-    overflow: hidden;
-    .form-header{
-        box-sizing: border-box;
-        padding-top: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        .form-header-content{
-            text-align: center;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 8vh;
-            padding-bottom: 8vh;
-            p{
-                font-size: 1em;
-                color: var(--colorVerde);
-            }
-            h1{
-                font-size: 3em;
-                font-weight: 700;
-                margin-top: 15px;
-            }
+.wrapper-r {
+  width: 100%;
+  background-color: var(--colorAzul);
+  overflow: hidden;
+  .form-header {
+    box-sizing: border-box;
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .form-header-content {
+      text-align: center;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      p {
+        font-size: 1em;
+        color: var(--colorVerde);
+      }
+      h1 {
+        font-size: 3em;
+        font-weight: 700;
+        margin-top: 15px;
+      }
+    }
+  }
+  .form-container {
+    margin: 0 auto;
+    width: 40%;
+    Form {
+      width: 100%;
+      input[type="file"] {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+        & + label {
+          border: 1px dashed var(--colorAzulClaro);
+          border-radius: 5px;
+          padding: 50px;
+          text-align: center;
+          display: inline-block;
+          cursor: pointer;
         }
-
+      }
     }
-    .form-container{
-        margin: 0 auto;
-        width: 40%;
-    }
+  }
 }
