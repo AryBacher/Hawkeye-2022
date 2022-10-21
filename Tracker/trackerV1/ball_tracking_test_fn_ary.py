@@ -1,7 +1,7 @@
 from collections import deque
-from tkinter import N
-from turtle import pos
-from cv2 import minEnclosingCircle
+#from tkinter import N
+#from turtle import pos
+#from cv2 import minEnclosingCircle
 import numpy as np
 import argparse
 import cv2
@@ -18,14 +18,15 @@ args = vars(ap.parse_args())
 
 def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
-    if numeroGlob == 0: 
+    if numeroGlob == 0:
         medidorX = 100
         medidorY = 101
-    else: 
+    else:
         medidorX = 70
         medidorY = 71
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
+        print("Círculo", (x, y, radius))
         if x - pre_centro[0][0] > medidorX * resizer_glob[numeroGlob] or pre_centro[0][0] - x > medidorX * resizer_glob[numeroGlob] or y - pre_centro[0][1] > medidorY * resizer_glob[numeroGlob] or pre_centro[0][1] - y > medidorY * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
@@ -143,7 +144,7 @@ def ignorarContornosQuietos(cnts, contornosIgnorar):
     new_cnts = []
     Ignorar = False
     for cnt in cnts:
-        (x, y), radius = minEnclosingCircle(cnt)
+        (x, y), radius = cv2.minEnclosingCircle(cnt)
         print("Circulo Posible", (int(x), int(y), int(radius)))
         for i in contornosIgnorar:
             if x - i[0] >= -20 and x - i[0] <= 20 and y - i[1] >= -20 and y - i[1] <= 20:
@@ -155,7 +156,7 @@ def ignorarContornosQuietos(cnts, contornosIgnorar):
         if Ignorar == False: new_cnts.append(cnt)
     
     for i in new_cnts:
-        print("Nueva lista", minEnclosingCircle(i))
+        print("Nueva lista", cv2.minEnclosingCircle(i))
     return new_cnts
 
 def seEstaMoviendo(ultCentros):
@@ -254,7 +255,7 @@ def todo(frame, numeroGlob):
                 #print("Count", count_glob[numeroGlob])
                 #print("Ultimos Centros", ultimosCentros_pers)
                 cnts = ignorarContornosQuietos(cnts, contornosIgnorar_pers)
-        
+                
         if len(cnts) > 0:    
             if primeraVez_glob[numeroGlob]:
                 c = max(cnts, key=cv2.contourArea)
@@ -390,7 +391,8 @@ def todo(frame, numeroGlob):
                 print("Gerard")
                 posiblePique = True
                 posiblesPiques_norm.appendleft(preCentro_glob[numeroGlob])
-                if len(posiblesPiques_norm) == 1: countDifPiques = 0 
+                if len(posiblesPiques_norm) == 1: countDifPiques = 0
+                #if preCentro_glob[numeroGlob][0][0]
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
