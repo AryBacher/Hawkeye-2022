@@ -170,14 +170,6 @@ while True:
 	frame = imutils.resize(frame, anchoOG * resizer, altoOG * resizer)
 	#frame = imutils.resize(frame, height=768)
 	
-	#punto = [100, 300]
-	#lista = [[105, 1250], [900, 100], [800, 500], [100, 100]]
-
-	# cv2.circle(frame, (topLeftX, topLeftY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (topRightX, topRightY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (bottomLeftX, bottomLeftY), 2, (0, 0, 255), -1)
-	# cv2.circle(frame, (bottomRightX, bottomRightY), 2, (0, 0, 255), -1)
-
 	# Cámara lenta para mayor análisis
 	#cv2.waitKey(100)
 	

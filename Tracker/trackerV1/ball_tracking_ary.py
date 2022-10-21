@@ -7,7 +7,7 @@ import cv2
 import imutils
 import time
 
-resizer = 2
+resizer = 3
 
 def tp_fix(contornos, pre_centro, count):
 	cnts_pts = []
