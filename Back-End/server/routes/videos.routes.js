@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo, redirect } from "../controllers/videos.js";
+import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo, getVideos, redirect } from "../controllers/videos.js";
 import { authenticateUser } from '../controllers/user.js';
 
 const router = Router();
@@ -11,6 +11,8 @@ router.delete('/DeleteVideo/idUsuario/idCloudinary', authenticateUser, deleteVid
 router.post('/UpdateVideo/idUsuario/idCloudinary', authenticateUser, updateVideo)
 
 router.get('/FilterVideo/idUsuario', authenticateUser, filterVideo)
+
+router.get('/GetVideos/idUsuario', getVideos)
 
 router.get('/GetVideo/idUsuario/idCloudinary', authenticateUser, getVideo)
 
