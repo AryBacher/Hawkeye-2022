@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { pool } from "../database.js";
 import { spawn } from 'child_process';
 import { uploadCloudinary, deleteCloudinary } from '../cloudinary/config.js';
+import fs from 'fs-extra';
 
 //Subir videos
 export const uploadVideo = async (req, res) => {
@@ -14,14 +15,14 @@ export const uploadVideo = async (req, res) => {
   const bool_esFavorito = esFavorito == 'true';
   const path = req.file.path
 
-  const CloudinaryData = uploadCloudinary(path)
+  const CloudinaryData = await uploadCloudinary(path)
 
   const rutaCloudinary = CloudinaryData.url
   const idCloudinary = CloudinaryData.public_id
 
-
   await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, titulo, rival, esPartido, esFavorito, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, titulo, rival, bool_esPartido, bool_esFavorito, fechaPartido]);
-  
+  await fs.unlink(path)
+
   const childPython = spawn('python', ['script.py', path])
 
     childPython.stdout.on('data', (data) => {
