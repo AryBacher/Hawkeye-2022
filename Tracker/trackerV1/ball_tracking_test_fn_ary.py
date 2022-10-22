@@ -19,14 +19,15 @@ args = vars(ap.parse_args())
 def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
     if numeroGlob == 0:
-        medidorX = 200
-        medidorY = 201
+        medidorX = 100
+        medidorY = 103
     else:
         medidorX = 70
         medidorY = 71
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
         print("Círculo", (x, y, radius))
+        print("Pre Centro", preCentro_glob[numeroGlob])
         if x - pre_centro[0][0] > medidorX * resizer_glob[numeroGlob] or pre_centro[0][0] - x > medidorX * resizer_glob[numeroGlob] or y - pre_centro[0][1] > medidorY * resizer_glob[numeroGlob] or pre_centro[0][1] - y > medidorY * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
