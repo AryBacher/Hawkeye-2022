@@ -8,17 +8,23 @@ import {
   Stepper,
   StepLabel,
   capitalize,
+  Alert,
+  Collapse,
+  IconButton,
 } from "@mui/material";
-import { fontWeight } from "@mui/system";
+import CloseIcon from '@mui/icons-material/Close';
 import TypeField from "../components/Form UploadVideo Components/TypeField";
-import CheckboxOutstanding from "../components/Form UploadVideo Components/CheckboxOutstanding";
 import { Form, Formik, Field, useFormik, useFormikContext } from "formik";
-import { object, string, ref, date, mixed } from "yup";
-import { useState, Fragment, useEffect } from "react";
+import { object, string,date, mixed } from "yup";
+import { useState, Fragment, useEffect, useRef } from "react";
+import {motion} from 'framer-motion';
 import axios from "axios";
+import AlertSuccess from "../components/AlertSuccess";
+import { height } from "@mui/system";
 
 function RecordPage() {
-  //Valores iniciales de los campos para colocar en el Formik "initialValues"
+
+  //Valores iniciales de los campos para colocar en el Formik "initialValues".
 
   const initialValues = {
     title: "",
@@ -29,7 +35,19 @@ function RecordPage() {
     corners: "",
   };
 
-  //Función para fetchear los valores finales del formulario
+  //Hacer una referencia al input type file para que al clickear otro elemento realmente estes clickeando el input.
+
+  const inputFile = useRef(null);
+
+  const handleInputFile = (e) => {
+    inputFile.current.click();
+  };
+
+  //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado.
+
+  const [fileName, setFileName] = useState("");
+
+  //Función para fetchear los valores finales del formulario.
 
   const useAxios = async (finalValues) => {
     const response = await axios.post(
@@ -43,22 +61,81 @@ function RecordPage() {
     console.log(response);
   };
 
+  //Alerta de análisis subido
+
+  const [alertList, setAlertList]  = useState([]);
+
+  const addAlert = ()=>{
+    setAlertList(alertList.concat(<AlertSuccess key={alertList.length} />));
+  }
+  
+
   return (
     <>
       <div className="wrapper-r">
         <EndUseNavbar grabarId="grabar" análisisId="" ayudaId="" />
         <div className="form-header">
-          <div className="form-header-content">
+          <motion.div
+            className="form-header-content"
+            initial={{
+              opacity: 0,
+              y: 75,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.3,
+                type: "tween",
+                ease: "easeOut",
+                duration: 0.75,
+              },
+            }}
+            viewport={{
+              once: true,
+            }}
+          >
             <p>Formulario por pasos</p>
             <h1>Sube un nuevo análisis</h1>
-          </div>
+          </motion.div>
         </div>
-        <div className="form-container">
+        <motion.div
+          className="divider-r"
+          animate={{
+            width: "45%",
+          }}
+          transition={{
+            duration: 1.5,
+            ease: "easeOut",
+          }}
+          viewport={{
+            once: true,
+          }}
+        ></motion.div>
+        <motion.div
+          className="form-container"
+          initial={{
+            opacity: 0,
+            y: 60,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.5,
+              type: "tween",
+              ease: "easeOut",
+              duration: 0.75,
+            },
+          }}
+        >
           <Formik
             initialValues={initialValues}
-            onSubmit={(values) => {
+            onSubmit={(values, formikHelpers) => {
               useAxios(values);
               console.log(values);
+              setFileName("");
+              formikHelpers.resetForm();
             }}
             validationSchema={object({
               title: string().required("Ingrese un título para  el análisis"),
@@ -68,7 +145,7 @@ function RecordPage() {
               corners: string().required("Ingrese las esquinas de la cancha"),
             })}
           >
-            {({ setFieldValue, errors, isValid, touched, dirty }) => (
+            {({ setFieldValue, errors, isValid, touched, dirty, values }) => (
               <Form autoComplete="off">
                 <Field
                   name="title"
@@ -112,9 +189,19 @@ function RecordPage() {
                   accept="video/*"
                   onChange={(e) => {
                     setFieldValue("file", e.currentTarget.files[0]);
+                    setFileName(e.currentTarget.files[0].name);
+                    console.log(fileName);
                   }}
+                  ref={inputFile}
                 />
-                <label for="file" className="file-box">Arrastre o busque un video a analizar haciendo click</label>
+                <div className="file-box" onClick={handleInputFile}>
+                  Arrastre o busque un video a analizar haciendo click aquí
+                  <span>
+                    {fileName === ""
+                      ? "Por ahora ningún video ha sido seleccionado"
+                      : `Video: ${fileName}`}
+                  </span>
+                </div>
                 <Field
                   name="corners"
                   type="text"
@@ -131,6 +218,7 @@ function RecordPage() {
                   type="submit"
                   size="large"
                   disabled={!dirty || !isValid}
+                  onClick={addAlert}
                   sx={{
                     fontWeight: 600,
                     textTransform: "capitalize",
@@ -140,12 +228,13 @@ function RecordPage() {
                     borderRadius: "10px",
                   }}
                 >
-                  Continuar
+                  Subir análisis
                 </Button>
               </Form>
             )}
           </Formik>
-        </div>
+        </motion.div>
+        {alertList}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 .wrapper-r {
   width: 100%;
+  min-height: 100vh;
   background-color: var(--colorAzul);
   overflow: hidden;
 }
@@ -24,6 +25,7 @@
 }
 
 .wrapper-r .form-header .form-header-content {
+  width: 45%;
   text-align: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -56,12 +58,56 @@
 }
 
 .wrapper-r .form-container {
+  padding-top: 40px;
   margin: 0 auto;
-  width: 40%;
+  width: 45%;
 }
 
 .wrapper-r .form-container Form {
+  margin-bottom: 8vh;
   width: 100%;
+}
+
+.wrapper-r .form-container Form .file-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  width: 100%;
+  min-height: 150px;
+  text-align: center;
+  cursor: pointer;
+  color: #4a5258;
+  border: 1px dashed #4a5258;
+  -webkit-transition: all 10ms ease-out;
+  transition: all 10ms ease-out;
+}
+
+.wrapper-r .form-container Form .file-box:hover {
+  border: 1px dashed var(--colorBlanco);
+  color: var(--colorBlanco);
+}
+
+.wrapper-r .form-container Form .file-box:focus {
+  border: 1px dashed var(--colorVerde);
+  color: var(--colorVerde);
+}
+
+.wrapper-r .form-container Form .file-box span {
+  font-weight: 600;
 }
 
 .wrapper-r .form-container Form input[type="file"] {
@@ -73,12 +119,16 @@
   z-index: -1;
 }
 
-.wrapper-r .form-container Form input[type="file"] + label {
-  border: 1px dashed var(--colorAzulClaro);
-  border-radius: 5px;
-  padding: 50px;
-  text-align: center;
-  display: inline-block;
-  cursor: pointer;
+.divider-r {
+  width: 0;
+  height: 1px;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-color: var(--colorAzulClaro);
+}
+
+::-webkit-calendar-picker-indicator {
+  -webkit-filter: invert(1);
+          filter: invert(1);
 }
 /*# sourceMappingURL=RecordPage.css.map */

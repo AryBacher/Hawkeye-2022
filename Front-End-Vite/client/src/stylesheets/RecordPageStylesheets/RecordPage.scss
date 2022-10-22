@@ -1,5 +1,6 @@
 .wrapper-r {
   width: 100%;
+  min-height: 100vh;
   background-color: var(--colorAzul);
   overflow: hidden;
   .form-header {
@@ -10,6 +11,7 @@
     align-items: center;
     flex-direction: column;
     .form-header-content {
+      width: 45%;
       text-align: center;
       box-sizing: border-box;
       display: flex;
@@ -30,10 +32,39 @@
     }
   }
   .form-container {
+    padding-top: 40px ;
     margin: 0 auto;
-    width: 40%;
+    width: 45%;
     Form {
+      margin-bottom: 8vh;
       width: 100%;
+      .file-box{
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        width: 100%;
+        min-height: 150px;
+        text-align: center;
+        cursor: pointer;
+        color: #4a5258;
+        border: 1px dashed #4a5258;
+        transition: all 10ms ease-out;
+        &:hover{
+          border: 1px dashed var(--colorBlanco);
+          color: var(--colorBlanco);
+        }
+        &:focus{
+          border: 1px dashed var(--colorVerde);
+          color: var(--colorVerde);
+        }
+        span{
+          font-weight: 600;
+        }
+      }
       input[type="file"] {
         width: 0.1px;
         height: 0.1px;
@@ -41,15 +72,19 @@
         overflow: hidden;
         position: absolute;
         z-index: -1;
-        & + label {
-          border: 1px dashed var(--colorAzulClaro);
-          border-radius: 5px;
-          padding: 50px;
-          text-align: center;
-          display: inline-block;
-          cursor: pointer;
-        }
       }
     }
   }
+}
+
+.divider-r{
+  width: 0;
+  height: 1px;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-color: var(--colorAzulClaro);
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }

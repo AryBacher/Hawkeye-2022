@@ -214,8 +214,8 @@ a {
   gap: 15px;
   background-color: var(--colorAzul);
   width: 200px;
-  height: 60px;
-  border-radius: 10px;
+  height: 50px;
+  border-radius: 5px;
   border: 1px solid var(--colorAzulClaro);
   overflow: hidden;
   cursor: pointer;
