@@ -96,12 +96,7 @@
   font-size: 14px;
 }
 
-.default-thumbnail {
-  background-color: var(--colorAzul);
-}
-
 .img-thumbnail {
-  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2_rPf3LOd-Tv_pCOLYrMcFIAuklSF4a5A4DdfOWFEIPWdvE2NnumSHvOfeV37N52VTAI&usqp=CAU);
   background-repeat: no-repeat;
   background-size: cover;
 }

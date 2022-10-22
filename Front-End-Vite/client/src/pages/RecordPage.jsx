@@ -47,7 +47,7 @@ function RecordPage() {
   const handleInputFile = (e) => {
     inputFile.current.click();
   };
-
+  
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado.
 
   const [fileName, setFileName] = useState("");
