@@ -3,8 +3,11 @@ import  LogoSmall from './LogoSmall';
 import Avatar from '@mui/material/Avatar';
 import {useState, useEffect} from 'react';
 import '../stylesheets/EndUseNavbarStylesheets/EndUseNavbar.css';
+import { useParams } from "react-router-dom"
 
 function EndUseNavbar({grabarId, análisisId, ayudaId}) {
+
+  const { id } = useParams()
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -28,13 +31,13 @@ function EndUseNavbar({grabarId, análisisId, ayudaId}) {
           <LogoSmall/>
           <ul>
             <li id={grabarId}>
-              <a href="/Record">Grabar</a>
+              <a href={`/Record/${id}`}>Grabar</a>
             </li>
             <li id={análisisId}>
-              <a href="/Analysis">Análisis</a>
+              <a href={`/Analysis/${id}`}>Análisis</a>
             </li>
             <li id={ayudaId}>
-              <a href="Help">Ayuda</a>
+              <a href={`/Help/${id}`}>Ayuda</a>
             </li>
           </ul>
 

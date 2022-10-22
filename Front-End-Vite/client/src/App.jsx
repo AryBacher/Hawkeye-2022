@@ -45,12 +45,12 @@ function App() {
           <Route path="/LogIn" element={<LogInPage/>} />
           <Route path="/RecoverPassword" element={<RecoverPasswordPage/>} />
           <Route path="/ConfirmNewPassword" element={<ConfirmNewPasswordPage/>}/>
-          <Route path="/Analysis" element={<AnalysisPage/>}/>
-          <Route path="/Record" element={<RecordPage/>}/>
+          <Route path="/Analysis/:id" element={<AnalysisPage/>}/>
+          <Route path="/Record/:id" element={<RecordPage/>}/>
           <Route path="/StartLive" element={<StartLivePage/>}/>
           <Route path="/UploadVideo" element={<UploadVideoPage/>}/>
-          <Route path="/Analysis/:id" element={<VideoPage/>}/>
-          <Route path="/Help" element={<HelpPage/>} />
+          <Route path="/Analysis/:id/:idVideo" element={<VideoPage/>}/>
+          <Route path="/Help/:id" element={<HelpPage/>} />
         </Routes>
       </ThemeProvider>
     </>

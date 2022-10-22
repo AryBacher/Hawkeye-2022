@@ -67,7 +67,8 @@ export const logIn = async (req, res) =>{
             sameSite: 'none',
             secure: true,
         })
-        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado", redirect: true })
+        
+        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado", redirect: true, idUsuario: userId })
     }
     return res.status(406).json({message: "Contraseña incorrecta"});
 }

@@ -21,8 +21,13 @@ import {motion} from 'framer-motion';
 import axios from "axios";
 import AlertSuccess from "../components/AlertSuccess";
 import { height } from "@mui/system";
+import { useParams } from "react-router-dom"
+
+
 
 function RecordPage() {
+
+  const { id } = useParams()
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
 
@@ -50,11 +55,21 @@ function RecordPage() {
   //Función para fetchear los valores finales del formulario.
 
   const useAxios = async (finalValues) => {
+    console.log(finalValues)
+    const formData = new FormData()
+    formData.append('idUsuario', id)
+    formData.append('title', finalValues.title)
+    formData.append('type', finalValues.type)
+    formData.append('rival', finalValues.rival)
+    formData.append('date', finalValues.date)
+    formData.append('video', finalValues.file)
+    formData.append('corners', finalValues.corners)
+    console.log([...formData])
     const response = await axios.post(
       "http://localhost:4000/UploadVideo",
-      JSON.stringify(finalValues),
+      formData,
       {
-        headers: { "Content-Type": "application/json" },
+        //headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       }
     );
@@ -133,7 +148,7 @@ function RecordPage() {
             initialValues={initialValues}
             onSubmit={(values, formikHelpers) => {
               useAxios(values);
-              console.log(values);
+              //console.log(values);
               setFileName("");
               formikHelpers.resetForm();
             }}
@@ -190,7 +205,7 @@ function RecordPage() {
                   onChange={(e) => {
                     setFieldValue("file", e.currentTarget.files[0]);
                     setFileName(e.currentTarget.files[0].name);
-                    console.log(fileName);
+                    //console.log(fileName);
                   }}
                   ref={inputFile}
                 />

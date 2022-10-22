@@ -28,7 +28,7 @@ function FormLogIn() {
     const allowedUser = response.data.redirect;
     console.log(allowedUser);
     if (allowedUser) {
-      return navigate("/Analysis");
+      return navigate(`/Analysis/${response.data.idUsuario}`);
     }
   };
 

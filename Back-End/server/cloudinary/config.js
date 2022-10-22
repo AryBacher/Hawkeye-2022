@@ -8,12 +8,10 @@ cloudinary.config({
 });
 
 export const uploadCloudinary = async (ruta) => {
-  await cloudinary.v2.uploader
-.upload(ruta, 
+  return await cloudinary.uploader.upload(ruta, 
   { resource_type: "video", 
     chunk_size: 6000000,
-     })
-.then(result=>console.log(result));
+  })
 }
 
 export const deleteCloudinary = async (idVideo) => {

@@ -7,20 +7,17 @@ import fs from 'fs-extra';
 //Subir videos
 export const uploadVideo = async (req, res) => {
 
-  console.log(req.body)
-
-  const {idUsuario, titulo, rival, esPartido, esFavorito} = req.body;
-  const fechaPartido = req.body.FechaPartido;
-  const bool_esPartido = esPartido == 'true';
-  const bool_esFavorito = esFavorito == 'true';
+  const {idUsuario, title, rival, date, type, corners} = req.body;
   const path = req.file.path
 
   const CloudinaryData = await uploadCloudinary(path)
+  
+  console.log(CloudinaryData)
 
   const rutaCloudinary = CloudinaryData.url
   const idCloudinary = CloudinaryData.public_id
 
-  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, titulo, rival, esPartido, esFavorito, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, titulo, rival, bool_esPartido, bool_esFavorito, fechaPartido]);
+  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, title, rival, type, date]);
   await fs.unlink(path)
 
   const childPython = spawn('python', ['script.py', path])
@@ -79,7 +76,7 @@ export const getVideo = async(req, res) => {
   return res.status(200).json(urlVideo)
 }
 
-/*//Mandar videos a analizar
+//Mandar videos a analizar
 export const sendVideo = async(req, res) => {
   if (!req.body.ruta){
     return res.status(500).json({ message: 'Error' })
@@ -104,7 +101,6 @@ const storage = multer.diskStorage({
 
 export const redirect = multer({
   storage,
-  dest: './videos',
   limits: {fileSize: 100000000000},
   fileFilter: (req, file, cb) => {
       const filetypes = /mp4|avi/
@@ -115,4 +111,4 @@ export const redirect = multer({
       }
       cb('Error: tipo de archivo no válido');
   }
-}).single('video')*/
+}).single('video')

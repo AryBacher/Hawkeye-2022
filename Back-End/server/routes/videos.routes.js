@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo } from "../controllers/videos.js";
+import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo, redirect } from "../controllers/videos.js";
 import { authenticateUser } from '../controllers/user.js';
 
 const router = Router();
 
-router.post('/UploadVideo', authenticateUser, uploadVideo)
+router.post('/UploadVideo', redirect, uploadVideo)
 
 router.delete('/DeleteVideo/idUsuario/idCloudinary', authenticateUser, deleteVideo)
 
