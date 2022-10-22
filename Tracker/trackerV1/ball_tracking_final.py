@@ -275,14 +275,20 @@ def todo(frame, numeroGlob):
                 posiblePique = True
                 posiblesPiques_norm.appendleft(preCentro_glob[numeroGlob])
                 if len(posiblesPiques_norm) == 1: countDifPiques = 0 
+
     
     else:
         if (len(pique2_pers) >= 2):
             if posiblePique and preCentro_glob[numeroGlob] is not None:
-                if posiblePique: posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
-                if posiblePique and len(posiblesPiques_pers) >= 2:
+                posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                 countDifPiques = 0
+                
+                # Se agrega el pique a la lista de todos ellos junto con el N° frame en el que ocurre
+                pts_pique.append((preCentro_glob[numeroGlob], numeroFrame))
+                print(pts_pique)
+
 
 # Toma el video
 vs = cv2.VideoCapture(video)
@@ -301,6 +307,7 @@ bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
 
+pts_pique = []
 
 preCentro_glob = deque(maxlen=2)
 preCentro_glob.append(None)

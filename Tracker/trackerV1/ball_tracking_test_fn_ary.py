@@ -19,8 +19,8 @@ args = vars(ap.parse_args())
 def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
     if numeroGlob == 0:
-        medidorX = 100
-        medidorY = 101
+        medidorX = 200
+        medidorY = 201
     else:
         medidorX = 70
         medidorY = 71
@@ -407,6 +407,8 @@ def todo(frame, numeroGlob):
                     print("Gerard", Gerard)
                 countDifPiques = 0
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+                pts_pique.append((preCentro_glob[numeroGlob], numeroFrame))
+                print("ES ESTE", pts_pique)
 
     # if numeroGlob == 0:
     #     if center_glob[numeroGlob] is not None:
@@ -500,6 +502,8 @@ bottomLeftX = 206
 bottomLeftY = 797
 bottomRightX = 1518
 bottomRightY = 785
+
+pts_pique = []
 
 #topLeftX = 640
 #topLeftY = 365
