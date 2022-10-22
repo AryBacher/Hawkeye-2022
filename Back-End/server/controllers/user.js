@@ -76,10 +76,10 @@ export const authenticateUser = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
     console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.status(401);
+    if (token == null) return res.status(401).json({ message: "Token no recibido"});
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if(err) return res.status(403)
+        if(err) return res.status(403).json({ messsage: "Usuario no autorizado"})
         req.user = user
         next();
     });

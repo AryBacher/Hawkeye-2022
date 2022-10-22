@@ -1,18 +1,17 @@
 import { Router } from 'express'
-import { filterVideo, uploadVideo, deleteVideo, updateVideo, sendVideo, redirect, getVideos } from "../controllers/videos.js";
+import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo } from "../controllers/videos.js";
+import { authenticateUser } from '../controllers/user.js';
 
 const router = Router();
 
-router.post('/GetVideo', getVideos)
+router.post('/UploadVideo', authenticateUser, uploadVideo)
 
-router.get('/FilterVideo', filterVideo)
+router.delete('/DeleteVideo/idUsuario/idCloudinary', authenticateUser, deleteVideo)
 
-router.post('/UploadVideo', redirect, uploadVideo)
+router.post('/UpdateVideo/idUsuario/idCloudinary', authenticateUser, updateVideo)
 
-router.post('/DeleteVideo', deleteVideo)
+router.get('/FilterVideo/idUsuario', authenticateUser, filterVideo)
 
-router.post('/UpdateVideo', updateVideo)
-
-router.post('AnalysedVideo', sendVideo)
+router.get('/GetVideo/idUsuario/idCloudinary', authenticateUser, getVideo)
 
 export default router

@@ -6,25 +6,23 @@ import { uploadCloudinary, deleteCloudinary } from '../cloudinary/config.js';
 //Subir videos
 export const uploadVideo = async (req, res) => {
 
-  console.log('hola')
   console.log(req.body)
 
   const {idUsuario, titulo, rival, esPartido, esFavorito} = req.body;
   const fechaPartido = req.body.FechaPartido;
-  const idVideo = req.file.filename;
-  const rutaVideo = 'localhost:4000/Back-End/server/videos/'.concat(req.file.filename);
   const bool_esPartido = esPartido == 'true';
   const bool_esFavorito = esFavorito == 'true';
+  const path = req.file.path
 
-  console.log(idVideo)
-  console.log(rutaVideo)
-  console.log(fechaPartido)
-  console.log(bool_esFavorito)
-  console.log(bool_esPartido)
+  const CloudinaryData = uploadCloudinary(path)
 
-  await pool.query("INSERT INTO videos (idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idVideo, rutaVideo, titulo, rival, bool_esPartido, bool_esFavorito, fechaPartido]);
+  const rutaCloudinary = CloudinaryData.url
+  const idCloudinary = CloudinaryData.public_id
+
+
+  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, titulo, rival, esPartido, esFavorito, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, titulo, rival, bool_esPartido, bool_esFavorito, fechaPartido]);
   
-  const childPython = spawn('python', ['script.py', rutaVideo])
+  const childPython = spawn('python', ['script.py', path])
 
     childPython.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`)
@@ -41,35 +39,46 @@ export const uploadVideo = async (req, res) => {
   return res.status(200).json({message: "Video añadido"})
   };
 
-
-
-//Filtrar videos
-export const filterVideo = async(req, res) => {
-
-  const filtro = VARIABLEGLOBALFILTRO;
-  const busqueda = req.body;
-  const titulo = await connection.query("SELECT idVideo from videos WHERE "%filtro%" LIKE "%busqueda%"");
-  res.json(titulo);
-
-}
-
 //Borrar videos
 export const deleteVideo = async(req, res) => {
-  const {name} = req.file.filename;
-  await pool.query("DELETE * FROM videos WHERE idVideo ="%name%"");
+  const {idUsuario, idCloudinary} = req.params
+
+  deleteCloudinary(idCloudinary)
+
+  await pool.query("DELETE FROM videos WHERE idUsuario = ? AND idCloudinary = ?", [idUsuario, idCloudinary])
+
+  return res.status(200).json({message: "Video borrado"})
 }
 
 //Acutalizar datos del video
 export const updateVideo = async(req, res) => {
-  const {idUsuario, titulo, rival, esPartido, esFavorito, fechaPartido} = req.body;
-  const {idVideo} = req.file.filename;
-  const {rutaVideo} = 'localhost:4000/videos/'.concat(req.file.filename);
+  const {idUsuario, idCloudinary} = req.params
+  const {titulo, rival, esPartido, esFavorito, fechaPartido} = req.body;
 
-  await pool.query("UPDATE videos SET (idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, FechaPartido) = (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idVideo, rutaVideo, titulo, rival, esPartido, esFavorito, fechaPartido]);
-  return res.status(200).json({message: "Video actualizado"})
+  await pool.query("UPDATE videos SET (titulo, rival, esPartido, esFavorito, FechaPartido) = (?, ?, ?, ?, ?) WHERE idUsuario = ? AND idCloudinary = ?", [titulo, rival, esPartido, esFavorito, fechaPartido, idUsuario, idCloudinary]);
+  
+  return res.status(200).json({message: "Datos del video actualizados"})
 }
 
-//Mandar videos a analizar
+//Filtrar videos
+export const filterVideo = async(req, res) => {
+  const idUsuario = req.params;
+  const busqueda = req.body;
+
+  const [urlVideo] = await pool.query("SELECT urlVideo from videos WHERE idUsuario = ? AND titulo LIKE ?", [idUsuario, busqueda]);
+  res.status(200).json(urlVideo);
+}
+
+//Seleccionar el video elegido
+export const getVideo = async(req, res) => {
+  const {idUsuario, idCloudinary}  = req.params
+
+  const [urlVideo] = await pool.query("Select urlVideo FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
+
+  return res.status(200).json(urlVideo)
+}
+
+/*//Mandar videos a analizar
 export const sendVideo = async(req, res) => {
   if (!req.body.ruta){
     return res.status(500).json({ message: 'Error' })
@@ -77,6 +86,8 @@ export const sendVideo = async(req, res) => {
   const { rutaVideo } = req.body.ruta
   res.sendFile(rutaVideo)
 }
+
+
 
 //Multer para manipular los videos
 import multer from 'multer';
@@ -103,14 +114,4 @@ export const redirect = multer({
       }
       cb('Error: tipo de archivo no válido');
   }
-}).single('video')
-
-const __dirname = path.resolve();
-
-//Seleccionar los videos
-export const getVideos = async(req, res) => {
-  const { id } = req.body
-  const [video] = await pool.query("Select * FROM videos WHERE idVideo = ?", id)
-  const finalPath = __dirname + video[0].rutaVideo
-  return res.sendFile(finalPath)
-}
+}).single('video')*/
