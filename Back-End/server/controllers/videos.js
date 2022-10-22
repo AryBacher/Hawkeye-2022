@@ -69,8 +69,8 @@ export const filterVideo = async(req, res) => {
 
 //Seleccionar videos según usuario
 export const getVideos = async (req, res) => {
- const idUsuario = req.params;
-
+ const { idUsuario } = req.params;
+ 
  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ?", [idUsuario]);
   res.status(200).json(datosVideo);
 }

@@ -9,8 +9,12 @@ import Button from '@mui/material/Button';
 import {useState,useRef, useEffect} from 'react';
 import CardVideo from '../components/CardVideo';
 import "../stylesheets/AnalysisPageStylesheets/AnalysisPage.css";
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function AnalysisPage() {
+
+  const { id } = useParams()
 
   // Botón colapsable de mostrar filtros de búsqueda.
 
@@ -31,14 +35,22 @@ function AnalysisPage() {
 
   console.log(toggle);
 
-
-
   // Formulario de botones de radio.
 
   const[typeAnalysis, setTypeAnalysis] = useState('cualquiera');
   const[duration, setDuration] = useState('cualquiera');
   const[orderBy, setOrderBy] = useState('destacados');
 
+  const getVideoData = async() => {
+    try {
+      const videoData = await axios.get(`http://localhost:4000/GetVideos/1`);
+      console.log(videoData)
+      
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
 
   return (
     <>

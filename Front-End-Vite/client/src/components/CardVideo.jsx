@@ -2,7 +2,7 @@ import React from "react";
 import BtnStar from "./BtnStar";
 import '../stylesheets/CardVideoStylesheets/CardVideo.css';
 
-function CardVideo({title, thumbnail, videoType, otherInfo, state}) {
+function CardVideo({title, thumbnail, videoType, typeText, state, date}) {
 
   //Se diferencia el click de la card a la de la estrella.
 
@@ -19,7 +19,7 @@ function CardVideo({title, thumbnail, videoType, otherInfo, state}) {
         <div className="video-card-bottom">
           <div className="left-btm">
             <div className={videoType}></div>
-            <p className="video-type-date">{otherInfo}</p>
+            <p className="video-type-date">{typeText} {date}</p>
           </div>
           <BtnStar 
             state = {state} 
