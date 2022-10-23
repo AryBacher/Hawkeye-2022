@@ -2,8 +2,7 @@ import React from "react";
 import BtnStar from "./BtnStar";
 import "../stylesheets/CardVideoStylesheets/CardVideo.css";
 
-function CardVideo({ video, title, thumbnail, videoType, typeText, state, date }) {
-
+function CardVideo({ video, thumbnail }) {
   return (
     <>
       <div className="card-video-container">
@@ -29,12 +28,21 @@ function CardVideo({ video, title, thumbnail, videoType, typeText, state, date }
         <h4 className="title">{video.titulo}</h4>
         <div className="video-card-bottom">
           <div className="left-btm">
-            <div className={video.tipo}></div>
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="10" height="10" rx="5" className={video.tipo}/>
+            </svg>
+
             <p className="video-type-date">
-              {typeText} {video.FechaPartido}
+              {video.tipo} del {video.FechaPartido}
             </p>
           </div>
-          <BtnStar state={state} />
+          <BtnStar state={false} />
         </div>
       </div>
     </>

@@ -1,0 +1,96 @@
+.wrapper-v{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--colorAzul);
+    .sides{
+        transform: translateY(80px);
+        height: calc(100vh - 80px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .video-container{
+            box-sizing: border-box;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            width: 65%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text-title{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: start;
+                h1{
+                    font-size: 20px;
+                    font-weight: 600;
+                    text-overflow: ellipsis;
+                    overflow: hidden; 
+                }
+                p{
+                    padding-top: 5px;
+                    color: #bbbbbb;
+                    font-size: 16px;
+                    font-weight: 300;
+                    text-overflow: ellipsis;
+                    overflow: hidden; 
+                }
+            }
+            video{
+                border: 1px solid var(--colorAzulClaro);
+                border-radius: 10px;
+                width: 100%;
+            }
+        }
+        .stats{
+            margin-left: 50px;
+            box-sizing: border-box;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            width: 15%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4%;
+            .minimap{
+                width: 100%;
+                height: 50%;
+                border-radius: 10px;
+                border: 1px solid var(--colorAzulClaro);
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .speed{
+                width: 100%;
+                height: 10%;
+                border-radius: 10px;
+                border: 1px solid var(--colorAzulClaro);
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .others{
+                width: 100%;
+                height: 32%;
+                border-radius: 10px;
+                border: 1px solid var(--colorAzulClaro);
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

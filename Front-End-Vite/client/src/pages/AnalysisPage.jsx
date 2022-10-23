@@ -13,7 +13,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function AnalysisPage() {
-
   // Botón colapsable de mostrar filtros de búsqueda.
 
   const [toggle, setToggle] = useState(false);
@@ -36,11 +35,11 @@ function AnalysisPage() {
   //Cargar los videos según la información requerida.
 
   const [videos, setVideos] = useState([]);
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    //console.log(refHeight);
-    //setHeightEl(`${refHeight.current.scrollHeight}px`);
+    console.log(refHeight);
+    setHeightEl(`${refHeight.current.scrollHeight}px`);
 
     const getVideosById = async () => {
       const videoData = await axios.get(
@@ -48,27 +47,12 @@ function AnalysisPage() {
       );
       console.log(videoData);
       setVideos(videoData.data);
-    
     };
-    getVideosById()
+    getVideosById();
   }, []);
 
-  const renderCardVideo = ()=>{
-    /*if(videos.length === 0){
-      return(
-        <div>Suba su primer video</div>
-      )
-    }*/
-    videos.map((video) =>{
-      <CardVideo video={video} />
-      }) 
-    return
-    
-  
-  }
   return (
     <>
-      
       <div className="wrapper-ap">
         <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" />
         <div className="profile-bg"></div>
@@ -101,19 +85,46 @@ function AnalysisPage() {
               <p id="mail-main">nicolas@gmail.com</p>
             </div>
             <div className="amount-videos">
-              <div className="general point-indicator"></div>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{marginRight: '15px'}} 
+              >
+                <rect width="10" height="10" rx="5" fill="#4ECB71"/>
+              </svg>
               <p>
                 Cantidad de análisis <span>(8)</span>
               </p>
             </div>
             <div className="amount-trainings">
-              <div className="training point-indicator"></div>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{marginRight: '15px'}} 
+              >
+                <rect width="10" height="10" rx="5" fill="#0075FF" />
+              </svg>
               <p>
                 Cantidad de entrenamientos <span>(4)</span>
               </p>
             </div>
             <div className="amount-matches">
-              <div className="match point-indicator"></div>
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{marginRight: '15px'}} 
+              >
+                <rect width="10" height="10" rx="5" fill="#FF1A43" />
+              </svg>
               <p>
                 Cantidad de partidos <span>(4)</span>
               </p>
@@ -350,18 +361,20 @@ function AnalysisPage() {
             </div>
           </section>
           <div className="divider"></div>
-          <section className="videos">
-            {/* <CardVideo
+
+          {/* <CardVideo
               title="Partido vs Ary Bacher"
               thumbnail=""
               videoType="point-indicator match"
               otherInfo="Partido del 12/08/22"
               state={true}
             /> */}
-            <div> {videos.map((video) =>{
-            return <CardVideo video={video} key={video.idCloudinary}/>
-            })} </div>
-          </section>
+          <div className="videos">
+            {" "}
+            {videos.map((video) => {
+              return <CardVideo video={video} key={video.idCloudinary} />;
+            })}
+          </div>
         </div>
       </div>
     </>

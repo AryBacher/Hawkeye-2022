@@ -47,6 +47,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 15px;
             p{
                 -webkit-touch-callout: none; /* iOS Safari */
                 -webkit-user-select: none; /* Safari */
@@ -66,4 +67,12 @@
 .img-thumbnail{
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.Entrenamiento{
+    fill: var(--colorLink);
+}
+
+.Partido{
+    fill: var(--colorRojo);
 }

@@ -237,24 +237,6 @@
   }
 }
 
-.point-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 100%;
-  margin-right: 15px;
-}
-.general {
-  background-color: var(--colorVerde);
-}
-
-.training {
-  background-color: var(--colorLink);
-}
-
-.match {
-  background-color: var(--colorRojo);
-}
-
 .inactive-arrow {
   rotate: -180deg;
 }

@@ -77,6 +77,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  gap: 15px;
 }
 
 .card-video-container .video-card-bottom .left-btm p {
@@ -99,5 +100,13 @@
 .img-thumbnail {
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.Entrenamiento {
+  fill: var(--colorLink);
+}
+
+.Partido {
+  fill: var(--colorRojo);
 }
 /*# sourceMappingURL=CardVideo.css.map */

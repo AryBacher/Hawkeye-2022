@@ -208,6 +208,7 @@ a {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  z-index: 10;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

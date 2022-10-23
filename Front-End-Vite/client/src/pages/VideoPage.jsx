@@ -1,11 +1,11 @@
-import React from 'react'
-import axios from 'axios';
-import {useEffect} from 'react'
-import video from '../../../../Videos Tenis para Analizar/Video Ary 3 Saque.mp4';
-
+import React from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import video from "../../../../Videos Tenis para Analizar/Video Ary 3 Saque.mp4";
+import "../stylesheets/VideoPageStylesheets/VideoPage.css";
+import EndUseNavbar from "../components/EndUseNavbar";
 
 function VideoPage() {
-
   /*
   const finalValues = { id: "21a5fe09-7018-4377-8ad2-774fba7dbbdb.mp4" }
 
@@ -28,22 +28,34 @@ function VideoPage() {
 
   return (
     <>
-      <div className='wrapper-v'>
-        <div className='left-side'>
-          <div className='video-container'>
-            <video controls width="70%" height="100%" src={video}/>
+      <div className="wrapper-v">
+        <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" />
+        <div className="sides">
+          <div className="video-container">
+            <div className="text-title">
+              <h1>Ary Bacher entrenamiento 1</h1>
+              <p>Entrenamiento del 09-11-22</p>
+            </div>
+            <video src={video} controls></video>
           </div>
-        </div>
-        <div className='right-side'>
-          <div className='stats'>
-        </div>
+          <div className="stats">
+            <div className="minimap">
+              Minimapa de puntos/heatmap
+            </div>
+            <div className="speed">
+              Velocidad
+            </div>
+            <div className="others">
+              Otras estadísticas
+            </div>
+          </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default VideoPage
+export default VideoPage;
 
 //Parte de lo de Alan
 

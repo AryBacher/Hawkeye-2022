@@ -30,10 +30,10 @@ function TypeField({
 
   return (
     <TextField {...configSelect}>
-      <MenuItem value="match">
+      <MenuItem value="Partido">
         Partido
       </MenuItem>
-      <MenuItem value="training">
+      <MenuItem value="Entrenamiento">
         Entrenamiento
       </MenuItem>
     </TextField>
