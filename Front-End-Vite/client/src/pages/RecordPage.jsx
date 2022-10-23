@@ -216,7 +216,9 @@ function RecordPage() {
                   </svg>
                   Arrastre o busque un video a analizar haciendo click aquí
                   <span>
-                    {values.file === null 
+                    {values.file === null
+                      ? "Por ahora ningún video ha sido seleccionado"
+                      : values.file === undefined
                       ? "Por ahora ningún video ha sido seleccionado"
                       : `Video: ${fileName}`}
                   </span>
