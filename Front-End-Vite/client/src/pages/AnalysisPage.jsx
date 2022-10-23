@@ -33,23 +33,14 @@ function AnalysisPage() {
   const [duration, setDuration] = useState("cualquiera");
   const [orderBy, setOrderBy] = useState("destacados");
 
-  const getVideoData = async () => {
-    try {
-      const videoData = await axios.get(`http://localhost:4000/GetVideos/1`);
-      console.log(videoData);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   //Cargar los videos según la información requerida.
 
   const [videos, setVideos] = useState([]);
   const {id} = useParams();
 
   useEffect(() => {
-    console.log(refHeight);
-    setHeightEl(`${refHeight.current.scrollHeight}px`);
+    //console.log(refHeight);
+    //setHeightEl(`${refHeight.current.scrollHeight}px`);
 
     const getVideosById = async () => {
       const videoData = await axios.get(
@@ -57,22 +48,27 @@ function AnalysisPage() {
       );
       console.log(videoData);
       setVideos(videoData.data);
+    
     };
+    getVideosById()
   }, []);
 
   const renderCardVideo = ()=>{
-    if(videos.length === 0){
+    /*if(videos.length === 0){
       return(
-        <div>Luis la puta madre no hay videos</div>
+        <div>Suba su primer video</div>
       )
-    }
-    return(
-      <CardVideo/>
-    )
+    }*/
+    videos.map((video) =>{
+      <CardVideo video={video} />
+      }) 
+    return
+    
+  
   }
-
   return (
     <>
+      
       <div className="wrapper-ap">
         <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" />
         <div className="profile-bg"></div>
@@ -355,13 +351,16 @@ function AnalysisPage() {
           </section>
           <div className="divider"></div>
           <section className="videos">
-            <CardVideo
+            {/* <CardVideo
               title="Partido vs Ary Bacher"
               thumbnail=""
               videoType="point-indicator match"
               otherInfo="Partido del 12/08/22"
               state={true}
-            />
+            /> */}
+            <div> {videos.map((video) =>{
+            return <CardVideo video={video} key={video.idCloudinary}/>
+            })} </div>
           </section>
         </div>
       </div>

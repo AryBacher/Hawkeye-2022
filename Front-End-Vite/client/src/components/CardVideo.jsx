@@ -2,7 +2,7 @@ import React from "react";
 import BtnStar from "./BtnStar";
 import "../stylesheets/CardVideoStylesheets/CardVideo.css";
 
-function CardVideo({ title, thumbnail, videoType, typeText, state, date }) {
+function CardVideo({ video, title, thumbnail, videoType, typeText, state, date }) {
 
   return (
     <>
@@ -26,12 +26,12 @@ function CardVideo({ title, thumbnail, videoType, typeText, state, date }) {
             />
           </svg>
         </div>
-        <h4 className="title">{title}</h4>
+        <h4 className="title">{video.titulo}</h4>
         <div className="video-card-bottom">
           <div className="left-btm">
-            <div className={videoType}></div>
+            <div className={video.tipo}></div>
             <p className="video-type-date">
-              {typeText} {date}
+              {typeText} {video.FechaPartido}
             </p>
           </div>
           <BtnStar state={state} />
@@ -60,6 +60,4 @@ export default CardVideo;
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2111_3396" result="shape"/>
 </filter>
 </defs>
-</svg>
-
-*/
+</svg>*/
