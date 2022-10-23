@@ -26,8 +26,7 @@ import { useParams } from "react-router-dom"
 
 
 function RecordPage() {
-
-  const { id } = useParams()
+  const { id } = useParams();
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
 
@@ -40,14 +39,6 @@ function RecordPage() {
     corners: "",
   };
 
-  //Hacer una referencia al input type file para que al clickear otro elemento realmente estes clickeando el input.
-
-  const inputFile = useRef(null);
-
-  const handleInputFile = (e) => {
-    inputFile.current.click();
-  };
-  
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado.
 
   const [fileName, setFileName] = useState("");
@@ -55,16 +46,16 @@ function RecordPage() {
   //Función para fetchear los valores finales del formulario.
 
   const useAxios = async (finalValues) => {
-    console.log(finalValues)
-    const formData = new FormData()
-    formData.append('idUsuario', id)
-    formData.append('title', finalValues.title)
-    formData.append('type', finalValues.type)
-    formData.append('rival', finalValues.rival)
-    formData.append('date', finalValues.date)
-    formData.append('video', finalValues.file)
-    formData.append('corners', finalValues.corners)
-    console.log([...formData])
+    console.log(finalValues);
+    const formData = new FormData();
+    formData.append("idUsuario", id);
+    formData.append("title", finalValues.title);
+    formData.append("type", finalValues.type);
+    formData.append("rival", finalValues.rival);
+    formData.append("date", finalValues.date);
+    formData.append("video", finalValues.file);
+    formData.append("corners", finalValues.corners);
+    console.log([...formData]);
     const response = await axios.post(
       "http://localhost:4000/UploadVideo",
       formData,
@@ -78,12 +69,11 @@ function RecordPage() {
 
   //Alerta de análisis subido
 
-  const [alertList, setAlertList]  = useState([]);
+  const [alertList, setAlertList] = useState([]);
 
-  const addAlert = ()=>{
+  const addAlert = () => {
     setAlertList(alertList.concat(<AlertSuccess key={alertList.length} />));
-  }
-  
+  };
 
   return (
     <>
@@ -197,20 +187,19 @@ function RecordPage() {
                   error={Boolean(errors.date) && Boolean(touched.date)}
                   helperText={Boolean(touched.date) && errors.date}
                 />
-                <input
-                  id="file-button"
-                  name="file"
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => {
-                    setFieldValue("file", e.currentTarget.files[0]);
-                    setFileName(e.currentTarget.files[0].name);
-                    //console.log(fileName);
-                  }}
-                  ref={inputFile}
-                />
-                <div className="file-box" onClick={handleInputFile}>
-                  Arrastre o busque un video a analizar haciendo click aquí
+                <div className="file-box-container">
+                  <input
+                    id="file-button"
+                    name="file"
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => {
+                      setFieldValue("file", e.currentTarget.files[0]);
+                      setFileName(e.currentTarget.files[0].name);
+                      //console.log(fileName);
+                    }}
+                  />
+                  Busque un video a analizar haciendo click aquí
                   <span>
                     {fileName === ""
                       ? "Por ahora ningún video ha sido seleccionado"

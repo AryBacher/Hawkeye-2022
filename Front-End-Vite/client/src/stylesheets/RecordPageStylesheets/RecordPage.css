@@ -68,7 +68,12 @@
   width: 100%;
 }
 
-.wrapper-r .form-container Form .file-box {
+.wrapper-r .form-container Form input[type="date"] {
+  cursor: pointer;
+}
+
+.wrapper-r .form-container Form .file-box-container {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -96,27 +101,27 @@
   transition: all 10ms ease-out;
 }
 
-.wrapper-r .form-container Form .file-box:hover {
+.wrapper-r .form-container Form .file-box-container:hover {
   border: 1px dashed var(--colorBlanco);
   color: var(--colorBlanco);
 }
 
-.wrapper-r .form-container Form .file-box:focus {
+.wrapper-r .form-container Form .file-box-container:focus {
   border: 1px dashed var(--colorVerde);
   color: var(--colorVerde);
 }
 
-.wrapper-r .form-container Form .file-box span {
+.wrapper-r .form-container Form .file-box-container span {
   font-weight: 600;
 }
 
-.wrapper-r .form-container Form input[type="file"] {
-  width: 0.1px;
-  height: 0.1px;
+.wrapper-r .form-container Form .file-box-container input[type="file"] {
+  cursor: pointer;
+  width: 45%;
+  min-height: 150px;
   opacity: 0;
-  overflow: hidden;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
 }
 
 .divider-r {
@@ -130,5 +135,6 @@
 ::-webkit-calendar-picker-indicator {
   -webkit-filter: invert(1);
           filter: invert(1);
+  cursor: pointer;
 }
 /*# sourceMappingURL=RecordPage.css.map */

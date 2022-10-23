@@ -38,7 +38,11 @@
     Form {
       margin-bottom: 8vh;
       width: 100%;
-      .file-box{
+      input[type="date"]{
+        cursor: pointer;
+      }
+      .file-box-container{
+        width: 100%;
         display: flex;
         flex-direction: column;
         padding: 50px;
@@ -64,14 +68,14 @@
         span{
           font-weight: 600;
         }
-      }
-      input[type="file"] {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
+        input[type="file"] {
+          cursor: pointer;
+          width: 45%;
+          min-height: 150px;
+          opacity: 0;
+          position: absolute;
+          z-index: 1;
+        }
       }
     }
   }
@@ -87,4 +91,5 @@
 
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
+  cursor: pointer;
 }
