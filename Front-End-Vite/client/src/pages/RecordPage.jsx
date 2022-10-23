@@ -12,18 +12,16 @@ import {
   Collapse,
   IconButton,
 } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import TypeField from "../components/Form UploadVideo Components/TypeField";
 import { Form, Formik, Field, useFormik, useFormikContext } from "formik";
-import { object, string,date, mixed } from "yup";
+import { object, string, date, mixed } from "yup";
 import { useState, Fragment, useEffect, useRef } from "react";
-import {motion} from 'framer-motion';
+import { motion } from "framer-motion";
 import axios from "axios";
 import AlertSuccess from "../components/AlertSuccess";
 import { height } from "@mui/system";
-import { useParams } from "react-router-dom"
-
-
+import { useParams } from "react-router-dom";
 
 function RecordPage() {
   const { id } = useParams();
@@ -75,6 +73,10 @@ function RecordPage() {
     setAlertList(alertList.concat(<AlertSuccess key={alertList.length} />));
   };
 
+  //Saber el valor del file input
+
+  const fileInput = useRef(null);
+
   return (
     <>
       <div className="wrapper-r">
@@ -100,7 +102,7 @@ function RecordPage() {
               once: true,
             }}
           >
-            <p>Formulario por pasos</p>
+            <p>¿Algúna cosa metemos áca o lo quitamos?</p>
             <h1>Sube un nuevo análisis</h1>
           </motion.div>
         </div>
@@ -198,10 +200,23 @@ function RecordPage() {
                       setFileName(e.currentTarget.files[0].name);
                       //console.log(fileName);
                     }}
+                    ref={fileInput}
                   />
-                  Busque un video a analizar haciendo click aquí
+                  <svg
+                    width="64"
+                    height="64"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M51.76 19.7606L38.88 6.88065C37.8933 5.89398 36.5333 5.33398 35.12 5.33398H16C13.0666 5.33398 10.6933 7.73398 10.6933 10.6673L10.6666 53.334C10.6666 56.2673 13.04 58.6673 15.9733 58.6673H48C50.9333 58.6673 53.3333 56.2673 53.3333 53.334V23.5473C53.3333 22.134 52.7733 20.774 51.76 19.7606ZM39.4666 40.0006H34.6666V48.0006C34.6666 49.4673 33.4666 50.6673 32 50.6673C30.5333 50.6673 29.3333 49.4673 29.3333 48.0006V40.0006H24.56C23.36 40.0006 22.7733 38.5606 23.6266 37.734L31.0933 30.294C31.6266 29.7873 32.4533 29.7873 32.9866 30.294L40.4266 37.734C41.2266 38.5606 40.64 40.0006 39.4666 40.0006V40.0006ZM37.3333 24.0006C35.8666 24.0006 34.6666 22.8007 34.6666 21.334V9.33398L49.3333 24.0006H37.3333Z"
+                      fill="#4A5258"
+                    />
+                  </svg>
+                  Arrastre o busque un video a analizar haciendo click aquí
                   <span>
-                    {fileName === ""
+                    {values.file === null 
                       ? "Por ahora ningún video ha sido seleccionado"
                       : `Video: ${fileName}`}
                   </span>

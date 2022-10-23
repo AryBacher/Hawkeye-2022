@@ -32,16 +32,16 @@
     }
   }
   .form-container {
-    padding-top: 40px ;
+    padding-top: 40px;
     margin: 0 auto;
     width: 45%;
     Form {
       margin-bottom: 8vh;
       width: 100%;
-      input[type="date"]{
+      input[type="date"] {
         cursor: pointer;
       }
-      .file-box-container{
+      .file-box-container {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -57,15 +57,19 @@
         color: #4a5258;
         border: 1px dashed #4a5258;
         transition: all 10ms ease-out;
-        &:hover{
+        &:hover {
           border: 1px dashed var(--colorBlanco);
           color: var(--colorBlanco);
+          svg {
+            path {
+              fill: var(--colorBlanco);
+            }
+          }
         }
-        &:focus{
-          border: 1px dashed var(--colorVerde);
-          color: var(--colorVerde);
+        svg{
+          padding-bottom: 25px;
         }
-        span{
+        span {
           font-weight: 600;
         }
         input[type="file"] {
@@ -81,7 +85,7 @@
   }
 }
 
-.divider-r{
+.divider-r {
   width: 0;
   height: 1px;
   margin: 0 auto;

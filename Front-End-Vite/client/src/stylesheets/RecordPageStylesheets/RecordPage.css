@@ -106,9 +106,12 @@
   color: var(--colorBlanco);
 }
 
-.wrapper-r .form-container Form .file-box-container:focus {
-  border: 1px dashed var(--colorVerde);
-  color: var(--colorVerde);
+.wrapper-r .form-container Form .file-box-container:hover svg path {
+  fill: var(--colorBlanco);
+}
+
+.wrapper-r .form-container Form .file-box-container svg {
+  padding-bottom: 25px;
 }
 
 .wrapper-r .form-container Form .file-box-container span {

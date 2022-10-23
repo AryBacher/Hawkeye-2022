@@ -11,7 +11,7 @@ function AlertSuccess() {
     <>
       <Collapse
         in={open}
-        sx={{ position: "fixed", bottom: "40px", right: "10%", transition: 'all 250ms ease-out' }}
+        sx={{ position: "fixed", bottom: "5vh", right: "3vw", transition: 'all 250ms ease-out' }}
       >
         <Alert
           variant="outlined"
