@@ -21,13 +21,15 @@ def tp_fix(contornos, pre_centro, count):
     if numeroGlob == 0:
         medidorX = 100
         medidorY = 103
+        #medidorX = estaCercaX
+        #medidorY = estaCercaY
     else:
         medidorX = 70
-        medidorY = 71
+        medidorY = 151
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
-        print("Círculo", (x, y, radius))
-        print("Pre Centro", preCentro_glob[numeroGlob])
+        #print("Círculo", (x, y, radius))
+        #print("Pre Centro", preCentro_glob[numeroGlob])
         if x - pre_centro[0][0] > medidorX * resizer_glob[numeroGlob] or pre_centro[0][0] - x > medidorX * resizer_glob[numeroGlob] or y - pre_centro[0][1] > medidorY * resizer_glob[numeroGlob] or pre_centro[0][1] - y > medidorY * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
@@ -90,8 +92,15 @@ def pica (count):
     if b >= 474 / 2: abajoB = True
     if abajoB and abajoA and a > b and count <= 1:
         return True
+    elif abajoB and abajoA and a > b and count >= 1:
+        return False
     elif abajoB and abajoA and a < b and count >= 1:
         return True
+    elif abajoB and abajoA and a < b and count <= 1:
+        return False
+    elif abajoB and not abajoA and a < b and count <= 1:
+        return False
+
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
     centrosCerca = False
@@ -198,12 +207,17 @@ def todo(frame, numeroGlob):
     global esGerard
     global posiblePique
     global countDifPiques
+    global estaCercaX
+    global estaCercaY
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
     
-    estaCercaX = anchoOG * 15/100
-    estaCercaY = altoOG * 15/100
+    estaCercaX = anchoOG * 10/100
+    estaCercaY = altoOG * 10/100
+
+    #print("Esta Cerca X", estaCercaX)
+    #print("Esta Cerca Y", estaCercaY)
 
     frame = imutils.resize(frame, anchoOG * resizer_glob[numeroGlob], altoOG * resizer_glob[numeroGlob])
 
@@ -243,6 +257,8 @@ def todo(frame, numeroGlob):
         else:
             eliminarContornosInservibles(todosContornos_pers)
     
+    #print("Length Contornos", len(cnts))
+    
     if len(cnts) > 0:
         # Busca el contorno más grande y encuentra su posición (x, y)
         if numeroGlob == 0:
@@ -257,8 +273,9 @@ def todo(frame, numeroGlob):
                 #print("Ultimos Centros", ultimosCentros_pers)
                 cnts = ignorarContornosQuietos(cnts, contornosIgnorar_pers)
                 
-        if len(cnts) > 0:    
+        if len(cnts) > 0:
             if primeraVez_glob[numeroGlob]:
+                #print("Primera Vez")
                 c = max(cnts, key=cv2.contourArea)
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 M = cv2.moments(c)
@@ -402,8 +419,8 @@ def todo(frame, numeroGlob):
             if posiblePique and preCentro_glob[numeroGlob] is not None:
                 print("Pique 2", pique2_pers)
                 print("Gerard")
-                if posiblePique: posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
-                if posiblePique and len(posiblesPiques_pers) >= 2:
+                posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
                 countDifPiques = 0
@@ -456,9 +473,9 @@ def todo(frame, numeroGlob):
     if numeroGlob == 0:
 
         frame = imutils.resize(frame, anchoOG, altoOG)
-        frame = imutils.resize(frame, height= 768)
+        #frame = imutils.resize(frame, height= 768)
         mask = imutils.resize(mask, anchoOG, altoOG)
-        mask = imutils.resize(mask, height= 768)
+        #mask = imutils.resize(mask, height= 768)
 
         cv2.imshow("Mask Normal", mask)
         cv2.imshow("Normal", frame)

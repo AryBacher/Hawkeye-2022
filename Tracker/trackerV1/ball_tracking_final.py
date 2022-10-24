@@ -14,7 +14,7 @@ def tp_fix(contornos, pre_centro, count):
     cnts_pts = []
     if numeroGlob == 0: 
         medidorX = 100
-        medidorY = 101
+        medidorY = 103
     else: 
         medidorX = 70
         medidorY = 71
