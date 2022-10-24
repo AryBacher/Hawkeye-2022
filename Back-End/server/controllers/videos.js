@@ -6,13 +6,12 @@ import fs from 'fs-extra';
 
 //Subir videos
 export const uploadVideo = async (req, res) => {
-
+  try{
+ 
   const {idUsuario, title, rival, date, type, corners} = req.body;
+  console.log(req.file.path)
   const path = req.file.path
-
   const CloudinaryData = await uploadCloudinary(path)
-  
-  console.log(CloudinaryData)
 
   const rutaCloudinary = CloudinaryData.url
   const idCloudinary = CloudinaryData.public_id
@@ -35,6 +34,10 @@ export const uploadVideo = async (req, res) => {
     })
   
   return res.status(200).json({message: "Video añadido"})
+  }
+  catch(error) {
+    console.log(error);
+  }
   };
 
 //Borrar videos
