@@ -32,6 +32,10 @@ function AnalysisPage() {
   const [duration, setDuration] = useState("cualquiera");
   const [orderBy, setOrderBy] = useState("destacados");
 
+  const [cantVideos, setCantVideos] = useState(0);
+  const [cantPartidos, setCantPartidos] = useState(0);
+  const [cantEntrenamientos, setCantEntrenamientos] = useState(0)
+
   //Cargar los videos según la información requerida.
 
   const [videos, setVideos] = useState([]);
@@ -46,7 +50,11 @@ function AnalysisPage() {
         `http://localhost:4000/GetVideos/${id}`
       );
       console.log(videoData);
-      setVideos(videoData.data);
+      setVideos(videoData.data.datosVideo);
+      setCantVideos(videoData.data.cantVideos);
+      setCantPartidos(videoData.data.cantPartidos);
+      setCantEntrenamientos(videoData.data.cantEntrenamientos);
+
     };
     getVideosById();
   }, []);
@@ -96,7 +104,7 @@ function AnalysisPage() {
                 <rect width="10" height="10" rx="5" fill="#4ECB71"/>
               </svg>
               <p>
-                Cantidad de análisis <span>(8)</span>
+                Cantidad de análisis <span>({cantVideos})</span>
               </p>
             </div>
             <div className="amount-trainings">
@@ -111,7 +119,7 @@ function AnalysisPage() {
                 <rect width="10" height="10" rx="5" fill="#0075FF" />
               </svg>
               <p>
-                Cantidad de entrenamientos <span>(4)</span>
+                Cantidad de entrenamientos <span>({cantEntrenamientos})</span>
               </p>
             </div>
             <div className="amount-matches">
@@ -126,7 +134,7 @@ function AnalysisPage() {
                 <rect width="10" height="10" rx="5" fill="#FF1A43" />
               </svg>
               <p>
-                Cantidad de partidos <span>(4)</span>
+                Cantidad de partidos <span>({cantPartidos})</span>
               </p>
             </div>
           </section>
