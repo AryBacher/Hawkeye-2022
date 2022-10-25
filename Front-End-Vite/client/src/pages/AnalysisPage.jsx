@@ -371,6 +371,7 @@ function AnalysisPage() {
             /> */}
           <div className="videos">
             {" "}
+            
             {videos.map((video) => {
               return <CardVideo video={video} thumbnail={video.urlMiniatura} key={video.idCloudinary} />;
             })}

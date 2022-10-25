@@ -1,21 +1,20 @@
   Por ahora 12 paginas (contando el mail de confirmación de cambio de contraseña), una barbaridad:
   
-  Not Found Page "terminada" (faltan media-queries). HACER AL FINAL
-  Home Page "terminada" (faltan media-queries).
+  Not Found Page "terminada" (faltan media-queries para hacer fit de pelota texto). HACER AL FINAL
+  Home Page "terminada" (faltan media-queries para alinear la foto, reducir tamaños de textos y agregar navbar responsive).
   Sign Up Page terminada.
   Log In Page terminada.
   RecoverPassword Page terminada.
   ConfirmNewPassword Page terminada.
   Mail de confirmación terminado.
-  Analysis Page "terminada" (faltan media-queries y lo de clickear afuera y cerrar la ventana para cerrar sesión).
-  Help Page "terminada" (faltan media-queries).
+  Analysis Page "terminada" (faltan media-queries para alinear los elementos para mobile y tablet, además de estados de las cosas y condiciones).
+  Help Page terminada.
   UploadVideo Page "terminada" (faltan media-queries y corner input).
 
   Faltán 1 páginas:
 
   Video Page falta mucho. (Terminado en una semana). Prioridad.
   
-
   Cosas que preguntar: 
 
   El si debería incluir iconos en el navbar. (Ranzo)
@@ -24,6 +23,5 @@
   Cosas que hacer:
 
   - Hacer el navbar inteligente de la landing.
-  - Agregar funcionalidad de que al hacer click afuera se cierran ciertos pop-ups (más precisamente el de cerrar sesión).
   - Ocultar y hacer visible la contraseña en formularios.
   - Hacer que cuando recargue te mande al top 0 de la página.
