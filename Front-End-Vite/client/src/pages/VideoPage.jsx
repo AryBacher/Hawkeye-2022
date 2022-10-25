@@ -29,25 +29,18 @@ function VideoPage() {
   return (
     <>
       <div className="wrapper-v">
-        <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" />
-        <div className="sides">
-          <div className="video-container">
-            <div className="text-title">
-              <h1>Ary Bacher entrenamiento 1</h1>
-              <p>Entrenamiento del 09-11-22</p>
-            </div>
-            <video src={video} controls></video>
+        <div className="video-container">
+          <video src={video} controls></video>
+        </div>
+        <div className="stats">
+          <div className="minimap">
+            <h2>Mapa de puntos</h2>
+            <div className="map-container"></div>
           </div>
-          <div className="stats">
-            <div className="minimap">
-              Minimapa de puntos/heatmap
-            </div>
-            <div className="speed">
-              Velocidad
-            </div>
-            <div className="others">
-              Otras estadísticas
-            </div>
+          <div className="speed">
+            <h2>
+              Velocidad <span>72</span> km/h
+            </h2>
           </div>
         </div>
       </div>
@@ -56,6 +49,12 @@ function VideoPage() {
 }
 
 export default VideoPage;
+
+//Agregar botón para volver a la página previa.
+
+//Heatmap:
+//Puntos:
+//Velocidad:
 
 //Parte de lo de Alan
 
