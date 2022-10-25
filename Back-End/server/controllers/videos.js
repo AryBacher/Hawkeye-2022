@@ -3,6 +3,7 @@ import { pool } from "../database.js";
 import { spawn } from 'child_process';
 import { uploadCloudinary, deleteCloudinary, getThumbnail } from '../cloudinary/config.js';
 import fs from 'fs-extra';
+import fetch from 'node-fetch'
 
 //Subir videos
 export const uploadVideo = async (req, res) => {
@@ -19,9 +20,18 @@ export const uploadVideo = async (req, res) => {
   const rutaThumbnail = await getThumbnail(rutaCloudinary)
 
   await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date]);
+  
+  const response = await fetch('http://localhost:5000/analyse', {
+	method: 'post',
+	body: JSON.stringify(path),
+	headers: {'Content-Type': 'application/json'}
+});
+  const data = await response.json();
+  console.log(data)
+
   await fs.unlink(path)
 
-  const childPython = spawn('python', ['script.py', path])
+  /*const childPython = spawn('python', ['script.py', path])
 
     childPython.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`)
@@ -33,7 +43,7 @@ export const uploadVideo = async (req, res) => {
 
     childPython.on('close', (code) => {
         console.log(`child process exited with: ${code}`)
-    })
+    })*/
   
   return res.status(200).json({message: "Video añadido"})
   }
@@ -77,7 +87,14 @@ export const getVideos = async (req, res) => {
  const { idUsuario } = req.params;
  
  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ?", [idUsuario]);
-  res.status(200).json(datosVideo);
+ const [datosEntrenamientos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Entrenamiento'", [idUsuario]); 
+ const [datosPartidos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Partido'", [idUsuario]); 
+ const cantEntrenamientos = datosEntrenamientos.length
+ const cantPartidos = datosPartidos.length
+ const cantVideos = datosVideo.length
+ console.log(datosVideo)
+
+  res.status(200).json({datosVideo, cantVideos, cantEntrenamientos, cantPartidos});
 }
 
 //Seleccionar el video elegido
