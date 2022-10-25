@@ -12,6 +12,19 @@ export const uploadVideo = async (req, res) => {
   const {idUsuario, title, rival, date, type, corners} = req.body;
   console.log(req.file.path)
   const path = req.file.path
+
+  const rutaPython = `../Back-End/server/${path}`
+  console.log(rutaPython)
+  const response = await fetch('http://127.0.0.1:5000/analyse', {
+	method: 'post',
+	body: JSON.stringify(rutaPython),
+	headers: {'Content-Type': 'application/json'}
+});
+  const piques = await response.json();
+  console.log(piques)
+  console.log(piques.puntosPique[0][0])
+  console.log(piques.puntosPique[0])
+
   const CloudinaryData = await uploadCloudinary(path)
 
   const rutaCloudinary = CloudinaryData.url
@@ -20,14 +33,6 @@ export const uploadVideo = async (req, res) => {
   const rutaThumbnail = await getThumbnail(rutaCloudinary)
 
   await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date]);
-  
-  const response = await fetch('http://localhost:5000/analyse', {
-	method: 'post',
-	body: JSON.stringify(path),
-	headers: {'Content-Type': 'application/json'}
-});
-  const data = await response.json();
-  console.log(data)
 
   await fs.unlink(path)
 

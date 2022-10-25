@@ -73,5 +73,5 @@ POST http://localhost:4000/python
 Content-Type: application/json
 
 {
-    //"email": "C:\Users\47129428\Documents\GitHub\Hawkeye\Videos Tenis para Analizar\y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4"
+    "email": "C:\Users\47129428\Documents\GitHub\Hawkeye\Videos Tenis para Analizar\y2mate.com - The Ultimate Clutch  shorts_1080pFHR.mp4"
 }
