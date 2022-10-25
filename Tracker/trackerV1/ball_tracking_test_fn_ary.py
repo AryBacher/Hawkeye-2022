@@ -26,10 +26,10 @@ def tp_fix(contornos, pre_centro, count):
     else:
         medidorX = 70
         medidorY = 151
+    print("Pre Centro", preCentro_glob[numeroGlob])
     for contorno in contornos:
         ((x, y), radius) = cv2.minEnclosingCircle(contorno)
-        #print("Círculo", (x, y, radius))
-        #print("Pre Centro", preCentro_glob[numeroGlob])
+        print("Círculo", (x, y, radius))
         if x - pre_centro[0][0] > medidorX * resizer_glob[numeroGlob] or pre_centro[0][0] - x > medidorX * resizer_glob[numeroGlob] or y - pre_centro[0][1] > medidorY * resizer_glob[numeroGlob] or pre_centro[0][1] - y > medidorY * resizer_glob[numeroGlob] and count <= 0.5:
             continue
         cnts_pts.append(contorno)
@@ -55,7 +55,7 @@ def cualEstaMasCerca(punto, lista):
         if difRadio < 0:
             difRadio *= -1
         
-        suma.append(difEnX + difEnY + difRadio)
+        suma.append(difEnX + difEnY + difRadio * 3)
         suma2.append(i)
     return suma2[suma.index(min(suma))]
 
@@ -83,7 +83,7 @@ def cualEstaMasCerca(punto, lista):
 #     return gerardPique
 
 def pica (count):
-    if center_glob[numeroGlob] == None: return False
+    #if center_glob[numeroGlob] == None: return False
     abajoA = False
     abajoB = False
     a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
@@ -199,6 +199,24 @@ def eliminarContornosInservibles(todosContornos):
         todosContornos.pop(i - n)
         n += 1
 
+def velocidadGolpe(punto1, punto2, tiempo):
+    punto1X = punto1[0][0] / resizer_glob[numeroGlob]
+    punto1Y = punto2[0][1] / resizer_glob[numeroGlob]
+    punto2X = punto2[0][0] / resizer_glob[numeroGlob]
+    punto2Y = punto2[0][1] / resizer_glob[numeroGlob]
+
+    movimientoX = punto1X - punto2X
+    movimientoY = punto1Y - punto2Y
+
+    # Pasando de píxeles a metros
+    movimientoX /= 20
+    movimientoY /= 20
+
+    distancia = movimientoX * movimientoX + movimientoY * movimientoY
+    distancia = int(np.rint(np.sqrt(distancia)))
+
+    return distancia/tiempo
+
 def todo(frame, numeroGlob):
     global radius
     global x
@@ -207,6 +225,8 @@ def todo(frame, numeroGlob):
     global esGerard
     global posiblePique
     global countDifPiques
+    global countDifVelocidad
+    global punto1Velocidad
     global estaCercaX
     global estaCercaY
 
@@ -263,6 +283,7 @@ def todo(frame, numeroGlob):
         # Busca el contorno más grande y encuentra su posición (x, y)
         if numeroGlob == 0:
             contornosQuietos(cnts, todosContornos_norm, contornosIgnorar_norm)
+            #if len(ultimosCentros_norm) == 5 and count_glob[numeroGlob] >= 0.3 and not seEstaMoviendo(ultimosCentros_norm):
             if len(ultimosCentros_norm) == 5 and count_glob[numeroGlob] >= 0.3 and not seEstaMoviendo(ultimosCentros_norm):
                 cnts = ignorarContornosQuietos(cnts, contornosIgnorar_norm)
         
@@ -400,6 +421,8 @@ def todo(frame, numeroGlob):
                 else: bajando = "Indeterminación"
             print("Bajando", bajando)
     
+    velocidad = False
+    
     if numeroGlob == 0:
         countDifPiques += 1/fps
         posiblePique = False
@@ -417,6 +440,7 @@ def todo(frame, numeroGlob):
         if (len(pique2_pers) >= 2):
             #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
             if posiblePique and preCentro_glob[numeroGlob] is not None:
+                print("Entre a donde no tenía que entrar", preCentro_glob[numeroGlob])
                 print("Pique 2", pique2_pers)
                 print("Gerard")
                 posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
@@ -427,6 +451,32 @@ def todo(frame, numeroGlob):
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
                 pts_pique.append((preCentro_glob[numeroGlob], numeroFrame))
                 print("ES ESTE", pts_pique)
+                velocidad = True
+                punto1Velocidad = preCentro_glob[numeroGlob]
+                countDifVelocidad += 1/fps
+    
+    diferente = False
+    if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None:
+        print("Punto1", punto1Velocidad)
+        print("Center", center_glob[numeroGlob])
+        if punto1Velocidad[0][0] != center_glob[numeroGlob][0][0] or punto1Velocidad[0][1] != center_glob[numeroGlob][0][1]:
+            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            diferente = True
+    
+    if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
+        print("PreCentro", preCentro_glob[numeroGlob])
+        print("Centro", center_glob[numeroGlob])
+        print("Punto1", punto1Velocidad)
+        print("Punto2", center_glob[numeroGlob])
+        print("Tiempo", countDifVelocidad)
+        velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
+        print("Velocidad Final", velocidadFinal)
+        velocidad = False
+        punto1Velocidad = None
+        countDifVelocidad = 0
+
+    elif velocidad and numeroGlob == 1:
+        countDifVelocidad += 1/fps
 
     # if numeroGlob == 0:
     #     if center_glob[numeroGlob] is not None:
@@ -597,11 +647,15 @@ posiblePique = False
 posiblesPiques_norm = deque()
 posiblesPiques_pers = deque()
 
+# CountDifVelocidad cuenta cuento tiempo en segundos pasa desde que se encontraron los dos puntos para usar en la velocidad
+countDifVelocidad = 0
 
 # CountDifPiques cuenta cuanto tiempo pasa desde que se encontró un pique hasta que se encuentra el siguiente
 countDifPiques = 0
 
 numeroFrame = 0
+
+punto1Velocidad = None
 
 while True:
     numeroFrame += 1
