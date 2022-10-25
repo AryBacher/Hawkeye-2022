@@ -1,31 +1,23 @@
-from flask import Flask, jsonify, request, io
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+from script import tracking
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/analyse', methods=['POST'])
 def analyseVideo():
-    print(request.json)
-    
-    Video = request.json
+    # Recibe la ruta del video
+    ruta_video = request.json
 
-    req = request.post('http://localhost:4000/videos/sendVideo', json=Video)
+    # Corre la función del ball_tracking y guarda los puntos de pique
+    pts_pique = tracking(ruta_video)
 
-    base64_video = req.content
-    print(base64_video)
+    # Corre la función del heatmap
 
-    Video = Video.open(io.BytesIO(base64_video))
 
-    thread_video = open(Video)
-
-    thread_video.start()
-
-    thread_video.join()
-    
-
-    analysedVideo = thread_video.value
-    
     return jsonify({
-        'analysedVideo': analysedVideo,
+        'puntosPique': pts_pique,
     })
 
 if __name__ == '__main__':
