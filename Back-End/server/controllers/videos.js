@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { pool } from "../database.js";
 import { spawn } from 'child_process';
-import { uploadCloudinary, deleteCloudinary } from '../cloudinary/config.js';
+import { uploadCloudinary, deleteCloudinary, getThumbnail } from '../cloudinary/config.js';
 import fs from 'fs-extra';
 
 //Subir videos
@@ -16,7 +16,9 @@ export const uploadVideo = async (req, res) => {
   const rutaCloudinary = CloudinaryData.url
   const idCloudinary = CloudinaryData.public_id
 
-  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, title, rival, type, date]);
+  const rutaThumbnail = await getThumbnail(rutaCloudinary)
+
+  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date]);
   await fs.unlink(path)
 
   const childPython = spawn('python', ['script.py', path])

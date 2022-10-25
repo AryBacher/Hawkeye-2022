@@ -9,7 +9,7 @@ function CardVideo({ video, thumbnail }) {
         <div
           id="thumbnail-box"
           className="img-thumbnail"
-          style={{ backgroundImage: thumbnail }}
+          style={{ backgroundImage: `url(${thumbnail})`}}
         >
           <svg
             width="64"

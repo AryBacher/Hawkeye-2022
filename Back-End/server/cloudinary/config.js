@@ -18,3 +18,19 @@ export const uploadCloudinary = async (ruta) => {
 export const deleteCloudinary = async (idVideo) => {
   await cloudinary.v2.uploader.destroy(idVideo);
 }
+
+export const getThumbnail = async (urlVideo) => {
+
+  String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+  }
+
+  //return await cloudinary.url(urlVideo.jpg), {resource_type: 'image'}
+  //return await cloudinary.url(urlVideo, {background: "blue", height: 300, width: 300, crop: "pad", resource_type: "image"})
+  //return await cloudinary.video(urlVideo, { format: 'jpg' })
+  var urlVideo = urlVideo.replaceAt(urlVideo.length - 3, 'j')
+  var urlVideo = urlVideo.replaceAt(urlVideo.length - 2, 'p')
+  var urlVideo = urlVideo.replaceAt(urlVideo.length -1, 'g')
+  
+  return urlVideo
+}
