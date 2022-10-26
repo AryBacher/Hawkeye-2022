@@ -205,17 +205,20 @@ def velocidadGolpe(punto1, punto2, tiempo):
     punto2X = punto2[0][0] / resizer_glob[numeroGlob]
     punto2Y = punto2[0][1] / resizer_glob[numeroGlob]
 
-    movimientoX = punto1X - punto2X
-    movimientoY = punto1Y - punto2Y
+    if punto1X >= punto2X: movimientoX = punto1X - punto2X
+    elif punto1X <= punto2X: movimientoX = punto2X - punto1X
+
+    if punto1Y >= punto2Y: movimientoY = punto1Y - punto2Y
+    elif punto1Y <= punto2Y: movimientoY = punto2Y - punto1Y
 
     # Pasando de píxeles a metros
     movimientoX /= 20
     movimientoY /= 20
 
     distancia = movimientoX * movimientoX + movimientoY * movimientoY
-    distancia = int(np.rint(np.sqrt(distancia)))
+    distancia = np.sqrt(distancia)
 
-    return distancia/tiempo
+    return int(np.rint(distancia / tiempo * 3.6))
 
 def todo(frame, numeroGlob):
     global radius
@@ -227,6 +230,8 @@ def todo(frame, numeroGlob):
     global countDifPiques
     global countDifVelocidad
     global punto1Velocidad
+    global diferente
+    global velocidad
     global estaCercaX
     global estaCercaY
 
@@ -421,7 +426,7 @@ def todo(frame, numeroGlob):
                 else: bajando = "Indeterminación"
             print("Bajando", bajando)
     
-    velocidad = False
+    #velocidad = False
     
     if numeroGlob == 0:
         countDifPiques += 1/fps
@@ -455,8 +460,7 @@ def todo(frame, numeroGlob):
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
     
-    diferente = False
-    if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None:
+    if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
         print("Center", center_glob[numeroGlob])
         if punto1Velocidad[0][0] != center_glob[numeroGlob][0][0] or punto1Velocidad[0][1] != center_glob[numeroGlob][0][1]:
@@ -474,10 +478,16 @@ def todo(frame, numeroGlob):
         velocidad = False
         punto1Velocidad = None
         countDifVelocidad = 0
+        diferente = False
 
     elif velocidad and numeroGlob == 1:
         countDifVelocidad += 1/fps
 
+    elif countDifVelocidad >= 0.5 and numeroGlob == 1:
+        countDifVelocidad = 0
+        velocidad = False
+        punto1Velocidad = None
+        diferente = False
     # if numeroGlob == 0:
     #     if center_glob[numeroGlob] is not None:
     #         pique3_norm.appendleft(center_glob[numeroGlob][1])
@@ -656,6 +666,8 @@ countDifPiques = 0
 numeroFrame = 0
 
 punto1Velocidad = None
+velocidad = False
+diferente = False
 
 while True:
     numeroFrame += 1
