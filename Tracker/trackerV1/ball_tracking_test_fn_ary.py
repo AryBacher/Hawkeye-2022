@@ -84,12 +84,19 @@ def cualEstaMasCerca(punto, lista):
 
 def pica (count):
     #if center_glob[numeroGlob] == None: return False
+    # Tengo que descubrir si la variable "b" es un pique o un golpe
+    # Si es un pique, se devuelve True, al contrario se devuelve False
     abajoA = False
     abajoB = False
     a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
     b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+    cv2.circle(frame, posiblesPiques_pers[0][0], 40, (255, 255, 255), -1)
+    cv2.circle(frame, posiblesPiques_pers[1][0], 40, (255, 255, 255), -1)
     if a >= 474 / 2: abajoA = True
     if b >= 474 / 2: abajoB = True
+    print("A", a)
+    print("B", b)
+    print("Count", count)
     if abajoB and abajoA and a > b and count <= 1:
         return True
     elif abajoB and abajoA and a > b and count >= 1:
@@ -100,7 +107,20 @@ def pica (count):
         return False
     elif abajoB and not abajoA and a < b and count <= 1:
         return False
-
+    elif abajoB and not abajoA and a < b and count >= 1:
+        return True
+    elif not abajoB and abajoA and a > b and count >= 1:
+        return True
+    elif not abajoB and abajoA and a > b and count <= 1:
+        return False
+    elif not abajoB and not abajoA and a > b and count >= 1:
+        return True
+    elif not abajoB and not abajoA and a > b and count <= 1:
+        return True
+    elif not abajoB and not abajoA and a < b and count >= 1:
+        return False
+    elif not abajoB and not abajoA and a < b and count <= 1:
+        return True
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
     centrosCerca = False
@@ -212,7 +232,7 @@ def velocidadGolpe(punto1, punto2, tiempo):
     elif punto1Y <= punto2Y: movimientoY = punto2Y - punto1Y
 
     distancia = np.sqrt(movimientoX * movimientoX + movimientoY * movimientoY)
-    #distancia = np.sqrt(distancia)
+    #distancia *= 1.5
 
     return int(np.rint(distancia / tiempo * 3.6))
 
@@ -228,6 +248,8 @@ def todo(frame, numeroGlob):
     global punto1Velocidad
     global diferente
     global velocidad
+    global velocidadFinal
+    global afterVelocidad
     global estaCercaX
     global estaCercaY
 
@@ -428,23 +450,22 @@ def todo(frame, numeroGlob):
         countDifPiques += 1/fps
         posiblePique = False
         if (len(pique2_norm) >= 2):
-            if pique2_norm[0][0] == False and pique2_norm[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_norm[0][1] - pique2_norm[1][1] <= fps/6:
-                print("Pique 2", pique2_norm)
+            if pique2_norm[0][0] == False and pique2_norm[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_norm[0][1] - pique2_norm[1][1] <= fps/6 and center_glob[numeroGlob] is not None:
+                #print("Pique 2", pique2_norm)
                 print("Gerard")
                 posiblePique = True
                 posiblesPiques_norm.appendleft(preCentro_glob[numeroGlob])
                 if len(posiblesPiques_norm) == 1: countDifPiques = 0
-                #if preCentro_glob[numeroGlob][0][0]
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
-        if (len(pique2_pers) >= 2):
+        if (len(pique2_norm) >= 2):
             #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
-            if posiblePique and preCentro_glob[numeroGlob] is not None:
-                print("Entre a donde no tenía que entrar", preCentro_glob[numeroGlob])
-                print("Pique 2", pique2_pers)
+            if posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
+                #print("Pique 2", pique2_pers)
                 print("Gerard")
                 posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                print("Posibles Piques", posiblesPiques_pers)
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
@@ -455,6 +476,8 @@ def todo(frame, numeroGlob):
                 velocidad = True
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
+
+            elif posiblePique and center_glob[numeroGlob] is None: Gerard = False
     
     if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
@@ -477,6 +500,7 @@ def todo(frame, numeroGlob):
         punto1Velocidad = None
         countDifVelocidad = 0
         diferente = False
+        afterVelocidad = True
 
     elif velocidad and numeroGlob == 1:
         countDifVelocidad += 1/fps
@@ -486,6 +510,10 @@ def todo(frame, numeroGlob):
         velocidad = False
         punto1Velocidad = None
         diferente = False
+
+    if afterVelocidad and numeroGlob == 0 and center_glob[numeroGlob] is not None:
+        frame = cv2.putText(frame, str(velocidadFinal), (center_glob[numeroGlob][0][0], center_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+        afterVelocidad = False
     
     #cv2.circle(frame, (100 * resizer_glob[numeroGlob], 194 * resizer_glob[numeroGlob]), 50, (255, 255, 0), -1)
     #cv2.circle(frame, (88 * resizer_glob[numeroGlob], 164 * resizer_glob), 25, (255, 255, 0), -1)
@@ -670,6 +698,8 @@ numeroFrame = 0
 punto1Velocidad = None
 velocidad = False
 diferente = False
+velocidadFinal = None
+afterVelocidad = False
 
 while True:
     numeroFrame += 1
