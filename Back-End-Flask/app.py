@@ -9,7 +9,7 @@ CORS(app)
 def analyseVideo():
     # Recibe la ruta del video
     ruta_video = request.json
-
+    print(ruta_video)
     # Corre la función del ball_tracking y guarda los puntos de pique
     pts_pique = tracking(ruta_video)
 

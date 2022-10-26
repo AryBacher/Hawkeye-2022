@@ -16,4 +16,12 @@ router.get('/GetVideos/:idUsuario', getVideos)
 
 router.get('/GetVideo/:idUsuario/:idCloudinary', authenticateUser, getVideo)
 
+/*await fetch('http://localhost:5000/analyse', {
+	method: 'post',
+	body: JSON.stringify(path),
+	headers: {'Content-Type': 'application/json'}
+});
+  const data = await response.json();
+  console.log(data)
+*/
 export default router
