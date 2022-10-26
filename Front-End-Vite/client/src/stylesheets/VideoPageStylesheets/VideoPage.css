@@ -58,13 +58,12 @@
 }
 
 .wrapper-v .content video {
-  outline: 1px solid var(--colorAzulClaro);
-  height: 738px;
-  border-radius: 10px;
+  height: 75%;
 }
 
 .wrapper-v .content .stats {
   width: 25%;
+  height: 70%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -128,28 +127,19 @@
 }
 
 .wrapper-v .content .stats .minimap-container .minimap {
-  width: 268px;
-  height: 524px;
+  min-width: 268px;
+  min-height: 524px;
   background-color: var(--colorAzul);
   border: 1px solid var(--colorAzulClaro);
-  border-radius: 10px;
   overflow: hidden;
 }
 
 .wrapper-v .content .stats .minimap-container .minimap .points {
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  background-color: var(--colorLink);
+  background-image: url("../../assets/img/minimap.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   -webkit-transition: all 300ms ease-out;
   transition: all 300ms ease-out;
 }

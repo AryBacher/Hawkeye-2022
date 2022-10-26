@@ -13,6 +13,8 @@ function VideoPage() {
 
   //Sabemos cuando se ha pausado, cuando esta play y console logueamos cada segundo que pasa estando runneando.
 
+  const pts_pique = [(100, 100), (100, 200), (200, 100), (200, 200), (80, 300)];
+
   const videoTag = useRef();
 
   const writeTime = () => {
@@ -26,7 +28,7 @@ function VideoPage() {
       if (!paused) {
         writeTime();
       }
-    }, 1000);
+    }, 100);
   };
 
   knowTime();
@@ -63,7 +65,9 @@ function VideoPage() {
         <Button className="btn-back" startIcon={<ChevronLeftIcon />}>
           Volver a análisis
         </Button>
-        <div className="header-video"> {/*Aca podemos meter cosas como el boton de volver, el título, un punto de color para saber el tipo de análisis, el boton para agregar a destacados y hasta un hipotetico botón de edición.*/}
+        <div className="header-video">
+          {" "}
+          {/*Aca podemos meter cosas como el boton de volver, el título, un punto de color para saber el tipo de análisis, el boton para agregar a destacados y hasta un hipotetico botón de edición.*/}
           <svg
             width="10"
             height="10"
@@ -76,7 +80,7 @@ function VideoPage() {
             {/* Esto es variable y depende del tipo de análisis*/}
           </svg>
           <h1>Ary Bacher entrenamiento N°1</h1>
-          <BtnStar state={false}/>
+          <BtnStar state={false} />
         </div>
         <div className="content">
           <video
@@ -97,7 +101,9 @@ function VideoPage() {
                 <IconButton onClick={handleBack}>
                   <ChevronLeftIcon />
                 </IconButton>
-                <div className="title"> {/*Podemos ver de que lo haga al toque o con esta animación*/}
+                <div className="title">
+                  {" "}
+                  {/*Podemos ver de que lo haga al toque o con esta animación*/}
                   <h2
                     className={
                       mapActive === 0 ? "points" : "points points-disabled"
@@ -119,7 +125,16 @@ function VideoPage() {
                     mapActive === 0 ? "points" : "points points-disabled"
                   }
                 >
-                  Puntos
+                  <canvas
+                    id="canvas"
+                    style={{
+                      position: "relative",
+                      left: "0",
+                      top: "0",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  ></canvas>
                 </div>{" "}
                 {/*points*/}
                 <div className={mapActive === 1 ? "heat heat-active" : "heat"}>
