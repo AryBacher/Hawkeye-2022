@@ -4,46 +4,45 @@
   background-color: var(--colorAzul);
   display: flex;
   flex-direction: column;
-  .btn-back{
+  .btn-back {
     position: absolute;
     left: 5vw;
     margin: 15px 0;
     height: 50px;
   }
-  .header-video{
+  .header-video {
     width: 100%;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid var(--colorAzulClaro);
-    h1{
+    h1 {
       font-size: 20px;
       font-weight: 600;
       text-align: center;
     }
-    svg{
+    svg {
       margin-left: 15px;
     }
   }
-  .content{
+  .content {
     display: flex;
     align-items: center;
     justify-content: center;
     height: calc(100vh - 80px);
     width: 100%;
-    video{
-      outline: 1px solid var(--colorAzulClaro);
-      height: 738px;
-      border-radius: 10px;
+    video {
+      height: 75%;
     }
-    .stats{
+    .stats {
       width: 25%;
+      height: 70%;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      .minimap-container{
+      .minimap-container {
         width: 80%;
         display: flex;
         align-items: center;
@@ -54,15 +53,15 @@
         box-sizing: border-box;
         padding: 5%;
         gap: 20px;
-        .title-map{
+        .title-map {
           display: flex;
           align-items: center;
           gap: 15px;
-          .title{
+          .title {
             width: 170px;
             height: 30px;
             overflow: hidden;
-            h2{
+            h2 {
               text-align: center;
               font-size: 20px;
               font-weight: 600;
@@ -70,24 +69,22 @@
             }
           }
         }
-        .minimap{
-          width: 268px;
-          height: 524px;
+        .minimap {
+          min-width: 268px;
+          min-height: 524px;
           background-color: var(--colorAzul);
           border: 1px solid var(--colorAzulClaro);
-          border-radius: 10px;
+
           overflow: hidden;
-          .points{
+          .points {
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-color: var(--colorLink);
+            background-image: url("../../assets/img/minimap.png");
+            background-repeat: no-repeat;
+            background-size: cover;
             transition: all 300ms ease-out;
           }
-          .heat{
+          .heat {
             width: 100%;
             height: 100%;
             display: flex;
@@ -98,25 +95,25 @@
             transition: all 300ms ease-out;
           }
         }
-        .map-indicator{
+        .map-indicator {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 15px;
         }
       }
-      .speed-container{
+      .speed-container {
         width: 80%;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-bottom: 1px solid var(--colorAzulClaro) ;
+        border-bottom: 1px solid var(--colorAzulClaro);
         box-sizing: border-box;
         padding: 5%;
-        h2{
+        h2 {
           font-size: 20px;
           font-weight: 600;
-          span{
+          span {
             color: var(--colorVerde);
           }
         }
@@ -125,16 +122,13 @@
   }
 }
 
-
-.heat-active{
+.heat-active {
   transform: translateY(-100%);
 }
 
-.points-disabled{
+.points-disabled {
   transform: translateY(-100%);
 }
-
-
 
 /*
       width: 268px;

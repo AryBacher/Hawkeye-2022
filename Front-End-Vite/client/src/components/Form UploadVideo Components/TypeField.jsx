@@ -1,43 +1,35 @@
-import React from 'react';
-import {TextField, MenuItem} from '@mui/material';
-import {useField, useFormikContext} from 'formik';
+import React from "react";
+import { TextField, MenuItem } from "@mui/material";
+import { useField, useFormikContext } from "formik";
 
-function TypeField({
-  name,
-  ...otherProps
-}){
+function TypeField({ name, ...otherProps }) {
+  const { setFieldValue } = useFormikContext();
+  const [field, meta] = useField(name);
 
-  const {setFieldValue} = useFormikContext();
-  const [field, meta] = useField(name)
-
-  const handleChange = e =>{
-    const {value} = e.target;
+  const handleChange = (e) => {
+    const { value } = e.target;
     setFieldValue(name, value);
-  }
+  };
 
   const configSelect = {
     ...field,
     ...otherProps,
-    select : true,
-    variant : 'outlined',
-    onChange: handleChange
-  }
-  
+    select: true,
+    variant: "outlined",
+    onChange: handleChange,
+  };
+
   if (meta && meta.touched && meta.error) {
     configSelect.error = true;
     configSelect.helperText = meta.error;
-  };
+  }
 
   return (
     <TextField {...configSelect}>
-      <MenuItem value="Partido">
-        Partido
-      </MenuItem>
-      <MenuItem value="Entrenamiento">
-        Entrenamiento
-      </MenuItem>
+      <MenuItem value="Partido">Partido</MenuItem>
+      <MenuItem value="Entrenamiento">Entrenamiento</MenuItem>
     </TextField>
-  )
+  );
 }
 
-export default TypeField
+export default TypeField;
