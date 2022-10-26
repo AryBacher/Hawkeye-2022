@@ -11,6 +11,10 @@ import BtnStar from "../components/BtnStar";
 function VideoPage() {
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
+  //Hacemos referencia al canvas.
+
+  const canvas = useRef(null);
+
   //Sabemos cuando se ha pausado, cuando esta play y console logueamos cada segundo que pasa estando runneando.
 
   const pts_pique = [(100, 100), (100, 200), (200, 100), (200, 200), (80, 300)];
@@ -127,12 +131,14 @@ function VideoPage() {
                 >
                   <canvas
                     id="canvas"
+                    ref={canvas}
                     style={{
                       position: "relative",
                       left: "0",
                       top: "0",
                       width: "100%",
                       height: "100%",
+                      zIndex: '100'
                     }}
                   ></canvas>
                 </div>{" "}
