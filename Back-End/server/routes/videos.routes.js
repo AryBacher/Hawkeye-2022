@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo, getVideos, redirect } from "../controllers/videos.js";
+import { uploadVideo, deleteVideo, updateVideo, filterVideo, getVideo, getVideos, redirect, getUsername } from "../controllers/videos.js";
 import { authenticateUser } from '../controllers/user.js';
 
 const router = Router();
@@ -15,6 +15,8 @@ router.get('/FilterVideo/:idUsuario', authenticateUser, filterVideo)
 router.get('/GetVideos/:idUsuario', getVideos)
 
 router.get('/GetVideo/:idUsuario/:idCloudinary', authenticateUser, getVideo)
+
+router.get('/GetUsername/:idUsuario', getUsername)
 
 /*await fetch('http://localhost:5000/analyse', {
 	method: 'post',

@@ -3,12 +3,32 @@ import "../stylesheets/HelpPageStylesheets/HelpPage.css";
 import EndUseNavbar from "../components/EndUseNavbar";
 import { motion } from "framer-motion";
 import BtnDropDown from "../components/BtnDropDown";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"
+import axios from "axios"
 
 function HelpPage() {
+
+  const { id } = useParams();
+
+  const [userName, setUserName] = useState("")
+
+  useEffect(()=>{
+    //Conseguir nombre de ususario
+    const getUsername = async() =>{
+      const response = await axios.get(
+        `http://localhost:4000/GetUsername/${id}`
+      )
+      setUserName(response.data.username[0].nombre)
+      console.log(response)
+    }
+    getUsername();
+    },[])
+
   return (
     <>
       <div className="wrapper-hp">
-        <EndUseNavbar grabarId="" análisisId="" ayudaId="ayuda" />
+        <EndUseNavbar grabarId="" análisisId="" ayudaId="ayuda" userName={userName}/>
         <div className="texts-header">
           <motion.div
             className="text-header-content"

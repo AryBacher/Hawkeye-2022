@@ -36,6 +36,9 @@ function AnalysisPage() {
   const [cantPartidos, setCantPartidos] = useState(0);
   const [cantEntrenamientos, setCantEntrenamientos] = useState(0)
 
+  const [userName, setUserName] = useState("")
+  const [userEmail, setUserEmail] = useState("")
+
   //Cargar los videos según la información requerida.
 
   const [videos, setVideos] = useState([]);
@@ -54,6 +57,8 @@ function AnalysisPage() {
       setCantVideos(videoData.data.cantVideos);
       setCantPartidos(videoData.data.cantPartidos);
       setCantEntrenamientos(videoData.data.cantEntrenamientos);
+      setUserName(videoData.data.userName);
+      setUserEmail(videoData.data.userEmail);
 
     };
     getVideosById();
@@ -62,7 +67,7 @@ function AnalysisPage() {
   return (
     <>
       <div className="wrapper-ap">
-        <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" />
+        <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" userName={userName} userEmail={userEmail} />
         <div className="profile-bg"></div>
         <div className="content-ap">
           <section className="profile-data">
@@ -89,8 +94,8 @@ function AnalysisPage() {
               </svg>
             </div>
             <div className="user-names">
-              <h3 id="username-main">Nico</h3>
-              <p id="mail-main">nicolas@gmail.com</p>
+              <h3 id="username-main">{userName}</h3>
+              <p id="mail-main">{userEmail}</p>
             </div>
             <div className="amount-videos">
               <svg

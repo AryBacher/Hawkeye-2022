@@ -41,6 +41,8 @@ function RecordPage() {
 
   const [fileName, setFileName] = useState("");
 
+  const [userName, setUserName] = useState("")
+
   //Función para fetchear los valores finales del formulario.
 
   const useAxios = async (finalValues) => {
@@ -65,6 +67,18 @@ function RecordPage() {
     console.log(response);
   };
 
+  useEffect(()=>{
+  //Conseguir nombre de ususario
+  const getUsername = async() =>{
+    const response = await axios.get(
+      `http://localhost:4000/GetUsername/${id}`
+    )
+    setUserName(response.data.username[0].nombre)
+    console.log(response)
+  }
+  getUsername();
+  },[])
+  
   //Alerta de análisis subido
 
   const [alertList, setAlertList] = useState([]);
@@ -80,7 +94,7 @@ function RecordPage() {
   return (
     <>
       <div className="wrapper-r">
-        <EndUseNavbar grabarId="grabar" análisisId="" ayudaId="" />
+        <EndUseNavbar grabarId="grabar" análisisId="" ayudaId="" userName={userName}/>
         <div className="form-header">
           <motion.div
             className="form-header-content"

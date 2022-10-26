@@ -3,6 +3,12 @@ import BtnStar from "./BtnStar";
 import "../stylesheets/CardVideoStylesheets/CardVideo.css";
 
 function CardVideo({ video, thumbnail }) {
+  const date = video.FechaPartido.split('T')[0]
+  const dia = date.split('-')[2]
+  const mes = date.split('-')[1]
+  const año = date.split('-')[0]
+  const finalDate = dia.concat('/').concat(mes).concat('/').concat(año)
+  console.log(date)
   return (
     <>
       <div className="card-video-container">
@@ -39,7 +45,7 @@ function CardVideo({ video, thumbnail }) {
             </svg>
 
             <p className="video-type-date">
-              {video.tipo} del {video.FechaPartido}
+              {video.tipo} del {finalDate}
             </p>
           </div>
           <BtnStar state={false} />

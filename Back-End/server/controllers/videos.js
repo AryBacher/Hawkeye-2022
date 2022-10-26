@@ -57,6 +57,15 @@ export const uploadVideo = async (req, res) => {
   }
   };
 
+//Conseguir Username
+export const getUsername = async (req, res) => {
+  const {idUsuario} = req.params
+  
+  const [username] = await pool.query("SELECT nombre FROM usuarios WHERE id = ?", [idUsuario])
+  
+  return res.status(200).json({username})
+}
+
 //Borrar videos
 export const deleteVideo = async(req, res) => {
   const {idUsuario, idCloudinary} = req.params
@@ -94,12 +103,14 @@ export const getVideos = async (req, res) => {
  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ?", [idUsuario]);
  const [datosEntrenamientos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Entrenamiento'", [idUsuario]); 
  const [datosPartidos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Partido'", [idUsuario]); 
+ const [datosUser] = await pool.query("SELECT nombre, email FROM usuarios WHERE id = ?", [idUsuario])
  const cantEntrenamientos = datosEntrenamientos.length
  const cantPartidos = datosPartidos.length
  const cantVideos = datosVideo.length
- console.log(datosVideo)
+ const userName = datosUser[0].nombre
+ const userEmail = datosUser[0].email
 
-  res.status(200).json({datosVideo, cantVideos, cantEntrenamientos, cantPartidos});
+  res.status(200).json({datosVideo, cantVideos, cantEntrenamientos, cantPartidos, userName, userEmail});
 }
 
 //Seleccionar el video elegido
