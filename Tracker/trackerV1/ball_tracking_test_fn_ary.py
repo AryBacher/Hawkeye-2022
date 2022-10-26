@@ -200,10 +200,10 @@ def eliminarContornosInservibles(todosContornos):
         n += 1
 
 def velocidadGolpe(punto1, punto2, tiempo):
-    punto1X = punto1[0][0] / resizer_glob[numeroGlob]
-    punto1Y = punto2[0][1] / resizer_glob[numeroGlob]
-    punto2X = punto2[0][0] / resizer_glob[numeroGlob]
-    punto2Y = punto2[0][1] / resizer_glob[numeroGlob]
+    punto1X = punto1[0][0] / (resizer_glob[numeroGlob] * 20)
+    punto1Y = punto1[0][1] / (resizer_glob[numeroGlob] * 20)
+    punto2X = punto2[0][0] / (resizer_glob[numeroGlob] * 20)
+    punto2Y = punto2[0][1] / (resizer_glob[numeroGlob] * 20)
 
     if punto1X >= punto2X: movimientoX = punto1X - punto2X
     elif punto1X <= punto2X: movimientoX = punto2X - punto1X
@@ -211,12 +211,8 @@ def velocidadGolpe(punto1, punto2, tiempo):
     if punto1Y >= punto2Y: movimientoY = punto1Y - punto2Y
     elif punto1Y <= punto2Y: movimientoY = punto2Y - punto1Y
 
-    # Pasando de píxeles a metros
-    movimientoX /= 20
-    movimientoY /= 20
-
-    distancia = movimientoX * movimientoX + movimientoY * movimientoY
-    distancia = np.sqrt(distancia)
+    distancia = np.sqrt(movimientoX * movimientoX + movimientoY * movimientoY)
+    #distancia = np.sqrt(distancia)
 
     return int(np.rint(distancia / tiempo * 3.6))
 
@@ -468,13 +464,15 @@ def todo(frame, numeroGlob):
             diferente = True
     
     if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
-        print("PreCentro", preCentro_glob[numeroGlob])
-        print("Centro", center_glob[numeroGlob])
+        #print("PreCentro", preCentro_glob[numeroGlob])
+        #print("Centro", center_glob[numeroGlob])
         print("Punto1", punto1Velocidad)
         print("Punto2", center_glob[numeroGlob])
         print("Tiempo", countDifVelocidad)
         velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
-        print("Velocidad Final", velocidadFinal)
+        print("Velocidad Final", velocidadFinal, "Kilometros por Hora")
+        cv2.circle(frame, (int(punto1Velocidad[0][0]), int(punto1Velocidad[0][1])), 50, (255, 255, 255), -1)
+        cv2.circle(frame, (int(center_glob[numeroGlob][0][0]), int(center_glob[numeroGlob][0][1])), 50, (255, 255, 255), -1)
         velocidad = False
         punto1Velocidad = None
         countDifVelocidad = 0
@@ -488,6 +486,10 @@ def todo(frame, numeroGlob):
         velocidad = False
         punto1Velocidad = None
         diferente = False
+    
+    #cv2.circle(frame, (100 * resizer_glob[numeroGlob], 194 * resizer_glob[numeroGlob]), 50, (255, 255, 0), -1)
+    #cv2.circle(frame, (88 * resizer_glob[numeroGlob], 164 * resizer_glob), 25, (255, 255, 0), -1)
+
     # if numeroGlob == 0:
     #     if center_glob[numeroGlob] is not None:
     #         pique3_norm.appendleft(center_glob[numeroGlob][1])

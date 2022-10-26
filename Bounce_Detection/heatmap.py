@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import cv2
+from base64 import b64encode
 
 # Abre la cancha para dibujar el heatmap
 cancha = cv2.imread('minimap.jpg')
@@ -38,3 +39,7 @@ plt.xlim(0, 268); plt.ylim(0, 524)
 
 # Guarda el heatmap
 plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
+
+image = open('heatmap.jpg', 'rb')
+image64 = b64encode(image.read())
+print(image64)
