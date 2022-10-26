@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from script import tracking
+from heatmap import heatmap
 
 app = Flask(__name__)
 CORS(app)
@@ -13,11 +14,21 @@ def analyseVideo():
     # Corre la función del ball_tracking y guarda los puntos de pique
     pts_pique = tracking(ruta_video)
 
-    # Corre la función del heatmap
+    # Se crea una nueva lista de puntos sin el N° de frame
+    def filtrar(punto):
+        punto = punto[0]
+        return punto
 
+    new_pts_pique = map(filtrar, pts_pique)
+    
+    # Se corre la función de heatmap
 
+    mapa = heatmap(new_pts_pique)
+
+    # Devuelve un JSON con todos los datos
     return jsonify({
         'puntosPique': pts_pique,
+        'heatmap': mapa
     })
 
 if __name__ == '__main__':

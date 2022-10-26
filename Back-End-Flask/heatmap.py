@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import cv2
+from base64 import b64encode
 
 def heatmap(pts):
     # Abre la cancha para dibujar el heatmap
@@ -37,3 +38,8 @@ def heatmap(pts):
 
     # Guarda el heatmap
     plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
+
+    image = open('heatmap.jpg', 'rb')
+    image64 = b64encode(image.read())
+
+    return image64
