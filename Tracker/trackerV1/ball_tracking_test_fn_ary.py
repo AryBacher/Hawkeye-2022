@@ -1,4 +1,6 @@
 from collections import deque
+from re import A
+from cv2 import FastFeatureDetector
 #from tkinter import N
 #from turtle import pos
 #from cv2 import minEnclosingCircle
@@ -85,41 +87,45 @@ def cualEstaMasCerca(punto, lista):
 def pica (count):
     # Tengo que descubrir si la variable "b" es un pique o un golpe
     # Si es un pique, se devuelve True, de lo contrario se devuelve False
-    abajoA = False
-    abajoB = False
-    a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
-    b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
-    cv2.circle(frame, posiblesPiques_pers[0][0], 40, (255, 255, 255), -1)
-    cv2.circle(frame, posiblesPiques_pers[1][0], 40, (255, 255, 255), -1)
-    if a >= 474 / 2: abajoA = True
-    if b >= 474 / 2: abajoB = True
-    print("A", a)
-    print("B", b)
-    print("Count", count)
-    if abajoB and abajoA and a > b and count <= 1:
-        return True
-    elif abajoB and abajoA and a > b and count >= 1:
-        return False
-    elif abajoB and abajoA and a < b and count >= 1:
-        return True
-    elif abajoB and abajoA and a < b and count <= 1:
-        return False
-    elif abajoB and not abajoA and a < b and count <= 1:
-        return False
-    elif abajoB and not abajoA and a < b and count >= 1:
-        return True
-    elif not abajoB and abajoA and a > b and count >= 1:
-        return True
-    elif not abajoB and abajoA and a > b and count <= 1:
-        return False
-    elif not abajoB and not abajoA and a > b and count >= 1:
-        return True
-    elif not abajoB and not abajoA and a > b and count <= 1:
-        return True
-    elif not abajoB and not abajoA and a < b and count >= 1:
-        return False
-    elif not abajoB and not abajoA and a < b and count <= 1:
-        return True
+
+    if type(posiblesPiques_pers[0]) is not bool and type(posiblesPiques_pers[1]) is not bool:
+        abajoA = False
+        abajoB = False
+        a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
+        b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+        #cv2.circle(frame, posiblesPiques_pers[0][0], 40, (255, 255, 255), -1)
+        #cv2.circle(frame, posiblesPiques_pers[1][0], 40, (255, 255, 255), -1)
+        if a >= 474 / 2: abajoA = True
+        if b >= 474 / 2: abajoB = True
+        print("A", a)
+        print("B", b)
+        print("Count", count)
+        if abajoB and abajoA and a > b and count <= 1:
+            return True
+        elif abajoB and abajoA and a > b and count >= 1:
+            return False
+        elif abajoB and abajoA and a < b and count >= 1:
+            return True
+        elif abajoB and abajoA and a < b and count <= 1:
+            return False
+        elif abajoB and not abajoA and a < b and count <= 1.2:
+            return True
+        elif abajoB and not abajoA and a < b and count <= 2.5:
+            return False
+        elif abajoB and not abajoA and a < b and count >= 2.5:
+            return True
+        elif not abajoB and abajoA and a > b and count >= 1:
+            return True
+        elif not abajoB and abajoA and a > b and count <= 1:
+            return False
+        elif not abajoB and not abajoA and a > b and count >= 1:
+            return True
+        elif not abajoB and not abajoA and a > b and count <= 1:
+            return True
+        elif not abajoB and not abajoA and a < b and count >= 1:
+            return False
+        elif not abajoB and not abajoA and a < b and count <= 1:
+            return True
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
     centrosCerca = False
@@ -459,8 +465,22 @@ def todo(frame, numeroGlob):
     
     else:
         if (len(pique2_norm) >= 2):
+            puntoMaximoArribaCancha = min(topLeftY, topRightY)
+            puntoMaximoAbajoCancha = max(bottomLeftY, bottomRightY)
+            puntoMaximoIzquierdaCancha = min(topLeftX, bottomLeftX)
+            puntoMaximoDerechaCancha = max(topRightX, bottomRightX)
+            if preCentro_glob[0][0][1] > puntoMaximoAbajoCancha or preCentro_glob[0][0][1] < puntoMaximoArribaCancha or preCentro_glob[0][0][0] > puntoMaximoDerechaCancha or preCentro_glob[0][0][0] < puntoMaximoIzquierdaCancha:
+                #Gerard = False
+                mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
+                if center_glob[0][0][1] <= mitadDeCancha: abajo = False
+                else: abajo = True
+                posiblesPiques_pers.appendleft(abajo)
+                if len(posiblesPiques_pers) >= 2:
+                    Gerard = pica(countDifPiques)
+                    print("Gerard", Gerard)
             #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
-            if posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
+            
+            elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
                 #print("Pique 2", pique2_pers)
                 print("Gerard")
                 posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
@@ -476,13 +496,16 @@ def todo(frame, numeroGlob):
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
 
-            elif posiblePique and center_glob[numeroGlob] is None: 
-                Gerard = False
-                puntoMaximoArribaCancha = min(topLeftY, topRightY)
-                puntoMaximoAbajoCancha = max(bottomLeftY, bottomRightY)
-                mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
-                if center_glob[0][0][1] <= mitadDeCancha: abajo = False
-                else: abajo = True
+            #elif posiblePique and center_glob[numeroGlob] is None and center_glob[0] is not None:
+                #Gerard = False
+
+            #elif posiblePique and center_glob[numeroGlob] is None:
+                #Gerard = False
+                #puntoMaximoArribaCancha = min(topLeftY, topRightY)
+                #puntoMaximoAbajoCancha = max(bottomLeftY, bottomRightY)
+                #mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
+                #if center_glob[0][0][1] <= mitadDeCancha: abajo = False
+                #else: abajo = True
     
     if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
@@ -704,6 +727,16 @@ velocidad = False
 diferente = False
 velocidadFinal = None
 afterVelocidad = False
+
+abajo = False
+listaPrueba = []
+listaPrueba.append(((1, 5), 8))
+listaPrueba.append(abajo)
+print("Lista Prueba", listaPrueba)
+if type(listaPrueba[0]) is not bool and type(listaPrueba[0]) is not bool and type(listaPrueba[1]) is not bool and type(listaPrueba[1]) is not bool:
+    print("A")
+else: print("B", listaPrueba)
+
 
 while True:
     numeroFrame += 1
