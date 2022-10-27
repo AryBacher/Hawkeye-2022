@@ -8,7 +8,7 @@ function CardVideo({ video, thumbnail }) {
   const mes = date.split('-')[1]
   const año = date.split('-')[0]
   const finalDate = dia.concat('/').concat(mes).concat('/').concat(año)
-  console.log(date)
+  
   return (
     <>
       <div className="card-video-container">

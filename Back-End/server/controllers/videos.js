@@ -89,11 +89,19 @@ export const updateVideo = async(req, res) => {
 
 //Filtrar videos
 export const filterVideo = async(req, res) => {
-  const idUsuario = req.params;
-  const busqueda = req.body;
+  const { idUsuario } = req.params;
+  const { search } = req.body;
+  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]);
+  const [datosEntrenamientos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Entrenamiento' AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]); 
+  const [datosPartidos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Partido' AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]); 
+  //const [datosUser] = await pool.query("SELECT nombre, email FROM usuarios WHERE id = ?", [idUsuario])
+  const cantEntrenamientos = datosEntrenamientos.length
+  const cantPartidos = datosPartidos.length
+  const cantVideos = datosVideo.length
+  //const userName = datosUser[0].nombre
+  //const userEmail = datosUser[0].email
 
-  const [urlVideo] = await pool.query("SELECT urlVideo from videos WHERE idUsuario = ? AND titulo LIKE ?", [idUsuario, busqueda]);
-  res.status(200).json(urlVideo);
+  res.status(200).json({datosVideo, cantVideos, cantEntrenamientos, cantPartidos});
 }
 
 //Seleccionar videos según usuario

@@ -17,14 +17,13 @@ function AnalysisPage() {
 
   const [toggle, setToggle] = useState(false);
   const [heightEl, setHeightEl] = useState();
+  const [search, setSearch] = useState();
 
   const refHeight = useRef();
 
   const toggleState = () => {
     setToggle(!toggle);
   };
-
-  console.log(toggle);
 
   // Formulario de botones de radio.
 
@@ -63,6 +62,23 @@ function AnalysisPage() {
     };
     getVideosById();
   }, []);
+
+  const getVideosBySearch = async (search) => {
+    console.log(search)
+    const videoData = await axios.post(
+      `http://localhost:4000/FilterVideo/${id}`,
+      JSON.stringify(search),
+      {
+        headers: { "Content-Type": "application/JSON" },
+        withCredentials: true,
+      }
+    )
+    console.log(videoData);
+    setVideos(videoData.data.datosVideo);
+    setCantVideos(videoData.data.cantVideos);
+    setCantPartidos(videoData.data.cantPartidos);
+    setCantEntrenamientos(videoData.data.cantEntrenamientos);
+  }
 
   return (
     <>
@@ -165,7 +181,8 @@ function AnalysisPage() {
                 placeholder="Buscar análisis..."
                 onKeyUp={(e) => {
                   e.target.value;
-                  console.log(e.target.value);
+                  setSearch(e.target.value)
+                  getVideosBySearch(search)
                 }}
               />
             </div>
