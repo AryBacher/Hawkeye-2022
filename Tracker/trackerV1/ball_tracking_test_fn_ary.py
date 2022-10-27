@@ -83,9 +83,8 @@ def cualEstaMasCerca(punto, lista):
 #     return gerardPique
 
 def pica (count):
-    #if center_glob[numeroGlob] == None: return False
     # Tengo que descubrir si la variable "b" es un pique o un golpe
-    # Si es un pique, se devuelve True, al contrario se devuelve False
+    # Si es un pique, se devuelve True, de lo contrario se devuelve False
     abajoA = False
     abajoB = False
     a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
@@ -465,7 +464,7 @@ def todo(frame, numeroGlob):
                 #print("Pique 2", pique2_pers)
                 print("Gerard")
                 posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
-                print("Posibles Piques", posiblesPiques_pers)
+                #print("Posibles Piques", posiblesPiques_pers)
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
@@ -477,13 +476,18 @@ def todo(frame, numeroGlob):
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
 
-            elif posiblePique and center_glob[numeroGlob] is None: Gerard = False
+            elif posiblePique and center_glob[numeroGlob] is None: 
+                Gerard = False
+                puntoMaximoArribaCancha = min(topLeftY, topRightY)
+                puntoMaximoAbajoCancha = max(bottomLeftY, bottomRightY)
+                mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
+                if center_glob[0][0][1] <= mitadDeCancha: abajo = False
+                else: abajo = True
     
     if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
         print("Center", center_glob[numeroGlob])
         if punto1Velocidad[0][0] != center_glob[numeroGlob][0][0] or punto1Velocidad[0][1] != center_glob[numeroGlob][0][1]:
-            print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             diferente = True
     
     if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
