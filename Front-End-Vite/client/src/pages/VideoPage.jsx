@@ -21,13 +21,59 @@ function VideoPage() {
 
   let paused = true;
 
+  const pts_pique = [
+    { x: 40, y: 0, second: 5 },
+    { x: 200, y: 35, second: 10.0 },
+    { x: 200, y: 100, second: 15.0 },
+    { x: 120, y: 120, second: 25.0 },
+    { x: 35, y: 41, second: 7.0 },
+    { x: 200, y: 400, second: 30.0 },
+  ];
+
+
+  const canvas = useRef(null);
+
   const knowTime = () => {
     setInterval(() => {
+
       if (!paused) {
-        writeTime();
+        const circle = canvas.current.getContext("2d");
+        const time = videoTag.current.currentTime;
+        console.log("estas en el segundo "+time+" del video")
+    
+        const drawCircle = (x, y, secAppend) => {
+    
+          //Condición para agregar los circulos según su segundo en el json.
+    
+          if (secAppend <= time) {
+            circle.beginPath();
+            circle.arc(x, y, 3.5, 0, Math.PI * 2);
+            circle.fillStyle = "#4ECB71";
+            circle.fill();
+            circle.closePath();
+          }
+          
+
+          // Condición para borrar los puntos tras 10 segundos después de haber sido agregados.
+    
+          const secDelete = secAppend + 10;
+    
+          if(secDelete <= time){
+            circle.clearRect( x, y, 3.5, 3.5);
+          }
+    
+        };
+    
+        pts_pique.map((pts) => {
+          console.log(time);
+          drawCircle(pts.x, pts.y, pts.second);
+        });
       }
     }, 100);
+    
   };
+
+  knowTime();
 
   // Estado para poder hacer ir switcheando de mapa y funciones para switchear entre ambos.
 
@@ -56,49 +102,6 @@ function VideoPage() {
   const [speed, setSpeed] = useState(0);
 
   // Dibujar los circulos del canvas según las coordenadas.
-
-  const pts_pique = [
-    { x: 40, y: 0, second: 5 },
-    { x: 200, y: 35, second: 10.0 },
-    { x: 200, y: 100, second: 15.0 },
-    { x: 120, y: 120, second: 25.0 },
-    { x: 35, y: 41, second: 7.0 },
-    { x: 200, y: 400, second: 30.0 },
-  ];
-
-  const canvas = useRef(null);
-
-  useEffect(() => {
-    const circle = canvas.current.getContext("2d");
-    const time = videoTag.current.currentTime;
-
-
-    const drawCircle = (x, y, radio, secAppend) => {
-
-      //Condición para agregar los circulos según su segundo en el json.
-
-      if (secAppend == time) {
-        circle.beginPath();
-        circle.arc(x, y, radio, 0, Math.PI * 2);
-        circle.fillStyle = "#4ECB71";
-        circle.fill();
-        circle.closePath();
-      }
-
-      // Condición para borrar los puntos tras 10 segundos después de haber sido agregados.
-
-      const secDelete = secAppend + 10;
-
-      if(secDelete == time){
-        circle.clearRect( x - radio, y + radio, radio, radio);
-      }
-
-    };
-
-    pts_pique.map((pts) => {
-      drawCircle(pts.x, pts.y, pts.second);
-    });
-  });
 
 
   return (

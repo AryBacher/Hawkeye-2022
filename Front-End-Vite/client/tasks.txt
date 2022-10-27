@@ -9,7 +9,7 @@
   Mail de confirmación terminado.
   Analysis Page "terminada" (faltan media-queries para alinear los elementos para mobile y tablet, además de estados de las cosas y condiciones).
   Help Page terminada.
-  UploadVideo Page "terminada" (faltan media-queries y corner input).
+  UploadVideo Page "terminada" (faltan media-queries menores y corner input).
 
   Faltán 1 páginas:
 
