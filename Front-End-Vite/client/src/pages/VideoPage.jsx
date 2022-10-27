@@ -22,58 +22,52 @@ function VideoPage() {
   let paused = true;
 
   const pts_pique = [
-    { x: 40, y: 0, second: 5 },
+    { x: 0, y: 0, second: 5 },
     { x: 200, y: 35, second: 10.0 },
     { x: 200, y: 100, second: 15.0 },
     { x: 120, y: 120, second: 25.0 },
     { x: 35, y: 41, second: 7.0 },
     { x: 200, y: 400, second: 30.0 },
+    { x: 300, y: 300, second: 20.0 },
   ];
 
 
   const canvas = useRef(null);
 
-  const knowTime = () => {
+  const updateTime = () => {
     setInterval(() => {
 
       if (!paused) {
         const circle = canvas.current.getContext("2d");
         const time = videoTag.current.currentTime;
-        console.log("estas en el segundo "+time+" del video")
+
+        // Selecciona los piques cuyo tiempo es menor al tiempo del video
+        let pts_utiles = pts_pique.filter((pt) => pt.second <= time);
+        pts_utiles = pts_utiles.reverse()
+
+        if (pts_utiles.length > 5){
+          pts_utiles = pts_utiles.slice(0,6)
+          circle.clearRect(0, 0, 1000, 1000);
+        }
     
-        const drawCircle = (x, y, secAppend) => {
-    
-          //Condición para agregar los circulos según su segundo en el json.
-    
-          if (secAppend <= time) {
+        const drawCircle = (pt) => {   
             circle.beginPath();
-            circle.arc(x, y, 3.5, 0, Math.PI * 2);
+            circle.arc(pt.x + 51, pt.y + 25, 3.5, 0, Math.PI * 2);
             circle.fillStyle = "#4ECB71";
             circle.fill();
             circle.closePath();
-          }
-          
-
-          // Condición para borrar los puntos tras 10 segundos después de haber sido agregados.
-    
-          const secDelete = secAppend + 10;
-    
-          if(secDelete <= time){
-            circle.clearRect( x, y, 3.5, 3.5);
-          }
-    
         };
-    
-        pts_pique.map((pts) => {
-          console.log(time);
-          drawCircle(pts.x, pts.y, pts.second);
-        });
+
+        pts_utiles.map((pt) => {
+          console.log(pts_utiles);
+          drawCircle(pt);
+        });       
       }
     }, 100);
     
   };
 
-  knowTime();
+  updateTime();
 
   // Estado para poder hacer ir switcheando de mapa y funciones para switchear entre ambos.
 
