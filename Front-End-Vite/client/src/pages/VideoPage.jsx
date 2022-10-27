@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import video from "../../../../Videos Tenis para Analizar/Video Ary 3 Saque.mp4";
 import "../stylesheets/VideoPageStylesheets/VideoPage.css";
 import { Button, IconButton } from "@mui/material";
@@ -11,13 +11,7 @@ import BtnStar from "../components/BtnStar";
 function VideoPage() {
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
-  //Hacemos referencia al canvas.
-
-  const canvas = useRef(null);
-
   //Sabemos cuando se ha pausado, cuando esta play y console logueamos cada segundo que pasa estando runneando.
-
-  const pts_pique = [(100, 100), (100, 200), (200, 100), (200, 200), (80, 300)];
 
   const videoTag = useRef();
 
@@ -34,8 +28,6 @@ function VideoPage() {
       }
     }, 100);
   };
-
-  knowTime();
 
   // Estado para poder hacer ir switcheando de mapa y funciones para switchear entre ambos.
 
@@ -63,6 +55,52 @@ function VideoPage() {
 
   const [speed, setSpeed] = useState(0);
 
+  // Dibujar los circulos del canvas según las coordenadas.
+
+  const pts_pique = [
+    { x: 40, y: 0, second: 5 },
+    { x: 200, y: 35, second: 10.0 },
+    { x: 200, y: 100, second: 15.0 },
+    { x: 120, y: 120, second: 25.0 },
+    { x: 35, y: 41, second: 7.0 },
+    { x: 200, y: 400, second: 30.0 },
+  ];
+
+  const canvas = useRef(null);
+
+  useEffect(() => {
+    const circle = canvas.current.getContext("2d");
+    const time = videoTag.current.currentTime;
+
+
+    const drawCircle = (x, y, radio, secAppend) => {
+
+      //Condición para agregar los circulos según su segundo en el json.
+
+      if (secAppend == time) {
+        circle.beginPath();
+        circle.arc(x, y, radio, 0, Math.PI * 2);
+        circle.fillStyle = "#4ECB71";
+        circle.fill();
+        circle.closePath();
+      }
+
+      // Condición para borrar los puntos tras 10 segundos después de haber sido agregados.
+
+      const secDelete = secAppend + 10;
+
+      if(secDelete == time){
+        circle.clearRect( x - radio, y + radio, radio, radio);
+      }
+
+    };
+
+    pts_pique.map((pts) => {
+      drawCircle(pts.x, pts.y, pts.second);
+    });
+  });
+
+
   return (
     <>
       <div className="wrapper-v">
@@ -88,6 +126,7 @@ function VideoPage() {
         </div>
         <div className="content">
           <video
+            id='videito'
             src={video}
             controls
             ref={videoTag}
@@ -132,13 +171,13 @@ function VideoPage() {
                   <canvas
                     id="canvas"
                     ref={canvas}
+                    width="268px"
+                    height="524px"
                     style={{
                       position: "relative",
                       left: "0",
                       top: "0",
-                      width: "100%",
-                      height: "100%",
-                      zIndex: '100'
+                      zIndex: "100",
                     }}
                   ></canvas>
                 </div>{" "}

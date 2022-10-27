@@ -58,7 +58,7 @@
 }
 
 .wrapper-v .content video {
-  height: 75%;
+  height: 70%;
 }
 
 .wrapper-v .content .stats {
@@ -127,8 +127,8 @@
 }
 
 .wrapper-v .content .stats .minimap-container .minimap {
-  min-width: 268px;
-  min-height: 524px;
+  width: 268px;
+  height: 524px;
   background-color: var(--colorAzul);
   border: 1px solid var(--colorAzulClaro);
   overflow: hidden;

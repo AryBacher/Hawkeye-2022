@@ -33,7 +33,7 @@
     height: calc(100vh - 80px);
     width: 100%;
     video {
-      height: 75%;
+      height: 70%;
     }
     .stats {
       width: 25%;
@@ -70,11 +70,10 @@
           }
         }
         .minimap {
-          min-width: 268px;
-          min-height: 524px;
+          width: 268px;
+          height: 524px;
           background-color: var(--colorAzul);
           border: 1px solid var(--colorAzulClaro);
-
           overflow: hidden;
           .points {
             width: 100%;
