@@ -50,11 +50,7 @@ function VideoPage() {
 
         if (pts_utiles.length > 5){
           pts_utiles = pts_utiles.slice(0,6)
-<<<<<<< Updated upstream
-=======
           circle.clearRect(0, 0, 1000, 1000);
-          console.log(pts_utiles)
->>>>>>> Stashed changes
         }
         circle.clearRect(0, 0, 1000, 1000);
 
