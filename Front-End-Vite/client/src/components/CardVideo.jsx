@@ -1,13 +1,19 @@
 import React from "react";
 import BtnStar from "./BtnStar";
 import "../stylesheets/CardVideoStylesheets/CardVideo.css";
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function CardVideo({ video, thumbnail }) {
+  let navigate = useNavigate();
+  const { id } = useParams()
+
   const date = video.FechaPartido.split('T')[0]
   const dia = date.split('-')[2]
   const mes = date.split('-')[1]
   const año = date.split('-')[0]
   const finalDate = dia.concat('/').concat(mes).concat('/').concat(año)
+  const cloudinaryId = video.idCloudinary
   
   return (
     <>
@@ -16,6 +22,8 @@ function CardVideo({ video, thumbnail }) {
           id="thumbnail-box"
           className="img-thumbnail"
           style={{ backgroundImage: `url(${thumbnail})`}}
+          onClick={navigate(`/Analysis/${id}/${cloudinaryId}`)}
+          
         >
           <svg
             width="64"
