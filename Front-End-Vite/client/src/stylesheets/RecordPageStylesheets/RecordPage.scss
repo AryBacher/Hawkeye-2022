@@ -38,28 +38,25 @@
     Form {
       margin-bottom: 8vh;
       width: 100%;
-      .court-map-field{
+      .court-map-field {
         width: 100%;
         height: 450px;
         border: 1px solid var(--colorAzulClaro);
         border-radius: 5px;
         overflow: hidden;
-        .corner{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .corner {
+          position: relative;
           width: 25px;
           height: 25px;
-          background-color: var(--colorBlanco);
+          background-color: rgba(0, 0, 0, 0.25);
           border-radius: 100%;
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
           display: flex;
           align-items: center;
           justify-content: center;
-          .center{
-            width: 15px;
-            height: 15px;
-            background-color: var(--colorVerde);
-            border-radius: 100%;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-          }
+          font-weight: 300;
         }
       }
       input[type="date"] {
@@ -90,7 +87,7 @@
             }
           }
         }
-        svg{
+        svg {
           padding-bottom: 25px;
         }
         span {

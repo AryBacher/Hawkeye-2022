@@ -74,15 +74,23 @@
   border: 1px solid var(--colorAzulClaro);
   border-radius: 5px;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .wrapper-r .form-container Form .court-map-field .corner {
+  position: relative;
   width: 25px;
   height: 25px;
-  background-color: var(--colorBlanco);
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 100%;
-  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,15 +100,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.wrapper-r .form-container Form .court-map-field .corner .center {
-  width: 15px;
-  height: 15px;
-  background-color: var(--colorVerde);
-  border-radius: 100%;
-  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  font-weight: 300;
 }
 
 .wrapper-r .form-container Form input[type="date"] {

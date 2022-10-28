@@ -11,10 +11,18 @@ import {
   Alert,
   Collapse,
   IconButton,
+  ButtonGroup,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import TypeField from "../components/Form UploadVideo Components/TypeField";
-import { Form, Formik, Field, useFormik, useFormikContext, setIn } from "formik";
+import {
+  Form,
+  Formik,
+  Field,
+  useFormik,
+  useFormikContext,
+  setIn,
+} from "formik";
 import { object, string, date, mixed } from "yup";
 import { useState, Fragment, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -22,6 +30,8 @@ import axios from "axios";
 import AlertSuccess from "../components/AlertSuccess";
 import { height } from "@mui/system";
 import { useParams } from "react-router-dom";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import SaveIcon from "@mui/icons-material/Save";
 
 function RecordPage() {
   const { id } = useParams();
@@ -34,7 +44,7 @@ function RecordPage() {
     rival: "",
     date: "",
     file: null,
-    corners: "",
+    corners: null,
   };
 
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado.
@@ -65,6 +75,7 @@ function RecordPage() {
       }
     );
     console.log(response);
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -102,15 +113,34 @@ function RecordPage() {
   const cCorner = useRef(null);
   const dCorner = useRef(null);
 
-
-  const setCornerPosition = () => {
-    const finalCorners = ([{ x: aCorner.current.getBoundingClientRect().x, y: aCorner.current.getBoundingClientRect().y },{ x: bCorner.current.getBoundingClientRect().x, y: bCorner.current.getBoundingClientRect().y },{x: cCorner.current.getBoundingClientRect().x, y: cCorner.current.getBoundingClientRect().y},{x: dCorner.current.getBoundingClientRect().x, y: dCorner.current.getBoundingClientRect().y}]);
-    return finalCorners
+  const setFinalCorners = () => {
+    const finalCorners = [
+      {
+        x: aCorner.current.getBoundingClientRect().x,
+        y: aCorner.current.getBoundingClientRect().y,
+      },
+      {
+        x: bCorner.current.getBoundingClientRect().x,
+        y: bCorner.current.getBoundingClientRect().y,
+      },
+      {
+        x: cCorner.current.getBoundingClientRect().x,
+        y: cCorner.current.getBoundingClientRect().y,
+      },
+      {
+        x: dCorner.current.getBoundingClientRect().x,
+        y: dCorner.current.getBoundingClientRect().y,
+      },
+    ];
+    return finalCorners;
   };
 
-  useEffect(()=>{
-    setCorners(setCornerPosition);
-  },[]);
+  //Función para reiniciar posición.
+
+  const restartPosition = () => {
+    document.getElementsByClassName("corner").style.top = 0;
+    document.getElementsByClassName("corner").style.left = 0;
+  };
 
   return (
     <>
@@ -263,46 +293,83 @@ function RecordPage() {
                       : `Video: ${fileName}`}
                   </span>
                 </div>
-                <div className="court-map-field" ref={mapField}>
+                <motion.div className="court-map-field" ref={mapField}>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
                     className="corner"
-                    dragConstraints = {mapField}
+                    dragConstraints={mapField}
+                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
                     ref={aCorner}
                   >
-                    <div className="center"></div>
+                    <div className="center">+</div>
                   </motion.div>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
-                    onClick={console.log('hey')}
                     className="corner"
-                    dragConstraints = {mapField}
+                    dragConstraints={mapField}
+                    dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
                     ref={bCorner}
                   >
-                    <div className="center"></div>
+                    <div className="center">+</div>
                   </motion.div>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
                     className="corner"
-                    dragConstraints = {mapField}
+                    dragConstraints={mapField}
+                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
                     ref={cCorner}
                   >
-                    <div className="center"></div>
+                    <div className="center">+</div>
                   </motion.div>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
                     className="corner"
-                    dragConstraints = {mapField}
+                    dragConstraints={mapField}
+                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
                     ref={dCorner}
                   >
-                    <div className="center"></div>
+                    <div className="center">+</div>
                   </motion.div>
-                </div>
-                {/* Transformar en un input normal */ }
+                </motion.div>
+                {/* Transformar en un input normal */}
+                <ButtonGroup fullWidth>
+                  <Button
+                    onClick={() => {
+                      restartPosition();
+                    }}
+                    startIcon={<RestartAltIcon />}
+                    sx={{
+                      fontWeight: 600,
+                      textTransform: "capitalize",
+                      fontSize: "1em",
+                      height: "50px",
+                      padding: 0,
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Reiniciar posición
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setCorners(setFinalCorners());
+                    }}
+                    startIcon={<SaveIcon />}
+                    sx={{
+                      fontWeight: 600,
+                      textTransform: "capitalize",
+                      fontSize: "1em",
+                      height: "50px",
+                      padding: 0,
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Guardar Posición
+                  </Button>
+                </ButtonGroup>
                 <Field
                   name="corners"
                   type="text"
@@ -313,7 +380,27 @@ function RecordPage() {
                   size="normal"
                   error={Boolean(errors.corners) && Boolean(touched.corners)}
                   helperText={Boolean(touched.corners) && errors.corners}
-                  onChange={()=>{console.log(corners)}}
+                  value={corners}
+                  style={{
+                    position: "absolute",
+                    top: "-100px",
+                    left: "-100px",
+                    opacity: "0",
+                  }}
+                  /*
+                  value={
+                    (corners === null
+                      ? "no hay valores"
+                      : "hay valores:" + corners[0].x,
+                    corners[0].y,
+                    corners[1].x,
+                    corners[1].y,
+                    corners[2].x,
+                    corners[2].y,
+                    corners[3].x,
+                    corners[3].y)
+                  }
+                  */
                 />
                 <Button
                   variant="contained"
