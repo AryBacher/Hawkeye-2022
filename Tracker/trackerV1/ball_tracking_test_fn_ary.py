@@ -88,7 +88,7 @@ def pica (count):
     # Tengo que descubrir si la variable "b" es un pique o un golpe
     # Si es un pique, se devuelve True, de lo contrario se devuelve False
 
-    if type(posiblesPiques_pers[0]) is not bool and type(posiblesPiques_pers[1]) is not bool:
+    if type(posiblesPiques_pers[0][0]) is not bool and type(posiblesPiques_pers[1][0]) is not bool:
         abajoA = False
         abajoB = False
         a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
@@ -129,11 +129,19 @@ def pica (count):
         elif not abajoB and not abajoA and a < b and count <= 2:
             return False
 
-    elif type(posiblesPiques_pers[0]) is bool and type(posiblesPiques_pers[1]) is bool:
-        a = posiblesPiques_pers[0]
-        b = posiblesPiques_pers[1]
+    elif type(posiblesPiques_pers[0][0]) is bool and type(posiblesPiques_pers[1][0]) is bool:
+        a = posiblesPiques_pers[0][0]
+        b = posiblesPiques_pers[1][0]
+        a2 = posiblesPiques_pers[0][1]
+        b2 = posiblesPiques_pers[1][1]
 
-        if a and b:
+        if a and b and a2 > b2 and count <= 2:
+            return True
+        elif a and b and a2 > b2 and count >= 2:
+            return False
+        elif a and b and a2 < b2 and count <= 6.5:
+            return False
+        elif a and b and a2 < b2 and count >= 6.5:
             return True
         if a and not b:
             return True
@@ -142,12 +150,12 @@ def pica (count):
         if not a and not b:
             return True
         
-    elif type(posiblesPiques_pers[0]) is bool:
+    elif type(posiblesPiques_pers[0][0]) is bool:
         abajoB = False
         b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
         if b >= 474 / 2: abajoB = True
 
-    elif type(posiblesPiques_pers[1]) is bool:
+    elif type(posiblesPiques_pers[1][0]) is bool:
         abajoA = False
         a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
         if a >= 474 / 2: abajoA = True
@@ -281,6 +289,7 @@ def todo(frame, numeroGlob):
     global velocidad
     global velocidadFinal
     global afterVelocidad
+    global topLeftX, topLeftY, topRightX, topRightY, bottomLeftX, bottomLeftY, bottomRightX, bottomRightY
     global estaCercaX
     global estaCercaY
 
@@ -495,12 +504,13 @@ def todo(frame, numeroGlob):
             puntoMaximoAbajoCancha = max(bottomLeftY, bottomRightY)
             puntoMaximoIzquierdaCancha = min(topLeftX, bottomLeftX)
             puntoMaximoDerechaCancha = max(topRightX, bottomRightX)
-            if preCentro_glob[0][0][1] > puntoMaximoAbajoCancha or preCentro_glob[0][0][1] < puntoMaximoArribaCancha or preCentro_glob[0][0][0] > puntoMaximoDerechaCancha or preCentro_glob[0][0][0] < puntoMaximoIzquierdaCancha:
+            if posiblePique and preCentro_glob[0] is not None and center_glob[0] is not None and (preCentro_glob[0][0][1] > puntoMaximoAbajoCancha * resizer_glob[0] or preCentro_glob[0][0][1] < puntoMaximoArribaCancha * resizer_glob[0] or preCentro_glob[0][0][0] > puntoMaximoDerechaCancha * resizer_glob[0] or preCentro_glob[0][0][0] < puntoMaximoIzquierdaCancha * resizer_glob[0]):
                 #Gerard = False
                 mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
-                if center_glob[0][0][1] <= mitadDeCancha: abajo = False
+                print("Center y Mitad de Cancha", preCentro_glob[0], mitadDeCancha)
+                if preCentro_glob[0][0][1] <= mitadDeCancha: abajo = False
                 else: abajo = True
-                posiblesPiques_pers.appendleft(abajo)
+                posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
@@ -616,9 +626,9 @@ def todo(frame, numeroGlob):
     if numeroGlob == 0:
 
         frame = imutils.resize(frame, anchoOG, altoOG)
-        #frame = imutils.resize(frame, height= 768)
+        frame = imutils.resize(frame, height= 768)
         mask = imutils.resize(mask, anchoOG, altoOG)
-        #mask = imutils.resize(mask, height= 768)
+        mask = imutils.resize(mask, height= 768)
 
         cv2.imshow("Mask Normal", mask)
         cv2.imshow("Normal", frame)
@@ -633,6 +643,7 @@ def todo(frame, numeroGlob):
 
     print("Centro al terminar la iteración", center_glob[numeroGlob])
     print("Numero Global", numeroGlob)
+    print("Posibles piques pers", posiblesPiques_pers)
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
