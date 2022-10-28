@@ -7,8 +7,10 @@ import { Button, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import BtnStar from "../components/BtnStar";
+import { useParams } from 'react-router-dom'
 
 function VideoPage() {
+  const {id} = useParams()
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
   //Sabemos cuando se ha pausado, cuando esta play y console logueamos cada segundo que pasa estando runneando.
@@ -113,7 +115,7 @@ function VideoPage() {
   return (
     <>
       <div className="wrapper-v">
-        <Button className="btn-back" startIcon={<ChevronLeftIcon />}>
+        <Button className="btn-back" href={`/Analysis/${id}`} startIcon={<ChevronLeftIcon />}>
           Volver
         </Button>
         <div className="header-video">
