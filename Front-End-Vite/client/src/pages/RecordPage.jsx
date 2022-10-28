@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import TypeField from "../components/Form UploadVideo Components/TypeField";
-import { Form, Formik, Field, useFormik, useFormikContext } from "formik";
+import { Form, Formik, Field, useFormik, useFormikContext, setIn } from "formik";
 import { object, string, date, mixed } from "yup";
 import { useState, Fragment, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -91,49 +91,26 @@ function RecordPage() {
 
   const fileInput = useRef(null);
 
-  // Referenciar al padre del canvas para que adopte su altura y anchura.
+  // Funciones para setear los corners y desplegar los puntos.
 
-  const canvas = useRef(null);
-  const parentCanvas = useRef(null);
+  const mapField = useRef(null);
 
-  const [corners, setCorners] = useState([]);
+  const [corners, setCorners] = useState(null);
 
-  const setCornerPosition = (e) => {
-    setCorners(corners.concat({ x: e.clientX, y: e.clientY }));
-    console.log(corners);
+  const aCorner = useRef(null);
+  const bCorner = useRef(null);
+  const cCorner = useRef(null);
+  const dCorner = useRef(null);
+
+
+  const setCornerPosition = () => {
+    const finalCorners = ([{ x: aCorner.current.getBoundingClientRect().x, y: aCorner.current.getBoundingClientRect().y },{ x: bCorner.current.getBoundingClientRect().x, y: bCorner.current.getBoundingClientRect().y },{x: cCorner.current.getBoundingClientRect().x, y: cCorner.current.getBoundingClientRect().y},{x: dCorner.current.getBoundingClientRect().x, y: dCorner.current.getBoundingClientRect().y}]);
+    return finalCorners
   };
 
-  useEffect(() => {
-    // Tomar estilos de la caja padre.
-
-    const styles = getComputedStyle(parentCanvas.current);
-
-    // Variables con altura y anchura del padre.
-
-    const width = parseInt(styles.getPropertyValue("width"), 10);
-    const height = parseInt(styles.getPropertyValue("height"), 10);
-
-    // Setear la altura y anchura del padre.
-
-    canvas.current.height = height;
-    canvas.current.width = width;
-
-    //Funciones para dibujar las esquinas
-
-    const circle = canvas.current.getContext("2d");
-
-    const drawCircle = (e) => {
-      console.log("hola funco");
-      circle.beginPath();
-      circle.arc(e.x, e.y, 4, 0, Math.PI * 2);
-      circle.fillStyle = "#4ECB71";
-      circle.fill();
-      circle.closePath();
-    };
-
-    drawCircle(corners);
-
-  }, [corners]);
+  useEffect(()=>{
+    setCorners(setCornerPosition);
+  },[]);
 
   return (
     <>
@@ -286,9 +263,46 @@ function RecordPage() {
                       : `Video: ${fileName}`}
                   </span>
                 </div>
-                <div className="court-map-field" ref={parentCanvas}>
-                  <canvas ref={canvas} onClick={setCornerPosition}></canvas>
+                <div className="court-map-field" ref={mapField}>
+                  <motion.div
+                    drag
+                    whileTap={{ cursor: "grabbing" }}
+                    className="corner"
+                    dragConstraints = {mapField}
+                    ref={aCorner}
+                  >
+                    <div className="center"></div>
+                  </motion.div>
+                  <motion.div
+                    drag
+                    whileTap={{ cursor: "grabbing" }}
+                    onClick={console.log('hey')}
+                    className="corner"
+                    dragConstraints = {mapField}
+                    ref={bCorner}
+                  >
+                    <div className="center"></div>
+                  </motion.div>
+                  <motion.div
+                    drag
+                    whileTap={{ cursor: "grabbing" }}
+                    className="corner"
+                    dragConstraints = {mapField}
+                    ref={cCorner}
+                  >
+                    <div className="center"></div>
+                  </motion.div>
+                  <motion.div
+                    drag
+                    whileTap={{ cursor: "grabbing" }}
+                    className="corner"
+                    dragConstraints = {mapField}
+                    ref={dCorner}
+                  >
+                    <div className="center"></div>
+                  </motion.div>
                 </div>
+                {/* Transformar en un input normal */ }
                 <Field
                   name="corners"
                   type="text"
@@ -299,6 +313,7 @@ function RecordPage() {
                   size="normal"
                   error={Boolean(errors.corners) && Boolean(touched.corners)}
                   helperText={Boolean(touched.corners) && errors.corners}
+                  onChange={()=>{console.log(corners)}}
                 />
                 <Button
                   variant="contained"
