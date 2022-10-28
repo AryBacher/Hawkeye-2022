@@ -118,14 +118,40 @@ def pica (count):
             return True
         elif not abajoB and abajoA and a > b and count <= 1:
             return False
-        elif not abajoB and not abajoA and a > b and count >= 1:
-            return True
-        elif not abajoB and not abajoA and a > b and count <= 1:
-            return True
-        elif not abajoB and not abajoA and a < b and count >= 1:
+        elif not abajoB and not abajoA and a > b and count <= 2:
             return False
-        elif not abajoB and not abajoA and a < b and count <= 1:
+        elif not abajoB and not abajoA and a > b and count >= 2:
             return True
+        elif not abajoB and not abajoA and a < b and count >= 2:
+            return False
+        elif not abajoB and not abajoA and a < b and count <= 1.5:
+            return True
+        elif not abajoB and not abajoA and a < b and count <= 2:
+            return False
+
+    elif type(posiblesPiques_pers[0]) is bool and type(posiblesPiques_pers[1]) is bool:
+        a = posiblesPiques_pers[0]
+        b = posiblesPiques_pers[1]
+
+        if a and b:
+            return True
+        if a and not b:
+            return True
+        if not a and b:
+            return True
+        if not a and not b:
+            return True
+        
+    elif type(posiblesPiques_pers[0]) is bool:
+        abajoB = False
+        b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+        if b >= 474 / 2: abajoB = True
+
+    elif type(posiblesPiques_pers[1]) is bool:
+        abajoA = False
+        a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
+        if a >= 474 / 2: abajoA = True
+
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
     centrosCerca = False
@@ -728,14 +754,14 @@ diferente = False
 velocidadFinal = None
 afterVelocidad = False
 
-abajo = False
-listaPrueba = []
-listaPrueba.append(((1, 5), 8))
-listaPrueba.append(abajo)
-print("Lista Prueba", listaPrueba)
-if type(listaPrueba[0]) is not bool and type(listaPrueba[0]) is not bool and type(listaPrueba[1]) is not bool and type(listaPrueba[1]) is not bool:
-    print("A")
-else: print("B", listaPrueba)
+# abajo = False
+# listaPrueba = []
+# listaPrueba.append(((1, 5), 8))
+# listaPrueba.append(abajo)
+# print("Lista Prueba", listaPrueba)
+# if type(listaPrueba[0]) is not bool and type(listaPrueba[0]) is not bool and type(listaPrueba[1]) is not bool and type(listaPrueba[1]) is not bool:
+#     print("A")
+# else: print("B", listaPrueba)
 
 
 while True:
