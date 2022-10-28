@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import { pool } from "../database.js";
-import { spawn } from 'child_process';
 import { uploadCloudinary, deleteCloudinary, getThumbnail } from '../cloudinary/config.js';
 import fs from 'fs-extra';
 import fetch from 'node-fetch'
@@ -13,23 +12,6 @@ export const uploadVideo = async (req, res) => {
   console.log(req.file.path)
   const path = req.file.path
 
-  const rutaPython = `../Back-End/server/${path}`
-  console.log(rutaPython)
-  const response = fetch('http://127.0.0.1:5000/analyse', {
-	method: 'post',
-	body: JSON.stringify(rutaPython),
-	headers: {'Content-Type': 'application/json'}
-});
-  const response = await response.json();
-  console.log(response)
-  console.log(response.puntosPique[0][0])
-  console.log(response.puntosPique[0])
-  var heatmap = new Image();
-  heatmap.src = `ata:image/png;base64,${response.heatmap}`;
-
-  const HeatmapData = await uploadCloudinary(heatmap)
-  console.log(HeatmapData)
-
   const CloudinaryData = await uploadCloudinary(path)
 
   const rutaCloudinary = CloudinaryData.url
@@ -38,6 +20,23 @@ export const uploadVideo = async (req, res) => {
   const rutaThumbnail = await getThumbnail(rutaCloudinary)
 
   await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date]);
+  
+  const rutaPython = `../Back-End/server/${path}`
+  console.log(rutaPython)
+  const flaskData = await fetch('http://127.0.0.1:5000/analyse', {
+	method: 'post',
+	body: JSON.stringify(rutaPython),
+	headers: {'Content-Type': 'application/json'}
+});
+  const response = await flaskData.json();
+  console.log(response)
+  console.log(response.puntosPique[0][0])
+  console.log(response.puntosPique[0])
+  var heatmap = new Image();
+  heatmap.src = `ata:image/png;base64,${response.heatmap}`;
+
+  const HeatmapData = await uploadCloudinary(heatmap.src)
+  console.log(HeatmapData)
 
   await fs.unlink(path)
 
@@ -163,7 +162,7 @@ export const redirect = multer({
   storage,
   limits: {fileSize: 100000000000},
   fileFilter: (req, file, cb) => {
-      const filetypes = /mp4|avi/
+      const filetypes = /mp4|avi|jpg/
       const mimetype = filetypes.test(file.mimetype);
       const extname = filetypes.test(path.extname(file.originalname));
       if (extname && mimetype){

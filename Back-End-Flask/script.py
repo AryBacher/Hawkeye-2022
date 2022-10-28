@@ -5,7 +5,6 @@ import numpy as np
 import cv2
 import imutils
 import time
-import sys
 
 # Se crea una función para que pueda ser llamada desde flask
 def tracking(video):
