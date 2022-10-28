@@ -304,9 +304,15 @@ def tracking(video):
                     countDifPiques = 0
                     
                     # Se agrega el pique a la lista de todos ellos junto con el N° frame en el que ocurre
-                    pts_pique.append(((int(preCentro_glob[numeroGlob][0][0] / resizer_glob[1]), 
-                    int(preCentro_glob[numeroGlob][0][1] / resizer_glob[1])), 
-                    float("{:.2f}".format(numeroFrame / fps))))
+                    if (pts_pique == []):
+                        pts_pique.append([[int(preCentro_glob[numeroGlob][0][0] / resizer_glob[1]), 
+                        int(preCentro_glob[numeroGlob][0][1] / resizer_glob[1])], 
+                        float("{:.2f}".format(numeroFrame / fps))])
+
+                    elif ([int(preCentro_glob[numeroGlob][0][0] / resizer_glob[1]), int(preCentro_glob[numeroGlob][0][1] / resizer_glob[1])] != pts_pique[len(pts_pique) - 1][0]):
+                        pts_pique.append([[int(preCentro_glob[numeroGlob][0][0] / resizer_glob[1]), 
+                        int(preCentro_glob[numeroGlob][0][1] / resizer_glob[1])], 
+                        float("{:.2f}".format(numeroFrame / fps))])
 
 
     # Toma el video
