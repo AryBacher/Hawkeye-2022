@@ -526,7 +526,7 @@ def todo(frame, numeroGlob):
                     print("Gerard", Gerard)
                 countDifPiques = 0
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
-                pts_pique.append((preCentro_glob[numeroGlob], numeroFrame))
+                pts_pique.append([[preCentro_glob[numeroGlob]], numeroFrame])
                 print("ES ESTE", pts_pique)
                 velocidad = True
                 punto1Velocidad = preCentro_glob[numeroGlob]
@@ -643,7 +643,7 @@ def todo(frame, numeroGlob):
 
     print("Centro al terminar la iteración", center_glob[numeroGlob])
     print("Numero Global", numeroGlob)
-    print("Posibles piques pers", posiblesPiques_pers)
+    print("Puntos Piques Pers", pts_pique)
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
