@@ -526,7 +526,7 @@ def todo(frame, numeroGlob):
                     print("Gerard", Gerard)
                 countDifPiques = 0
                 frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
-                pts_pique.append([[preCentro_glob[numeroGlob]], numeroFrame])
+                pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                 print("ES ESTE", pts_pique)
                 velocidad = True
                 punto1Velocidad = preCentro_glob[numeroGlob]

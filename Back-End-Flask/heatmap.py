@@ -39,6 +39,9 @@ def heatmap(pts):
     # Guarda el heatmap
     plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
 
+    plt.clf()
+    plt.close()
+
     image = open('heatmap.jpg', 'rb')
     image64 = b64encode(image.read())
 
