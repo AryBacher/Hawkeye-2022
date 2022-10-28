@@ -19,7 +19,7 @@ def analyseVideo():
         punto = punto[0]
         return punto
 
-    new_pts_pique = map(filtrar, pts_pique)
+    new_pts_pique = list(map(filtrar, pts_pique))
     
     # Se corre la función de heatmap
 
