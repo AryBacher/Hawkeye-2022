@@ -71,7 +71,10 @@ minimapa = minimap(pts_pique)
 
 count = 0
 
+numeroFrame = 0
 while True:
+
+	numeroFrame += 1
 	# Agarra el frame actual
 	frame = vs.read()
 	frame = frame[1] if args.get("video", False) else frame
@@ -147,8 +150,9 @@ while True:
 			print("Pica")
 			frame = cv2.putText(frame, 'Pica', center, cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
 			if pre_center_pers is not None: 
-				pts_pique.append(pre_center_pers)
-				minimapa = minimap(pts_pique)
+				pts_pique.append([pre_center_pers, float("{:.2f}".format(numeroFrame / fps))])
+				#minimapa = minimap(pts_pique)
+				print("PIQUEEEES", pts_pique)
 
 	#radios.append(radius)
 	acercando = False
@@ -166,7 +170,7 @@ while True:
 	cv2.imshow("Perspective Transformation Resized", result_resized)
 
 	# Se muestra el minimapa
-	cv2.imshow("Minimapa", minimapa)
+	#cv2.imshow("Minimapa", minimapa)
 
 	# Terminar la ejecución si se presiona la "q"
 	key = cv2.waitKey(1) & 0xFF

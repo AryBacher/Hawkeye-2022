@@ -48,11 +48,11 @@ def ball_tracking(frame, type):
 		c = max(cnts, key=cv2.contourArea)
 		((x, y), radius) = cv2.minEnclosingCircle(c)
 		M = cv2.moments(c)
-		center = (int(int(M["m10"] / M["m00"]) / resizer), int(int(M["m01"] / M["m00"]) / resizer))
+		center = [int(int(M["m10"] / M["m00"]) / resizer), int(int(M["m01"] / M["m00"]) / resizer)]
 
 	#print("CENTRO", center)
 
-	retorno = [center, cnts]
+	retorno = [center]
 
 	return retorno
 
