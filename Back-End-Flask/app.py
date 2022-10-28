@@ -23,12 +23,11 @@ def analyseVideo():
     
     # Se corre la función de heatmap
 
-    mapa = heatmap(new_pts_pique)
+    #heatmap(new_pts_pique)
 
     # Devuelve un JSON con todos los datos
     return jsonify({
-        'puntosPique': pts_pique,
-        'heatmap': mapa
+        'puntosPique': pts_pique
     })
 
 if __name__ == '__main__':

@@ -28,33 +28,22 @@ export const uploadVideo = async (req, res) => {
 	body: JSON.stringify(rutaPython),
 	headers: {'Content-Type': 'application/json'}
 });
-  const response = await flaskData.json();
-  console.log(response)
-  console.log(response.puntosPique[0][0])
-  console.log(response.puntosPique[0])
-  var heatmap = new Image();
-  heatmap.src = `ata:image/png;base64,${response.heatmap}`;
+  const arrayPiques = await flaskData.json();
+  console.log(arrayPiques)
 
-  const HeatmapData = await uploadCloudinary(heatmap.src)
+  await pool.query("UPDATE videos SET arrayPiques = ? WHERE idCloudinary = ?", [arrayPiques.pts_pique, idCloudinary])
+  //console.log(response.puntosPique[0][0])
+  //console.log(response.puntosPique[0])
+  //var heatmap = new Image();
+  //heatmap.src = `ata:image/png;base64,${response.heatmap}`;
+
+  const HeatmapData = await uploadCloudinary(`../../Back-End-Flask/heatmap.jpg`)
   console.log(HeatmapData)
+  const urlHeatmap = HeatmapData.url
 
   await fs.unlink(path)
-
-  /*const childPython = spawn('python', ['script.py', path])
-
-    childPython.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`)
-    })
-
-    childPython.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`)
-    })
-
-    childPython.on('close', (code) => {
-        console.log(`child process exited with: ${code}`)
-    })*/
   
-  return res.status(200).json({message: "Video añadido"})
+  return res.status(200).json({ arrayPiques, urlHeatmap })
   }
   catch(error) {
     console.log(error);
@@ -162,7 +151,7 @@ export const redirect = multer({
   storage,
   limits: {fileSize: 100000000000},
   fileFilter: (req, file, cb) => {
-      const filetypes = /mp4|avi|jpg/
+      const filetypes = /mp4|avi/
       const mimetype = filetypes.test(file.mimetype);
       const extname = filetypes.test(path.extname(file.originalname));
       if (extname && mimetype){

@@ -23,7 +23,7 @@ def heatmap(pts):
         ptY.append(499 - pt[1])
 
     # Crea el heatmap
-    kde = sns.kdeplot(
+    sns.kdeplot(
         x = ptX, y = ptY,
         fill = True,
         alpha = .5,
