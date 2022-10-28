@@ -68,6 +68,18 @@
   width: 100%;
 }
 
+.wrapper-r .form-container Form .court-map-field {
+  width: 100%;
+  height: 450px;
+  border: 1px solid var(--colorAzulClaro);
+  border-radius: 5px;
+}
+
+.wrapper-r .form-container Form .court-map-field canvas {
+  z-index: 100;
+  cursor: pointer;
+}
+
 .wrapper-r .form-container Form input[type="date"] {
   cursor: pointer;
 }

@@ -47,9 +47,9 @@ function VideoPage() {
 
         if (pts_utiles.length > 5){
           pts_utiles = pts_utiles.slice(0,6)
-          circle.clearRect(0, 0, 1000, 1000);
         }
-    
+        circle.clearRect(0, 0, 1000, 1000);
+
         const drawCircle = (pt) => {   
             circle.beginPath();
             circle.arc(pt.x + 51, pt.y + 25, 3.5, 0, Math.PI * 2);
@@ -102,7 +102,7 @@ function VideoPage() {
     <>
       <div className="wrapper-v">
         <Button className="btn-back" startIcon={<ChevronLeftIcon />}>
-          Volver a análisis
+          Volver
         </Button>
         <div className="header-video">
           {" "}
@@ -138,7 +138,7 @@ function VideoPage() {
           <div className="stats">
             <div className="minimap-container">
               <div className="title-map">
-                <IconButton onClick={handleBack}>
+                <IconButton onClick={handleBack} disabled={mapActive === 0}>{/* id={mapActive  === 0 ? "left-chevron" : ""} */}
                   <ChevronLeftIcon />
                 </IconButton>
                 <div className="title">
@@ -155,7 +155,7 @@ function VideoPage() {
                     Mapa de calor
                   </h2>
                 </div>
-                <IconButton onClick={handleNext}>
+                <IconButton onClick={handleNext} disabled={mapActive === 1}> {/*  id={mapActive  === 1 ? "right-chevron" : ""} */}
                   <ChevronRightIcon />
                 </IconButton>
               </div>
@@ -180,7 +180,6 @@ function VideoPage() {
                 </div>{" "}
                 {/*points*/}
                 <div className={mapActive === 1 ? "heat heat-active" : "heat"}>
-                  Calor
                 </div>{" "}
                 {/*heat*/}
               </div>

@@ -41,7 +41,7 @@ function RecordPage() {
 
   const [fileName, setFileName] = useState("");
 
-  const [userName, setUserName] = useState("")
+  const [userName, setUserName] = useState("");
 
   //Función para fetchear los valores finales del formulario.
 
@@ -67,18 +67,18 @@ function RecordPage() {
     console.log(response);
   };
 
-  useEffect(()=>{
-  //Conseguir nombre de ususario
-  const getUsername = async() =>{
-    const response = await axios.get(
-      `http://localhost:4000/GetUsername/${id}`
-    )
-    setUserName(response.data.username[0].nombre)
-    console.log(response)
-  }
-  getUsername();
-  },[])
-  
+  useEffect(() => {
+    //Conseguir nombre de ususario
+    const getUsername = async () => {
+      const response = await axios.get(
+        `http://localhost:4000/GetUsername/${id}`
+      );
+      setUserName(response.data.username[0].nombre);
+      console.log(response);
+    };
+    getUsername();
+  }, []);
+
   //Alerta de análisis subido
 
   const [alertList, setAlertList] = useState([]);
@@ -91,10 +91,59 @@ function RecordPage() {
 
   const fileInput = useRef(null);
 
+  // Referenciar al padre del canvas para que adopte su altura y anchura.
+
+  const canvas = useRef(null);
+  const parentCanvas = useRef(null);
+
+  const [corners, setCorners] = useState([]);
+
+  const setCornerPosition = (e) => {
+    setCorners(corners.concat({ x: e.clientX, y: e.clientY }));
+    console.log(corners);
+  };
+
+  useEffect(() => {
+    // Tomar estilos de la caja padre.
+
+    const styles = getComputedStyle(parentCanvas.current);
+
+    // Variables con altura y anchura del padre.
+
+    const width = parseInt(styles.getPropertyValue("width"), 10);
+    const height = parseInt(styles.getPropertyValue("height"), 10);
+
+    // Setear la altura y anchura del padre.
+
+    canvas.current.height = height;
+    canvas.current.width = width;
+
+    //Funciones para dibujar las esquinas
+
+    const circle = canvas.current.getContext("2d");
+
+    const drawCircle = (e) => {
+      console.log("hola funco");
+      circle.beginPath();
+      circle.arc(e.x, e.y, 4, 0, Math.PI * 2);
+      circle.fillStyle = "#4ECB71";
+      circle.fill();
+      circle.closePath();
+    };
+
+    drawCircle(corners);
+
+  }, [corners]);
+
   return (
     <>
       <div className="wrapper-r">
-        <EndUseNavbar grabarId="grabar" análisisId="" ayudaId="" userName={userName}/>
+        <EndUseNavbar
+          grabarId="grabar"
+          análisisId=""
+          ayudaId=""
+          userName={userName}
+        />
         <div className="form-header">
           <motion.div
             className="form-header-content"
@@ -236,6 +285,9 @@ function RecordPage() {
                       ? "Por ahora ningún video ha sido seleccionado"
                       : `Video: ${fileName}`}
                   </span>
+                </div>
+                <div className="court-map-field" ref={parentCanvas}>
+                  <canvas ref={canvas} onClick={setCornerPosition}></canvas>
                 </div>
                 <Field
                   name="corners"
