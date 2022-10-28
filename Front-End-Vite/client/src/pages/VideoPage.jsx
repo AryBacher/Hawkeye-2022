@@ -21,7 +21,7 @@ function VideoPage() {
 
   let paused = true;
 
-  const pts_pique = [
+  /*const pts_pique = [
     { x: 0, y: 0, second: 5 },
     { x: 200, y: 35, second: 10.0 },
     { x: 200, y: 100, second: 15.0 },
@@ -29,9 +29,10 @@ function VideoPage() {
     { x: 35, y: 41, second: 7.0 },
     { x: 200, y: 400, second: 30.0 },
     { x: 300, y: 300, second: 20.0 },
-  ];
+  ];*/
 
-
+  const pts_pique = [[[100, 194], 1.4], [[65, 126], 2.03], [[61, 192], 2.77], [[74, 357], 3.03], [[80, 399], 3.43], [[54, 378], 5.7], [[4, 50], 9.07], [[91, 83], 10.93], [[42, 385], 12.53], [[30, 447], 17.97], [[2, 295], 21.33], [[121, 466], 23.6], [[122, 427], 23.63], [[123, 380], 23.67], [[124, 329], 23.7], [[124, 270], 23.73], [[125, 208], 23.8], [[126, 143], 23.83], [[149, 24], 25.93], [[145, 80], 26.1], [[160, 422], 26.87], [[160, 437], 26.9], [[158, 451], 26.93], [[154, 416], 27.0], [[143, 417], 27.03], [[158, 425], 27.13]]
+  console.log("asdasd " + pts_pique[0])
   const canvas = useRef(null);
 
   const updateTime = () => {
@@ -42,24 +43,27 @@ function VideoPage() {
         const time = videoTag.current.currentTime;
 
         // Selecciona los piques cuyo tiempo es menor al tiempo del video
-        let pts_utiles = pts_pique.filter((pt) => pt.second <= time);
+        let pts_utiles = pts_pique.filter((pt) => pt[1] <= time);
         pts_utiles = pts_utiles.reverse()
+        
+        //console.log(pts_utiles)
 
         if (pts_utiles.length > 5){
           pts_utiles = pts_utiles.slice(0,6)
+          circle.clearRect(0, 0, 1000, 1000);
         }
         circle.clearRect(0, 0, 1000, 1000);
 
         const drawCircle = (pt) => {   
             circle.beginPath();
-            circle.arc(pt.x + 51, pt.y + 25, 3.5, 0, Math.PI * 2);
+            circle.arc(pt[0][0] + 51, pt[0][1] + 25, 3.5, 0, Math.PI * 2);
             circle.fillStyle = "#4ECB71";
             circle.fill();
             circle.closePath();
         };
 
         pts_utiles.map((pt) => {
-          console.log(pts_utiles);
+          //console.log(pts_utiles);
           drawCircle(pt);
         });       
       }
