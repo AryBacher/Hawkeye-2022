@@ -17,9 +17,17 @@ function AnalysisPage() {
 
   const [toggle, setToggle] = useState(false);
   const [heightEl, setHeightEl] = useState();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
+  const [nullSearch, setNullSearch] = useState(true);
 
   const refHeight = useRef();
+  const searchInput = useRef(null);
+
+  /*searchInput.current.addEventListener('input', (e) =>{
+    if(!e.inputType && searchInput == ''){
+      setSearch(true)
+    }
+  })*/
 
   const toggleState = () => {
     setToggle(!toggle);
@@ -42,10 +50,11 @@ function AnalysisPage() {
 
   const [videos, setVideos] = useState([]);
   const { id } = useParams();
-
+    
   useEffect(() => {
     console.log(refHeight);
     setHeightEl(`${refHeight.current.scrollHeight}px`);
+    setNullSearch(false)
 
     const getVideosById = async () => {
       const videoData = await axios.get(
@@ -60,26 +69,24 @@ function AnalysisPage() {
       setUserEmail(videoData.data.userEmail);
 
     };
-    getVideosById();
-  }, []);
+    getVideosById(search);
+  }, [nullSearch]);
 
-  const getVideosBySearch = async (search) => {
-    console.log(search)
-    const videoData = await axios.post(
-      `http://localhost:4000/FilterVideo/${id}`,
-      JSON.stringify(search),
-      {
-        headers: { "Content-Type": "application/JSON" },
-        withCredentials: true,
-      }
-    )
-    console.log(videoData);
-    setVideos(videoData.data.datosVideo);
-    setCantVideos(videoData.data.cantVideos);
-    setCantPartidos(videoData.data.cantPartidos);
-    setCantEntrenamientos(videoData.data.cantEntrenamientos);
-  }
-
+  useEffect(() => {
+    const getVideosBySearch = async (searchValue) => {
+      console.log(searchValue)
+      const videoData = await axios.get(
+        `http://localhost:4000/FilterVideo/${id}/${searchValue}`,
+      )
+      console.log(videoData);
+      setVideos(videoData.data.datosVideo);
+      setCantVideos(videoData.data.cantVideos);
+      setCantPartidos(videoData.data.cantPartidos);
+      setCantEntrenamientos(videoData.data.cantEntrenamientos);
+    };
+    getVideosBySearch(search);
+  }, [search]);
+  
   return (
     <>
       <div className="wrapper-ap">
@@ -179,10 +186,16 @@ function AnalysisPage() {
                 id="search-bar"
                 type="search"
                 placeholder="Buscar análisis..."
+                ref={searchInput}
                 onKeyUp={(e) => {
                   e.target.value;
+                  console.log(e.target.value)
+                  if(e.target.value !== ""){
                   setSearch(e.target.value)
-                  getVideosBySearch(search)
+                  }
+                  else{
+                  setNullSearch(true)
+                  }
                 }}
               />
             </div>

@@ -83,11 +83,11 @@ export const updateVideo = async(req, res) => {
 //Filtrar videos
 export const filterVideo = async(req, res) => {
   const { idUsuario } = req.params;
-  const { search } = req.body;
-  console.log(search)
-  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]);
-  const [datosEntrenamientos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Entrenamiento' AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]); 
-  const [datosPartidos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Partido' AND titulo LIKE CONCAT(?, '%')", [idUsuario, search]); 
+  const { searchValue } = req.params;
+
+  const [datosVideo] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND titulo LIKE CONCAT(?, '%')", [idUsuario, searchValue]);
+  const [datosEntrenamientos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Entrenamiento' AND titulo LIKE CONCAT(?, '%')", [idUsuario, searchValue]); 
+  const [datosPartidos] = await pool.query("SELECT * from videos WHERE idUsuario = ? AND tipo = 'Partido' AND titulo LIKE CONCAT(?, '%')", [idUsuario, searchValue]); 
   //const [datosUser] = await pool.query("SELECT nombre, email FROM usuarios WHERE id = ?", [idUsuario])
   const cantEntrenamientos = datosEntrenamientos.length
   const cantPartidos = datosPartidos.length

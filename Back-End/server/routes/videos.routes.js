@@ -10,7 +10,7 @@ router.delete('/DeleteVideo/:idUsuario/:idCloudinary', authenticateUser, deleteV
 
 router.post('/UpdateVideo/:idUsuario/:idCloudinary', authenticateUser, updateVideo)
 
-router.post('/FilterVideo/:idUsuario', filterVideo)
+router.get('/FilterVideo/:idUsuario/:searchValue', filterVideo)
 
 router.get('/GetVideos/:idUsuario', getVideos)
 

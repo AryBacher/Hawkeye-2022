@@ -45,7 +45,7 @@ function RecordPage() {
     rival: "",
     date: "",
     file: null,
-    corners: null,
+    corners: "",
   };
 
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado además del video actual para usar en la preview.
@@ -66,7 +66,7 @@ function RecordPage() {
     formData.append("rival", finalValues.rival);
     formData.append("date", finalValues.date);
     formData.append("video", finalValues.file);
-    formData.append("corners", finalValues.corners);
+    formData.append("corners", relativePos);
     console.log([...formData]);
     const response = await axios.post(
       "http://localhost:4000/UploadVideo",
