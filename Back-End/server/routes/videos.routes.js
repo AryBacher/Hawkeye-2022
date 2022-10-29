@@ -14,7 +14,7 @@ router.post('/FilterVideo/:idUsuario', filterVideo)
 
 router.get('/GetVideos/:idUsuario', getVideos)
 
-router.get('/GetVideo/:idUsuario/:idCloudinary', authenticateUser, getVideo)
+router.get('/GetVideo/:idUsuario/:idCloudinary', getVideo)
 
 router.get('/GetUsername/:idUsuario', getUsername)
 
