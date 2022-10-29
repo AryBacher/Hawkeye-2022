@@ -459,14 +459,14 @@ def tracking2(video): # FALTA HACER Q RECIBA LOS PUNTOS
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
                     pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+                    countDifPiques = 0
+                    velocidad = True
+                    punto1Velocidad = preCentro_glob[numeroGlob]
+                    countDifVelocidad += 1/fps
                     if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                         pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
                     if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
                         pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
-                        countDifPiques = 0
-                        velocidad = True
-                        punto1Velocidad = preCentro_glob[numeroGlob]
-                        countDifVelocidad += 1/fps
         
         if numeroGlob == 0 and Gerard:
             Gerard = None
