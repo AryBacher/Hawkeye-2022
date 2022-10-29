@@ -458,15 +458,15 @@ def tracking2(video): # FALTA HACER Q RECIBA LOS PUNTOS
                         ult_posible_pique = preCentro_glob[numeroGlob][0]
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
-                    countDifPiques = 0
                     pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    velocidad = True
-                    punto1Velocidad = preCentro_glob[numeroGlob]
-                    countDifVelocidad += 1/fps
                     if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                         pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
                     if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
                         pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                        countDifPiques = 0
+                        velocidad = True
+                        punto1Velocidad = preCentro_glob[numeroGlob]
+                        countDifVelocidad += 1/fps
         
         if numeroGlob == 0 and Gerard:
             Gerard = None
@@ -495,7 +495,6 @@ def tracking2(video): # FALTA HACER Q RECIBA LOS PUNTOS
             diferente = False
 
         if afterVelocidad and numeroGlob == 0 and center_glob[numeroGlob] is not None:
-            frame = cv2.putText(frame, str(velocidadFinal), (center_glob[numeroGlob][0][0], center_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
             afterVelocidad = False
         
 
