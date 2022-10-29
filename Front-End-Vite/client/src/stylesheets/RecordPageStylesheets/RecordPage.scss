@@ -44,19 +44,17 @@
         border: 1px solid var(--colorAzulClaro);
         border-radius: 5px;
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         .corner {
-          position: relative;
-          width: 25px;
-          height: 25px;
+          position: absolute;
+          width: 15px;
+          height: 15px;
           background-color: rgba(0, 0, 0, 0.25);
           border-radius: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: 300;
+          font-size: 14px;
         }
       }
       input[type="date"] {

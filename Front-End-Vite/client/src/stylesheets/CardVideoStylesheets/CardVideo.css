@@ -1,4 +1,15 @@
 .card-video-container {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 25px;
@@ -9,6 +20,7 @@
   cursor: pointer;
   -webkit-transition: all 250ms ease-in;
   transition: all 250ms ease-in;
+  color: var(--colorBlanco);
 }
 
 .card-video-container:hover {

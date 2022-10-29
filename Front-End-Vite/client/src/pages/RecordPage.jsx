@@ -114,32 +114,30 @@ function RecordPage() {
   const dCorner = useRef(null);
 
   const setFinalCorners = () => {
-    const finalCorners = [
-      {
-        x: aCorner.current.getBoundingClientRect().x,
-        y: aCorner.current.getBoundingClientRect().y,
-      },
-      {
-        x: bCorner.current.getBoundingClientRect().x,
-        y: bCorner.current.getBoundingClientRect().y,
-      },
-      {
-        x: cCorner.current.getBoundingClientRect().x,
-        y: cCorner.current.getBoundingClientRect().y,
-      },
-      {
-        x: dCorner.current.getBoundingClientRect().x,
-        y: dCorner.current.getBoundingClientRect().y,
-      },
-    ];
-    return finalCorners;
+    let parentPos = mapField.current.getBoundingClientRect();
+
+    let aCornerPos = aCorner.current.getBoundingClientRect();
+    let bCornerPos = bCorner.current.getBoundingClientRect();
+    let cCornerPos = cCorner.current.getBoundingClientRect();
+    let dCornerPos = dCorner.current.getBoundingClientRect();
+
+    let relativePos = { A: {}, B: {}, C: {}, D: {} };
+
+    relativePos.A.left = aCornerPos.top - parentPos.top;
+    relativePos.B.left = bCornerPos.top - parentPos.top;
+    relativePos.C.left = cCornerPos.top - parentPos.top;
+    relativePos.D.left = dCornerPos.top - parentPos.top;
+
+    console.log(relativePos);
+
+    return relativePos;
   };
 
   //Función para reiniciar posición.
 
   const restartPosition = () => {
-    document.getElementsByClassName("corner").style.top = 0;
-    document.getElementsByClassName("corner").style.left = 0;
+    document.getElementsByClassName("corner").style.top = 0; //transformX/Y
+    document.getElementsByClassName("corner").style.left = 0; //transformX/Y
   };
 
   return (
@@ -219,7 +217,7 @@ function RecordPage() {
               type: string().required("Ingrese el tipo de análisis"),
               date: date().required("Ingrese la fecha del evento"),
               file: mixed().required("Ingrese un video a analizar"),
-              corners: string().required("Ingrese las esquinas de la cancha"),
+              corners: mixed().required("Ingrese las esquinas de la cancha"),
             })}
           >
             {({ setFieldValue, errors, isValid, touched, dirty, values }) => (
@@ -297,9 +295,10 @@ function RecordPage() {
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
+                    whileDrag={{ scale: 1.5 }}
                     className="corner"
                     dragConstraints={mapField}
-                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
+                    dragMomentum={false}
                     ref={aCorner}
                   >
                     <div className="center">+</div>
@@ -307,9 +306,10 @@ function RecordPage() {
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
+                    whileDrag={{ scale: 1.5 }}
                     className="corner"
                     dragConstraints={mapField}
-                    dragTransition={{ bounceStiffness: 100, bounceDamping: 20 }}
+                    dragMomentum={false}
                     ref={bCorner}
                   >
                     <div className="center">+</div>
@@ -317,9 +317,10 @@ function RecordPage() {
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
+                    whileDrag={{ scale: 1.33 }}
                     className="corner"
                     dragConstraints={mapField}
-                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
+                    dragMomentum={false}
                     ref={cCorner}
                   >
                     <div className="center">+</div>
@@ -327,9 +328,10 @@ function RecordPage() {
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
+                    whileDrag={{ scale: 1.33 }}
                     className="corner"
                     dragConstraints={mapField}
-                    dragTransition={{ bounceStiffness: 0, bounceDamping: 0 }}
+                    dragMomentum={false}
                     ref={dCorner}
                   >
                     <div className="center">+</div>
@@ -381,12 +383,14 @@ function RecordPage() {
                   error={Boolean(errors.corners) && Boolean(touched.corners)}
                   helperText={Boolean(touched.corners) && errors.corners}
                   value={corners}
+                  /*
                   style={{
                     position: "absolute",
                     top: "-100px",
                     left: "-100px",
                     opacity: "0",
                   }}
+                  */
                   /*
                   value={
                     (corners === null
