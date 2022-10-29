@@ -104,9 +104,9 @@ def pica (count):
             return True
         elif abajoB and abajoA and a > b and count >= 1:
             return False
-        elif abajoB and abajoA and a < b and count >= 1:
+        elif abajoB and abajoA and a < b and count >= 2.5:
             return True
-        elif abajoB and abajoA and a < b and count <= 1:
+        elif abajoB and abajoA and a < b and count <= 2.5:
             return False
         elif abajoB and not abajoA and a < b and count <= 1.2:
             return True
@@ -340,6 +340,7 @@ def todo(frame, numeroGlob):
     global topLeftX, topLeftY, topRightX, topRightY, bottomLeftX, bottomLeftY, bottomRightX, bottomRightY
     global estaCercaX
     global estaCercaY
+    global ult_posible_pique
 
     anchoOG = frame.shape[1]
     altoOG = frame.shape[0]
@@ -561,17 +562,19 @@ def todo(frame, numeroGlob):
 
                 if posiblesPiques_pers == []:
                     posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
-                elif posiblesPiques_pers[0][1] != preCentro_glob[0][0]:
+                    ult_posible_pique = preCentro_glob[0][0]
+                elif posiblesPiques_pers[0][1] != ult_posible_pique:
                     posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                    ult_posible_pique = preCentro_glob[0][0]
                 
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
                 #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
-                if Gerard and type(posiblesPiques_pers[1]) is not bool:
+                if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                     pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
-                elif not Gerard and type(posiblesPiques_pers[1]) is not bool:
+                elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                     pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
             
@@ -580,8 +583,10 @@ def todo(frame, numeroGlob):
                 print("Gerard")
                 if posiblesPiques_pers == []:
                     posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
-                elif 
+                    ult_posible_pique = preCentro_glob[numeroGlob][0]
+                elif ult_posible_pique != preCentro_glob[numeroGlob][0]:
                     posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                    ult_posible_pique = preCentro_glob[numeroGlob][0]
                 #print("Posibles Piques", posiblesPiques_pers)
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
@@ -593,10 +598,10 @@ def todo(frame, numeroGlob):
                 velocidad = True
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
-                if Gerard:
+                if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                     pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
-                if Gerard is False:
+                if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                     pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
 
@@ -758,6 +763,8 @@ pts_pique = []
 pts_piques_finales = []
 pts_golpes_finales = []
 
+ult_posible_pique = None
+
 #topLeftX = 640
 #topLeftY = 365
 #topRightX = 1180
@@ -884,6 +891,9 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
+
+    if key == ord('p'):
+        cv2.waitKey(-1)
     
     #print("Centro al terminar la iteración", center)
     print("Pasé de frame")
