@@ -103,7 +103,7 @@ def pica (count):
         if abajoB and abajoA and a > b and count <= 1:
             return True
         elif abajoB and abajoA and a > b and count >= 1:
-            return False
+            return True
         elif abajoB and abajoA and a < b and count >= 2.5:
             return True
         elif abajoB and abajoA and a < b and count <= 2.5:
@@ -134,6 +134,12 @@ def pica (count):
         b = posiblesPiques_pers[1][0]
         a2 = posiblesPiques_pers[0][1]
         b2 = posiblesPiques_pers[1][1]
+
+        print("A", a)
+        print("B", b)
+        print("A", a2)
+        print("B", b2)
+        print("Count", count)
 
         if a and b and a2 > b2 and count <= 2:
             return True
@@ -167,10 +173,14 @@ def pica (count):
 
         a = posiblesPiques_pers[0][0]
 
+        print("A", a)
+        print("B", b)
+        print("Count", count)
+
         if a and abajoB and count <= 2:
             return True
         elif a and abajoB and count >= 2:
-            return False
+            return True
         elif a and not abajoB and count <= 2.25:
             return False
         elif a and abajoB and count >= 2.25:
@@ -190,6 +200,10 @@ def pica (count):
         if a >= 474 / 2: abajoA = True
 
         b = posiblesPiques_pers[1][0]
+
+        print("A", a)
+        print("B", b)
+        print("Count", count)
 
         if abajoA and b and count <= 5:
             return False
@@ -434,7 +448,7 @@ def todo(frame, numeroGlob):
                 if c is not None:
                     ((x, y), radius) = cv2.minEnclosingCircle(c)
                     M = cv2.moments(c)
-                    center_glob[numeroGlob] = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"])), int(radius)
+                    center_glob[numeroGlob] = [int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"])], int(radius)
                     preCentro_glob[numeroGlob] = center_glob[numeroGlob]
                     # count2_glob[numeroGlob] += count_glob[numeroGlob]
                     count2_glob[numeroGlob] += count_glob[numeroGlob]
