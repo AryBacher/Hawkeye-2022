@@ -48,6 +48,7 @@
         align-items: center;
         justify-content: center;
         .corner {
+          position: absolute;
           width: 15px;
           height: 15px;
           border-radius: 100%;
@@ -56,6 +57,13 @@
           justify-content: center;
           font-weight: 300;
           font-size: 14px;
+          .refPoint{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 1px;
+          }
         }
       }
       input[type="date"] {

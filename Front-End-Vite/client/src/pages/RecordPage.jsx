@@ -100,7 +100,7 @@ function RecordPage() {
   const [alertList, setAlertList] = useState([]);
 
   const addAlert = () => {
-    setAlertList(alertList.concat(<AlertSuccess key={alertList.length} />));
+    setAlertList(alertList.concat(<AlertSuccess text="Su análisis ha sido subido en la sección de Análisis!" style={{bottom: '5vh', right:'3vw'}} key={alertList.length} />));
   };
 
   //Saber el valor del file input
@@ -127,15 +127,18 @@ function RecordPage() {
 
     let relativePos = { A: {}, B: {}, C: {}, D: {} };
 
-    relativePos.A.x = aCornerPos.left - parentPos.left;
-    relativePos.B.x = bCornerPos.left - parentPos.left;
-    relativePos.C.x = cCornerPos.left - parentPos.left;
-    relativePos.D.x = dCornerPos.left - parentPos.left;
+    const proportionWidth = mapField.current.videoWidth/parentPos.width;
+    const proportionHeight = mapField.current.videoHeight/parentPos.height;
 
-    relativePos.A.y = aCornerPos.top - parentPos.top;
-    relativePos.B.y = bCornerPos.top - parentPos.top;
-    relativePos.C.y = cCornerPos.top - parentPos.top;
-    relativePos.D.y = dCornerPos.top - parentPos.top;
+    relativePos.A.x = (aCornerPos.left - parentPos.left)*proportionWidth;
+    relativePos.B.x = (bCornerPos.left - parentPos.left)*proportionWidth;
+    relativePos.C.x = (cCornerPos.left - parentPos.left)*proportionWidth;
+    relativePos.D.x = (dCornerPos.left - parentPos.left)*proportionWidth;
+
+    relativePos.A.y = (aCornerPos.top - parentPos.top)*proportionHeight;
+    relativePos.B.y = (bCornerPos.top - parentPos.top)*proportionHeight;
+    relativePos.C.y = (cCornerPos.top - parentPos.top)*proportionHeight;
+    relativePos.D.y = (dCornerPos.top - parentPos.top)*proportionHeight;
 
     console.log(relativePos);
     setCorners(JSON.stringify(relativePos))
@@ -293,7 +296,7 @@ function RecordPage() {
                       : `Video: ${fileName}`}
                   </span>
                 </div>
-                <motion.div className="court-map-field" ref={mapFieldContainer}>
+                <motion.div className="court-map-field" ref={mapFieldContainer}> 
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
@@ -302,9 +305,9 @@ function RecordPage() {
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
                     style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-                    ref={aCorner}
                   >
                     <div className="center">+</div>
+                    <div className="refPoint" ref={aCorner}></div>
                   </motion.div>
                   <motion.div
                     drag
@@ -314,9 +317,9 @@ function RecordPage() {
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
                     style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-                    ref={bCorner}
                   >
                     <div className="center">+</div>
+                    <div className="refPoint" ref={bCorner}></div>
                   </motion.div>
                   <motion.div
                     drag
@@ -326,9 +329,9 @@ function RecordPage() {
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
                     style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-                    ref={cCorner}
                   >
                     <div className="center">+</div>
+                    <div className="refPoint" ref={cCorner}></div>
                   </motion.div>
                   <motion.div
                     drag
@@ -338,17 +341,19 @@ function RecordPage() {
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
                     style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-                    ref={dCorner}
                   >
                     <div className="center">+</div>
+                    <div className="refPoint" ref={dCorner}></div>
                   </motion.div>
-                  <video src={currentVideo} ref={mapField} width="100%" height="100%"/>
+                  <video src={currentVideo} ref={mapField} height="100%" onClick={()=>{console.log(mapField.current.videoHeight); console.log(mapField.current.videoWidth)}}/>
                 </motion.div>
                 {/* Transformar en un input normal */}
                 <ButtonGroup fullWidth>
                   <Button
                     onClick={() => {
                       setFinalCorners();
+                      console.log(mapField);
+                      console.log(mapFieldContainer);
                     }}
                     startIcon={<SaveIcon />}
                     sx={{
