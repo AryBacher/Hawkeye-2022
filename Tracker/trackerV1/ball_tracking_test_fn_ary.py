@@ -143,22 +143,70 @@ def pica (count):
             return False
         elif a and b and a2 < b2 and count >= 6.5:
             return True
-        if a and not b:
+        elif a and not b and a2 > b2 and count <= 4:
+            return False
+        elif a and not b and a2 > b2 and count >= 4:
             return True
-        if not a and b:
+        elif not a and b and a2 < b2 and count <= 4:
+            return False
+        elif not a and b and a2 < b2 and count >= 4:
+            return False
+        elif not a and not b and a2 > b2 and count <= 6.5:
+            return False
+        elif not a and not b and a2 > b2 and count >= 6.5:
             return True
-        if not a and not b:
+        elif not a and not b and a2 < b2 and count <= 2:
             return True
+        elif not a and not b and a2 < b2 and count >= 2:
+            return False
         
     elif type(posiblesPiques_pers[0][0]) is bool:
         abajoB = False
         b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
         if b >= 474 / 2: abajoB = True
 
+        a = posiblesPiques_pers[0][0]
+
+        if a and abajoB and count <= 2:
+            return True
+        elif a and abajoB and count >= 2:
+            return False
+        elif a and not abajoB and count <= 2.25:
+            return False
+        elif a and abajoB and count >= 2.25:
+            return True
+        elif not a and abajoB and count <= 1.5:
+            return True
+        elif not a and abajoB and count >= 1.5:
+            return True
+        elif not a and not abajoB and count <= 2:
+            return True
+        elif not a and not abajoB and count >= 2:
+            return False
+
     elif type(posiblesPiques_pers[1][0]) is bool:
         abajoA = False
         a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
         if a >= 474 / 2: abajoA = True
+
+        b = posiblesPiques_pers[1][0]
+
+        if abajoA and b and count <= 5:
+            return False
+        elif abajoA and b and count >= 5:
+            return True
+        elif abajoA and not b and count <= 5:
+            return False
+        elif abajoA and not b and count >= 5:
+            return True
+        elif not abajoA and b and count <= 2.5:
+            return False
+        elif not abajoA and b and count >= 2.5:
+            return True
+        elif not abajoA and not b and count <= 5:
+            return False
+        elif not abajoA and not b and count >= 5:
+            return True
 
 
 def contornosQuietos(cnts, todosContornos, contornosIgnorar):
@@ -514,7 +562,11 @@ def todo(frame, numeroGlob):
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
-            #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
+                #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
+                if Gerard and type(posiblesPiques_pers[1]) is not bool:
+                    pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+                elif not Gerard and type(posiblesPiques_pers[1]) is not bool:
+                    pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
             
             elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
                 #print("Pique 2", pique2_pers)
@@ -531,6 +583,11 @@ def todo(frame, numeroGlob):
                 velocidad = True
                 punto1Velocidad = preCentro_glob[numeroGlob]
                 countDifVelocidad += 1/fps
+                if Gerard:
+                    pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+                else:
+                    pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+
 
             #elif posiblePique and center_glob[numeroGlob] is None and center_glob[0] is not None:
                 #Gerard = False
@@ -542,6 +599,13 @@ def todo(frame, numeroGlob):
                 #mitadDeCancha = (puntoMaximoAbajoCancha - puntoMaximoArribaCancha) / 2
                 #if center_glob[0][0][1] <= mitadDeCancha: abajo = False
                 #else: abajo = True
+    
+    if numeroGlob == 0 and Gerard:
+        Gerard = None
+        frame = cv2.putText(frame, 'Gerard', (pts_piques_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+    elif numeroGlob == 0 and Gerard == False:
+        Gerard = None
+        frame = cv2.putText(frame, 'Heatmap', (pts_golpes_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
@@ -644,6 +708,8 @@ def todo(frame, numeroGlob):
     print("Centro al terminar la iteración", center_glob[numeroGlob])
     print("Numero Global", numeroGlob)
     print("Puntos Piques Pers", pts_pique)
+    print("Puntos Piques Finales", pts_piques_finales)
+    print("Puntos Golpes Finales", pts_golpes_finales)
 
 # Toma la cámara si no recibe video
 if not args.get("video", False):
@@ -676,6 +742,9 @@ bottomRightX = 1518
 bottomRightY = 785
 
 pts_pique = []
+
+pts_piques_finales = []
+pts_golpes_finales = []
 
 #topLeftX = 640
 #topLeftY = 365
