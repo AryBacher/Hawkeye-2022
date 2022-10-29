@@ -558,7 +558,12 @@ def todo(frame, numeroGlob):
                 print("Center y Mitad de Cancha", preCentro_glob[0], mitadDeCancha)
                 if preCentro_glob[0][0][1] <= mitadDeCancha: abajo = False
                 else: abajo = True
-                posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+
+                if posiblesPiques_pers == []:
+                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                elif posiblesPiques_pers[0][1] != preCentro_glob[0][0]:
+                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
                     print("Gerard", Gerard)
@@ -573,7 +578,10 @@ def todo(frame, numeroGlob):
             elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
                 #print("Pique 2", pique2_pers)
                 print("Gerard")
-                posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                if posiblesPiques_pers == []:
+                    posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                elif 
+                    posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
                 #print("Posibles Piques", posiblesPiques_pers)
                 if len(posiblesPiques_pers) >= 2:
                     Gerard = pica(countDifPiques)
