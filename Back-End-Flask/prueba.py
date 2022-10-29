@@ -42,7 +42,24 @@ from script2 import tracking2
 
 # mapa = heatmap(new_pts_pique)
 
-datos = tracking2(r"E:\Guido\Documentos\Programación\Hawkeye\Videos Tenis para Analizar\InkedInkedTennisBrothersVideo1080p.mp4")
+# datos = tracking2(r"E:\Guido\Documentos\Programación\Hawkeye\Videos Tenis para Analizar\InkedInkedTennisBrothersVideo1080p.mp4")
 
-print("PIQUES", datos[0])
-print("VELOCIDADES", datos[1])
+# print("PIQUES", datos[0])
+# print("VELOCIDADES", datos[1])
+esquinas1 = [[ 642, 317 ], [ 116, 324 ],  [ 475, 96 ],  [ 330, 101 ]]
+esquinas2 = [[ 642, 317 ], [ 116, 324 ],  [ 475, 96 ],  [ 330, 101 ]]
+
+izq = [[2000, 0], [2000, 0]]
+for pt in esquinas1:
+    count = 0
+    for i in izq:
+        print("i =", i)
+        print("pt[0] =", pt[0])
+        print("count =", count)
+        if pt[0] < i[0]:
+            izq[count] = pt
+            print("pt =", pt)
+            esquinas1.pop(count)
+        count += 1
+
+print(izq)

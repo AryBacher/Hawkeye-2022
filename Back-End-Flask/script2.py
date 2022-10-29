@@ -7,7 +7,7 @@ import imutils
 import time
 
 # Se crea una función para que pueda ser llamada desde flask
-def tracking2(video): # FALTA HACER Q RECIBA LOS PUNTOS
+def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     global posiblePique
     global Gerard
     global esGerard
@@ -507,14 +507,22 @@ def tracking2(video): # FALTA HACER Q RECIBA LOS PUNTOS
     greenUpper = np.array([64, 255, 255])
     greenLower = np.array([29, 50, 110])
 
-    topLeftX = 749
-    topLeftY = 253
-    topRightX = 1095
-    topRightY = 252
-    bottomLeftX = 206
-    bottomLeftY = 797
-    bottomRightX = 1518
-    bottomRightY = 785
+    # topLeftX = 749
+    # topLeftY = 253
+    # topRightX = 1095
+    # topRightY = 252
+    # bottomLeftX = 206
+    # bottomLeftY = 797
+    # bottomRightX = 1518
+    # bottomRightY = 785
+
+    izq = [1, 1]
+    for pt in esquinas:
+        for i in izq:
+            if pt[0] < i:
+                izq[i] = pt
+    
+    
 
     pts_pique = []
 
