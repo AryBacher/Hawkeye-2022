@@ -39,13 +39,15 @@ function RecordPage() {
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
 
+  const [corners, setCorners] = useState(null);
+
   const initialValues = {
     title: "",
     type: "",
     rival: "",
     date: "",
     file: null,
-    corners: "",
+    corners: {corners},
   };
 
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado además del video actual para usar en la preview.
@@ -66,8 +68,9 @@ function RecordPage() {
     formData.append("rival", finalValues.rival);
     formData.append("date", finalValues.date);
     formData.append("video", finalValues.file);
-    formData.append("corners", relativePos);
+    formData.append("corners", finalValues.corners);
     console.log([...formData]);
+    console.log(finalValues.corners[1]);
     const response = await axios.post(
       "http://localhost:4000/UploadVideo",
       formData,
@@ -108,8 +111,6 @@ function RecordPage() {
 
   const mapField = useRef(null);
   const mapFieldContainer = useRef(null);
-
-  const [corners, setCorners] = useState(null);
 
   const aCorner = useRef(null);
   const bCorner = useRef(null);
@@ -217,8 +218,7 @@ function RecordPage() {
               title: string().required("Ingrese un título para  el análisis"),
               type: string().required("Ingrese el tipo de análisis"),
               date: date().required("Ingrese la fecha del evento"),
-              file: mixed().required("Ingrese un video a analizar"),
-              corners: mixed().required("Ingrese las esquinas de la cancha"),
+              file: mixed().required("Ingrese un video a analizar")
             })}
           >
             {({ setFieldValue, errors, isValid, touched, dirty, values }) => (
@@ -373,7 +373,6 @@ function RecordPage() {
                   size="normal"
                   error={Boolean(errors.corners) && Boolean(touched.corners)}
                   helperText={Boolean(touched.corners) && errors.corners}
-                  value={corners}
                   /*
                   style={{
                     position: "absolute",
