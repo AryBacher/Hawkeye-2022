@@ -30,8 +30,6 @@ export const uploadVideo = async (req, res) => {
 });
   const arrayPiques = await flaskData.json();
   console.log(arrayPiques)
-
-  await pool.query("UPDATE videos SET arrayPiques = ? WHERE idCloudinary = ?", [arrayPiques.pts_pique, idCloudinary])
   //console.log(response.puntosPique[0][0])
   //console.log(response.puntosPique[0])
   //var heatmap = new Image();
@@ -40,6 +38,8 @@ export const uploadVideo = async (req, res) => {
   const HeatmapData = await uploadCloudinary(`../../Back-End-Flask/heatmap.jpg`)
   console.log(HeatmapData)
   const urlHeatmap = HeatmapData.url
+
+  await pool.query("UPDATE videos SET (arrayPiques, urlHeatmap) = (?, ?) WHERE idCloudinary = ?", [arrayPiques.pts_pique, urlHeatmap, idCloudinary])
 
   await fs.unlink(path)
   
@@ -119,9 +119,12 @@ export const getVideos = async (req, res) => {
 export const getVideo = async(req, res) => {
   const {idUsuario, idCloudinary}  = req.params
 
-  const [urlVideo] = await pool.query("Select urlVideo FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
-
-  return res.status(200).json(urlVideo)
+  const [datosVideo] = await pool.query("Select urlVideo, arrayPiques, urlHeatmap FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
+  const urlVideo = datosVideo[0]
+  const arrayPiques = datosVideo[1]
+  const urlHeatmap = datosVideo[2]
+  console.log(datosVideo)
+  return res.status(200).json(urlVideo, arrayPiques, urlHeatmap)
 }
 
 //Mandar videos a analizar
