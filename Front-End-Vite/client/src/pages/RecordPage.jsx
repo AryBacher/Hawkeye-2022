@@ -39,7 +39,7 @@ function RecordPage() {
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
 
-  const [corners, setCorners] = useState(null);
+  const [corners, setCorners] = useState();
 
   const initialValues = {
     title: "",
@@ -60,7 +60,8 @@ function RecordPage() {
   const [userName, setUserName] = useState("");
 
   const useAxios = async (finalValues) => {
-    console.log(finalValues);
+    console.log(corners)
+    JSON.stringify(corners)
     const formData = new FormData();
     formData.append("idUsuario", id);
     formData.append("title", finalValues.title);
@@ -68,9 +69,8 @@ function RecordPage() {
     formData.append("rival", finalValues.rival);
     formData.append("date", finalValues.date);
     formData.append("video", finalValues.file);
-    formData.append("corners", finalValues.corners);
+    formData.append("corners", corners);
     console.log([...formData]);
-    console.log(finalValues.corners[1]);
     const response = await axios.post(
       "http://localhost:4000/UploadVideo",
       formData,
@@ -127,19 +127,19 @@ function RecordPage() {
 
     let relativePos = { A: {}, B: {}, C: {}, D: {} };
 
-    relativePos.A.y = aCornerPos.top - parentPos.top;
-    relativePos.B.y = bCornerPos.top - parentPos.top;
-    relativePos.C.y = cCornerPos.top - parentPos.top;
-    relativePos.D.y = dCornerPos.top - parentPos.top;
-
     relativePos.A.x = aCornerPos.left - parentPos.left;
     relativePos.B.x = bCornerPos.left - parentPos.left;
     relativePos.C.x = cCornerPos.left - parentPos.left;
     relativePos.D.x = dCornerPos.left - parentPos.left;
 
-    console.log(relativePos);
+    relativePos.A.y = aCornerPos.top - parentPos.top;
+    relativePos.B.y = bCornerPos.top - parentPos.top;
+    relativePos.C.y = cCornerPos.top - parentPos.top;
+    relativePos.D.y = dCornerPos.top - parentPos.top;
 
-    return relativePos;
+    console.log(relativePos);
+    setCorners(JSON.stringify(relativePos))
+    //return relativePos;
   };
 
   return (
@@ -348,7 +348,7 @@ function RecordPage() {
                 <ButtonGroup fullWidth>
                   <Button
                     onClick={() => {
-                      setCorners(setFinalCorners());
+                      setFinalCorners();
                     }}
                     startIcon={<SaveIcon />}
                     sx={{
