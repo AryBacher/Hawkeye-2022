@@ -7,10 +7,32 @@ import fetch from 'node-fetch'
 //Subir videos
 export const uploadVideo = async (req, res) => {
   try{
- 
   const {idUsuario, title, rival, date, type, corners} = req.body;
   console.log(req.file.path)
   const path = req.file.path
+  
+  console.log(corners)
+  //{"A":{"x":283.421875,"y":217.5},"B":{"x":283.421875,"y":217.5},"C":{"x":283.421875,"y":217.5},"D":{"x":283.421875,"y":217.5}}
+  var cornerXone = corners.split(':')[2]
+  var cornerYone = corners.split(':')[3]
+  var cornerXtwo = corners.split(':')[5]
+  var cornerYtwo = corners.split(':')[6]
+  var cornerXthree = corners.split(':')[8]
+  var cornerYthree = corners.split(':')[9]
+  var cornerXfour = corners.split(':')[11]
+  var cornerYfour = corners.split(':')[12]
+  
+  cornerXone = cornerXone.split('.')[0]
+  cornerXtwo = cornerXtwo.split('.')[0]
+  cornerXthree = cornerXthree.split('.')[0]
+  cornerXfour = cornerXfour.split('.')[0]
+  cornerYone = cornerYone.split('.')[0]
+  cornerYtwo = cornerYtwo.split('.')[0]
+  cornerYthree = cornerYthree.split('.')[0]
+  cornerYfour = cornerYfour.split('.')[0]
+
+  const finalCorners = [[cornerXone, cornerYone], [cornerXtwo, cornerYtwo], [cornerXthree, cornerYthree], [cornerXfour, cornerYfour]]
+  console.log(finalCorners)
 
   const CloudinaryData = await uploadCloudinary(path)
 
@@ -19,7 +41,7 @@ export const uploadVideo = async (req, res) => {
 
   const rutaThumbnail = await getThumbnail(rutaCloudinary)
 
-  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date]);
+  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido, arrayPiques) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date, finalCorners]);
   
   const rutaPython = `../Back-End/server/${path}`
   console.log(rutaPython)
