@@ -563,7 +563,7 @@ def todo(frame, numeroGlob):
                 if posiblesPiques_pers == []:
                     posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
                     ult_posible_pique = preCentro_glob[0][0]
-                elif posiblesPiques_pers[0][1] != ult_posible_pique:
+                elif preCentro_glob[0][0] != ult_posible_pique:
                     posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
                     ult_posible_pique = preCentro_glob[0][0]
                 
