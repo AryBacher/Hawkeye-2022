@@ -32,6 +32,7 @@ import { height } from "@mui/system";
 import { useParams } from "react-router-dom";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
+import zIndex from "@mui/material/styles/zIndex";
 
 function RecordPage() {
   const { id } = useParams();
@@ -47,13 +48,14 @@ function RecordPage() {
     corners: null,
   };
 
-  //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado.
+  //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado además del video actual para usar en la preview.
 
   const [fileName, setFileName] = useState("");
-
-  const [userName, setUserName] = useState("");
+  const [currentVideo, setCurrentVideo] = useState();
 
   //Función para fetchear los valores finales del formulario.
+
+  const [userName, setUserName] = useState("");
 
   const useAxios = async (finalValues) => {
     console.log(finalValues);
@@ -105,6 +107,7 @@ function RecordPage() {
   // Funciones para setear los corners y desplegar los puntos.
 
   const mapField = useRef(null);
+  const mapFieldContainer = useRef(null);
 
   const [corners, setCorners] = useState(null);
 
@@ -123,21 +126,19 @@ function RecordPage() {
 
     let relativePos = { A: {}, B: {}, C: {}, D: {} };
 
-    relativePos.A.left = aCornerPos.top - parentPos.top;
-    relativePos.B.left = bCornerPos.top - parentPos.top;
-    relativePos.C.left = cCornerPos.top - parentPos.top;
-    relativePos.D.left = dCornerPos.top - parentPos.top;
+    relativePos.A.y = aCornerPos.top - parentPos.top;
+    relativePos.B.y = bCornerPos.top - parentPos.top;
+    relativePos.C.y = cCornerPos.top - parentPos.top;
+    relativePos.D.y = dCornerPos.top - parentPos.top;
+
+    relativePos.A.x = aCornerPos.left - parentPos.left;
+    relativePos.B.x = bCornerPos.left - parentPos.left;
+    relativePos.C.x = cCornerPos.left - parentPos.left;
+    relativePos.D.x = dCornerPos.left - parentPos.left;
 
     console.log(relativePos);
 
     return relativePos;
-  };
-
-  //Función para reiniciar posición.
-
-  const restartPosition = () => {
-    document.getElementsByClassName("corner").style.top = 0; //transformX/Y
-    document.getElementsByClassName("corner").style.left = 0; //transformX/Y
   };
 
   return (
@@ -266,7 +267,8 @@ function RecordPage() {
                     onChange={(e) => {
                       setFieldValue("file", e.currentTarget.files[0]);
                       setFileName(e.currentTarget.files[0].name);
-                      //console.log(fileName);
+                      const video = URL.createObjectURL(e.target.files[0]);
+                      setCurrentVideo(video);
                     }}
                     ref={fileInput}
                   />
@@ -291,14 +293,15 @@ function RecordPage() {
                       : `Video: ${fileName}`}
                   </span>
                 </div>
-                <motion.div className="court-map-field" ref={mapField}>
+                <motion.div className="court-map-field" ref={mapFieldContainer}>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
                     whileDrag={{ scale: 1.5 }}
                     className="corner"
-                    dragConstraints={mapField}
+                    dragConstraints={mapFieldContainer}
                     dragMomentum={false}
+                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                     ref={aCorner}
                   >
                     <div className="center">+</div>
@@ -308,8 +311,9 @@ function RecordPage() {
                     whileTap={{ cursor: "grabbing" }}
                     whileDrag={{ scale: 1.5 }}
                     className="corner"
-                    dragConstraints={mapField}
+                    dragConstraints={mapFieldContainer}
                     dragMomentum={false}
+                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                     ref={bCorner}
                   >
                     <div className="center">+</div>
@@ -319,8 +323,9 @@ function RecordPage() {
                     whileTap={{ cursor: "grabbing" }}
                     whileDrag={{ scale: 1.33 }}
                     className="corner"
-                    dragConstraints={mapField}
+                    dragConstraints={mapFieldContainer}
                     dragMomentum={false}
+                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                     ref={cCorner}
                   >
                     <div className="center">+</div>
@@ -330,31 +335,17 @@ function RecordPage() {
                     whileTap={{ cursor: "grabbing" }}
                     whileDrag={{ scale: 1.33 }}
                     className="corner"
-                    dragConstraints={mapField}
+                    dragConstraints={mapFieldContainer}
                     dragMomentum={false}
+                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                     ref={dCorner}
                   >
                     <div className="center">+</div>
                   </motion.div>
+                  <video src={currentVideo} ref={mapField} width="100%" height="100%"/>
                 </motion.div>
                 {/* Transformar en un input normal */}
                 <ButtonGroup fullWidth>
-                  <Button
-                    onClick={() => {
-                      restartPosition();
-                    }}
-                    startIcon={<RestartAltIcon />}
-                    sx={{
-                      fontWeight: 600,
-                      textTransform: "capitalize",
-                      fontSize: "1em",
-                      height: "50px",
-                      padding: 0,
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Reiniciar posición
-                  </Button>
                   <Button
                     onClick={() => {
                       setCorners(setFinalCorners());

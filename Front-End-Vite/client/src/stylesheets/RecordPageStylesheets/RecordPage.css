@@ -74,6 +74,9 @@
   border: 1px solid var(--colorAzulClaro);
   border-radius: 5px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wrapper-r .form-container Form .court-map-field .corner {
@@ -168,3 +171,4 @@
   cursor: pointer;
 }
 /*# sourceMappingURL=RecordPage.css.map */
+
