@@ -106,6 +106,15 @@ function VideoPage() {
             circle.closePath();
         };
 
+        const writeSpeed = (vel) => {
+            setArrayVelocidad(vel)
+        };
+
+        let velActual = listaaa.filter((pt) => pt[1] <= time);
+        velActual = velActual.reverse()
+
+        writeSpeed(velActual[0])
+
         pts_utiles.map((pt) => {
           //console.log(pts_utiles);
           drawCircle(pt);
