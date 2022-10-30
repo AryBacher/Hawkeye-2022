@@ -40,5 +40,10 @@ def heatmap(pts):
     # Guarda el heatmap
     plt.savefig("heatmap.jpg",dpi = 1000, bbox_inches = 'tight', pad_inches = 0)
 
+    foto = cv2.imread("heatmap.jpg")
+    foto = cv2.line(foto, (0, 0), (foto.shape[1], 0), (0, 0, 0), 5)
+    foto = cv2.line(foto, (foto.shape[1], 0), (foto.shape[1], foto.shape[0]), (0, 0, 0), 5)
+    cv2.imwrite("heatmap.jpg", foto)
+
     plt.clf()
     plt.close()
