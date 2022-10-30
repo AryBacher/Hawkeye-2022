@@ -267,7 +267,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
             todosContornos.pop(i - n)
             n += 1
 
-    def velocidadGolpe(punto1, punto2, tiempo):
+    def velocidadGolpe(punto1, punto2, tiempo, numeroFrame):
         punto1X = punto1[0][0] / (resizer_glob[numeroGlob] * 20)
         punto1Y = punto1[0][1] / (resizer_glob[numeroGlob] * 20)
         punto2X = punto2[0][0] / (resizer_glob[numeroGlob] * 20)
@@ -306,6 +306,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         global estaCercaX
         global estaCercaY
         global ult_posible_pique
+        global segundoVelocidad
 
         anchoOG = frame.shape[1]
         altoOG = frame.shape[0]
@@ -469,7 +470,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                         velocidad = True
                         punto1Velocidad = preCentro_glob[numeroGlob]
                         countDifVelocidad += 1/fps
-                        segundoVelocidad = float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))
+                        segundoVelocidad = float("{:.2f}".format(numeroFrame / fps))
                         if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                             pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                         if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
@@ -486,7 +487,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         
         if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
             #velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
-            velocidadesPosiblesAnalizar.append((punto1Velocidad, center_glob[numeroGlob], countDifVelocidad, segundoVelocidad))
+            velocidadesPosiblesAnalizar.append((punto1Velocidad, center_glob[numeroGlob], countDifVelocidad, segundoVelocidad, numeroFrame))
             velocidad = False
             punto1Velocidad = None
             countDifVelocidad = 0
@@ -559,14 +560,14 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     if bottomRightY == primerValor[1]: bottomRightX = primerValor[0]
     else: bottomRightX = segundoValor[0]
 
-    # topLeftX = 749
-    # topLeftY = 253
-    # topRightX = 1095
-    # topRightY = 252
-    # bottomLeftX = 206
-    # bottomLeftY = 797
-    # bottomRightX = 1518
-    # bottomRightY = 785
+    topLeftX = 749
+    topLeftY = 253
+    topRightX = 1095
+    topRightY = 252
+    bottomLeftX = 206
+    bottomLeftY = 797
+    bottomRightX = 1518
+    bottomRightY = 785
 
     print("Top Left X", topLeftX)
     print("Top Left Y ", topLeftY)
@@ -696,12 +697,14 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         todo(frame, numeroGlob)
         numeroGlob = 1
         todo(result, numeroGlob)
-
+    
+    print("puntosGolpesFinales", pts_golpes_finales)
+    print("velocidadesPosibles", velocidadesPosiblesAnalizar)
     for i in pts_golpes_finales:
         for l in velocidadesPosiblesAnalizar:
             if i[1] == l[3]:
                 # velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
-                velocidadFinal = velocidadGolpe(l[0], l[1], l[2])
+                velocidadFinal = velocidadGolpe(l[0], l[1], l[2], l[4])
                 break
 
     vs.release()
