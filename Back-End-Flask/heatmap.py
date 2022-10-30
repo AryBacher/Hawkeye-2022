@@ -18,7 +18,7 @@ def heatmap(pts):
 
     # Transforma los puntos en dos listas (X, Y)
     for pt in pts:
-        ptX.append(int(pt[0] + 51 / 15))
+        ptX.append(int(pt[0] / 15 + 51))
 
     for pt in pts:
         ptY.append(int(499 - pt[1] / 15))
