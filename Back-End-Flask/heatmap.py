@@ -3,13 +3,14 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import cv2
-from base64 import b64encode
 
 def heatmap(pts):
     # Abre la cancha para dibujar el heatmap
     cancha = cv2.imread('minimap.jpg')
     plt.imshow(cancha)
     plt.axis('off')
+
+    print(pts)
 
     # Divide los puntos de pique en X e Y
     ptX = []
@@ -41,8 +42,3 @@ def heatmap(pts):
 
     plt.clf()
     plt.close()
-
-    image = open('heatmap.jpg', 'rb')
-    image64 = b64encode(image.read())
-
-    return image64
