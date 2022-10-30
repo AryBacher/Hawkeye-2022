@@ -59,25 +59,15 @@ export const uploadVideo = async (req, res) => {
   const puntosPique = datosAnalizados.puntosPique
   const velocidad = datosAnalizados.velocidades
 
-  let piquesFinal = puntosPique.toString()
-  let velocidades = velocidad.toString()
-
-  console.log(piquesFinal)
-  console.log(velocidades)
-  //console.log(response.puntosPique[0][0])
-  //console.log(response.puntosPique[0])
-  //var heatmap = new Image();
-  //heatmap.src = `ata:image/png;base64,${response.heatmap}`;
-
   const HeatmapData = await uploadCloudinary(`../../Back-End-Flask/heatmap.jpg`)
   console.log(HeatmapData)
   const urlHeatmap = HeatmapData.url
 
-  await pool.query("UPDATE videos SET arrayPiques = ?, urlHeatmap = ?, velocidades = ? WHERE idCloudinary = ?", [piquesFinal, urlHeatmap, velocidades, idCloudinary])
+  await pool.query("UPDATE videos SET arrayPiques = '?', urlHeatmap = ?, velocidades = '?' WHERE idCloudinary = ?", [puntosPique, urlHeatmap, velocidad, idCloudinary])
 
   await fs.unlink(path)
   
-  return res.status(200).json({ piquesFinal, urlHeatmap, velocidades })
+  return res.status(200).json({ puntosPique, urlHeatmap, velocidad })
   }
   catch(error) {
     console.log(error);
@@ -153,12 +143,12 @@ export const getVideos = async (req, res) => {
 export const getVideo = async(req, res) => {
   const {idUsuario, idCloudinary}  = req.params
 
-  const [datosVideo] = await pool.query("Select urlVideo, arrayPiques, urlHeatmap FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
+  const [datosVideo] = await pool.query("Select urlVideo, arrayPiques, urlHeatmap, velocidades FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
   const urlVideo = datosVideo[0]
   const arrayPiques = datosVideo[1]
   const urlHeatmap = datosVideo[2]
-  console.log(datosVideo)
-  return res.status(200).json(urlVideo, arrayPiques, urlHeatmap)
+  const velocidades = datosVideo[3]
+  return res.status(200).json(urlVideo, arrayPiques, urlHeatmap, velocidades)
 }
 
 //Mandar videos a analizar

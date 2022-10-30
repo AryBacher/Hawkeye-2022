@@ -13,9 +13,11 @@ function VideoPage() {
   const {id} = useParams()
   const {idVideo} = useParams()
 
+  //Estados para el video, los piques, el heatmap y la velocidad
   const [urlVideo, setUrlVideo] = useState();
   const [arrayPiques, setArrayPiques] = useState();
   const [urlHeatmap, setUrlHeatmap] = useState();
+  const [arrayVelocidad, setArrayVelocidad] = useState();
 
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
@@ -48,8 +50,10 @@ function VideoPage() {
   
   // ball_tracking de ary
   //const pts_pique = [[[1501, 2915], 1.4], [[937, 2991], 2.77], [[1115, 5361], 3.03], [[1200, 5990], 3.43], [[814, 5683], 5.7], [[318, 5784], 6.2], [[108, 6114], 9.07], [[635, 5787], 12.53], [[635, 5787], 12.57], [[463, 6707], 17.97], [[1828, 6992], 23.6], [[1810, 5364], 29.27], [[1991, 6432], 32.07], [[2287, 6502], 32.4], [[895, 6292], 35.0], [[331, 5490], 37.47], [[366, 6156], 43.2], [[2354, 5850], 45.97], [[2446, 6124], 46.03], [[2022, 4625], 48.73], [[2022, 4625], 48.77], [[1702, 6779], 51.4], [[673, 5577], 54.93], [[673, 5577], 54.97], [[209, 5695], 55.47], [[861, 6080], 56.37], [[936, 6107], 56.63], [[1708, 5658], 57.7], [[2062, 5600], 58.07], [[1579, 5368], 60.33], [[1579, 5368], 60.37]]
-  const pts_pique = {arrayPiques}
-  console.log("asdasd " + pts_pique[0])
+  //const pts_pique = '['.concat(arrayPiques).concat(']')
+  const pts_pique = [arrayPiques]
+  console.log(pts_pique)
+  //console.log("asdasd " + pts_pique[0])
   const canvas = useRef(null);
 
   const updateTime = () => {
@@ -62,7 +66,7 @@ function VideoPage() {
         // Selecciona los piques cuyo tiempo es menor al tiempo del video
         let pts_utiles = pts_pique.filter((pt) => pt[1] <= time);
         pts_utiles = pts_utiles.reverse()
-        
+        console.log(pts_utiles)
         //console.log(pts_utiles)
 
         if (pts_utiles.length > 5){
@@ -112,10 +116,6 @@ function VideoPage() {
     console.log(mapActive);
   };
 
-  //Estado de la velocidad
-
-  const [speed, setSpeed] = useState(0);
-
   // Dibujar los circulos del canvas según las coordenadas.
 
   // Recibir el video seleccionado
@@ -125,8 +125,15 @@ function VideoPage() {
         `http://localhost:4000/GetVideo/${id}/${idVideo}`
       );
       setUrlVideo(videoData.data.urlVideo)
-      setArrayPiques(videoData.data.arrayPiques)
-      setUrl(videoData.data.urlHeatmap)
+      setUrlHeatmap(videoData.data.urlHeatmap)
+      
+      let piques = videoData.data.arrayPiques.replaceAll("(", "[");
+      let piquesFinal = piques.replaceAll(")", "]");
+      let velocidad = videoData.data.velocidades.replaceAll("(", "[");
+      let velocidadFinal = velocidad.replaceAll(")", "]");
+
+      setArrayPiques(piquesFinal)
+      setArrayVelocidad(velocidadFinal)
     };
     getVideo();
   }, []);
@@ -269,7 +276,7 @@ function VideoPage() {
             </div>
             <div className="speed-container">
               <h2>
-                Velocidad <span>{speed}</span> km/h
+                Velocidad <span>{arrayVelocidad}</span> km/h
               </h2>
             </div>
           </div>
