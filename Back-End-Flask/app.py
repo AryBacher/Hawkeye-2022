@@ -14,8 +14,7 @@ def analyseVideo():
     print(params)
     ruta_video = params['rutaPython']
     corners = params['finalCorners']
-    print(ruta_video)
-    print(corners)
+    
     # Corre la función del ball_tracking y guarda los puntos de pique
     datosFlask = tracking2(ruta_video, corners)
     pts_pique = datosFlask[0]

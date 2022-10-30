@@ -143,12 +143,13 @@ export const getVideos = async (req, res) => {
 export const getVideo = async(req, res) => {
   const {idUsuario, idCloudinary}  = req.params
 
-  const [datosVideo] = await pool.query("Select urlVideo, arrayPiques, urlHeatmap, velocidades FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
+  const [datosVideo] = await pool.query("Select urlVideo, arrayPiques, urlHeatmap, velocidades, titulo FROM videos WHERE idUsuario = ? AND idcloudinary = ?", [idUsuario, idCloudinary])
   const urlVideo = datosVideo[0]
   const arrayPiques = datosVideo[1]
   const urlHeatmap = datosVideo[2]
   const velocidades = datosVideo[3]
-  return res.status(200).json(urlVideo, arrayPiques, urlHeatmap, velocidades)
+  const titulo = datosVideo[4]
+  return res.status(200).json(urlVideo, arrayPiques, urlHeatmap, velocidades, titulo)
 }
 
 //Mandar videos a analizar
