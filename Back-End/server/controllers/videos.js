@@ -22,14 +22,14 @@ export const uploadVideo = async (req, res) => {
   var cornerXfour = corners.split(':')[11]
   var cornerYfour = corners.split(':')[12]
   
-  cornerXone = cornerXone.split('.')[0]
-  cornerXtwo = cornerXtwo.split('.')[0]
-  cornerXthree = cornerXthree.split('.')[0]
-  cornerXfour = cornerXfour.split('.')[0]
-  cornerYone = cornerYone.split('.')[0]
-  cornerYtwo = cornerYtwo.split('.')[0]
-  cornerYthree = cornerYthree.split('.')[0]
-  cornerYfour = cornerYfour.split('.')[0]
+  cornerXone = parseInt(cornerXone.split('.')[0])
+  cornerXtwo = parseInt(cornerXtwo.split('.')[0])
+  cornerXthree = parseInt(cornerXthree.split('.')[0])
+  cornerXfour = parseInt(cornerXfour.split('.')[0])
+  cornerYone = parseInt(cornerYone.split('.')[0])
+  cornerYtwo = parseInt(cornerYtwo.split('.')[0])
+  cornerYthree =  parseInt(cornerYthree.split('.')[0])
+  cornerYfour = parseInt(cornerYfour.split('.')[0])
 
   const finalCorners = [[cornerXone, cornerYone], [cornerXtwo, cornerYtwo], [cornerXthree, cornerYthree], [cornerXfour, cornerYfour]]
   console.log(finalCorners)
@@ -41,17 +41,29 @@ export const uploadVideo = async (req, res) => {
 
   const rutaThumbnail = await getThumbnail(rutaCloudinary)
 
-  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido, arrayPiques) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date, finalCorners]);
+  await pool.query("INSERT INTO videos (idUsuario, idCloudinary, urlVideo, urlMiniatura, titulo, rival, tipo, FechaPartido, arrayPiques) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [idUsuario, idCloudinary, rutaCloudinary, rutaThumbnail, title, rival, type, date, corners]);
   
   const rutaPython = `../Back-End/server/${path}`
   console.log(rutaPython)
+
+  const flaskParams = {rutaPython, finalCorners}
+
   const flaskData = await fetch('http://127.0.0.1:5000/analyse', {
 	method: 'post',
-	body: JSON.stringify(rutaPython),
+	body: JSON.stringify(flaskParams),
 	headers: {'Content-Type': 'application/json'}
 });
-  const arrayPiques = await flaskData.json();
-  console.log(arrayPiques)
+  const datosAnalizados = await flaskData.json();
+  console.log(datosAnalizados)
+
+  const puntosPique = datosAnalizados.puntosPique
+  const velocidad = datosAnalizados.velocidades
+
+  let piquesFinal = puntosPique.toString()
+  let velocidades = velocidad.toString()
+
+  console.log(piquesFinal)
+  console.log(velocidades)
   //console.log(response.puntosPique[0][0])
   //console.log(response.puntosPique[0])
   //var heatmap = new Image();
@@ -61,11 +73,11 @@ export const uploadVideo = async (req, res) => {
   console.log(HeatmapData)
   const urlHeatmap = HeatmapData.url
 
-  await pool.query("UPDATE videos SET (arrayPiques, urlHeatmap) = (?, ?) WHERE idCloudinary = ?", [arrayPiques.pts_pique, urlHeatmap, idCloudinary])
+  await pool.query("UPDATE videos SET arrayPiques = ?, urlHeatmap = ?, velocidades = ? WHERE idCloudinary = ?", [piquesFinal, urlHeatmap, velocidades, idCloudinary])
 
   await fs.unlink(path)
   
-  return res.status(200).json({ arrayPiques, urlHeatmap })
+  return res.status(200).json({ piquesFinal, urlHeatmap, velocidades })
   }
   catch(error) {
     console.log(error);

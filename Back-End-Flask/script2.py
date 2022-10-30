@@ -507,20 +507,20 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     greenUpper = np.array([64, 255, 255])
     greenLower = np.array([29, 50, 110])
 
-    # topLeftX = 749
-    # topLeftY = 253
-    # topRightX = 1095
-    # topRightY = 252
-    # bottomLeftX = 206
-    # bottomLeftY = 797
-    # bottomRightX = 1518
-    # bottomRightY = 785
+    topLeftX = 749
+    topLeftY = 253
+    topRightX = 1095
+    topRightY = 252
+    bottomLeftX = 206
+    bottomLeftY = 797
+    bottomRightX = 1518
+    bottomRightY = 785
 
-    izq = [1, 1]
-    for pt in esquinas:
-        for i in izq:
-            if pt[0] < i:
-                izq[i] = pt
+    # izq = [1, 1]
+    # for pt in esquinas:
+    #     for i in izq:
+    #         if pt[0] < i:
+    #             izq[i] = pt
     
     
 
