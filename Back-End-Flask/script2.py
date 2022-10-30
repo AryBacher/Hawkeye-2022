@@ -508,14 +508,66 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     greenUpper = np.array([64, 255, 255])
     greenLower = np.array([29, 50, 110])
 
-    topLeftX = 749
-    topLeftY = 253
-    topRightX = 1095
-    topRightY = 252
-    bottomLeftX = 206
-    bottomLeftY = 797
-    bottomRightX = 1518
-    bottomRightY = 785
+    # topLeftX = 749
+    # topLeftY = 253
+    # topRightX = 1095
+    # topRightY = 252
+    # bottomLeftX = 206
+    # bottomLeftY = 797
+    # bottomRightX = 1518
+    # bottomRightY = 785
+
+    izq = []
+    izq0 = []
+
+    for esquina in esquinas:
+        izq.append(esquina)
+        izq0.append(esquina[0])
+
+    menor = min(izq0)
+    posicion = izq0.index(menor)
+    primerValor = izq[posicion]
+    del izq[posicion]
+
+    izqq0 = []
+
+    for esquina in izq:
+        izqq0.append(esquina[0])
+
+    menor2 = min(izqq0)
+    posicion2 = izqq0.index(menor2)
+    segundoValor = izq[posicion2]
+    del izq[posicion2]
+
+    topLeftY = min(primerValor[1], segundoValor[1])
+    bottomLeftY = max(primerValor[1], segundoValor[1])
+
+    if topLeftY == primerValor[1]: topLeftX = primerValor[0]
+    else: topLeftX = segundoValor[0]
+
+    if bottomLeftY == primerValor[1]: bottomLeftX = primerValor[0]
+    else: bottomLeftX = segundoValor[0]
+
+    primerValor = izq[0]
+    segundoValor = izq[1]
+
+    topRightY = min(primerValor[1], segundoValor[1])
+    bottomRightY = max(primerValor[1], segundoValor[1])
+
+    if topRightY == primerValor[1]: topRightX = primerValor[0]
+    else: topRightX = segundoValor[0]
+
+    if bottomRightY == primerValor[1]: bottomRightX = primerValor[0]
+    else: bottomRightX = segundoValor[0]
+
+    print("Top Left X", topLeftX)
+    print("Top Left Y ", topLeftY)
+    print("Bottom Left X", bottomLeftX)
+    print("Bottom Left Y", bottomLeftY)
+    print("Top Right X", topRightX)
+    print("Top Right Y ", topRightY)
+    print("Bottom Right X", bottomRightX)
+    print("Bottom Right Y", bottomRightY)
 
     # izq = [1, 1]
     # for pt in esquinas:
