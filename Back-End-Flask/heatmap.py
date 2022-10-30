@@ -18,10 +18,10 @@ def heatmap(pts):
 
     # Transforma los puntos en dos listas (X, Y)
     for pt in pts:
-        ptX.append(pt[0] + 51)
+        ptX.append(int(pt[0] + 51 / 15))
 
     for pt in pts:
-        ptY.append(499 - pt[1])
+        ptY.append(int(499 - pt[1] / 15))
 
     # Crea el heatmap
     sns.kdeplot(
