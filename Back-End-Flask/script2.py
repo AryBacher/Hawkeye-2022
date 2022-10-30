@@ -20,8 +20,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     global diferente
     global punto1Velocidad
     global velocidadFinal
-    global velocidadesPosiblesAnalizar
-    global segundoVelocidad
     # global numeroFrame
 
     def tp_fix(contornos, pre_centro, count):
@@ -306,7 +304,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         global estaCercaX
         global estaCercaY
         global ult_posible_pique
-        global segundoVelocidad
 
         anchoOG = frame.shape[1]
         altoOG = frame.shape[0]
@@ -465,12 +462,10 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                         
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
-                        pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                         countDifPiques = 0
                         velocidad = True
                         punto1Velocidad = preCentro_glob[numeroGlob]
                         countDifVelocidad += 1/fps
-                        segundoVelocidad = float("{:.2f}".format(numeroFrame / fps))
                         if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                             pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                         if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
@@ -486,8 +481,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                 diferente = True
         
         if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
-            #velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
-            velocidadesPosiblesAnalizar.append((punto1Velocidad, center_glob[numeroGlob], countDifVelocidad, segundoVelocidad, numeroFrame))
+            velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
             velocidad = False
             punto1Velocidad = None
             countDifVelocidad = 0
@@ -510,7 +504,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
 
     # Toma el video
     vs = cv2.VideoCapture(video)
-
 
     # Rango de deteccion de verdes
     greenLower = np.array([29, 86, 110])
@@ -578,22 +571,10 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     print("Bottom Right X", bottomRightX)
     print("Bottom Right Y", bottomRightY)
 
-    # izq = [1, 1]
-    # for pt in esquinas:
-    #     for i in izq:
-    #         if pt[0] < i:
-    #             izq[i] = pt
-    
-    
-
-    pts_pique = []
-
     pts_piques_finales = []
     pts_golpes_finales = []
 
     velocidades = []
-    velocidadesPosiblesAnalizar = []
-    segundoVelocidad = 0
 
     ult_posible_pique = None
 
@@ -608,7 +589,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     center_glob = deque(maxlen=2)
     center_glob.append(None)
     center_glob.append(None)
-
 
     # Fps del video
     fps = int(vs.get(cv2.CAP_PROP_FPS))
@@ -697,15 +677,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         todo(frame, numeroGlob)
         numeroGlob = 1
         todo(result, numeroGlob)
-    
-    print("puntosGolpesFinales", pts_golpes_finales)
-    print("velocidadesPosibles", velocidadesPosiblesAnalizar)
-    for i in pts_golpes_finales:
-        for l in velocidadesPosiblesAnalizar:
-            if i[1] == l[3]:
-                # velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
-                velocidadFinal = velocidadGolpe(l[0], l[1], l[2], l[4])
-                break
 
     vs.release()
 
