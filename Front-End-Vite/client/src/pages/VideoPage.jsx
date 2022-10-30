@@ -18,6 +18,8 @@ function VideoPage() {
   const [arrayPiques, setArrayPiques] = useState();
   const [urlHeatmap, setUrlHeatmap] = useState();
   const [arrayVelocidad, setArrayVelocidad] = useState();
+  const [velFinal, setVelFinal] = useState(0);
+  const [titulo, setTitulo] = useState();
 
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
@@ -49,12 +51,12 @@ function VideoPage() {
   //[[130, 352], 26.3], [[158, 451], 27.0], [[111, 321], 29.2], [[116, 360], 29.27], [[157, 267], 29.9], [[154, 225], 29.93], [[152, 179], 29.97], [[152, 179], 30.0], [[135, 151], 31.73], [[130, 430], 32.07], [[152, 387], 32.47], [[82, 66], 35.37], [[87, 420], 35.73], [[31, 222], 37.27], [[27, 370], 37.47], [[67, 43], 39.83], [[64, 103], 39.87], [[59, 145], 39.9], [[18, 396], 40.63], [[22, 349], 40.67], [[66, 38], 42.8], [[60, 101], 42.83], [[49, 193], 42.9], [[30, 411], 43.2], [[157, 410], 46.03], [[129, 316], 48.73], [[113, 461], 51.3], [[90, 14], 51.73], [[48, 374], 54.93], [[18, 422], 55.47], [[14, 379], 55.5], [[6, 286], 55.57], [[6, 286], 55.6], [[4, 243], 55.63], [[57, 405], 56.37], [[57, 405], 56.4], [[58, 406], 56.43], [[59, 408], 56.5], [[89, 111], 57.43], [[111, 379], 57.7], [[139, 402], 58.07], [[118, 417], 59.93], [[84, 38], 59.97], [[84, 38], 60.0], [[86, 82], 60.03], [[103, 362], 60.33]]
   
   // ball_tracking de ary
-  const pts_piques = [[[1501, 2915], 1.4], [[937, 2991], 2.77], [[1115, 5361], 3.03], [[1200, 5990], 3.43], [[814, 5683], 5.7], [[318, 5784], 6.2], [[108, 6114], 9.07], [[635, 5787], 12.53], [[635, 5787], 12.57], [[463, 6707], 17.97], [[1828, 6992], 23.6], [[1810, 5364], 29.27], [[1991, 6432], 32.07], [[2287, 6502], 32.4], [[895, 6292], 35.0], [[331, 5490], 37.47], [[366, 6156], 43.2], [[2354, 5850], 45.97], [[2446, 6124], 46.03], [[2022, 4625], 48.73], [[2022, 4625], 48.77], [[1702, 6779], 51.4], [[673, 5577], 54.93], [[673, 5577], 54.97], [[209, 5695], 55.47], [[861, 6080], 56.37], [[936, 6107], 56.63], [[1708, 5658], 57.7], [[2062, 5600], 58.07], [[1579, 5368], 60.33], [[1579, 5368], 60.37]]
+  //const pts_piques = [[[1501, 2915], 1.4], [[937, 2991], 2.77], [[1115, 5361], 3.03], [[1200, 5990], 3.43], [[814, 5683], 5.7], [[318, 5784], 6.2], [[108, 6114], 9.07], [[635, 5787], 12.53], [[635, 5787], 12.57], [[463, 6707], 17.97], [[1828, 6992], 23.6], [[1810, 5364], 29.27], [[1991, 6432], 32.07], [[2287, 6502], 32.4], [[895, 6292], 35.0], [[331, 5490], 37.47], [[366, 6156], 43.2], [[2354, 5850], 45.97], [[2446, 6124], 46.03], [[2022, 4625], 48.73], [[2022, 4625], 48.77], [[1702, 6779], 51.4], [[673, 5577], 54.93], [[673, 5577], 54.97], [[209, 5695], 55.47], [[861, 6080], 56.37], [[936, 6107], 56.63], [[1708, 5658], 57.7], [[2062, 5600], 58.07], [[1579, 5368], 60.33], [[1579, 5368], 60.37]]
   const pts_pique = (arrayPiques)
-  //var [pts_pique] = arrayPiques
-  //for (var i = 0; i <)
   console.log(pts_pique)
-  console.log(pts_piques)
+
+  const velocidades = arrayVelocidad
+  console.log(velocidades)
   
   /*let array2 = pts_pique.split('(')
   console.log(array2[0])
@@ -106,14 +108,34 @@ function VideoPage() {
             circle.closePath();
         };
 
+        let array11 = velocidades.split('(')
+        let array12 = array11.toString()
+        let array13 = array12.split(')')
+        let array14 = array13.toString()
+        let array15 = array14.replaceAll(',', '')
+        let array16 = array15.replaceAll(' ', ',')
+        let array17 = array16.split(',')
+        let array18 = array17.toString()
+        let array19 = array18.match(/\d+(?:\.\d+)?/g).map(Number)
+        var array20 = []
+        for (let i = 0; i < array19.length; i+= 2){
+          array20.push([[array19[i]], [array19[i+1]]])
+        }
+        console.log(array20)
+
         const writeSpeed = (vel) => {
-            setArrayVelocidad(vel)
+            setVelFinal(vel)
         };
 
-        let velActual = listaaa.filter((pt) => pt[1] <= time);
+        let velActual = array20.filter((pt) => pt[1] <= time);
         velActual = velActual.reverse()
+        console.log(velActual)
 
-        writeSpeed(velActual[0])
+        if (velActual == []){
+          velActual[0][0] = 0
+        }
+
+        writeSpeed(velActual[0][0])
 
         pts_utiles.map((pt) => {
           //console.log(pts_utiles);
@@ -158,12 +180,10 @@ function VideoPage() {
       );
       setUrlVideo(videoData.data.urlVideo)
       setUrlHeatmap(videoData.data.urlHeatmap)
-      
-      let velocidad = videoData.data.velocidades.replaceAll("(", "[");
-      let velocidadFinal = velocidad.replaceAll(")", "]");
+      setTitulo(videoData.data.titulo)
 
       setArrayPiques(videoData.data.arrayPiques)
-      setArrayVelocidad(velocidadFinal)
+      setArrayVelocidad(videoData.data.velocidades)
     };
     getVideo();
   }, []);
@@ -188,7 +208,7 @@ function VideoPage() {
             <rect width="10" height="10" rx="5" fill="#0075FF" />{" "}
             {/* Esto es variable y depende del tipo de análisis*/}
           </svg>
-          <h1>Ary Bacher entrenamiento N°1</h1>
+          <h1>{ titulo }</h1>
           <BtnStar state={false} />
         </div>
         <div className="content">
@@ -306,7 +326,7 @@ function VideoPage() {
             </div>
             <div className="speed-container">
               <h2>
-                Velocidad <span>{arrayVelocidad}</span> km/h
+                Velocidad <span>{velFinal}</span> km/h
               </h2>
             </div>
           </div>
