@@ -20,6 +20,8 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     global diferente
     global punto1Velocidad
     global velocidadFinal
+    global velocidadesPosiblesAnalizar
+    global segundoVelocidad
     # global numeroFrame
 
     def tp_fix(contornos, pre_centro, count):
@@ -449,10 +451,6 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                             pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                         elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                             pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                            countDifPiques = 0
-                            velocidad = True
-                            punto1Velocidad = preCentro_glob[numeroGlob]
-                            countDifVelocidad += 1/fps
                 
                 elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
 
@@ -467,14 +465,15 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
                         pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+                        countDifPiques = 0
+                        velocidad = True
+                        punto1Velocidad = preCentro_glob[numeroGlob]
+                        countDifVelocidad += 1/fps
+                        segundoVelocidad = float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))
                         if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                             pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                         if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
                             pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                            countDifPiques = 0
-                            velocidad = True
-                            punto1Velocidad = preCentro_glob[numeroGlob]
-                            countDifVelocidad += 1/fps
         
         if numeroGlob == 0 and Gerard:
             Gerard = None
@@ -486,7 +485,8 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                 diferente = True
         
         if velocidad and center_glob[numeroGlob] is not None and numeroGlob == 1 and diferente:
-            velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
+            #velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
+            velocidadesPosiblesAnalizar.append((punto1Velocidad, center_glob[numeroGlob], countDifVelocidad, segundoVelocidad))
             velocidad = False
             punto1Velocidad = None
             countDifVelocidad = 0
@@ -591,6 +591,8 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     pts_golpes_finales = []
 
     velocidades = []
+    velocidadesPosiblesAnalizar = []
+    segundoVelocidad = 0
 
     ult_posible_pique = None
 
@@ -694,6 +696,13 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         todo(frame, numeroGlob)
         numeroGlob = 1
         todo(result, numeroGlob)
+
+    for i in pts_golpes_finales:
+        for l in velocidadesPosiblesAnalizar:
+            if i[1] == l[3]:
+                # velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
+                velocidadFinal = velocidadGolpe(l[0], l[1], l[2])
+                break
 
     vs.release()
 
