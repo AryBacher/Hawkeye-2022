@@ -1,7 +1,10 @@
-from script import tracking
-from heatmap import heatmap
-import base64 as b64
-from script2 import tracking2
+# from operator import index
+
+# from numpy import append
+# from script import tracking
+# from heatmap import heatmap
+# import base64 as b64
+# from script2 import tracking2
 
 #tracking(r"E:\Guido\Documentos\Programación\Hawkeye\Videos Tenis para Analizar\InkedInkedTennisBrothersVideo1080p.mp4")
 
@@ -46,20 +49,72 @@ from script2 import tracking2
 
 # print("PIQUES", datos[0])
 # print("VELOCIDADES", datos[1])
-esquinas1 = [[ 642, 317 ], [ 116, 324 ],  [ 475, 96 ],  [ 330, 101 ]]
-esquinas2 = [[ 642, 317 ], [ 116, 324 ],  [ 475, 96 ],  [ 330, 101 ]]
+esquinas1 = [[642,317],[116,324],[475,96],[330,101]]
+#esquinas2 = [[ 642, 317 ], [ 116, 324 ],  [ 475, 96 ],  [ 330, 101 ]]
 
-izq = [[2000, 0], [2000, 0]]
-for pt in esquinas1:
-    count = 0
-    for i in izq:
-        print("i =", i)
-        print("pt[0] =", pt[0])
-        print("count =", count)
-        if pt[0] < i[0]:
-            izq[count] = pt
-            print("pt =", pt)
-            esquinas1.pop(count)
-        count += 1
+# izq = [[2000, 0], [2000, 0]]
+# for pt in esquinas1:
+#     count = 0
+#     for i in izq:
+#         print("i =", i)
+#         print("pt[0] =", pt[0])
+#         print("count =", count)
+#         if pt[0] < i[0]:
+#             izq[count] = pt
+#             print("pt =", pt)
+#             esquinas1.pop(count)
+#         count += 1
 
-print(izq)
+# print(izq)
+
+izq = []
+izq0 = []
+
+for esquina in esquinas1:
+    izq.append(esquina)
+    izq0.append(esquina[0])
+
+menor = min(izq0)
+posicion = izq0.index(menor)
+primerValor = izq[posicion]
+del izq[posicion]
+
+izqq0 = []
+
+for esquina in izq:
+    izqq0.append(esquina[0])
+
+menor2 = min(izqq0)
+posicion2 = izqq0.index(menor2)
+segundoValor = izq[posicion2]
+del izq[posicion2]
+
+topLeftY = min(primerValor[1], segundoValor[1])
+bottomLeftY = max(primerValor[1], segundoValor[1])
+
+if topLeftY == primerValor[1]: topLeftX = primerValor[0]
+else: topLeftX = segundoValor[0]
+
+if bottomLeftY == primerValor[1]: bottomLeftX = primerValor[0]
+else: bottomLeftX = segundoValor[0]
+
+primerValor = izq[0]
+segundoValor = izq[1]
+
+topRightY = min(primerValor[1], segundoValor[1])
+bottomRightY = max(primerValor[1], segundoValor[1])
+
+if topRightY == primerValor[1]: topRightX = primerValor[0]
+else: topRightX = segundoValor[0]
+
+if bottomRightY == primerValor[1]: bottomRightX = primerValor[0]
+else: bottomRightX = segundoValor[0]
+
+print("Top Left X", topLeftX)
+print("Top Left Y ", topLeftY)
+print("Bottom Left X", bottomLeftX)
+print("Bottom Left Y", bottomLeftY)
+print("Top Right X", topRightX)
+print("Top Right Y ", topRightY)
+print("Bottom Right X", bottomRightX)
+print("Bottom Right Y", bottomRightY)
