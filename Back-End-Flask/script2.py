@@ -445,14 +445,14 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
 
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
-                    if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                    elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                        countDifPiques = 0
-                        velocidad = True
-                        punto1Velocidad = preCentro_glob[numeroGlob]
-                        countDifVelocidad += 1/fps
+                        if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
+                            pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
+                        elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
+                            pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
+                            countDifPiques = 0
+                            velocidad = True
+                            punto1Velocidad = preCentro_glob[numeroGlob]
+                            countDifVelocidad += 1/fps
                 
                 elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
 
@@ -466,15 +466,15 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                         
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
-                    pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                    if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
-                        countDifPiques = 0
-                        velocidad = True
-                        punto1Velocidad = preCentro_glob[numeroGlob]
-                        countDifVelocidad += 1/fps
+                        pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
+                        if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
+                            pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
+                        if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
+                            pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
+                            countDifPiques = 0
+                            velocidad = True
+                            punto1Velocidad = preCentro_glob[numeroGlob]
+                            countDifVelocidad += 1/fps
         
         if numeroGlob == 0 and Gerard:
             Gerard = None
@@ -559,14 +559,14 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     if bottomRightY == primerValor[1]: bottomRightX = primerValor[0]
     else: bottomRightX = segundoValor[0]
 
-    topLeftX = 749
-    topLeftY = 253
-    topRightX = 1095
-    topRightY = 252
-    bottomLeftX = 206
-    bottomLeftY = 797
-    bottomRightX = 1518
-    bottomRightY = 785
+    # topLeftX = 749
+    # topLeftY = 253
+    # topRightX = 1095
+    # topRightY = 252
+    # bottomLeftX = 206
+    # bottomLeftY = 797
+    # bottomRightX = 1518
+    # bottomRightY = 785
 
     print("Top Left X", topLeftX)
     print("Top Left Y ", topLeftY)
