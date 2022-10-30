@@ -20,6 +20,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     global diferente
     global punto1Velocidad
     global velocidadFinal
+    # global numeroFrame
 
     def tp_fix(contornos, pre_centro, count):
         cnts_pts = []
@@ -66,8 +67,8 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
         if type(posiblesPiques_pers[0][0]) is not bool and type(posiblesPiques_pers[1][0]) is not bool:
             abajoA = False
             abajoB = False
-            a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
-            b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+            a = posiblesPiques_pers[0][0][0][1] / resizer_glob[numeroGlob]
+            b = posiblesPiques_pers[1][0][0][1] / resizer_glob[numeroGlob]
 
             if a >= 474 / 2: abajoA = True
             if b >= 474 / 2: abajoB = True
@@ -134,7 +135,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
             
         elif type(posiblesPiques_pers[0][0]) is bool:
             abajoB = False
-            b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+            b = posiblesPiques_pers[1][0][0][1] / resizer_glob[numeroGlob]
             if b >= 474 / 2: abajoB = True
 
             a = posiblesPiques_pers[0][0]
@@ -158,7 +159,7 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
 
         elif type(posiblesPiques_pers[1][0]) is bool:
             abajoA = False
-            a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
+            a = posiblesPiques_pers[0][0][0][1] / resizer_glob[numeroGlob]
             if a >= 474 / 2: abajoA = True
 
             b = posiblesPiques_pers[1][0]
@@ -436,25 +437,25 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                     else: abajo = True
 
                     if posiblesPiques_pers == []:
-                        posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                        posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0], numeroFrame))
                         ult_posible_pique = preCentro_glob[0][0]
                     elif preCentro_glob[0][0] != ult_posible_pique:
-                        posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                        posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0], numeroFrame))
                         ult_posible_pique = preCentro_glob[0][0]
-                    
+
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
                     if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                        pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                     elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                        pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                 
                 elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
                     if posiblesPiques_pers == []:
-                        posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                        posiblesPiques_pers.appendleft((preCentro_glob[numeroGlob], numeroFrame))
                         ult_posible_pique = preCentro_glob[numeroGlob][0]
                     elif ult_posible_pique != preCentro_glob[numeroGlob][0]:
-                        posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                        posiblesPiques_pers.appendleft((preCentro_glob[numeroGlob], numeroFrame))
                         ult_posible_pique = preCentro_glob[numeroGlob][0]
                     if len(posiblesPiques_pers) >= 2:
                         Gerard = pica(countDifPiques)
@@ -464,9 +465,9 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
                     punto1Velocidad = preCentro_glob[numeroGlob]
                     countDifVelocidad += 1/fps
                     if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                        pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                     if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
-                        pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                        pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
         
         if numeroGlob == 0 and Gerard:
             Gerard = None

@@ -91,8 +91,8 @@ def pica (count):
     if type(posiblesPiques_pers[0][0]) is not bool and type(posiblesPiques_pers[1][0]) is not bool:
         abajoA = False
         abajoB = False
-        a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
-        b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+        a = posiblesPiques_pers[0][0][0][1] / resizer_glob[numeroGlob]
+        b = posiblesPiques_pers[1][0][0][1] / resizer_glob[numeroGlob]
         #cv2.circle(frame, posiblesPiques_pers[0][0], 40, (255, 255, 255), -1)
         #cv2.circle(frame, posiblesPiques_pers[1][0], 40, (255, 255, 255), -1)
         if a >= 474 / 2: abajoA = True
@@ -168,7 +168,7 @@ def pica (count):
         
     elif type(posiblesPiques_pers[0][0]) is bool:
         abajoB = False
-        b = posiblesPiques_pers[1][0][1] / resizer_glob[numeroGlob]
+        b = posiblesPiques_pers[1][0][0][1] / resizer_glob[numeroGlob]
         if b >= 474 / 2: abajoB = True
 
         a = posiblesPiques_pers[0][0]
@@ -196,7 +196,7 @@ def pica (count):
 
     elif type(posiblesPiques_pers[1][0]) is bool:
         abajoA = False
-        a = posiblesPiques_pers[0][0][1] / resizer_glob[numeroGlob]
+        a = posiblesPiques_pers[0][0][0][1] / resizer_glob[numeroGlob]
         if a >= 474 / 2: abajoA = True
 
         b = posiblesPiques_pers[1][0]
@@ -575,10 +575,10 @@ def todo(frame, numeroGlob):
                 else: abajo = True
 
                 if posiblesPiques_pers == []:
-                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0], numeroFrame))
                     ult_posible_pique = preCentro_glob[0][0]
                 elif preCentro_glob[0][0] != ult_posible_pique:
-                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0]))
+                    posiblesPiques_pers.appendleft((abajo, preCentro_glob[0][0], numeroFrame))
                     ult_posible_pique = preCentro_glob[0][0]
                 
                 if len(posiblesPiques_pers) >= 2:
@@ -587,19 +587,21 @@ def todo(frame, numeroGlob):
                 #if pique2_pers[0][0] == False and pique2_pers[1][0] == True and preCentro_glob[numeroGlob] is not None and pique2_pers[0][1] - pique2_pers[1][1] <= fps/6:
                 if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                    # pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                    pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
+
                 elif not Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                    pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
             
             elif posiblePique and preCentro_glob[numeroGlob] is not None and center_glob[numeroGlob] is not None:
                 #print("Pique 2", pique2_pers)
                 print("Gerard")
                 if posiblesPiques_pers == []:
-                    posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                    posiblesPiques_pers.appendleft((preCentro_glob[numeroGlob], numeroFrame))
                     ult_posible_pique = preCentro_glob[numeroGlob][0]
                 elif ult_posible_pique != preCentro_glob[numeroGlob][0]:
-                    posiblesPiques_pers.appendleft(preCentro_glob[numeroGlob])
+                    posiblesPiques_pers.appendleft((preCentro_glob[numeroGlob], numeroFrame))
                     ult_posible_pique = preCentro_glob[numeroGlob][0]
                 #print("Posibles Piques", posiblesPiques_pers)
                 if len(posiblesPiques_pers) >= 2:
@@ -614,10 +616,10 @@ def todo(frame, numeroGlob):
                 countDifVelocidad += 1/fps
                 if Gerard and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_piques_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    pts_piques_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                    pts_piques_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
                 if Gerard is False and type(posiblesPiques_pers[1][0]) is not bool:
                     #pts_golpes_finales.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
-                    pts_golpes_finales.append([posiblesPiques_pers[1][0], float("{:.2f}".format(numeroFrame / fps))])
+                    pts_golpes_finales.append([posiblesPiques_pers[1][0][0], float("{:.2f}".format(posiblesPiques_pers[1][1] / fps))])
 
 
             #elif posiblePique and center_glob[numeroGlob] is None and center_glob[0] is not None:
@@ -633,10 +635,10 @@ def todo(frame, numeroGlob):
     
     if numeroGlob == 0 and Gerard:
         Gerard = None
-        frame = cv2.putText(frame, 'Gerard', (pts_piques_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+        #frame = cv2.putText(frame, 'Gerard', (pts_piques_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     elif numeroGlob == 0 and Gerard == False:
         Gerard = None
-        frame = cv2.putText(frame, 'Heatmap', (pts_golpes_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+        #frame = cv2.putText(frame, 'Heatmap', (pts_golpes_finales[0][0]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     if velocidad and center_glob[numeroGlob] is not None and punto1Velocidad is not None and numeroGlob == 1:
         print("Punto1", punto1Velocidad)
