@@ -88,25 +88,25 @@ function HelpPage() {
             <BtnDropDown
               questionText={"¿Cómo colocar la cámara para mis análisis?"}
               answerText={
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste quibusdam harum totam aperiam voluptates similique, aliquid aliquam amet sunt accusamus repellat quo repudiandae blanditiis tempora dolores numquam ducimus? Maiores quam, rem, eveniet quasi minus, ducimus ab voluptates tempora fugit quia officia perferendis nam unde! Suscipit quod a magni impedit asperiores!"
+                "Coloque la cámara un par de metros detrás de usted a una altura considerable (al menos 2 metros y medio). Asegúrese de que toda la cancha sea visible para optimizar el análisis"
               }
             />
             <BtnDropDown
-              questionText={"¿Cómo colocar la cámara para mis análisis?"}
+              questionText={"¿Cómo subir un video?"}
               answerText={
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste quibusdam harum totam aperiam voluptates similique, aliquid aliquam amet sunt accusamus repellat quo repudiandae blanditiis tempora dolores numquam ducimus? Maiores quam, rem, eveniet quasi minus, ducimus ab voluptates tempora fugit quia officia perferendis nam unde! Suscipit quod a magni impedit asperiores!"
+                "En la sección de grabar, complete el formulario e inserte el video que desea analizar, luego se desplegará una imagen del video y unos botones que debe arrastrar hacia las esquinas de la cancha"
               }
             />
             <BtnDropDown
-              questionText={"¿Cómo colocar la cámara para mis análisis?"}
+              questionText={"¿Cuánto tarda en subir un video?"}
               answerText={
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste quibusdam harum totam aperiam voluptates similique, aliquid aliquam amet sunt accusamus repellat quo repudiandae blanditiis tempora dolores numquam ducimus? Maiores quam, rem, eveniet quasi minus, ducimus ab voluptates tempora fugit quia officia perferendis nam unde! Suscipit quod a magni impedit asperiores!"
+                "Depende de la duración"
               }
             />
             <BtnDropDown
-              questionText={"¿Cómo colocar la cámara para mis análisis?"}
+              questionText={"¿Por qué son tan capos?"}
               answerText={
-                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste quibusdam harum totam aperiam voluptates similique, aliquid aliquam amet sunt accusamus repellat quo repudiandae blanditiis tempora dolores numquam ducimus? Maiores quam, rem, eveniet quasi minus, ducimus ab voluptates tempora fugit quia officia perferendis nam unde! Suscipit quod a magni impedit asperiores!"
+                "Porque tenemos a Ary Bacher"
               }
             />
             <BtnDropDown

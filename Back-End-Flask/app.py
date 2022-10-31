@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from script import tracking
 from heatmap import heatmap
 from script2 import tracking2
 

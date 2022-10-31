@@ -20,6 +20,7 @@ function VideoPage() {
   const [arrayVelocidad, setArrayVelocidad] = useState();
   const [velFinal, setVelFinal] = useState(0);
   const [titulo, setTitulo] = useState();
+  const [tipo, setTipo] = useState();
 
   //Que se fije si paso 0.1s del preVideoTime y si es asi que se fije si hay un punto nuevo y se le sume 0.1 a preVideoTime.
 
@@ -181,6 +182,7 @@ function VideoPage() {
       setUrlVideo(videoData.data.urlVideo)
       setUrlHeatmap(videoData.data.urlHeatmap)
       setTitulo(videoData.data.titulo)
+      setTipo(videoData.data.tipo)
 
       setArrayPiques(videoData.data.arrayPiques)
       setArrayVelocidad(videoData.data.velocidades)
@@ -205,7 +207,7 @@ function VideoPage() {
             xmlns="http://www.w3.org/2000/svg"
             style={{ marginRight: "15px" }}
           >
-            <rect width="10" height="10" rx="5" fill="#0075FF" />{" "}
+            <rect width="10" height="10" rx="5" className={tipo} />{" "}
             {/* Esto es variable y depende del tipo de análisis*/}
           </svg>
           <h1>{ titulo }</h1>
