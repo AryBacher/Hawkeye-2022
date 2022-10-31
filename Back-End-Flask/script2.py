@@ -553,14 +553,14 @@ def tracking2(video, esquinas): # FALTA HACER Q RECIBA LOS PUNTOS
     if bottomRightY == primerValor[1]: bottomRightX = primerValor[0]
     else: bottomRightX = segundoValor[0]
 
-    # topLeftX = 749
-    # topLeftY = 253
-    # topRightX = 1095
-    # topRightY = 252
-    # bottomLeftX = 206
-    # bottomLeftY = 797
-    # bottomRightX = 1518
-    # bottomRightY = 785
+    topLeftX = 749
+    topLeftY = 253
+    topRightX = 1095
+    topRightY = 252
+    bottomLeftX = 206
+    bottomLeftY = 797
+    bottomRightX = 1518
+    bottomRightY = 785
 
     print("Top Left X", topLeftX)
     print("Top Left Y ", topLeftY)
