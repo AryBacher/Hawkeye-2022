@@ -52,6 +52,12 @@
   color: var(--colorVerde);
 }
 
+@media (max-width: 1366px) {
+  .hero-section-h .brand-section-container .brand-section .texts-lp h1 {
+    font-size: 48px;
+  }
+}
+
 .hero-section-h .brand-section-container .brand-section .texts-lp .par-lp {
   color: #9e9e9e;
 }
@@ -149,11 +155,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: 300;
+  margin: 0 15px;
 }
 
 .bottom-section-h .features .features-content .features-titles h3 {
   font-size: 1.8em;
   font-weight: 600;
+  margin: 0 15px;
 }
 
 .bottom-section-h .features .features-content .features-titles h3 span {
@@ -263,8 +271,19 @@
 }
 
 .bottom-section-h .benefits img {
-  max-width: 1000px;
-  min-width: 300px;
+  width: 800px;
+}
+
+@media (max-width: 900px) {
+  .bottom-section-h .benefits img {
+    width: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .bottom-section-h .benefits img {
+    width: 500px;
+  }
 }
 
 .bottom-section-h .benefits p {
@@ -272,12 +291,12 @@
   font-size: 1em;
   font-weight: 300;
   color: var(--colorVerde);
-  margin-top: 5vh;
+  margin: 5vh 15px 10px 15px;
 }
 
 .bottom-section-h .benefits h3 {
   text-align: center;
-  margin-bottom: 5vh;
+  margin: 0 15px 5vh 15px;
   font-size: 2em;
   font-weight: 600;
 }
@@ -325,6 +344,7 @@
 .bottom-section-h .hawkeye-team .hawkeye-team-content .hawkeye-team-titles h3 {
   font-size: 2em;
   font-weight: 600;
+  margin: 0 15px;
 }
 
 .bottom-section-h .hawkeye-team .hawkeye-team-content .hawkeye-team-titles h3 span {
@@ -335,6 +355,7 @@
   padding-top: 10px;
   font-weight: 300;
   font-size: 1em;
+  margin: 0 15px;
   padding-bottom: 75px;
 }
 
@@ -474,6 +495,7 @@
 .bottom-section-h .last-cta .last-cta-content .last-cta-titles h3 {
   font-size: 2em;
   font-weight: 600;
+  margin: 0 15px;
 }
 
 .bottom-section-h .last-cta .last-cta-content .last-cta-titles h3 span {
@@ -482,6 +504,7 @@
 
 .bottom-section-h .last-cta .last-cta-content .last-cta-titles p {
   padding-top: 10px;
+  margin: 0 15px;
   font-size: 16px;
   font-weight: 300;
 }
@@ -538,16 +561,18 @@
 
 .bottom-section-h .second-footer .footer-content h3 {
   padding-top: 3vh;
+  margin: 0 15px;
   text-align: left;
   font-size: 1.5em;
   font-weight: 600;
 }
 
 .bottom-section-h .second-footer .footer-content p {
-  text-align: start;
+  text-align: center;
   font-size: 1em;
   padding-top: 3vh;
   padding-bottom: 3vh;
+  margin: 0 15px;
 }
 
 .bottom-section-h .second-footer .footer-content p a {
@@ -609,8 +634,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
@@ -664,8 +689,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 60px;
+  height: 60px;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }

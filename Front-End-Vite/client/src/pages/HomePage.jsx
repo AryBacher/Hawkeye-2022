@@ -15,7 +15,6 @@ import Mockups from "../assets/img/mockups.png";
 import BtnBackToTop from "../components/BtnBackToTop";
 
 function HomePage() {
-  
   /*
   const [show, setShow] = useState(false);
 
@@ -83,7 +82,7 @@ function HomePage() {
                 className="button-home"
                 variant="contained"
                 size="large"
-                href="/SignUp"
+                href="/LogIn"
               >
                 Empieza ahora
               </Button>
@@ -120,8 +119,10 @@ function HomePage() {
             </div>
             <div className="features-blocks-container">
               <div className="rowf-1">
-                <motion.div className="box-feature" id="feature-1"
-                  initial={{ 
+                <motion.div
+                  className="box-feature"
+                  id="feature-1"
+                  initial={{
                     opacity: 0,
                     y: 40,
                   }}
@@ -130,10 +131,10 @@ function HomePage() {
                     y: 0,
                     transition: {
                       delay: 0.1,
-                      type: 'tween',
-                      ease: 'easeOut',
-                      duration: 0.5
-                    } 
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 0.5,
+                    },
                   }}
                   viewport={{ once: true }}
                 >
@@ -144,8 +145,10 @@ function HomePage() {
                     de la pelota en todo momento.
                   </p>
                 </motion.div>
-                <motion.div className="box-feature" id="feature-2"
-                  initial={{ 
+                <motion.div
+                  className="box-feature"
+                  id="feature-2"
+                  initial={{
                     opacity: 0,
                     y: 40,
                   }}
@@ -154,25 +157,27 @@ function HomePage() {
                     y: 0,
                     transition: {
                       delay: 0.3,
-                      type: 'tween',
-                      ease: 'easeOut',
-                      duration: 0.5
-                    } 
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 0.5,
+                    },
                   }}
                   viewport={{ once: true }}
                 >
                   <img src={analyzeIcon} alt="Icono de análisis de videos" />
                   <h4>Análisis de video</h4>
                   <p>
-                    Hawkeye es capaz de analizar tanto grabaciones prehechas
-                    como videos en directo.
+                    Hawkeye es capaz de analizar con precisión videos grabados por
+                    los usuarios.
                   </p>
                 </motion.div>
               </div>
 
               <div className="rowf-2">
-                <motion.div className="box-feature" id="feature-3"
-                  initial={{ 
+                <motion.div
+                  className="box-feature"
+                  id="feature-3"
+                  initial={{
                     opacity: 0,
                     y: 40,
                   }}
@@ -181,22 +186,24 @@ function HomePage() {
                     y: 0,
                     transition: {
                       delay: 0.5,
-                      type: 'tween',
-                      ease: 'easeOut',
-                      duration: 0.5
-                    } 
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 0.5,
+                    },
                   }}
                   viewport={{ once: true }}
                 >
                   <img src={arbitrateIcon} alt="Icono de arbitraje" />
-                  <h4>Arbitra tus partidos</h4>
+                  <h4>Accede a estadísticas</h4>
                   <p>
-                    Hawkeye puede arbitrar partidos con el ojo de halcón y
-                    seguimiento de puntaje para dar con un mapa de calor.
+                    A partir del análisis se crea un mapa de
+                    calor junto con un mapa de piques.
                   </p>
                 </motion.div>
-                <motion.div className="box-feature" id="feature-4"
-                  initial={{ 
+                <motion.div
+                  className="box-feature"
+                  id="feature-4"
+                  initial={{
                     opacity: 0,
                     y: 40,
                   }}
@@ -205,10 +212,10 @@ function HomePage() {
                     y: 0,
                     transition: {
                       delay: 0.7,
-                      type: 'tween',
-                      ease: 'easeOut',
-                      duration: 0.5
-                    } 
+                      type: "tween",
+                      ease: "easeOut",
+                      duration: 0.5,
+                    },
                   }}
                   viewport={{ once: true }}
                 >
@@ -242,8 +249,9 @@ function HomePage() {
                 Quienes trabajaron día y noche para hacer este proyecto posible.
               </p>
             </div>
-            <motion.div className="team-members"
-              initial={{ 
+            <motion.div
+              className="team-members"
+              initial={{
                 opacity: 0,
                 y: 75,
               }}
@@ -252,10 +260,10 @@ function HomePage() {
                 y: 0,
                 transition: {
                   delay: 0.3,
-                  type: 'tween',
-                  ease: 'easeOut',
-                  duration: 0.75
-                } 
+                  type: "tween",
+                  ease: "easeOut",
+                  duration: 0.75,
+                },
               }}
               viewport={{ once: true }}
             >
@@ -302,7 +310,7 @@ function HomePage() {
               className="button-home"
               variant="contained"
               size="large"
-              href="/SignUp"
+              href="/LogIn"
             >
               Empieza ahora
             </Button>

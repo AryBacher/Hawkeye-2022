@@ -21,6 +21,7 @@ function AlertFail({text}) {
       >
         <Alert
           variant="outlined"
+          severity="error"
           action={
             <IconButton
               aria-label="close"

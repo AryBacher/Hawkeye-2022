@@ -34,6 +34,9 @@
           span {
             color: var(--colorVerde);
           }
+          @media(max-width: 1366px){
+            font-size: 48px;
+          }
         }
         .par-lp {
           color: #9e9e9e;
@@ -104,10 +107,12 @@
           padding-top: 10px;
           padding-bottom: 10px;
           font-weight: 300;
+          margin: 0 15px;
         }
         h3 {
           font-size: 1.8em;
           font-weight: 600;
+          margin: 0 15px;
           span {
             color: var(--colorVerde);
           }
@@ -171,19 +176,24 @@
     padding-top: 50px;
     padding-bottom: 50px;
     img {
-      max-width: 1000px;
-      min-width: 300px;
+      width: 800px;
+      @media(max-width: 900px){
+        width: 600px;
+      }
+      @media(max-width: 700px){
+        width: 500px;
+      }
     }
     p {
       text-align: center;
       font-size: 1em;
       font-weight: 300;
       color: var(--colorVerde);
-      margin-top: 5vh;
+      margin: 5vh 15px 10px 15px;
     }
     h3 {
       text-align: center;
-      margin-bottom: 5vh;
+      margin: 0 15px 5vh 15px;
       font-size: 2em;
       font-weight: 600;
       span {
@@ -211,6 +221,7 @@
         h3 {
           font-size: 2em;
           font-weight: 600;
+          margin: 0 15px;
           span {
             color: var(--colorVerde);
           }
@@ -219,6 +230,7 @@
           padding-top: 10px;
           font-weight: 300;
           font-size: 1em;
+          margin: 0 15px;
           padding-bottom: 75px;
         }
       }
@@ -311,12 +323,14 @@
         h3 {
           font-size: 2em;
           font-weight: 600;
+          margin: 0 15px;
           span {
             color: var(--colorVerde);
           }
         }
         p {
           padding-top: 10px;
+          margin: 0 15px;
           font-size: 16px;
           font-weight: 300;
         }
@@ -351,15 +365,17 @@
       flex-direction: column;
       h3 {
         padding-top: 3vh;
+        margin: 0 15px;
         text-align: left;
         font-size: 1.5em;
         font-weight: 600;
       }
       p {
-        text-align: start;
+        text-align: center;
         font-size: 1em;
         padding-top: 3vh;
         padding-bottom: 3vh;
+        margin: 0 15px;
         a {
           color: var(--colorLink);
           text-decoration: none;
@@ -395,8 +411,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100%;
-          height: 100%;
+          width: 60px;
+          height: 60px;
           transition: all 0.5s ease-in-out;
           path {
             transition: all 0.5s ease-in-out;
@@ -437,8 +453,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100%;
-          height: 100%;
+          width: 60px;
+          height: 60px;
           transition: all 0.5s ease-in-out;
           path {
             transition: all 0.3s ease-in-out;

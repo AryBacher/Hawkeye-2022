@@ -175,7 +175,7 @@ function RecordPage() {
               once: true,
             }}
           >
-            <p>¿Algúna cosa metemos áca o lo quitamos?</p>
+            <p>Complete el formulario</p>
             <h1>Sube un nuevo análisis</h1>
           </motion.div>
         </div>
@@ -378,14 +378,12 @@ function RecordPage() {
                   size="normal"
                   error={Boolean(errors.corners) && Boolean(touched.corners)}
                   helperText={Boolean(touched.corners) && errors.corners}
-                  /*
                   style={{
                     position: "absolute",
                     top: "-100px",
                     left: "-100px",
                     opacity: "0",
                   }}
-                  */
                   /*
                   value={
                     (corners === null
