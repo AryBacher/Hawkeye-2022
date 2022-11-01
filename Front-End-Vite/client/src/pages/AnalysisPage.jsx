@@ -9,13 +9,13 @@ import Button from "@mui/material/Button";
 import { useState, useRef, useEffect } from "react";
 import CardVideo from "../components/CardVideo";
 import "../stylesheets/AnalysisPageStylesheets/AnalysisPage.css";
-import { useParams } from "react-router-dom";
-import axios from "../api/axios";
+import { useParams, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
 function AnalysisPage() {
   // Botón colapsable de mostrar filtros de búsqueda.
   const axiosPrivate = useAxiosPrivate()
+  const navigate = useNavigate()
 
   const [toggle, setToggle] = useState(false);
   const [heightEl, setHeightEl] = useState();
@@ -61,6 +61,7 @@ function AnalysisPage() {
   
   useEffect(() => {
 
+  try {
     const getVideosById = async () => {
       const videoData = await axiosPrivate.get(
         `/GetVideos/${id}`,
@@ -75,9 +76,18 @@ function AnalysisPage() {
 
     };
     getVideosById();
+  }
+  catch(error){
+    if (error.request.responseURL == 'http://localhost:4000/refreshToken' && error.response.status == 403){
+      navigate("/")
+    }
+    console.log(error)
+  }
+  
   }, [nullSearch]);
 
   useEffect(() => {
+  try {
     const getVideosBySearch = async (searchValue) => {
       console.log(searchValue)
       const videoData = await axiosPrivate.get(
@@ -90,6 +100,14 @@ function AnalysisPage() {
       setCantEntrenamientos(videoData.data.cantEntrenamientos);
     };
     getVideosBySearch(search);
+  }
+  catch(error){
+    if (error.request.responseURL == 'http://localhost:4000/RefreshToken' && error.response.status == 403){
+      navigate("/LogIn")
+    }
+    console.log(error)
+  }
+  
   }, [search]);
   
   return (

@@ -92,7 +92,7 @@ const generateAccessToken = (user) => {
 export const refreshToken = (req, res) => {
     const refreshToken = req.cookies.refreshToken
 
-    if (refreshToken == null) return res.sendStatus(401);
+    if (refreshToken == null) return res.sendStatus(403);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) =>{
     
