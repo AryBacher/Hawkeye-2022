@@ -42,7 +42,7 @@ kde = sns.kdeplot(
     thresh = .3
 )
 
-plt.scatter(ptX, ptY, s=10, color='red')
+#plt.scatter(ptX, ptY, s=10, color='red')
 
 plt.xlim(0, 268); plt.ylim(0, 524)
 
