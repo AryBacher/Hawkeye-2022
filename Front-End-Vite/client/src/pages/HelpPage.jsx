@@ -6,9 +6,10 @@ import BtnDropDown from "../components/BtnDropDown";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 
 function HelpPage() {
-
+  const axiosPrivate = useAxiosPrivate()
   const { id } = useParams();
 
   const [userName, setUserName] = useState("")
@@ -16,8 +17,8 @@ function HelpPage() {
   useEffect(()=>{
     //Conseguir nombre de ususario
     const getUsername = async() =>{
-      const response = await axios.get(
-        `http://localhost:4000/GetUsername/${id}`
+      const response = await axiosPrivate.get(
+        `/GetUsername/${id}`
       )
       setUserName(response.data.username[0].nombre)
       console.log(response)
