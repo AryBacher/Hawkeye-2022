@@ -1,7 +1,7 @@
-Flask==2.2.2
-Flask-Cors==3.0.10
-imutils==0.5.4
-matplotlib==3.6.0
-numpy==1.23.4
-opencv-contrib-python==4.6.0.66
-seaborn==0.12.1
+Flask
+Flask-Cors
+imutils
+matplotlib
+numpy
+opencv-contrib-python
+seaborn
