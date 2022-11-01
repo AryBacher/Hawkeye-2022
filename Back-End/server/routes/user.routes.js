@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { signUp, logIn, refreshToken, logOut, deleteUser, updateUsername,  sendEmail } from "../controllers/user.js";
+import { signUp, logIn, refreshToken, logOut, deleteUser, updateUsername,  sendEmail, authenticateUser } from "../controllers/user.js";
 
 const router = Router();
 
@@ -8,9 +8,9 @@ router.post('/SignUp', signUp)
 
 router.post('/LogIn', logIn)
 
-router.post('/RefreshToken', refreshToken)
+router.get('/RefreshToken', refreshToken)
 
-router.post('/LogOut', logOut)
+router.get('/LogOut', authenticateUser, logOut)
 
 router.delete('/DeleteUser', deleteUser)
 

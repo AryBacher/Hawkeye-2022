@@ -4,10 +4,12 @@ import Avatar from '@mui/material/Avatar';
 import {useState, useEffec, useRef} from 'react';
 import '../stylesheets/EndUseNavbarStylesheets/EndUseNavbar.css';
 import { useParams } from "react-router-dom"
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 function EndUseNavbar({grabarId, análisisId, ayudaId, userName}) {
 
   const { id } = useParams()
+  const axiosPrivate = useAxiosPrivate();
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -16,6 +18,12 @@ function EndUseNavbar({grabarId, análisisId, ayudaId, userName}) {
     console.log(dropdown)
   };
 
+  const logOut = async () => {
+    const response = await axiosPrivate.get(
+      "/LogOut",
+      );
+    console.log(response)
+  };
   // Hacer que cuando clickee afuera se setee a false, sin embargo al referenciar al body también cuenta justamente lo que usamos para setearlo a true por lo que siempre es false. (quizás usar otro hook como useRef)
   // useEffect(()=>{
   //   const closeDropdown = e =>{
@@ -69,7 +77,7 @@ function EndUseNavbar({grabarId, análisisId, ayudaId, userName}) {
         </div>
       </nav>
 
-      <a href="/LogIn" ref={logOutBtn}>
+      <a href="/LogIn" ref={logOutBtn} onClick={logOut}>
         <div className={dropdown? 'menu': 'menu notdropdown'}>
           <svg className="icon-logout" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 13V15C11 15.5304 10.8244 16.0391 10.5118 16.4142C10.1993 16.7893 9.77536 17 9.33333 17H2.66667C2.22464 17 1.80072 16.7893 1.48816 16.4142C1.17559 16.0391 1 15.5304 1 15V3C1 2.46957 1.17559 1.96086 1.48816 1.58579C1.80072 1.21071 2.22464 1 2.66667 1H9C9.92042 1 11 1.8955 11 3V5M13.6667 13L17 9L13.6667 5M5.66667 9H16.3333" stroke="#FF1A43" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>

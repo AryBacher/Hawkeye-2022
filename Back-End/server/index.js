@@ -7,6 +7,7 @@ import PythonRoutes from './routes/python.routes.js';
 import { credentials } from "./controllers/user.js";
 import corsOptions from "./config/corsOptions.js";
 import path from 'path';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs')
 
 app.use(credentials)
 app.use(express.json())
+app.use(cookieParser())
 
 app.use(cors(corsOptions))
 

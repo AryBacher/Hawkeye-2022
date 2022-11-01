@@ -5,8 +5,10 @@ import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
 import "../stylesheets/FormLogInStylesheets/form.css";
+import useAuth from "../hooks/useAuth"
 
 function FormLogIn() {
+  const { setAuth } = useAuth();
   let navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -23,7 +25,9 @@ function FormLogIn() {
         withCredentials: true,
       }
     );
-    console.log(response);
+
+    setAuth(finalValues, response.data.accessToken)
+    console.log(setAuth)
 
     const allowedUser = response.data.redirect;
     console.log(allowedUser);

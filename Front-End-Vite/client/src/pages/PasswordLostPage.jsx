@@ -4,11 +4,22 @@ import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
 import LogoBig from "../components/LogoBig";
 import "../stylesheets/PasswordLostPageStylesheets/PasswordLostPage.css";
+import axios from 'axios';
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function RecoverPasswordPage() {
+  const axiosPrivate = useAxiosPrivate();
   const InitialValues = {
     email: "",
   };
+
+  const RecoverPassword = async (InitialValues) =>{
+    const response = await axiosPrivate.post(
+      "/SendEmail",
+      JSON.stringify(InitialValues),
+    );
+    console.log(response);
+  }
   return (
     <>
       <div className="wrapper-rp">
@@ -23,6 +34,7 @@ function RecoverPasswordPage() {
           <Formik
             initialValues={InitialValues}
             onSubmit={(values, formikHelpers) => {
+              RecoverPassword(values);
               console.log(values);
               formikHelpers.resetForm();
               alert(

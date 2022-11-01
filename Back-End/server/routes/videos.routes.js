@@ -4,19 +4,19 @@ import { authenticateUser } from '../controllers/user.js';
 
 const router = Router();
 
-router.post('/UploadVideo', redirect, uploadVideo)
+router.post('/UploadVideo', authenticateUser, redirect, uploadVideo)
 
 router.delete('/DeleteVideo/:idUsuario/:idCloudinary', authenticateUser, deleteVideo)
 
 router.post('/UpdateVideo/:idUsuario/:idCloudinary', authenticateUser, updateVideo)
 
-router.get('/FilterVideo/:idUsuario/:searchValue', filterVideo)
+router.get('/FilterVideo/:idUsuario/:searchValue', authenticateUser, filterVideo)
 
-router.get('/GetVideos/:idUsuario', getVideos)
+router.get('/GetVideos/:idUsuario', authenticateUser, getVideos)
 
-router.get('/GetVideo/:idUsuario/:idCloudinary', getVideo)
+router.get('/GetVideo/:idUsuario/:idCloudinary', authenticateUser, getVideo)
 
-router.get('/GetUsername/:idUsuario', getUsername)
+router.get('/GetUsername/:idUsuario', authenticateUser, getUsername)
 
 /*await fetch('http://localhost:5000/analyse', {
 	method: 'post',

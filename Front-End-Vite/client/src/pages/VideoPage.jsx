@@ -8,10 +8,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import BtnStar from "../components/BtnStar";
 import { useParams } from 'react-router-dom'
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function VideoPage() {
   const {id} = useParams()
   const {idVideo} = useParams()
+  const axiosPrivate = useAxiosPrivate()
 
   //Estados para el video, los piques, el heatmap y la velocidad
   const [urlVideo, setUrlVideo] = useState();
@@ -176,8 +178,8 @@ function VideoPage() {
   // Recibir el video seleccionado
   useEffect(() => {
     const getVideo = async () => {
-      const videoData = await axios.get(
-        `http://localhost:4000/GetVideo/${id}/${idVideo}`
+      const videoData = await axiosPrivate.get(
+        `/GetVideo/${id}/${idVideo}`
       );
       setUrlVideo(videoData.data.urlVideo)
       setUrlHeatmap(videoData.data.urlHeatmap)
@@ -372,23 +374,3 @@ export default VideoPage;
   <button type="submit"> Subir </button>
   <video width="320" height="240" controls src= "D:\Documentos\GitHub\Hawkeye\Back-End\server/videos/21a5fe09-7018-4377-8ad2-774fba7dbbdb.mp4" type = "*video" />
 */
-
-/*
-  const finalValues = { id: "21a5fe09-7018-4377-8ad2-774fba7dbbdb.mp4" }
-
-  const useAxios = async (values)=>{
-  await axios.post('http://localhost:4000/GetVideo', JSON.stringify(values), {
-      headers: { 'Content-Type': 'application/JSON' },
-      withCredentials: true,
-    })
-
-    .then(response => {console.log(response.data);}) 
-    .catch(err => {console.log(err);})
-  }
-    
-    
-  useEffect(() => {
-    useAxios(finalValues)
-  },[])
-
-  */
