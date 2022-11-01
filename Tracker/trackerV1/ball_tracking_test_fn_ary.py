@@ -389,13 +389,13 @@ def todo(frame, numeroGlob):
     
     center_glob[numeroGlob] = None
     
-    if numeroGlob == 0:
-        for h in contornosIgnorar_norm:
-            cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
+    #if numeroGlob == 0:
+        #for h in contornosIgnorar_norm:
+            #cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
     
-    else:
-        for h in contornosIgnorar_pers:
-            cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
+    #else:
+        #for h in contornosIgnorar_pers:
+            #cv2.circle(frame, (h[0], h[1]), 20, (255, 255, 255), -1)
     
     if (countSegundosTotales % 5 == 0):
         if numeroGlob == 0:
@@ -559,7 +559,7 @@ def todo(frame, numeroGlob):
                 posiblePique = True
                 posiblesPiques_norm.appendleft(preCentro_glob[numeroGlob])
                 if len(posiblesPiques_norm) == 1: countDifPiques = 0
-                frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+                #frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
     
     else:
         if (len(pique2_norm) >= 2):
@@ -605,7 +605,7 @@ def todo(frame, numeroGlob):
                     ult_posible_pique = preCentro_glob[numeroGlob][0]
                 #print("Posibles Piques", posiblesPiques_pers)
                 countDifPiques = 0
-                frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+                #frame = cv2.putText(frame, 'Gerard', (preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
                 pts_pique.append([[preCentro_glob[numeroGlob][0][0], preCentro_glob[numeroGlob][0][1]], float("{:.2f}".format(numeroFrame / fps))])
                 print("ES ESTE", pts_pique)
                 velocidad = True
@@ -654,8 +654,8 @@ def todo(frame, numeroGlob):
         print("Tiempo", countDifVelocidad)
         velocidadFinal = velocidadGolpe(punto1Velocidad, center_glob[numeroGlob], countDifVelocidad)
         print("Velocidad Final", velocidadFinal, "Kilometros por Hora")
-        cv2.circle(frame, (int(punto1Velocidad[0][0]), int(punto1Velocidad[0][1])), 50, (255, 255, 255), -1)
-        cv2.circle(frame, (int(center_glob[numeroGlob][0][0]), int(center_glob[numeroGlob][0][1])), 50, (255, 255, 255), -1)
+        #cv2.circle(frame, (int(punto1Velocidad[0][0]), int(punto1Velocidad[0][1])), 50, (255, 255, 255), -1)
+        #cv2.circle(frame, (int(center_glob[numeroGlob][0][0]), int(center_glob[numeroGlob][0][1])), 50, (255, 255, 255), -1)
         velocidad = False
         punto1Velocidad = None
         countDifVelocidad = 0
@@ -672,7 +672,7 @@ def todo(frame, numeroGlob):
         diferente = False
 
     if afterVelocidad and numeroGlob == 0 and center_glob[numeroGlob] is not None:
-        frame = cv2.putText(frame, str(velocidadFinal), (center_glob[numeroGlob][0][0], center_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
+        #frame = cv2.putText(frame, str(velocidadFinal), (center_glob[numeroGlob][0][0], center_glob[numeroGlob][0][1]), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 0, 255), 0, 2)
         afterVelocidad = False
     
     #cv2.circle(frame, (100 * resizer_glob[numeroGlob], 194 * resizer_glob[numeroGlob]), 50, (255, 255, 0), -1)
