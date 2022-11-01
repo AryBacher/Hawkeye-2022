@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import bcryptjs from 'bcryptjs';
-import path from 'path';
 import { serialize } from 'cookie';
 import { pool } from '../database.js';
 import jwt from 'jsonwebtoken';
+
 
 
 export const signUp = async (req, res) =>{
@@ -52,13 +52,13 @@ export const logIn = async (req, res) =>{
         
         const refreshToken = jwt.sign({id: userId}, process.env.REFRESH_TOKEN_SECRET)
 
-        const serializedAccess = serialize('accessToken', accessToken, {
+        /*const serializedAccess = serialize('accessToken', accessToken, {
             httpOnly: true,
             expiresIn: 0,
             path: '/',
             sameSite: 'none',
             secure: true,
-        })
+        })*/
 
         const serializedRefresh = serialize('refreshToken', refreshToken, {
             httpOnly: true,
@@ -68,14 +68,13 @@ export const logIn = async (req, res) =>{
             secure: true,
         })
         
-        return res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]).json({ message: "Usuario logueado", redirect: true, idUsuario: userId })
+        return res.setHeader('Set-Cookie', [serializedRefresh]).json({ message: "Usuario logueado", redirect: true, idUsuario: userId, accessToken })
     }
     return res.status(406).json({message: "Contraseña incorrecta"});
 }
 
 export const authenticateUser = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
-    console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return res.status(401).json({ message: "Token no recibido"});
 
@@ -87,28 +86,26 @@ export const authenticateUser = (req, res, next) =>{
 }
 
 const generateAccessToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn : '30m'});
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn : '15s'});
 }
 
 export const refreshToken = (req, res) => {
-    const refreshToken = req.body.token
+    const refreshToken = req.cookies.refreshToken
 
-    if (refreshToken == null) return req.sendStatus(401);
-    if(!refreshTokens.includes(refreshToken)) return req.sendStatus(403);
+    if (refreshToken == null) return res.sendStatus(401);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) =>{
     
-    if(err) return req.sendStatus(403)
+    if(err) return res.sendStatus(403)
     const accessToken = generateAccessToken({ id : user.id });
         
-    const serializedAccess = serialize('accessToken', accessToken, {
+    /*const serializedAccess = serialize('accessToken', accessToken, {
         httpOnly: true,
         expiresIn: 0,
         path: '/',
-    })
+    })*/
 
-    res.setHeader('Set-Cookie', serializedAccess);
-    return res.json({ message: "Access token refresheado" })
+    return res.json({ message: "Access token refresheado", accessToken })
 
     })
 }
@@ -143,11 +140,11 @@ export const deleteUser = async (req, res) =>{
 
 export const logOut = (req, res) => {
     
-    const serializedAccess = serialize('accessToken', null, {
+    /*const serializedAccess = serialize('accessToken', null, {
         httpOnly: true,
         maxAge: 0,
         path: '/',
-    })
+    })*/
 
     const serializedRefresh = serialize('refreshToken', null, {
         httpOnly: true,
@@ -155,7 +152,7 @@ export const logOut = (req, res) => {
         path: '/',
     })
 
-    res.setHeader('Set-Cookie', [serializedAccess, serializedRefresh]);
+    res.setHeader('Set-Cookie', [serializedRefresh]);
     return res.status(200).json({message: "Usuario deslogueado"});
 }
 

@@ -33,8 +33,10 @@ import { useParams } from "react-router-dom";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
 import zIndex from "@mui/material/styles/zIndex";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function RecordPage() {
+  const axiosPrivate = useAxiosPrivate()
   const { id } = useParams();
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
@@ -71,13 +73,9 @@ function RecordPage() {
     formData.append("video", finalValues.file);
     formData.append("corners", corners);
     console.log([...formData]);
-    const response = await axios.post(
-      "http://localhost:4000/UploadVideo",
+    const response = await axiosPrivate.post(
+      "/UploadVideo",
       formData,
-      {
-        //headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      }
     );
     console.log(response);
     setLoaded(true);
@@ -86,8 +84,8 @@ function RecordPage() {
   useEffect(() => {
     //Conseguir nombre de ususario
     const getUsername = async () => {
-      const response = await axios.get(
-        `http://localhost:4000/GetUsername/${id}`
+      const response = await axiosPrivate.get(
+        `/GetUsername/${id}`
       );
       setUserName(response.data.username[0].nombre);
       console.log(response);
@@ -527,90 +525,4 @@ Código del form multi-step:
         />
       </>
     )}
-  }
-
-  //Valores iniciales de los campos para colocar en el Formik "initialValues"
-
-  const initialValues = {
-    title: '',
-    type: '',
-    rival: '',
-    date: '',
-    file: '',
-    corners:''
-  }
-
-  //Función para fetchear los valores finales del formulario
-
-  const useAxios = async (finalValues)=>{
-    const response = await axios.post('http://localhost:4000/UploadVideo', JSON.stringify(finalValues), {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    })
-    console.log(response)
-  }
-
-  //Ver el estado del paso activo tras cada cambio en su estado.
-
-  useEffect(()=>{
-    console.log(activeStep);
-  })
-
-  return (
-    <>
-      <div className="wrapper-r">
-        <EndUseNavbar grabarId="grabar" análisisId="" ayudaId="" />
-        <div className="form-header">
-          <div className="form-header-content">
-            <p>Formulario por pasos</p>
-            <h1>Sube un nuevo análisis</h1>
-          </div>
-        </div>
-        <div className="form-container">
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(values) => {
-              useAxios(values);
-              console.log(values);
-            }}
-          >
-            <Form autoComplete="off">
-              <Stepper activeStep={activeStep} alternativeLabel>
-                {steps.map((label) => {
-                  const stepProps = {};
-                  const labelProps = {};
-                  return (
-                    <Step key={label} {...stepProps}>
-                      <StepLabel {...labelProps}>{label}</StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
-              {activeStep === steps.length ? (
-                <Fragment>
-                  <p>Análisis subido</p>
-                  <Button onClick={handleReset}>Subir un nuevo análisis</Button>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  {InStep(activeStep)}
-                  <Button disabled={activeStep === 0} onClick={handleBack}>
-                    Volver
-                  </Button>
-                  <Button onClick={handleNext} type= {activeStep === steps.length -1 ? 'submit' : 'button'}>
-                    {activeStep === steps.length - 1
-                      ? "Subir análisis"
-                      : "Siguiente"}
-                  </Button>
-                </Fragment>
-              )}
-            </Form>
-          </Formik>
-        </div>
-      </div>
-    </>
-  );
-
-
-
-*/
+  }*/

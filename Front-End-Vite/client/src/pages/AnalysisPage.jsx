@@ -10,10 +10,12 @@ import { useState, useRef, useEffect } from "react";
 import CardVideo from "../components/CardVideo";
 import "../stylesheets/AnalysisPageStylesheets/AnalysisPage.css";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate"
 
 function AnalysisPage() {
   // Botón colapsable de mostrar filtros de búsqueda.
+  const axiosPrivate = useAxiosPrivate()
 
   const [toggle, setToggle] = useState(false);
   const [heightEl, setHeightEl] = useState();
@@ -50,15 +52,18 @@ function AnalysisPage() {
 
   const [videos, setVideos] = useState([]);
   const { id } = useParams();
-    
+  
   useEffect(() => {
     console.log(refHeight);
     setHeightEl(`${refHeight.current.scrollHeight}px`);
     setNullSearch(false)
+  }, [])
+  
+  useEffect(() => {
 
     const getVideosById = async () => {
-      const videoData = await axios.get(
-        `http://localhost:4000/GetVideos/${id}`
+      const videoData = await axiosPrivate.get(
+        `/GetVideos/${id}`,
       );
       console.log(videoData);
       setVideos(videoData.data.datosVideo);
@@ -69,14 +74,14 @@ function AnalysisPage() {
       setUserEmail(videoData.data.userEmail);
 
     };
-    getVideosById(search);
+    getVideosById();
   }, [nullSearch]);
 
   useEffect(() => {
     const getVideosBySearch = async (searchValue) => {
       console.log(searchValue)
-      const videoData = await axios.get(
-        `http://localhost:4000/FilterVideo/${id}/${searchValue}`,
+      const videoData = await axiosPrivate.get(
+        `/FilterVideo/${id}/${searchValue}`,
       )
       console.log(videoData);
       setVideos(videoData.data.datosVideo);
