@@ -89,7 +89,7 @@ function HomePage() {
             </motion.div>
           </section>
         </div>
-        <motion.section
+        {/* <motion.section
           className="first-footer"
           initial={{
             y: "100%",
@@ -106,7 +106,7 @@ function HomePage() {
           <img src={logoOrt} alt="Logo de la escula ORT" />
           Hecho por alumnos de 4°to año de la escuela secundaria ORT con
           orientación en TIC.
-        </motion.section>
+        </motion.section> */}
       </div>
       <div className="bottom-section-h">
         <section className="features" id="features">
