@@ -5,7 +5,7 @@ import { TextField, Button } from "@mui/material";
 import { Form, Formik, Field } from "formik";
 import { object, string } from "yup";
 import "../stylesheets/FormLogInStylesheets/form.css";
-import useAuth from "../hooks/useAuth"
+import useAuth from "../hooks/useAuth";
 
 function FormLogIn() {
   const { setAuth } = useAuth();
@@ -26,8 +26,8 @@ function FormLogIn() {
       }
     );
 
-    setAuth(finalValues, response.data.accessToken)
-    console.log(setAuth)
+    setAuth(finalValues, response.data.accessToken);
+    console.log(setAuth);
 
     const allowedUser = response.data.redirect;
     console.log(allowedUser);
@@ -46,9 +46,7 @@ function FormLogIn() {
         }}
         validationSchema={object({
           email: string().required("Ingrese su email").email("Email inválido"),
-          password: string()
-            .required("Ingrese su contraseña")
-            .min(8, "La contraseña debe ser de mínimo 8 caracateres"),
+          password: string().required("Ingrese su contraseña"),
         })}
       >
         {({ errors, isValid, touched, dirty }) => (

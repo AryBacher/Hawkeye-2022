@@ -20,6 +20,9 @@
       justify-content: center;
       padding-top: 8vh;
       padding-bottom: 8vh;
+      @media (max-width: 1366px) {
+        width: 60%;
+      }
       p {
         font-size: 1em;
         color: var(--colorVerde);
@@ -35,6 +38,12 @@
     padding-top: 40px;
     margin: 0 auto;
     width: 45%;
+    @media (max-width: 1366px) {
+      width: 60%;
+    }
+    @media (max-width: 1040px) {
+      width: 70%;
+    }
     Form {
       margin-bottom: 8vh;
       width: 100%;
@@ -57,7 +66,7 @@
           justify-content: center;
           font-weight: 300;
           font-size: 14px;
-          .refPoint{
+          .refPoint {
             position: absolute;
             top: 50%;
             left: 50%;

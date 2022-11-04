@@ -46,6 +46,12 @@
   padding-bottom: 8vh;
 }
 
+@media (max-width: 1366px) {
+  .wrapper-r .form-header .form-header-content {
+    width: 60%;
+  }
+}
+
 .wrapper-r .form-header .form-header-content p {
   font-size: 1em;
   color: var(--colorVerde);
@@ -61,6 +67,18 @@
   padding-top: 40px;
   margin: 0 auto;
   width: 45%;
+}
+
+@media (max-width: 1366px) {
+  .wrapper-r .form-container {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1040px) {
+  .wrapper-r .form-container {
+    width: 70%;
+  }
 }
 
 .wrapper-r .form-container Form {

@@ -214,6 +214,14 @@
           transform: translateX(-100%);
 }
 
+.Entrenamiento {
+  fill: var(--colorLink);
+}
+
+.Partido {
+  fill: var(--colorRojo);
+}
+
 /*
       width: 268px;
       height: 524px;

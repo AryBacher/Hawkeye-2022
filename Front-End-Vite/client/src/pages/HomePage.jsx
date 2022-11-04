@@ -89,7 +89,7 @@ function HomePage() {
             </motion.div>
           </section>
         </div>
-        {/* <motion.section
+        <motion.section
           className="first-footer"
           initial={{
             y: "100%",
@@ -106,7 +106,7 @@ function HomePage() {
           <img src={logoOrt} alt="Logo de la escula ORT" />
           Hecho por alumnos de 4°to año de la escuela secundaria ORT con
           orientación en TIC.
-        </motion.section> */}
+        </motion.section>
       </div>
       <div className="bottom-section-h">
         <section className="features" id="features">
@@ -167,8 +167,8 @@ function HomePage() {
                   <img src={analyzeIcon} alt="Icono de análisis de videos" />
                   <h4>Análisis de video</h4>
                   <p>
-                    Hawkeye es capaz de analizar con precisión videos grabados por
-                    los usuarios.
+                    Hawkeye es capaz de analizar con precisión videos grabados
+                    por los usuarios.
                   </p>
                 </motion.div>
               </div>
@@ -196,8 +196,8 @@ function HomePage() {
                   <img src={arbitrateIcon} alt="Icono de arbitraje" />
                   <h4>Accede a estadísticas</h4>
                   <p>
-                    A partir del análisis se crea un mapa de
-                    calor junto con un mapa de piques.
+                    A partir del análisis se crea un mapa de calor junto con un
+                    mapa de piques.
                   </p>
                 </motion.div>
                 <motion.div

@@ -34,9 +34,10 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
 import zIndex from "@mui/material/styles/zIndex";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import AlertWarning from "../components/AlertWarning";
 
 function RecordPage() {
-  const axiosPrivate = useAxiosPrivate()
+  const axiosPrivate = useAxiosPrivate();
   const { id } = useParams();
 
   //Valores iniciales de los campos para colocar en el Formik "initialValues".
@@ -49,7 +50,7 @@ function RecordPage() {
     rival: "",
     date: "",
     file: null,
-    corners: {corners},
+    corners: { corners },
   };
 
   //Sacar el estado del nombre de archivo para así luego usarlo en el span del input customizado además del video actual para usar en la preview.
@@ -62,8 +63,8 @@ function RecordPage() {
   const [userName, setUserName] = useState("");
 
   const useAxios = async (finalValues) => {
-    console.log(corners)
-    JSON.stringify(corners)
+    console.log(corners);
+    JSON.stringify(corners);
     const formData = new FormData();
     formData.append("idUsuario", id);
     formData.append("title", finalValues.title);
@@ -73,10 +74,7 @@ function RecordPage() {
     formData.append("video", finalValues.file);
     formData.append("corners", corners);
     console.log([...formData]);
-    const response = await axiosPrivate.post(
-      "/UploadVideo",
-      formData,
-    );
+    const response = await axiosPrivate.post("/UploadVideo", formData);
     console.log(response);
     setLoaded(true);
   };
@@ -84,9 +82,7 @@ function RecordPage() {
   useEffect(() => {
     //Conseguir nombre de ususario
     const getUsername = async () => {
-      const response = await axiosPrivate.get(
-        `/GetUsername/${id}`
-      );
+      const response = await axiosPrivate.get(`/GetUsername/${id}`);
       setUserName(response.data.username[0].nombre);
       console.log(response);
     };
@@ -98,7 +94,15 @@ function RecordPage() {
   const [alertList, setAlertList] = useState([]);
 
   const addAlert = () => {
-    setAlertList(alertList.concat(<AlertSuccess text="Su análisis ha sido subido en la sección de Análisis!" style={{bottom: '5vh', right:'3vw'}} key={alertList.length} />));
+    setAlertList(
+      alertList.concat(
+        <AlertSuccess
+          text="Su análisis ha sido subido en la sección de Análisis!"
+          style={{ bottom: "5vh", right: "3vw" }}
+          key={alertList.length}
+        />
+      )
+    );
   };
 
   //Saber el valor del file input
@@ -125,21 +129,21 @@ function RecordPage() {
 
     let relativePos = { A: {}, B: {}, C: {}, D: {} };
 
-    const proportionWidth = mapField.current.videoWidth/parentPos.width;
-    const proportionHeight = mapField.current.videoHeight/parentPos.height;
+    const proportionWidth = mapField.current.videoWidth / parentPos.width;
+    const proportionHeight = mapField.current.videoHeight / parentPos.height;
 
-    relativePos.A.x = (aCornerPos.left - parentPos.left)*proportionWidth;
-    relativePos.B.x = (bCornerPos.left - parentPos.left)*proportionWidth;
-    relativePos.C.x = (cCornerPos.left - parentPos.left)*proportionWidth;
-    relativePos.D.x = (dCornerPos.left - parentPos.left)*proportionWidth;
+    relativePos.A.x = (aCornerPos.left - parentPos.left) * proportionWidth;
+    relativePos.B.x = (bCornerPos.left - parentPos.left) * proportionWidth;
+    relativePos.C.x = (cCornerPos.left - parentPos.left) * proportionWidth;
+    relativePos.D.x = (dCornerPos.left - parentPos.left) * proportionWidth;
 
-    relativePos.A.y = (aCornerPos.top - parentPos.top)*proportionHeight;
-    relativePos.B.y = (bCornerPos.top - parentPos.top)*proportionHeight;
-    relativePos.C.y = (cCornerPos.top - parentPos.top)*proportionHeight;
-    relativePos.D.y = (dCornerPos.top - parentPos.top)*proportionHeight;
+    relativePos.A.y = (aCornerPos.top - parentPos.top) * proportionHeight;
+    relativePos.B.y = (bCornerPos.top - parentPos.top) * proportionHeight;
+    relativePos.C.y = (cCornerPos.top - parentPos.top) * proportionHeight;
+    relativePos.D.y = (dCornerPos.top - parentPos.top) * proportionHeight;
 
     console.log(relativePos);
-    setCorners(JSON.stringify(relativePos))
+    setCorners(JSON.stringify(relativePos));
     //return relativePos;
   };
 
@@ -219,7 +223,7 @@ function RecordPage() {
               title: string().required("Ingrese un título para  el análisis"),
               type: string().required("Ingrese el tipo de análisis"),
               date: date().required("Ingrese la fecha del evento"),
-              file: mixed().required("Ingrese un video a analizar")
+              file: mixed().required("Ingrese un video a analizar"),
             })}
           >
             {({ setFieldValue, errors, isValid, touched, dirty, values }) => (
@@ -294,7 +298,8 @@ function RecordPage() {
                       : `Video: ${fileName}`}
                   </span>
                 </div>
-                <motion.div className="court-map-field" ref={mapFieldContainer}> 
+                <AlertWarning />
+                <motion.div className="court-map-field" ref={mapFieldContainer}>
                   <motion.div
                     drag
                     whileTap={{ cursor: "grabbing" }}
@@ -302,7 +307,10 @@ function RecordPage() {
                     className="corner"
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
-                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+                    style={{
+                      zIndex: 100,
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
                   >
                     <div className="center">+</div>
                     <div className="refPoint" ref={aCorner}></div>
@@ -314,7 +322,10 @@ function RecordPage() {
                     className="corner"
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
-                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+                    style={{
+                      zIndex: 100,
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
                   >
                     <div className="center">+</div>
                     <div className="refPoint" ref={bCorner}></div>
@@ -326,7 +337,10 @@ function RecordPage() {
                     className="corner"
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
-                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+                    style={{
+                      zIndex: 100,
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
                   >
                     <div className="center">+</div>
                     <div className="refPoint" ref={cCorner}></div>
@@ -338,12 +352,23 @@ function RecordPage() {
                     className="corner"
                     dragConstraints={mapFieldContainer}
                     dragMomentum={false}
-                    style={{zIndex: 100, backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+                    style={{
+                      zIndex: 100,
+                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
                   >
                     <div className="center">+</div>
                     <div className="refPoint" ref={dCorner}></div>
                   </motion.div>
-                  <video src={currentVideo} ref={mapField} height="100%" onClick={()=>{console.log(mapField.current.videoHeight); console.log(mapField.current.videoWidth)}}/>
+                  <video
+                    src={currentVideo}
+                    ref={mapField}
+                    height="100%"
+                    onClick={() => {
+                      console.log(mapField.current.videoHeight);
+                      console.log(mapField.current.videoWidth);
+                    }}
+                  />
                 </motion.div>
                 {/* Transformar en un input normal */}
                 <ButtonGroup fullWidth>
