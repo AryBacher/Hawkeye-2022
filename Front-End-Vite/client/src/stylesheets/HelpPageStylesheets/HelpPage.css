@@ -1,71 +1,39 @@
 .wrapper-hp {
   width: 100%;
   min-height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--colorAzul);
 }
-
 .wrapper-hp .texts-header {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-sizing: border-box;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-top: 80px;
 }
-
 .wrapper-hp .texts-header .text-header-content {
   text-align: center;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-sizing: border-box;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-top: 8vh;
   padding-bottom: 8vh;
 }
-
 .wrapper-hp .texts-header .text-header-content p {
   font-size: 1em;
   font-weight: 400;
   color: var(--colorVerde);
 }
-
 .wrapper-hp .texts-header .text-header-content h1 {
   font-size: 3em;
   font-weight: 700;
   margin-top: 15px;
 }
-
 .wrapper-hp .divider-hp {
   width: 0;
   height: 1px;
@@ -73,28 +41,15 @@
   border-radius: 100%;
   background-color: var(--colorAzulClaro);
 }
-
 .wrapper-hp .faqs {
   width: 80%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
-
 .wrapper-hp .faqs .faqs-content {
   margin-top: 40px;
   margin-bottom: 40px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   gap: 25px;
-}
-/*# sourceMappingURL=HelpPage.css.map */
+}/*# sourceMappingURL=HelpPage.css.map */

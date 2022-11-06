@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,WAAW,CAAA;EACP,KAAK,EAAE,IAAI;CACd",
-    "sources": [
-        "LogoSmall.scss"
-    ],
-    "names": [],
-    "file": "LogoSmall.css"
-}
+{"version":3,"sources":["LogoSmall.scss","LogoSmall.css"],"names":[],"mappings":"AAAA;EACI,WAAA;ACCJ","file":"LogoSmall.css"}

@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,SAAS,CAAA;EACL,KAAK,EAAE,KAAK;CACf",
-    "sources": [
-        "LogoBig.scss"
-    ],
-    "names": [],
-    "file": "LogoBig.css"
-}
+{"version":3,"sources":["LogoBig.scss","LogoBig.css"],"names":[],"mappings":"AAAA;EACI,YAAA;ACCJ","file":"LogoBig.css"}

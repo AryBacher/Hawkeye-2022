@@ -14,24 +14,14 @@ body {
 
 .wrapperNotFoundPage {
   background-color: var(--colorAzul);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100vw;
   height: 100vh;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
 }
-
 .wrapperNotFoundPage h2 {
   position: relative;
   top: 8%;
@@ -44,14 +34,12 @@ body {
       -ms-user-select: none;
           user-select: none;
 }
-
 .wrapperNotFoundPage svg {
   position: absolute;
   left: 0;
   top: 42%;
   margin: auto;
 }
-
 .wrapperNotFoundPage h1 {
   font-size: 20em;
   font-weight: 600;
@@ -63,7 +51,6 @@ body {
       -ms-user-select: none;
           user-select: none;
 }
-
 .wrapperNotFoundPage p {
   position: absolute;
   font-size: 20px;
@@ -72,17 +59,13 @@ body {
   margin: 0;
   padding: 0;
 }
-
 .wrapperNotFoundPage a {
   color: var(--colorLink);
   text-decoration: none;
-  -webkit-transition: -webkit-text-decoration 250ms;
   transition: -webkit-text-decoration 250ms;
   transition: text-decoration 250ms;
   transition: text-decoration 250ms, -webkit-text-decoration 250ms;
 }
-
 .wrapperNotFoundPage a:hover {
   text-decoration: underline;
-}
-/*# sourceMappingURL=NotFoundPage.css.map */
+}/*# sourceMappingURL=NotFoundPage.css.map */
