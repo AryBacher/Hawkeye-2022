@@ -369,7 +369,6 @@ function RecordPage() {
                       console.log(mapField.current.videoWidth);
                     }}
                   />
-                  <AlertSuccess text="La posición ha sido acualizada"/>
                 </motion.div>
                 {/* Transformar en un input normal */}
                 <ButtonGroup fullWidth>
