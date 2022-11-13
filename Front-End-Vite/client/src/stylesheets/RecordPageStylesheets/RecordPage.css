@@ -4,123 +4,79 @@
   background-color: var(--colorAzul);
   overflow: hidden;
 }
-
 .wrapper-r .form-header {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding-top: 80px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-
 .wrapper-r .form-header .form-header-content {
   width: 45%;
   text-align: center;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-sizing: border-box;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding-top: 8vh;
   padding-bottom: 8vh;
 }
-
 @media (max-width: 1366px) {
   .wrapper-r .form-header .form-header-content {
     width: 60%;
   }
 }
-
 .wrapper-r .form-header .form-header-content p {
   font-size: 1em;
   color: var(--colorVerde);
 }
-
 .wrapper-r .form-header .form-header-content h1 {
   font-size: 3em;
   font-weight: 700;
   margin-top: 15px;
 }
-
 .wrapper-r .form-container {
   padding-top: 40px;
   margin: 0 auto;
   width: 45%;
 }
-
 @media (max-width: 1366px) {
   .wrapper-r .form-container {
     width: 60%;
   }
 }
-
 @media (max-width: 1040px) {
   .wrapper-r .form-container {
     width: 70%;
   }
 }
-
 .wrapper-r .form-container Form {
   margin-bottom: 8vh;
   width: 100%;
 }
-
 .wrapper-r .form-container Form .court-map-field {
   width: 100%;
   height: 450px;
   border: 1px solid var(--colorAzulClaro);
   border-radius: 5px;
   overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
-
 .wrapper-r .form-container Form .court-map-field .corner {
   position: absolute;
   width: 15px;
   height: 15px;
   border-radius: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   font-weight: 300;
   font-size: 14px;
 }
-
 .wrapper-r .form-container Form .court-map-field .corner .refPoint {
   position: absolute;
   top: 50%;
@@ -128,29 +84,17 @@
   width: 1px;
   height: 1px;
 }
-
-.wrapper-r .form-container Form input[type="date"] {
+.wrapper-r .form-container Form input[type=date] {
   cursor: pointer;
 }
-
 .wrapper-r .form-container Form .file-box-container {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: 50px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   width: 100%;
   min-height: 150px;
@@ -158,28 +102,22 @@
   cursor: pointer;
   color: #4a5258;
   border: 1px dashed #4a5258;
-  -webkit-transition: all 10ms ease-out;
   transition: all 10ms ease-out;
 }
-
 .wrapper-r .form-container Form .file-box-container:hover {
   border: 1px dashed var(--colorBlanco);
   color: var(--colorBlanco);
 }
-
 .wrapper-r .form-container Form .file-box-container:hover svg path {
   fill: var(--colorBlanco);
 }
-
 .wrapper-r .form-container Form .file-box-container svg {
   padding-bottom: 25px;
 }
-
 .wrapper-r .form-container Form .file-box-container span {
   font-weight: 600;
 }
-
-.wrapper-r .form-container Form .file-box-container input[type="file"] {
+.wrapper-r .form-container Form .file-box-container input[type=file] {
   cursor: pointer;
   width: 45%;
   min-height: 150px;
@@ -197,8 +135,6 @@
 }
 
 ::-webkit-calendar-picker-indicator {
-  -webkit-filter: invert(1);
-          filter: invert(1);
+  filter: invert(1);
   cursor: pointer;
-}
-/*# sourceMappingURL=RecordPage.css.map */
+}/*# sourceMappingURL=RecordPage.css.map */

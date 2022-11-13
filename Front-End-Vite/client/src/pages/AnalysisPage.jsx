@@ -10,12 +10,12 @@ import { useState, useRef, useEffect } from "react";
 import CardVideo from "../components/CardVideo";
 import "../stylesheets/AnalysisPageStylesheets/AnalysisPage.css";
 import { useParams, useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate"
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function AnalysisPage() {
   // Botón colapsable de mostrar filtros de búsqueda.
-  const axiosPrivate = useAxiosPrivate()
-  const navigate = useNavigate()
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const [toggle, setToggle] = useState(false);
   const [heightEl, setHeightEl] = useState();
@@ -43,77 +43,81 @@ function AnalysisPage() {
 
   const [cantVideos, setCantVideos] = useState(0);
   const [cantPartidos, setCantPartidos] = useState(0);
-  const [cantEntrenamientos, setCantEntrenamientos] = useState(0)
+  const [cantEntrenamientos, setCantEntrenamientos] = useState(0);
 
-  const [userName, setUserName] = useState("")
-  const [userEmail, setUserEmail] = useState("")
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   //Cargar los videos según la información requerida.
 
   const [videos, setVideos] = useState([]);
   const { id } = useParams();
-  
+
   useEffect(() => {
     console.log(refHeight);
     setHeightEl(`${refHeight.current.scrollHeight}px`);
-    setNullSearch(false)
-  }, [])
-  
+    setNullSearch(false);
+  }, []);
+
   useEffect(() => {
-
-  try {
-    const getVideosById = async () => {
-      const videoData = await axiosPrivate.get(
-        `/GetVideos/${id}`,
-      );
-      console.log(videoData);
-      setVideos(videoData.data.datosVideo);
-      setCantVideos(videoData.data.cantVideos);
-      setCantPartidos(videoData.data.cantPartidos);
-      setCantEntrenamientos(videoData.data.cantEntrenamientos);
-      setUserName(videoData.data.userName);
-      setUserEmail(videoData.data.userEmail);
-
-    };
-    getVideosById();
-  }
-  catch(error){
-    if (error.request.responseURL == 'http://localhost:4000/refreshToken' && error.response.status == 403){
-      navigate("/")
+    try {
+      const getVideosById = async () => {
+        const videoData = await axiosPrivate.get(`/GetVideos/${id}`);
+        console.log(videoData);
+        setVideos(videoData.data.datosVideo);
+        setCantVideos(videoData.data.cantVideos);
+        setCantPartidos(videoData.data.cantPartidos);
+        setCantEntrenamientos(videoData.data.cantEntrenamientos);
+        setUserName(videoData.data.userName);
+        setUserEmail(videoData.data.userEmail);
+      };
+      getVideosById();
+    } catch (error) {
+      if (
+        error.request.responseURL == "http://localhost:4000/refreshToken" &&
+        error.response.status == 403
+      ) {
+        navigate("/");
+      }
+      console.log(error);
     }
-    console.log(error)
-  }
-  
   }, [nullSearch]);
 
   useEffect(() => {
-  try {
-    const getVideosBySearch = async (searchValue) => {
-      console.log(searchValue)
-      const videoData = await axiosPrivate.get(
-        `/FilterVideo/${id}/${searchValue}`,
-      )
-      console.log(videoData);
-      setVideos(videoData.data.datosVideo);
-      setCantVideos(videoData.data.cantVideos);
-      setCantPartidos(videoData.data.cantPartidos);
-      setCantEntrenamientos(videoData.data.cantEntrenamientos);
-    };
-    getVideosBySearch(search);
-  }
-  catch(error){
-    if (error.request.responseURL == 'http://localhost:4000/RefreshToken' && error.response.status == 403){
-      navigate("/LogIn")
+    try {
+      const getVideosBySearch = async (searchValue) => {
+        console.log(searchValue);
+        const videoData = await axiosPrivate.get(
+          `/FilterVideo/${id}/${searchValue}`
+        );
+        console.log(videoData);
+        setVideos(videoData.data.datosVideo);
+        setCantVideos(videoData.data.cantVideos);
+        setCantPartidos(videoData.data.cantPartidos);
+        setCantEntrenamientos(videoData.data.cantEntrenamientos);
+      };
+      getVideosBySearch(search);
+    } catch (error) {
+      if (
+        error.request.responseURL == "http://localhost:4000/RefreshToken" &&
+        error.response.status == 403
+      ) {
+        navigate("/LogIn");
+      }
+      console.log(error);
     }
-    console.log(error)
-  }
-  
   }, [search]);
-  
+
   return (
     <>
       <div className="wrapper-ap">
-        <EndUseNavbar grabarId="" análisisId="análisis" ayudaId="" userName={userName} userEmail={userEmail} />
+        <EndUseNavbar
+          grabarId=""
+          análisisId="análisis"
+          ayudaId=""
+          userName={userName}
+          userEmail={userEmail}
+        />
         <div className="profile-bg"></div>
         <div className="content-ap">
           <section className="profile-data">
@@ -150,9 +154,9 @@ function AnalysisPage() {
                 viewBox="0 0 10 10"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{marginRight: '15px'}} 
+                style={{ marginRight: "15px" }}
               >
-                <rect width="10" height="10" rx="5" fill="#4ECB71"/>
+                <rect width="10" height="10" rx="5" fill="#4ECB71" />
               </svg>
               <p>
                 Cantidad de análisis <span>({cantVideos})</span>
@@ -165,7 +169,7 @@ function AnalysisPage() {
                 viewBox="0 0 10 10"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{marginRight: '15px'}} 
+                style={{ marginRight: "15px" }}
               >
                 <rect width="10" height="10" rx="5" fill="#0075FF" />
               </svg>
@@ -180,7 +184,7 @@ function AnalysisPage() {
                 viewBox="0 0 10 10"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                style={{marginRight: '15px'}} 
+                style={{ marginRight: "15px" }}
               >
                 <rect width="10" height="10" rx="5" fill="#FF1A43" />
               </svg>
@@ -212,12 +216,11 @@ function AnalysisPage() {
                 ref={searchInput}
                 onKeyUp={(e) => {
                   e.target.value;
-                  console.log(e.target.value)
-                  if(e.target.value !== ""){
-                  setSearch(e.target.value)
-                  }
-                  else{
-                  setNullSearch(true)
+                  console.log(e.target.value);
+                  if (e.target.value !== "") {
+                    setSearch(e.target.value);
+                  } else {
+                    setNullSearch(true);
                   }
                 }}
               />
@@ -437,10 +440,36 @@ function AnalysisPage() {
             /> */}
           <div className="videos">
             {" "}
-            
             {videos.map((video) => {
-              return <CardVideo video={video} thumbnail={video.urlMiniatura} key={video.idCloudinary} />;
+              return (
+                <CardVideo
+                  video={video}
+                  thumbnail={video.urlMiniatura}
+                  key={video.idCloudinary}
+                />
+              );
             })}
+            <div
+              className={cantVideos === 0 ? "emptyAccount" : "not emptyAccount"}
+            >
+              <h2>No ha subido ningún análisis a su cuenta</h2>
+              <Button
+                variant="outlined"
+                size="large"
+                href= {`/Record/${id}`}
+                sx={{
+                  fontWeight: 600,
+                  textTransform: "capitalize",
+                  fontSize: "1em",
+                  height: "50px",
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  borderRadius: "5px",
+                }}
+              >
+                Subir mi primer análisis
+              </Button>
+            </div>
           </div>
         </div>
       </div>

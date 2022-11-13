@@ -9,6 +9,7 @@ Form {
     text-decoration: none;
     transition: text-decoration 250ms;
     margin-bottom: 15px;
+    display: inline;
     &:hover {
       text-decoration: underline;
     }

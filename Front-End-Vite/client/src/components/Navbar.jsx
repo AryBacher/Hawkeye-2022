@@ -10,20 +10,22 @@ function Navbar() {
   return (
     <>
       <motion.nav
-        initial  ={{
+        initial={{
           y: "-100%",
-        }} 
+        }}
         animate={{
           y: "0%",
         }}
-        transition = {{
+        transition={{
           duration: 1,
           ease: "easeOut",
           type: "tween",
         }}
       >
         <div className="logo-set">
-          <LogoSmall />
+          <a href="/">
+            <LogoSmall />
+          </a>
         </div>
         <ul className="links-navbar">
           <li className="nav" id="inicio">

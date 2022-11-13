@@ -233,6 +233,20 @@
       gap: 1%;
       padding-top: 50px;
       padding-bottom: 50px;
+      .emptyAccount{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 40px;
+        margin-top: 50px;
+        h2{
+          font-size: 24px;
+          font-weight: 600;
+          text-align: center;
+        }
+      }
     }
   }
 }

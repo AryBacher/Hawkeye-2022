@@ -229,6 +229,20 @@
   padding-top: 50px;
   padding-bottom: 50px;
 }
+.wrapper-ap .content-ap .videos .emptyAccount {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 50px;
+}
+.wrapper-ap .content-ap .videos .emptyAccount h2 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
 
 .inactive-arrow {
   rotate: -180deg;

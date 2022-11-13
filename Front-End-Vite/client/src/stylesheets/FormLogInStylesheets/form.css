@@ -12,6 +12,7 @@ Form a {
   transition: text-decoration 250ms;
   transition: text-decoration 250ms, -webkit-text-decoration 250ms;
   margin-bottom: 15px;
+  display: inline;
 }
 Form a:hover {
   text-decoration: underline;

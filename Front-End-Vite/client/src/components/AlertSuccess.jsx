@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Alert, Collapse, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-function AlertSuccess({text}) {
+function AlertSuccess({text, variant, sxCollapse, sxAlert}) {
   const [open, setOpen] = useState(true);
 
   //Su análisis ha sido subido en la sección de Análisis! --> {text}
@@ -22,7 +22,7 @@ function AlertSuccess({text}) {
         }}
       >
         <Alert
-          variant="outlined"
+          variant={variant}
           action={
             <IconButton
               aria-label="close"
