@@ -1,9 +1,32 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost
+-- Tiempo de generación: 03-03-2023 a las 01:25:22
+-- Versión del servidor: 8.0.17
+-- Versión de PHP: 7.3.10
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `dbhawkeye`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
@@ -12,12 +35,19 @@ CREATE TABLE `usuarios` (
   `contraseña` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+--
+-- Volcado de datos para la tabla `usuarios`
+--
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contraseña`) VALUES
 (1, 'hola', 'alanyeger1@gmail.com', '$2a$08$/69YyytCeFbNikTHUtDzCeXpv.tk6heN/AXKNT3kg0rU63LQaXNu6'),
 (25, 'Hawkeye', 'hawkeye@gmail.com', '$2a$08$0XxIEAEOSqDjUPL5hVF6KORez/0c6jlrtkuqOlUfHaA.GNNvLx50y');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `videos`
+--
 
 CREATE TABLE `videos` (
   `idUsuario` int(11) NOT NULL,
@@ -150,4 +180,6 @@ ALTER TABLE `videos`
   ADD CONSTRAINT `FK` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
